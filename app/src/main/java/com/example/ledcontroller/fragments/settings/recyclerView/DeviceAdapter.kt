@@ -1,9 +1,9 @@
-package com.example.ledcontroller.recyclerView
+package com.example.ledcontroller.fragments.settings.recyclerView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ledcontroller.data.Device
+import com.example.ledcontroller.fragments.settings.data.Device
 import com.example.ledcontroller.databinding.ItemDeviceBinding
 
 class DeviceAdapter(private val action : (address: String) -> Unit) : RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>() {

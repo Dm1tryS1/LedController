@@ -9,9 +9,9 @@ import kotlinx.coroutines.launch
 @SuppressLint("MissingPermission")
 class HomeViewModel(private val dataUseCase: DataUseCase) : ViewModel() {
 
-    fun sendData(data:String) {
+    fun sendData(data: String, callback: (flag: Boolean) -> Unit) {
         viewModelScope.launch {
-            dataUseCase.sendData(data)
+            callback(dataUseCase.sendData(data))
         }
     }
 }

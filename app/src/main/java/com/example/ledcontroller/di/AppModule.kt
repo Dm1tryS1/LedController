@@ -4,10 +4,10 @@ import org.koin.core.module.Module
 
 object AppModule {
     operator fun invoke() = listOf(
-        createFeatureModules()
+        createModules()
     ).flatten()
 
-    private fun createFeatureModules(): List<Module> = listOf(
+    private fun createModules(): List<Module> = listOf(
         HomeModule(),
         SettingsModule()
     ).flatten()

@@ -6,8 +6,7 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
-import com.example.ledcontroller.data.Device
-import java.io.IOException
+import com.example.ledcontroller.fragments.settings.data.Device
 import java.io.OutputStream
 import java.util.*
 
@@ -65,14 +64,16 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    fun sendData(data: String) {
+    fun sendData(data: String) : Boolean {
         val msgBuffer = data.toByteArray()
-        try {
+        return try {
             Log.d("Success", "Данные $data")
-            outStream?.write(msgBuffer)
+            outStream!!.write(msgBuffer)
             Log.d("Success", "Оправлены")
-        } catch (e: IOException) {
+            true
+        } catch (e: Exception) {
             Log.d("Error", "Ошибка отправки")
+            false
         }
     }
 

@@ -1,3 +1,3 @@
-package com.example.ledcontroller.data
+package com.example.ledcontroller.fragments.settings.data
 
 data class Device (val name: String, val address: String)

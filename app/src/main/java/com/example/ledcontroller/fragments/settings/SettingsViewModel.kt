@@ -2,7 +2,7 @@ package com.example.ledcontroller.fragments.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ledcontroller.data.Device
+import com.example.ledcontroller.fragments.settings.data.Device
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(

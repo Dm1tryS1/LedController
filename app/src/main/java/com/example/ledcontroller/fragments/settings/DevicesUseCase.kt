@@ -1,6 +1,6 @@
 package com.example.ledcontroller.fragments.settings
 
-import com.example.ledcontroller.data.Device
+import com.example.ledcontroller.fragments.settings.data.Device
 
 class DevicesUseCase(private val deviceRepository: DeviceRepository) {
     fun findDevices(): List<Device> {
