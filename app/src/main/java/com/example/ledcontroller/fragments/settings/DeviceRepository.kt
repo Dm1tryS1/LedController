@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
+import com.example.ledcontroller.data.Device
 import java.io.IOException
 import java.io.OutputStream
 import java.util.*
@@ -23,11 +24,11 @@ class DeviceRepository(applicationContext: Context) {
             (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
 
-    fun findDevices(): MutableMap<String, String> {
-        val btDevices = mutableMapOf<String, String>()
+    fun findDevices(): List<Device> {
+        val btDevices = mutableListOf<Device>()
         (btAdapter?.bondedDevices)?.forEach {
             Log.d(it.name, it.address)
-            btDevices[it.name] = it.address
+            btDevices.add(Device(it.name, it.address))
         }
         return btDevices
     }

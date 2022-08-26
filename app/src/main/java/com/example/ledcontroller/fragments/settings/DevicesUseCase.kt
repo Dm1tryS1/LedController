@@ -1,9 +1,9 @@
 package com.example.ledcontroller.fragments.settings
 
-import com.example.ledcontroller.fragments.settings.DeviceRepository
+import com.example.ledcontroller.data.Device
 
 class DevicesUseCase(private val deviceRepository: DeviceRepository) {
-    fun findDevices(): MutableMap<String, String> {
+    fun findDevices(): List<Device> {
         return deviceRepository.findDevices()
     }
 
