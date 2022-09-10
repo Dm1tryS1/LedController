@@ -29,6 +29,9 @@ class Information : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecycler()
 
+        binding.reload.setOnClickListener {
+            vm.getInfo()
+        }
     }
 
     private fun setUpRecycler() {

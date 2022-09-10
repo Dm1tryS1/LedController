@@ -21,6 +21,7 @@ class DeviceRepository(applicationContext: Context) {
     private var btSocket: BluetoothSocket? = null
     private var outStream: OutputStream? = null
     private var inStream: InputStream? = null
+    private var receiveThread: ReceiveThread? = null
 
     init {
         btAdapter =
@@ -53,6 +54,8 @@ class DeviceRepository(applicationContext: Context) {
 
             outStream = btSocket!!.outputStream
             inStream = btSocket!!.inputStream
+            receiveThread = ReceiveThread()
+            receiveThread?.start()
             Log.d(tag, "Поток создан")
             return true
 
@@ -105,7 +108,7 @@ class DeviceRepository(applicationContext: Context) {
     }
 
     private fun receiveData() {
-        val msgBuffer = ByteArray(1)
+        val msgBuffer = ByteArray(256)
         while (true) {
             try {
                 val size = inStream?.read(msgBuffer)
@@ -115,6 +118,17 @@ class DeviceRepository(applicationContext: Context) {
                 break
             }
         }
+    }
+
+
+    inner class ReceiveThread: Thread() {
+        override fun run() {
+            receiveData()
+        }
+    }
+
+    fun getInfo() {
+        //TODO команда получения данных
     }
 
 }

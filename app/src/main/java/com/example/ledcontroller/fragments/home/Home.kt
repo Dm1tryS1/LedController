@@ -36,7 +36,7 @@ class Home : Fragment() {
         }
 
         binding.btnOff.setOnClickListener {
-            vm.sendData("0") {
+            vm.sendData("2") {
                 if (!it)
                     Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
 
