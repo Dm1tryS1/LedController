@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="16"
+    android:baselineAligned="false"
+    android:id="@+id/linear_layout_check_box">
+
+    <include
+        android:id="@+id/checkbox_0"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_1"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_2"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_3"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_4"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_5"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_6"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_7"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_8"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_9"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_10"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_11"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_12"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_13"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_14"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/checkbox_15"
+        layout="@layout/include_check_box"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

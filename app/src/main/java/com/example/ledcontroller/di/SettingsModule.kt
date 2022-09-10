@@ -1,9 +1,8 @@
 package com.example.ledcontroller.di
 
 import com.example.ledcontroller.fragments.settings.DevicesUseCase
-import com.example.ledcontroller.fragments.home.DataUseCase
 import com.example.ledcontroller.fragments.settings.SettingsViewModel
-import com.example.ledcontroller.fragments.settings.DeviceRepository
+import com.example.ledcontroller.repository.DeviceRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

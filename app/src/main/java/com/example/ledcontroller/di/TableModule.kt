@@ -1,11 +1,10 @@
 package com.example.ledcontroller.di
 
-import com.example.ledcontroller.fragments.table.DataUseCase
+import com.example.ledcontroller.fragments.table.TableViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
-import com.example.ledcontroller.fragments.home.HomeViewModel
 import org.koin.dsl.module
 
-object HomeModule {
+object TableModule {
     operator fun invoke() = listOf(
         createDataModule(),
         createDomainModule(),
@@ -13,15 +12,14 @@ object HomeModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { HomeViewModel(get()) }
+        viewModel { TableViewModel(get()) }
     }
 
     private fun createDomainModule() = module {
-        factory { DataUseCase(get()) }
+
     }
 
     private fun createDataModule() = module {
 
     }
-
 }

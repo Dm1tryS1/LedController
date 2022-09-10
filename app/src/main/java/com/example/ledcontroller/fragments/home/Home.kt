@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.ledcontroller.databinding.FragmentHomeBinding
+import com.example.ledcontroller.main.MainActivity
+import com.example.ledcontroller.main.Screen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : Fragment() {
@@ -37,7 +39,16 @@ class Home : Fragment() {
             vm.sendData("0") {
                 if (!it)
                     Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
+
             }
+        }
+
+//        binding.drawMode.setOnClickListener {
+//            (activity as MainActivity).navigate(Screen.Table)
+//        }
+
+        binding.informationMode.setOnClickListener {
+            (activity as MainActivity).navigate(Screen.Information)
         }
     }
 }

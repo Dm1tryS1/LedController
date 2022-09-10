@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/table_reload"
+        android:layout_marginBottom="15dp"
+        android:text="РЕЖИМ РИСОВАНИЯ"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textColor="@color/purple_500"/>
+
+    <ImageButton
+        android:id="@+id/table_reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/pixel_table"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_sync"
+        android:background="@color/white"
+        app:tint="@color/purple_500" />
+
+    <GridLayout
+        android:id="@+id/pixel_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:columnCount="1"
+        android:rowCount="16"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/line_0"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_1"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_2"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_3"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_4"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_5"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_6"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_7"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_8"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_9"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_10"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_11"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_12"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_13"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_14"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/line_15"
+            layout="@layout/include_linear_layout_check_box"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+    </GridLayout>
+
+    <Button
+        android:id="@+id/table_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="15dp"
+        android:text="Назад"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

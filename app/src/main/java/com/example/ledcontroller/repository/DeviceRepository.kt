@@ -1,4 +1,4 @@
-package com.example.ledcontroller.fragments.settings
+package com.example.ledcontroller.repository
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
@@ -7,6 +7,9 @@ import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
 import com.example.ledcontroller.fragments.settings.data.Device
+import com.example.ledcontroller.fragments.table.data.Drawing
+import java.io.IOException
+import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
 
@@ -17,6 +20,7 @@ class DeviceRepository(applicationContext: Context) {
     private var btAdapter: BluetoothAdapter? = null
     private var btSocket: BluetoothSocket? = null
     private var outStream: OutputStream? = null
+    private var inStream: InputStream? = null
 
     init {
         btAdapter =
@@ -32,7 +36,7 @@ class DeviceRepository(applicationContext: Context) {
         return btDevices
     }
 
-    fun connect(address: String) : Boolean {
+    fun connect(address: String): Boolean {
         Log.d(tag, "Соединение ")
 
         try {
@@ -48,14 +52,15 @@ class DeviceRepository(applicationContext: Context) {
             Log.d(tag, "Соединено")
 
             outStream = btSocket!!.outputStream
+            inStream = btSocket!!.inputStream
             Log.d(tag, "Поток создан")
             return true
 
-        } catch (e: Exception){
+        } catch (e: Exception) {
             try {
                 btSocket!!.close()
                 Log.d("Socket", "Закрыт")
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("Ошибка", "Нет соединения")
                 return false
             }
@@ -64,16 +69,51 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    fun sendData(data: String) : Boolean {
-        val msgBuffer = data.toByteArray()
+    fun testConnection(data: String): Boolean {
+        val msgBuffer = ByteArray(1)
+
+        msgBuffer[0] = data.toInt().toByte()
+
         return try {
-            Log.d("Success", "Данные $data")
             outStream!!.write(msgBuffer)
             Log.d("Success", "Оправлены")
+            true
+
+        } catch (e: Exception) {
+            Log.d("Error", "Ошибка отправки")
+            false
+        }
+    }
+
+    fun sendDataForDrawing(data: Drawing): Boolean {
+        val msgBuffer = ByteArray(3)
+
+        with(data) {
+            msgBuffer[0] = mode.toByte()
+            msgBuffer[1] = position.toByte()
+            msgBuffer[2] = color.toByte()
+        }
+
+        return try {
+            outStream!!.write(msgBuffer)
+            Log.d("Data", "${msgBuffer[0]} ${msgBuffer[1]} ${msgBuffer[2]}")
             true
         } catch (e: Exception) {
             Log.d("Error", "Ошибка отправки")
             false
+        }
+    }
+
+    private fun receiveData() {
+        val msgBuffer = ByteArray(1)
+        while (true) {
+            try {
+                val size = inStream?.read(msgBuffer)
+                val message = String(msgBuffer, 0, size!!)
+                Log.d("Success", "Message: $message")
+            } catch (i: Exception) {
+                break
+            }
         }
     }
 

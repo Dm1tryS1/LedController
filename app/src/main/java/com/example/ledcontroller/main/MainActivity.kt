@@ -13,8 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.ledcontroller.R
 import com.example.ledcontroller.databinding.ActivityMainBinding
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun navigate(screen: Screen) {
+    fun navigate(screen: Screen) {
         navigator.setScreen(screen)
     }
 

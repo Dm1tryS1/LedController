@@ -43,4 +43,6 @@ open class Navigator(
 sealed class Screen {
     object Home : Screen()
     object Settings: Screen()
+    object Table: Screen()
+    object Information: Screen()
 }
