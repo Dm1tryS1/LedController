@@ -6,6 +6,8 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import com.example.ledcontroller.fragments.information.data.TempData
 import com.example.ledcontroller.fragments.settings.data.Device
 import com.example.ledcontroller.fragments.table.data.Drawing
 import java.io.IOException
@@ -17,11 +19,23 @@ import java.util.*
 class DeviceRepository(applicationContext: Context) {
     private val tag = "BluetoothConnection"
 
+    private var counter = 0
+    private val tempData = TempData(null, null, null)
+
     private var btAdapter: BluetoothAdapter? = null
     private var btSocket: BluetoothSocket? = null
     private var outStream: OutputStream? = null
     private var inStream: InputStream? = null
     private var receiveThread: ReceiveThread? = null
+
+    private val info: MutableLiveData<TempData> by lazy {
+        MutableLiveData<TempData>()
+    }
+
+
+    fun startObserve(): MutableLiveData<TempData> {
+        return info
+    }
 
     init {
         btAdapter =
@@ -56,6 +70,7 @@ class DeviceRepository(applicationContext: Context) {
             inStream = btSocket!!.inputStream
             receiveThread = ReceiveThread()
             receiveThread?.start()
+            sendData(0)
             Log.d(tag, "Поток создан")
             return true
 
@@ -72,19 +87,49 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    fun testConnection(data: String): Boolean {
+    fun sendData(data: Int): Boolean {
         val msgBuffer = ByteArray(1)
 
-        msgBuffer[0] = data.toInt().toByte()
+        msgBuffer[0] = data.toByte()
 
         return try {
             outStream!!.write(msgBuffer)
-            Log.d("Success", "Оправлены")
+            Log.d("Success", "Оправлены: $data")
             true
 
         } catch (e: Exception) {
             Log.d("Error", "Ошибка отправки")
             false
+        }
+    }
+
+    private fun receiveData() {
+        val msgBuffer = ByteArray(1)
+        while (true) {
+            try {
+                val size = inStream?.read(msgBuffer)
+                counter = counter.inc()
+                when (counter) {
+                    1 -> tempData.id = msgBuffer[0].toInt()
+                    2 -> tempData.date = msgBuffer[0].toInt()
+                    3 -> {
+                        tempData.info = msgBuffer[0].toInt()
+                        counter = 0
+                        info.postValue(tempData)
+                    }
+
+                }
+                Log.d("Success", "Message: ${msgBuffer[0].toInt()}")
+            } catch (i: Exception) {
+                break
+            }
+        }
+    }
+
+
+    inner class ReceiveThread(): Thread() {
+        override fun run() {
+            receiveData()
         }
     }
 
@@ -105,30 +150,6 @@ class DeviceRepository(applicationContext: Context) {
             Log.d("Error", "Ошибка отправки")
             false
         }
-    }
-
-    private fun receiveData() {
-        val msgBuffer = ByteArray(256)
-        while (true) {
-            try {
-                val size = inStream?.read(msgBuffer)
-                val message = String(msgBuffer, 0, size!!)
-                Log.d("Success", "Message: $message")
-            } catch (i: Exception) {
-                break
-            }
-        }
-    }
-
-
-    inner class ReceiveThread: Thread() {
-        override fun run() {
-            receiveData()
-        }
-    }
-
-    fun getInfo() {
-        //TODO команда получения данных
     }
 
 }
