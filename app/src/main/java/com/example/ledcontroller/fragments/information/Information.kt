@@ -1,12 +1,15 @@
 package com.example.ledcontroller.fragments.information
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ledcontroller.databinding.FragmentInformationBinding
+import com.example.ledcontroller.fragments.information.data.Data
 import com.example.ledcontroller.fragments.information.recyclerView.InformationAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,12 +33,25 @@ class Information : Fragment() {
         setUpRecycler()
 
         binding.reload.setOnClickListener {
-            vm.getInfo()
+            vm.getInfo(15)
+        }
+
+        vm.startObserve().observe(activity as LifecycleOwner) { temp ->
+            val newList = mutableListOf<Data>()
+            adapter.info.forEach {
+                if (it.id == temp.id)
+                    newList.add(Data(temp.id!!, temp.info.toString(), null))
+                else
+                    newList.add(it)
+            }
+            adapter.info = newList
         }
     }
 
     private fun setUpRecycler() {
-        adapter = InformationAdapter()
+        adapter = InformationAdapter(requireContext()) {
+            vm.getInfo(it)
+        }
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.layoutManager = layoutManager
