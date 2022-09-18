@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ledcontroller.databinding.FragmentInformationBinding
-import com.example.ledcontroller.fragments.information.data.Data
+import com.example.ledcontroller.fragments.information.data.Package
 import com.example.ledcontroller.fragments.information.recyclerView.InformationAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,13 +37,14 @@ class Information : Fragment() {
         }
 
         vm.startObserve().observe(activity as LifecycleOwner) { temp ->
-            val newList = mutableListOf<Data>()
+            val newList = mutableListOf<Package>()
             adapter.info.forEach {
                 if (it.id == temp.id)
-                    newList.add(Data(temp.id!!, temp.info.toString(), null))
+                    newList.add(Package(temp.id, temp.date, temp.info))
                 else
                     newList.add(it)
             }
+
             adapter.info = newList
         }
     }

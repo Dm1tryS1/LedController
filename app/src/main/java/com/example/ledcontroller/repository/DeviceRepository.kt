@@ -6,11 +6,11 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import com.example.ledcontroller.fragments.information.data.TempData
+import com.example.ledcontroller.fragments.information.data.Package
 import com.example.ledcontroller.fragments.settings.data.Device
 import com.example.ledcontroller.fragments.table.data.Drawing
-import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
@@ -20,7 +20,8 @@ class DeviceRepository(applicationContext: Context) {
     private val tag = "BluetoothConnection"
 
     private var counter = 0
-    private val tempData = TempData(null, null, null)
+    private val aPackage =
+        Package(null, null, null)
 
     private var btAdapter: BluetoothAdapter? = null
     private var btSocket: BluetoothSocket? = null
@@ -28,13 +29,8 @@ class DeviceRepository(applicationContext: Context) {
     private var inStream: InputStream? = null
     private var receiveThread: ReceiveThread? = null
 
-    private val info: MutableLiveData<TempData> by lazy {
-        MutableLiveData<TempData>()
-    }
-
-
-    fun startObserve(): MutableLiveData<TempData> {
-        return info
+    private val temp: MutableLiveData<Package> by lazy {
+        MutableLiveData<Package>()
     }
 
     init {
@@ -42,6 +38,14 @@ class DeviceRepository(applicationContext: Context) {
             (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
 
+    private val data: MutableLiveData<Package> by lazy {
+        MutableLiveData<Package>()
+    }
+
+
+    fun startObserve(): MutableLiveData<Package> {
+        return data
+    }
     fun findDevices(): List<Device> {
         val btDevices = mutableListOf<Device>()
         (btAdapter?.bondedDevices)?.forEach {
@@ -110,14 +114,13 @@ class DeviceRepository(applicationContext: Context) {
                 val size = inStream?.read(msgBuffer)
                 counter = counter.inc()
                 when (counter) {
-                    1 -> tempData.id = msgBuffer[0].toInt()
-                    2 -> tempData.date = msgBuffer[0].toInt()
+                    1 -> aPackage.id = msgBuffer[0].toInt()
+                    2 -> aPackage.date = msgBuffer[0].toInt()
                     3 -> {
-                        tempData.info = msgBuffer[0].toInt()
+                        aPackage.info = msgBuffer[0].toInt()
                         counter = 0
-                        info.postValue(tempData)
+                        data.postValue(aPackage)
                     }
-
                 }
                 Log.d("Success", "Message: ${msgBuffer[0].toInt()}")
             } catch (i: Exception) {
@@ -127,7 +130,7 @@ class DeviceRepository(applicationContext: Context) {
     }
 
 
-    inner class ReceiveThread(): Thread() {
+    inner class ReceiveThread: Thread() {
         override fun run() {
             receiveData()
         }

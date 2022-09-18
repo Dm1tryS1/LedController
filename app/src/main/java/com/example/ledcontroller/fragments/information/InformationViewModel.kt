@@ -2,17 +2,14 @@ package com.example.ledcontroller.fragments.information
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.ledcontroller.fragments.information.data.Data
-import com.example.ledcontroller.fragments.information.data.TempData
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.ledcontroller.fragments.information.data.Package
 
 class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewModel() {
 
-    fun findSensor(callback: (list: List<Data>) -> Unit) {
-        val data = mutableListOf<Data>()
-        data.add(Data(1, null, null))
-        data.add(Data(2, null, null))
+    fun findSensor(callback: (list: List<Package>) -> Unit) {
+        val data = mutableListOf<Package>()
+        data.add(Package(1, null, null))
+        data.add(Package(2, null, null))
         callback(data.reversed())
     }
 
@@ -20,7 +17,7 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
         getInfoUseCase.getInfo(command)
     }
 
-    fun startObserve(): MutableLiveData<TempData> {
+    fun startObserve(): MutableLiveData<Package> {
         return getInfoUseCase.startObserve()
     }
 }
