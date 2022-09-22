@@ -14,6 +14,15 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
         val data = mutableListOf<InfoViewItem>()
         data.add(InfoViewItem(R.drawable.ic_temperature, 1, "-", "-"))
         data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
         return data
     }
 
