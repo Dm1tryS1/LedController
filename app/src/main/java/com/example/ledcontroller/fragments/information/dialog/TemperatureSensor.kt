@@ -27,6 +27,7 @@ object TemperatureSensor {
 
             update.setOnClickListener {
                 action(command)
+                dialog.dismiss()
             }
 
             close.setOnClickListener {

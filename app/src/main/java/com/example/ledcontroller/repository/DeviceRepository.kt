@@ -10,6 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.ledcontroller.fragments.information.data.Package
 import com.example.ledcontroller.fragments.settings.data.Device
+import com.example.ledcontroller.fragments.settings.recyclerView.model.DeviceViewItem
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
@@ -39,11 +40,11 @@ class DeviceRepository(applicationContext: Context) {
         sendData = callback
     }
 
-    fun findDevices(): List<Device> {
-        val btDevices = mutableListOf<Device>()
+    fun findDevices(): List<DeviceViewItem> {
+        val btDevices = mutableListOf<DeviceViewItem>()
         (btAdapter?.bondedDevices)?.forEach {
             Log.d(it.name, it.address)
-            btDevices.add(Device(it.name, it.address))
+            btDevices.add(DeviceViewItem(it.name, it.address))
         }
         return btDevices
     }
