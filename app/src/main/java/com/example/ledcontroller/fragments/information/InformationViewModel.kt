@@ -1,6 +1,6 @@
 package com.example.ledcontroller.fragments.information
 
-import android.view.View
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewModel() {
 
     val state = MutableLiveData(InformationState(listOf()))
+    val event = MutableLiveData<InformationEvent>()
 
     fun initializeState() {
         sendCommand(Command.BroadCast.command)
@@ -49,7 +50,15 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
         }
     }
 
-    fun onMenuClicked(id: Int, view: View) {
+    fun onMenuClicked(id: Int) {
+        state.value?.let { state ->
+            when (id) {
+                1 -> state.data?.find { id == it.id }?.let {
+                    event.postValue(InformationEvent.openTemperatureMenuEvent(it.info, it.date))
+                }
 
+                else -> {}
+            }
+        }
     }
 }

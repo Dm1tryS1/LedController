@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.ledcontroller.databinding.FragmentInformationBinding
+import com.example.ledcontroller.fragments.information.dialog.TemperatureSensor
 import com.example.ledcontroller.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.ledcontroller.utils.Command
 import com.example.ledcontroller.utils.supportBottomSheetScroll
@@ -18,7 +19,7 @@ class Information : Fragment() {
     private lateinit var binding: FragmentInformationBinding
     private val vm: InformationViewModel by viewModel()
     private val adapter =
-        InformationAdapter(onMenuClicked = { id, view -> vm.onMenuClicked(id, view) })
+        InformationAdapter(onMenuClicked = { id -> vm.onMenuClicked(id) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +41,20 @@ class Information : Fragment() {
                 adapter.items = state.data
             } else {
                 sensors.isVisible = false
+            }
+        }
+
+        vm.event.observe(activity as LifecycleOwner) { event ->
+            when (event) {
+                is InformationEvent.openTemperatureMenuEvent -> {
+                    TemperatureSensor.create(
+                        fragment = this@Information,
+                        action = vm::sendCommand,
+                        command = Command.GetTemperature.command,
+                        data = event.temperature,
+                        date = event.date
+                    ).show()
+                }
             }
         }
 

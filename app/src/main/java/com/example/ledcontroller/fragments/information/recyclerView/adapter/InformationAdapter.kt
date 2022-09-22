@@ -10,7 +10,7 @@ import com.example.ledcontroller.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 
-class InformationAdapter(onMenuClicked: (Int, View) -> Unit) :
+class InformationAdapter(onMenuClicked: (Int) -> Unit) :
     AsyncListDifferDelegationAdapter<InfoViewItem>(
         AdapterUtil.diffUtilItemCallbackEquals(),
         AdapterUtil.adapterDelegatesManager(
@@ -18,12 +18,12 @@ class InformationAdapter(onMenuClicked: (Int, View) -> Unit) :
         )
     )
 
-fun createParticipantsAdapter(onMenuClicked: (Int, View) -> Unit) =
+fun createParticipantsAdapter(onMenuClicked: (Int) -> Unit) =
     adapterDelegateViewBinding<InfoViewItem, ItemInfoBinding>(
         ItemInfoBinding::inflate
     ) {
         binding.dropdownMenu.setOnClickListener {
-            onMenuClicked(item.id,it)
+            onMenuClicked(item.id)
         }
 
         bindWithBinding {

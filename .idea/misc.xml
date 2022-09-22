@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2415" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/bg_menu_button.xml" value="0.2245" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/bottom_navigation.xml" value="0.137" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_bluetooth.xml" value="0.115" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_conditioner.xml" value="0.218" />
@@ -15,12 +16,13 @@
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_sync.xml" value="0.128" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_temperature.xml" value="0.218" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/shape_bottom_dialog_bg.xml" value="0.114" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/sync.xml" value="0.2415" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout-v28/include_check_box.xml" value="0.358695652173913" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/check_box.xml" value="0.358695652173913" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_conditioener.xml" value="0.27049180327868855" />
-        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_tempetarute.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_tempetarute.xml" value="0.33062330623306235" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/fragment_home.xml" value="0.21774193548387097" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/fragment_information.xml" value="0.2558139534883721" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/fragment_pixel_table.xml" value="0.25" />
@@ -33,6 +35,7 @@
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/item_info_view.xml" value="0.2441860465116279" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/item_user.xml" value="0.358695652173913" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/settings_fragment.xml" value="0.253125" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/view_bottom_dialog_content.xml" value="0.35507246376811596" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/menu/main_menu.xml" value="0.275" />
       </map>

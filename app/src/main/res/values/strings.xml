@@ -3,4 +3,8 @@
     <string name="home_button_get_info">Получить информацию</string>
     <string name="settings_button_update">Обновить</string>
     <string name="information_standard_text">Нет информации</string>
+
+    <string name="temperature_button_update">Обновить</string>
+    <string name="temperature_date">Время:</string>
+    <string name="temperature_button_back">Закрыть</string>
 </resources>
