@@ -1,5 +1,6 @@
 package com.example.ledcontroller.fragments.information
 
 sealed class InformationEvent {
-    class openTemperatureMenuEvent(val temperature: String, val date: String) : InformationEvent()
+    data class openTemperatureMenuEvent(val temperature: String, val date: String) : InformationEvent()
+    object openConditionerMenuEvent : InformationEvent()
 }

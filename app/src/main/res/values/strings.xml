@@ -7,4 +7,8 @@
     <string name="temperature_button_update">Обновить</string>
     <string name="temperature_date">Время:</string>
     <string name="temperature_button_back">Закрыть</string>
+
+    <string name="conditioner_button_offOn">Включить/Выключить</string>
+    <string name="conditioner_button_add">Увеличить температуру</string>
+    <string name="conditioner_button_reduce">Уменьшить температуру</string>
 </resources>

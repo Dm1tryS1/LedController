@@ -2,19 +2,18 @@ package com.example.ledcontroller.fragments.information.dialog
 
 import android.app.Dialog
 import androidx.fragment.app.Fragment
-import com.example.ledcontroller.databinding.DropmenuTempetaruteBinding
+import com.example.ledcontroller.databinding.DropmenuConditioenerBinding
 import com.example.ledcontroller.utils.BottomSheetDialogBuilder
 
-object TemperatureSensor {
+object Conditioner {
     fun create(
         fragment: Fragment,
         action: (command: Int) -> Unit,
-        data: String,
-        date: String,
-        command: Int,
-
-    ): Dialog {
-        val binding = DropmenuTempetaruteBinding.inflate(fragment.layoutInflater)
+        commandOffOn: Int,
+        commandAdd: Int,
+        commandReduce: Int,
+        ): Dialog {
+        val binding = DropmenuConditioenerBinding.inflate(fragment.layoutInflater)
 
         with(binding) {
 
@@ -22,11 +21,17 @@ object TemperatureSensor {
                 .addCustomView(root)
                 .setCancelable(true)
 
-            value.text = data
-            this.date.text = date
 
-            update.setOnClickListener {
-                action(command)
+            offOn.setOnClickListener {
+                action(commandOffOn)
+            }
+
+            reduce.setOnClickListener {
+                action(commandReduce)
+            }
+
+            add.setOnClickListener {
+                action(commandAdd)
             }
 
             close.setOnClickListener {

@@ -24,7 +24,7 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
 
     fun getInfo() {
         viewModelScope.launch {
-            getInfoUseCase.getInfo().collectLatest {
+            getInfoUseCase.getInfo().collectLatest { it ->
                 state.value?.let { informationState ->
                     if (informationState.data != null)
                         informationState.data.let { currentState ->
@@ -46,9 +46,11 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
                     else
                         state.postValue(InformationState(listOf(packageToInfoViewItem(it))))
                 }
+
             }
         }
     }
+
 
     fun onMenuClicked(id: Int) {
         state.value?.let { state ->
@@ -57,6 +59,7 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
                     event.postValue(InformationEvent.openTemperatureMenuEvent(it.info, it.date))
                 }
 
+                2 -> event.postValue(InformationEvent.openConditionerMenuEvent)
                 else -> {}
             }
         }
