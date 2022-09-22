@@ -1,24 +1,24 @@
 package com.example.ledcontroller.fragments.information
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import com.example.ledcontroller.R
 import com.example.ledcontroller.databinding.FragmentInformationBinding
 import com.example.ledcontroller.fragments.information.recyclerView.adapter.InformationAdapter
-import com.example.ledcontroller.fragments.information.recyclerView.model.InfoViewItem
-import com.example.ledcontroller.fragments.information.recyclerView.util.supportBottomSheetScroll
+import com.example.ledcontroller.utils.Command
+import com.example.ledcontroller.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Information : Fragment() {
 
     private lateinit var binding: FragmentInformationBinding
     private val vm: InformationViewModel by viewModel()
-    private val adapter = InformationAdapter(onMenuClicked = { id, view -> vm.onMenuClicked(id, view) })
+    private val adapter =
+        InformationAdapter(onMenuClicked = { id, view -> vm.onMenuClicked(id, view) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,32 +29,25 @@ class Information : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        binding.participants.adapter = adapter
-        adapter.items = vm.findSensor()
-        binding.participants.supportBottomSheetScroll()
+        sensors.adapter = adapter
+        sensors.supportBottomSheetScroll()
 
-        adapter.items.forEach {
-            Log.d("here", it.toString())
+        vm.state.observe(activity as LifecycleOwner) { state ->
+            if (state.data != null) {
+                sensors.isVisible = true
+                adapter.items = state.data
+            } else {
+                sensors.isVisible = false
+            }
         }
 
-       // adapter.notifyDataSetChanged()
+        reload.setOnClickListener {
+            vm.sendCommand(Command.BroadCast.command)
+        }
 
-//        binding.reload.setOnClickListener {
-//            vm.getInfo(15)
-//        }
-
-//        vm.startObserve().observe(activity as LifecycleOwner) { temp ->
-//            val newList = mutableListOf<InfoViewItem>()
-//            adapter.items.forEach {
-//                if (it.id == temp.id)
-//                    newList.add(InfoViewItem(R.drawable.ic_conditioner, temp.id!!, temp.date.toString(), temp.info.toString()))
-//                else
-//                    newList.add(it)
-//            }
-//
-//            adapter.items = newList
-//        }
+        vm.getInfo()
+        vm.initializeState()
     }
 }

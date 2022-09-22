@@ -28,23 +28,17 @@ class DeviceRepository(applicationContext: Context) {
     private var inStream: InputStream? = null
     private var receiveThread: ReceiveThread? = null
 
-    private val temp: MutableLiveData<Package> by lazy {
-        MutableLiveData<Package>()
-    }
+    private var sendData: ((aPackage: Package) -> Unit)? = null
 
     init {
         btAdapter =
             (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
 
-    private val data: MutableLiveData<Package> by lazy {
-        MutableLiveData<Package>()
+    fun getInfo(callback: (aPackage: Package) -> Unit){
+        sendData = callback
     }
 
-
-    fun startObserve(): MutableLiveData<Package> {
-        return data
-    }
     fun findDevices(): List<Device> {
         val btDevices = mutableListOf<Device>()
         (btAdapter?.bondedDevices)?.forEach {
@@ -118,7 +112,7 @@ class DeviceRepository(applicationContext: Context) {
                     3 -> {
                         aPackage.info = msgBuffer[0].toInt()
                         counter = 0
-                        data.postValue(aPackage)
+                        sendData?.invoke(aPackage)
                     }
                 }
                 Log.d("Success", "Message: ${msgBuffer[0].toInt()}")

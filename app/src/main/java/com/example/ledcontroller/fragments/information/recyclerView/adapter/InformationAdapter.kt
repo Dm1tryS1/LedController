@@ -4,9 +4,9 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.ledcontroller.databinding.ItemInfoBinding
 import com.example.ledcontroller.fragments.information.recyclerView.model.InfoViewItem
-import com.example.ledcontroller.fragments.information.recyclerView.util.AdapterUtil
-import com.example.ledcontroller.fragments.information.recyclerView.util.adapterDelegateViewBinding
-import com.example.ledcontroller.fragments.information.recyclerView.util.bindWithBinding
+import com.example.ledcontroller.utils.AdapterUtil
+import com.example.ledcontroller.utils.adapterDelegateViewBinding
+import com.example.ledcontroller.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 
@@ -33,6 +33,6 @@ fun createParticipantsAdapter(onMenuClicked: (Int, View) -> Unit) =
                     item.iconId
                 )
             )
-            name.text = item.date
+            name.text = item.info
         }
     }

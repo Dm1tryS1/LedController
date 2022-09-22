@@ -1,4 +1,4 @@
-package com.example.ledcontroller.fragments.information.recyclerView.util
+package com.example.ledcontroller.utils
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
