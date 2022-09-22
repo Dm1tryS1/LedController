@@ -1,16 +1,20 @@
 package com.example.ledcontroller.fragments.information
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ledcontroller.R
+import com.example.ledcontroller.databinding.ItemInfoBinding
 import com.example.ledcontroller.fragments.information.data.Package
+import com.example.ledcontroller.fragments.information.recyclerView.model.InfoViewItem
 
 class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewModel() {
 
-    fun findSensor(callback: (list: List<Package>) -> Unit) {
-        val data = mutableListOf<Package>()
-        data.add(Package(1, null, null))
-        data.add(Package(2, null, null))
-        callback(data.reversed())
+    fun findSensor(): List<InfoViewItem> {
+        val data = mutableListOf<InfoViewItem>()
+        data.add(InfoViewItem(R.drawable.ic_temperature, 1, "-", "-"))
+        data.add(InfoViewItem(R.drawable.ic_conditioner, 2, "-", "-"))
+        return data
     }
 
     fun getInfo(command: Int) {
@@ -19,5 +23,9 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
 
     fun startObserve(): MutableLiveData<Package> {
         return getInfoUseCase.startObserve()
+    }
+
+    fun onMenuClicked(id: Int, view: View) {
+
     }
 }

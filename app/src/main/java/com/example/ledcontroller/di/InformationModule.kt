@@ -2,7 +2,6 @@ package com.example.ledcontroller.di
 
 import com.example.ledcontroller.fragments.information.GetInfoUseCase
 import com.example.ledcontroller.fragments.information.InformationViewModel
-import com.example.ledcontroller.fragments.table.DataUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

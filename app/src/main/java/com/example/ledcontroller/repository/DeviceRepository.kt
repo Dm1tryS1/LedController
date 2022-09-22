@@ -10,7 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.example.ledcontroller.fragments.information.data.Package
 import com.example.ledcontroller.fragments.settings.data.Device
-import com.example.ledcontroller.fragments.table.data.Drawing
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
@@ -133,25 +132,6 @@ class DeviceRepository(applicationContext: Context) {
     inner class ReceiveThread: Thread() {
         override fun run() {
             receiveData()
-        }
-    }
-
-    fun sendDataForDrawing(data: Drawing): Boolean {
-        val msgBuffer = ByteArray(3)
-
-        with(data) {
-            msgBuffer[0] = mode.toByte()
-            msgBuffer[1] = position.toByte()
-            msgBuffer[2] = color.toByte()
-        }
-
-        return try {
-            outStream!!.write(msgBuffer)
-            Log.d("Data", "${msgBuffer[0]} ${msgBuffer[1]} ${msgBuffer[2]}")
-            true
-        } catch (e: Exception) {
-            Log.d("Error", "Ошибка отправки")
-            false
         }
     }
 

@@ -10,7 +10,6 @@ object AppModule {
     private fun createModules(): List<Module> = listOf(
         HomeModule(),
         SettingsModule(),
-        TableModule(),
         InformationModule()
     ).flatten()
 }
