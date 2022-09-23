@@ -12,6 +12,6 @@ enum class Command(val command: Pair<Int, Int>) {
 
     GetHumidity(Pair(0x03,0)),
 
-    Humidifier(Pair(0x03,0)),
-    HumidifierOnOff(Pair(0x03,1)),
+    Humidifier(Pair(0x04,0)),
+    HumidifierOnOff(Pair(0x04,1)),
 }

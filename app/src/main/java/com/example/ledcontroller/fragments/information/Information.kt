@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.ledcontroller.databinding.FragmentInformationBinding
 import com.example.ledcontroller.fragments.information.dialog.Conditioner
+import com.example.ledcontroller.fragments.information.dialog.Humidifier
+import com.example.ledcontroller.fragments.information.dialog.HumiditySensor
 import com.example.ledcontroller.fragments.information.dialog.TemperatureSensor
 import com.example.ledcontroller.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.ledcontroller.utils.Command
@@ -47,7 +49,7 @@ class Information : Fragment() {
 
         vm.event.observe(activity as LifecycleOwner) { event ->
             when (event) {
-                is InformationEvent.openTemperatureMenuEvent -> {
+                is InformationEvent.OpenTemperatureMenuEvent -> {
                     TemperatureSensor.create(
                         fragment = this@Information,
                         action = vm::sendPackage,
@@ -55,11 +57,25 @@ class Information : Fragment() {
                         date = event.date
                     ).show()
                 }
-                is InformationEvent.openConditionerMenuEvent -> {
+                is InformationEvent.OpenConditionerMenuEvent -> {
                     Conditioner.create(
                         fragment = this@Information,
                         action = vm::sendPackage,
                     ).show()
+                }
+                is InformationEvent.OpenHumidityMenuEvent -> {
+                    HumiditySensor.create(
+                        fragment = this@Information,
+                        action = vm::sendPackage,
+                        data = event.humidity,
+                        date = event.humidity
+                    )
+                }
+                is InformationEvent.OpenHumidifierMenuEvent -> {
+                    Humidifier.create(
+                        fragment = this@Information,
+                        action = vm::sendPackage
+                    )
                 }
             }
         }

@@ -7,10 +7,14 @@ import com.example.ledcontroller.fragments.information.recyclerView.model.InfoVi
 import kotlin.experimental.and
 
 fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
-    return when(aPackage.id){
+    return when (aPackage.id) {
         1 -> packageToTemperatureInfo(aPackage)
         2 -> packageToConditionerInfo(aPackage)
-        else -> { InfoViewItem(R.drawable.ic_info, 0, "Ошибка", "Ошибка") }
+        3 -> packageToHumidityInfo(aPackage)
+        4 -> packageToHumidifierInfo(aPackage)
+        else -> {
+            InfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Ошибка", "Ошибка")
+        }
     }
 }
 
@@ -25,13 +29,52 @@ fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
         if (it == null)
             "Нет информации"
         else
-            "Температура: $it °C"
+            "Температура: $it°C"
     }
 
     return InfoViewItem(R.drawable.ic_temperature, aPackage.id!!, info, date)
 }
 
-fun packageToConditionerInfo(aPackage: Package): InfoViewItem{
+fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
+    val date = aPackage.date.let {
+        if (it == null || it == 0)
+            "Нет информации"
+        else
+            it.toString()
+    }
+    val info = aPackage.info.let {
+        if (it == null)
+            "Нет информации"
+        else
+            "Влажность: $it%"
+    }
+
+    return InfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date)
+}
+
+fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
+    val date = aPackage.date.let {
+        if (it == null || it == 0)
+            "Нет информации"
+        else
+            it.toString()
+    }
+    val info = aPackage.info.let {
+        if (it == null)
+            "Нет информации"
+        else
+            if ((it.toByte() and 128.toByte()) == 0.toByte())
+                "Выключено"
+            else
+                "Включено: ${
+                    (it.toByte() and 63.toByte()).toString(16)
+                } % воды"
+    }
+
+    return InfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date)
+}
+
+fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
     val date = aPackage.date.let {
         if (it == null || it == 0)
             "Нет информации"

@@ -1,6 +1,5 @@
 package com.example.ledcontroller.fragments.information
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -56,10 +55,14 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
         state.value?.let { state ->
             when (id) {
                 1 -> state.data?.find { id == it.id }?.let {
-                    event.postValue(InformationEvent.openTemperatureMenuEvent(it.info, it.date))
+                    event.postValue(InformationEvent.OpenTemperatureMenuEvent(it.info, it.date))
                 }
 
-                2 -> event.postValue(InformationEvent.openConditionerMenuEvent)
+                2 -> event.postValue(InformationEvent.OpenConditionerMenuEvent)
+                3 -> state.data?.find { id == it.id }?.let {
+                    event.postValue(InformationEvent.OpenHumidityMenuEvent(it.info, it.date))
+                }
+                4 -> event.postValue(InformationEvent.OpenHumidifierMenuEvent)
                 else -> {}
             }
         }
