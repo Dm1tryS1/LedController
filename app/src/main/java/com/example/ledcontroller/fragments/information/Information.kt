@@ -68,14 +68,14 @@ class Information : Fragment() {
                         fragment = this@Information,
                         action = vm::sendPackage,
                         data = event.humidity,
-                        date = event.humidity
-                    )
+                        date = event.date
+                    ).show()
                 }
                 is InformationEvent.OpenHumidifierMenuEvent -> {
                     Humidifier.create(
                         fragment = this@Information,
                         action = vm::sendPackage
-                    )
+                    ).show()
                 }
             }
         }

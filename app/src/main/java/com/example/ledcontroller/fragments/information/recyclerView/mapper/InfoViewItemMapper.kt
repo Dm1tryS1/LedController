@@ -49,7 +49,7 @@ fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
             "Влажность: $it%"
     }
 
-    return InfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date)
 }
 
 fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
@@ -67,11 +67,11 @@ fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
                 "Выключено"
             else
                 "Включено: ${
-                    (it.toByte() and 63.toByte()).toString(16)
+                    (it.toByte() and 127.toByte())
                 } % воды"
     }
 
-    return InfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date)
 }
 
 fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
