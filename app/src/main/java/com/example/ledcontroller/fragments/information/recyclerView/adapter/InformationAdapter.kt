@@ -1,6 +1,5 @@
 package com.example.ledcontroller.fragments.information.recyclerView.adapter
 
-import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.ledcontroller.databinding.ItemInfoBinding
 import com.example.ledcontroller.fragments.information.recyclerView.model.InfoViewItem

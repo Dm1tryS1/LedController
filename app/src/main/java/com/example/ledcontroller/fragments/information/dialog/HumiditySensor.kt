@@ -3,7 +3,6 @@ package com.example.ledcontroller.fragments.information.dialog
 import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.ledcontroller.databinding.DropmenuHumidityBinding
-import com.example.ledcontroller.databinding.DropmenuTempetaruteBinding
 import com.example.ledcontroller.utils.BottomSheetDialogBuilder
 import com.example.ledcontroller.utils.Command
 

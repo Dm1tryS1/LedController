@@ -23,7 +23,7 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
 
     fun getInfo() {
         viewModelScope.launch {
-            getInfoUseCase.getInfo().collectLatest { it ->
+            getInfoUseCase.getInfo().collectLatest {
                 state.value?.let { informationState ->
                     if (informationState.data != null)
                         informationState.data.let { currentState ->

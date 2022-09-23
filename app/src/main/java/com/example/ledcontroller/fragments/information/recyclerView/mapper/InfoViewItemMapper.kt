@@ -1,6 +1,5 @@
 package com.example.ledcontroller.fragments.information.recyclerView.mapper
 
-
 import com.example.ledcontroller.R
 import com.example.ledcontroller.fragments.information.data.Package
 import com.example.ledcontroller.fragments.information.recyclerView.model.InfoViewItem
@@ -19,12 +18,15 @@ fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
 }
 
 fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
-    val date = aPackage.date.let {
-        if (it == null || it == 0)
+    val date = with(aPackage) {
+        if (hours == null || minutes == null || seconds == null)
             "Нет информации"
         else
-            it.toString()
+            "${hours!!.toTime()}:${
+                minutes!!.toTime()
+            }:${seconds!!.toTime()}"
     }
+
     val info = aPackage.info.let {
         if (it == null)
             "Нет информации"
@@ -36,12 +38,15 @@ fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
 }
 
 fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
-    val date = aPackage.date.let {
-        if (it == null || it == 0)
+    val date = with(aPackage) {
+        if (hours == null || minutes == null || seconds == null)
             "Нет информации"
         else
-            it.toString()
+            "${hours!!.toTime()}:${
+                minutes!!.toTime()
+            }:${seconds!!.toTime()}"
     }
+
     val info = aPackage.info.let {
         if (it == null)
             "Нет информации"
@@ -53,12 +58,15 @@ fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
 }
 
 fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
-    val date = aPackage.date.let {
-        if (it == null || it == 0)
+    val date = with(aPackage) {
+        if (hours == null || minutes == null || seconds == null)
             "Нет информации"
         else
-            it.toString()
+            "${hours!!.toTime()}:${
+                minutes!!.toTime()
+            }:${seconds!!.toTime()}"
     }
+
     val info = aPackage.info.let {
         if (it == null)
             "Нет информации"
@@ -75,12 +83,15 @@ fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
 }
 
 fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
-    val date = aPackage.date.let {
-        if (it == null || it == 0)
+    val date = with(aPackage) {
+        if (hours == null || minutes == null || seconds == null)
             "Нет информации"
         else
-            it.toString()
+            "${hours!!.toTime()}:${
+                minutes!!.toTime()
+            }:${seconds!!.toTime()}"
     }
+
     val info = aPackage.info.let {
         if (it == null)
             "Нет информации"
@@ -94,4 +105,8 @@ fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
     }
 
     return InfoViewItem(R.drawable.ic_conditioner, aPackage.id!!, info, date)
+}
+
+fun Int.toTime(): String {
+    return this.toString().padStart(2,'0')
 }

@@ -6,10 +6,7 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import com.example.ledcontroller.fragments.information.data.Package
-import com.example.ledcontroller.fragments.settings.data.Device
 import com.example.ledcontroller.fragments.settings.recyclerView.model.DeviceViewItem
 import java.io.InputStream
 import java.io.OutputStream
@@ -21,7 +18,7 @@ class DeviceRepository(applicationContext: Context) {
 
     private var counter = 0
     private val aPackage =
-        Package(null, null, null)
+        Package(null, null, null, null, null)
 
     private var btAdapter: BluetoothAdapter? = null
     private var btSocket: BluetoothSocket? = null
@@ -68,7 +65,7 @@ class DeviceRepository(applicationContext: Context) {
             inStream = btSocket!!.inputStream
             receiveThread = ReceiveThread()
             receiveThread?.start()
-            sendData(0)
+            sendData()
             Log.d(tag, "Поток создан")
             return true
 
@@ -85,14 +82,20 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    fun sendData(data: Int,): Boolean {
-        val msgBuffer = ByteArray(2)
 
-        msgBuffer[0] = data.toByte()
+
+    private fun sendData(): Boolean {
+        val msgBuffer = ByteArray(5)
+        val time = Calendar.getInstance()
+        msgBuffer[0] = 0.toByte()
+        msgBuffer[1] = time.get(Calendar.HOUR).toByte()
+        msgBuffer[2] = time.get(Calendar.MINUTE).toByte()
+        msgBuffer[3] = time.get(Calendar.SECOND).toByte()
+        msgBuffer[4] = 0.toByte()
 
         return try {
             outStream!!.write(msgBuffer)
-            Log.d("Success", "Оправлены: $data")
+            Log.d("Success", "Оправлены: ${msgBuffer[0]},${msgBuffer[1]},${msgBuffer[2]},${msgBuffer[3]},${msgBuffer[4]}")
             true
 
         } catch (e: Exception) {
@@ -121,12 +124,14 @@ class DeviceRepository(applicationContext: Context) {
         val msgBuffer = ByteArray(1)
         while (true) {
             try {
-                val size = inStream?.read(msgBuffer)
+                inStream?.read(msgBuffer)
                 counter = counter.inc()
                 when (counter) {
                     1 -> aPackage.id = msgBuffer[0].toInt()
-                    2 -> aPackage.date = msgBuffer[0].toInt()
-                    3 -> {
+                    2 -> aPackage.hours = msgBuffer[0].toInt()
+                    3 -> aPackage.minutes = msgBuffer[0].toInt()
+                    4 -> aPackage.seconds = msgBuffer[0].toInt()
+                    5 -> {
                         aPackage.info = msgBuffer[0].toInt()
                         counter = 0
                         sendData?.invoke(aPackage)

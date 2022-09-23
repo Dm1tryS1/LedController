@@ -1,16 +1,13 @@
 package com.example.ledcontroller.fragments.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ledcontroller.databinding.FragmentSettingsBinding
-import com.example.ledcontroller.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.ledcontroller.fragments.settings.recyclerView.adapter.DeviceAdapter
 import com.example.ledcontroller.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
