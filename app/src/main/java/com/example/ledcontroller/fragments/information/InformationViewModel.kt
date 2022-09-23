@@ -15,11 +15,11 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
     val event = MutableLiveData<InformationEvent>()
 
     fun initializeState() {
-        sendCommand(Command.BroadCast.command)
+        sendPackage(Command.BroadCast.command)
     }
 
-    fun sendCommand(command: Int) {
-        getInfoUseCase.sendCommand(command)
+    fun sendPackage(aPackage: Pair<Int, Int>){
+        getInfoUseCase.sendPackage(aPackage)
     }
 
     fun getInfo() {

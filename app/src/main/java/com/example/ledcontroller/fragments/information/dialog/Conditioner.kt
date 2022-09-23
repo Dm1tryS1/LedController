@@ -4,14 +4,12 @@ import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.ledcontroller.databinding.DropmenuConditioenerBinding
 import com.example.ledcontroller.utils.BottomSheetDialogBuilder
+import com.example.ledcontroller.utils.Command
 
 object Conditioner {
     fun create(
         fragment: Fragment,
-        action: (command: Int) -> Unit,
-        commandOffOn: Int,
-        commandAdd: Int,
-        commandReduce: Int,
+        action: (aPackage: Pair<Int,Int>) -> Unit,
         ): Dialog {
         val binding = DropmenuConditioenerBinding.inflate(fragment.layoutInflater)
 
@@ -23,15 +21,15 @@ object Conditioner {
 
 
             offOn.setOnClickListener {
-                action(commandOffOn)
+                action(Command.ConditionerOnOff.command)
             }
 
             reduce.setOnClickListener {
-                action(commandReduce)
+                action(Command.ConditionerReduceTemperature.command)
             }
 
             add.setOnClickListener {
-                action(commandAdd)
+               action(Command.ConditionerAddTemperature.command)
             }
 
             close.setOnClickListener {

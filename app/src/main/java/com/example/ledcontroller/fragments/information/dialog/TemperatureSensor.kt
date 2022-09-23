@@ -4,15 +4,14 @@ import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.ledcontroller.databinding.DropmenuTempetaruteBinding
 import com.example.ledcontroller.utils.BottomSheetDialogBuilder
+import com.example.ledcontroller.utils.Command
 
 object TemperatureSensor {
     fun create(
         fragment: Fragment,
-        action: (command: Int) -> Unit,
+        action: (aPackage: Pair<Int, Int>) -> Unit,
         data: String,
         date: String,
-        command: Int,
-
     ): Dialog {
         val binding = DropmenuTempetaruteBinding.inflate(fragment.layoutInflater)
 
@@ -26,7 +25,7 @@ object TemperatureSensor {
             this.date.text = date
 
             update.setOnClickListener {
-                action(command)
+                action(Command.GetTemperature.command)
                 dialog.dismiss()
             }
 

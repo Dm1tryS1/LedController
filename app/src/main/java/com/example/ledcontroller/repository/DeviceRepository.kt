@@ -85,8 +85,8 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    fun sendData(data: Int): Boolean {
-        val msgBuffer = ByteArray(1)
+    fun sendData(data: Int,): Boolean {
+        val msgBuffer = ByteArray(2)
 
         msgBuffer[0] = data.toByte()
 
@@ -95,6 +95,22 @@ class DeviceRepository(applicationContext: Context) {
             Log.d("Success", "Оправлены: $data")
             true
 
+        } catch (e: Exception) {
+            Log.d("Error", "Ошибка отправки")
+            false
+        }
+    }
+
+    fun sendPackage(aPackage: Pair<Int, Int>): Boolean {
+        val msgBuffer = ByteArray(2)
+
+        msgBuffer[0] = aPackage.first.toByte()
+        msgBuffer[1] = aPackage.second.toByte()
+
+        return try {
+            outStream!!.write(msgBuffer)
+            Log.d("Success", "Оправлены: $aPackage")
+            true
         } catch (e: Exception) {
             Log.d("Error", "Ошибка отправки")
             false

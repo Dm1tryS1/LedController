@@ -50,8 +50,7 @@ class Information : Fragment() {
                 is InformationEvent.openTemperatureMenuEvent -> {
                     TemperatureSensor.create(
                         fragment = this@Information,
-                        action = vm::sendCommand,
-                        command = Command.GetTemperature.command,
+                        action = vm::sendPackage,
                         data = event.temperature,
                         date = event.date
                     ).show()
@@ -59,17 +58,14 @@ class Information : Fragment() {
                 is InformationEvent.openConditionerMenuEvent -> {
                     Conditioner.create(
                         fragment = this@Information,
-                        action = vm::sendCommand,
-                        commandOffOn = Command.OffConditioner.command,
-                        commandAdd = Command.AddConditionerTemperature.command,
-                        commandReduce = Command.ReduceConditionerTemperature.command,
+                        action = vm::sendPackage,
                     ).show()
                 }
             }
         }
 
         reload.setOnClickListener {
-            vm.sendCommand(Command.BroadCast.command)
+            vm.sendPackage(Command.BroadCast.command)
         }
 
         vm.getInfo()

@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class GetInfoUseCase(private val deviceRepository: DeviceRepository) {
-    fun sendCommand(command: Int) {
-        deviceRepository.sendData(command)
+    fun sendPackage(aPackage: Pair<Int, Int>) {
+        deviceRepository.sendPackage(aPackage)
     }
 
     fun getInfo(): Flow<Package> = callbackFlow {
