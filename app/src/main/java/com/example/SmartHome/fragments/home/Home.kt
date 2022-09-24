@@ -1,13 +1,13 @@
-package com.example.SmartHome.fragments.home
+package com.example.smarthome.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.SmartHome.databinding.FragmentHomeBinding
-import com.example.SmartHome.main.MainActivity
-import com.example.SmartHome.main.Screen
+import com.example.smarthome.databinding.FragmentHomeBinding
+import com.example.smarthome.main.MainActivity
+import com.example.smarthome.main.Screen
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : Fragment() {

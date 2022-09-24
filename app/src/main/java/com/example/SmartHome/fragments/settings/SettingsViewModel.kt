@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.settings
+package com.example.smarthome.fragments.settings
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

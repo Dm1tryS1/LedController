@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.information.data
+package com.example.smarthome.fragments.information.data
 
 data class Package(
     var id: Int?,

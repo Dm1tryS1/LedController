@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.information
+package com.example.smarthome.fragments.information
 
 sealed class InformationEvent {
     data class OpenTemperatureMenuEvent(val temperature: String, val date: String) : InformationEvent()

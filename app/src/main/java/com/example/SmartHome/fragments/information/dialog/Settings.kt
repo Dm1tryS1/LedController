@@ -1,10 +1,10 @@
-package com.example.SmartHome.fragments.information.dialog
+package com.example.smarthome.fragments.information.dialog
 
 import android.app.Dialog
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import com.example.SmartHome.databinding.DropmenuSettingsBinding
-import com.example.SmartHome.utils.BottomSheetDialogBuilder
+import com.example.smarthome.databinding.DropmenuSettingsBinding
+import com.example.smarthome.utils.BottomSheetDialogBuilder
 import kotlin.experimental.or
 
 object Settings {

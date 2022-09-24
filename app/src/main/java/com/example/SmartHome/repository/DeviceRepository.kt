@@ -1,4 +1,4 @@
-package com.example.SmartHome.repository
+package com.example.smarthome.repository
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
@@ -6,8 +6,8 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
-import com.example.SmartHome.fragments.information.data.Package
-import com.example.SmartHome.fragments.settings.recyclerView.model.DeviceViewItem
+import com.example.smarthome.fragments.information.data.Package
+import com.example.smarthome.fragments.settings.recyclerView.model.DeviceViewItem
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*

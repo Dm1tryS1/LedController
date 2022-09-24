@@ -1,8 +1,8 @@
-package com.example.SmartHome.fragments.information
+package com.example.smarthome.fragments.information
 
-import com.example.SmartHome.fragments.information.data.Package
-import com.example.SmartHome.repository.DeviceRepository
-import com.example.SmartHome.repository.Storage
+import com.example.smarthome.fragments.information.data.Package
+import com.example.smarthome.repository.DeviceRepository
+import com.example.smarthome.repository.Storage
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

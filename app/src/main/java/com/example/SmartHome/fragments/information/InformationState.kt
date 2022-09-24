@@ -1,5 +1,5 @@
-package com.example.SmartHome.fragments.information
+package com.example.smarthome.fragments.information
 
-import com.example.SmartHome.fragments.information.recyclerView.model.InfoViewItem
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 
 data class InformationState(val data: List<InfoViewItem>?)

@@ -1,4 +1,4 @@
-package com.example.SmartHome.main
+package com.example.smarthome.main
 
 import android.Manifest
 import android.app.AlertDialog
@@ -14,8 +14,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import com.example.SmartHome.R
-import com.example.SmartHome.databinding.ActivityMainBinding
+import com.example.smarthome.R
+import com.example.smarthome.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {

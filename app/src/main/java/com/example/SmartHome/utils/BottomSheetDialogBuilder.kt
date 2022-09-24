@@ -1,11 +1,11 @@
-package com.example.SmartHome.utils
+package com.example.smarthome.utils
 
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.SmartHome.R
-import com.example.SmartHome.databinding.ViewBottomDialogContentBinding
+import com.example.smarthome.R
+import com.example.smarthome.databinding.ViewBottomDialogContentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 

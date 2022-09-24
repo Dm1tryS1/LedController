@@ -1,10 +1,10 @@
-package com.example.SmartHome.fragments.information.dialog
+package com.example.smarthome.fragments.information.dialog
 
 import android.app.Dialog
 import androidx.fragment.app.Fragment
-import com.example.SmartHome.databinding.DropmenuTempetaruteBinding
-import com.example.SmartHome.utils.BottomSheetDialogBuilder
-import com.example.SmartHome.utils.Command
+import com.example.smarthome.databinding.DropmenuTempetaruteBinding
+import com.example.smarthome.utils.BottomSheetDialogBuilder
+import com.example.smarthome.utils.Command
 
 object TemperatureSensor {
     fun create(

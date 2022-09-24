@@ -1,4 +1,4 @@
-package com.example.SmartHome.utils
+package com.example.smarthome.utils
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

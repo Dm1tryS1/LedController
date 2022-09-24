@@ -1,8 +1,8 @@
-package com.example.SmartHome.fragments.information.recyclerView.mapper
+package com.example.smarthome.fragments.information.recyclerView.mapper
 
-import com.example.SmartHome.R
-import com.example.SmartHome.fragments.information.data.Package
-import com.example.SmartHome.fragments.information.recyclerView.model.InfoViewItem
+import com.example.smarthome.R
+import com.example.smarthome.fragments.information.data.Package
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import kotlin.experimental.and
 
 fun packageToInfoViewItem(aPackage: Package): InfoViewItem {

@@ -1,4 +1,4 @@
-package com.example.SmartHome.repository
+package com.example.smarthome.repository
 
 import android.content.Context
 

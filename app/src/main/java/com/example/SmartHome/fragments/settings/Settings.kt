@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.settings
+package com.example.smarthome.fragments.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import com.example.SmartHome.databinding.FragmentSettingsBinding
-import com.example.SmartHome.fragments.settings.recyclerView.adapter.DeviceAdapter
-import com.example.SmartHome.utils.supportBottomSheetScroll
+import com.example.smarthome.databinding.FragmentSettingsBinding
+import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapter
+import com.example.smarthome.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Settings : Fragment() {

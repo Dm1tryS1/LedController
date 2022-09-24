@@ -1,4 +1,4 @@
-package com.example.SmartHome.di
+package com.example.smarthome.di
 
 import org.koin.core.module.Module
 

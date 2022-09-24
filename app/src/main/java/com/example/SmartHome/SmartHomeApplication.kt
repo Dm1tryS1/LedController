@@ -1,7 +1,7 @@
-package com.example.SmartHome
+package com.example.smarthome
 
 import android.app.Application
-import com.example.SmartHome.di.AppModule
+import com.example.smarthome.di.AppModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

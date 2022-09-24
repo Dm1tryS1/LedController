@@ -1,7 +1,7 @@
-package com.example.SmartHome.di
+package com.example.smarthome.di
 
 import org.koin.androidx.viewmodel.dsl.viewModel
-import com.example.SmartHome.fragments.home.HomeViewModel
+import com.example.smarthome.fragments.home.HomeViewModel
 import org.koin.dsl.module
 
 object HomeModule {

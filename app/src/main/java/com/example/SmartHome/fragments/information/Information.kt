@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.information
+package com.example.smarthome.fragments.information
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import com.example.SmartHome.databinding.FragmentInformationBinding
-import com.example.SmartHome.fragments.information.dialog.*
-import com.example.SmartHome.fragments.information.recyclerView.adapter.InformationAdapter
-import com.example.SmartHome.utils.Command
-import com.example.SmartHome.utils.supportBottomSheetScroll
+import com.example.smarthome.databinding.FragmentInformationBinding
+import com.example.smarthome.fragments.information.dialog.*
+import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
+import com.example.smarthome.utils.Command
+import com.example.smarthome.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Information : Fragment() {

@@ -1,10 +1,10 @@
-package com.example.SmartHome.fragments.information
+package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.SmartHome.fragments.information.recyclerView.mapper.packageToInfoViewItem
-import com.example.SmartHome.utils.Command
+import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
+import com.example.smarthome.utils.Command
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

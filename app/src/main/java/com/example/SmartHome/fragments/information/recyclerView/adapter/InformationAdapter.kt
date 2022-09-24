@@ -1,11 +1,11 @@
-package com.example.SmartHome.fragments.information.recyclerView.adapter
+package com.example.smarthome.fragments.information.recyclerView.adapter
 
 import androidx.core.content.ContextCompat
-import com.example.SmartHome.databinding.ItemInfoBinding
-import com.example.SmartHome.fragments.information.recyclerView.model.InfoViewItem
-import com.example.SmartHome.utils.AdapterUtil
-import com.example.SmartHome.utils.adapterDelegateViewBinding
-import com.example.SmartHome.utils.bindWithBinding
+import com.example.smarthome.databinding.ItemInfoBinding
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
+import com.example.smarthome.utils.AdapterUtil
+import com.example.smarthome.utils.adapterDelegateViewBinding
+import com.example.smarthome.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 

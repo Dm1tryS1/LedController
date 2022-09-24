@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.home
+package com.example.smarthome.fragments.home
 
 import androidx.lifecycle.ViewModel
 

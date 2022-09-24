@@ -1,4 +1,4 @@
-package com.example.SmartHome.main
+package com.example.smarthome.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

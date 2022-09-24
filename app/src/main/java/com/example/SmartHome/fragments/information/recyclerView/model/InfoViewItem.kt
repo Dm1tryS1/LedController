@@ -1,4 +1,4 @@
-package com.example.SmartHome.fragments.information.recyclerView.model
+package com.example.smarthome.fragments.information.recyclerView.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,8 +1,8 @@
-package com.example.SmartHome.di
+package com.example.smarthome.di
 
-import com.example.SmartHome.fragments.information.InformationInteractor
-import com.example.SmartHome.fragments.information.InformationViewModel
-import com.example.SmartHome.repository.Storage
+import com.example.smarthome.fragments.information.InformationInteractor
+import com.example.smarthome.fragments.information.InformationViewModel
+import com.example.smarthome.repository.Storage
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

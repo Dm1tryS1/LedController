@@ -1,9 +1,9 @@
-package com.example.SmartHome.main
+package com.example.smarthome.main
 
 import androidx.fragment.app.FragmentManager
-import com.example.SmartHome.fragments.home.Home
-import com.example.SmartHome.fragments.information.Information
-import com.example.SmartHome.fragments.settings.Settings
+import com.example.smarthome.fragments.home.Home
+import com.example.smarthome.fragments.information.Information
+import com.example.smarthome.fragments.settings.Settings
 
 open class HomeNavigator(fragmentManager: FragmentManager, containerId: Int) :
     Navigator(fragmentManager, containerId) {

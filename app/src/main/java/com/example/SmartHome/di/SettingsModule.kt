@@ -1,8 +1,8 @@
-package com.example.SmartHome.di
+package com.example.smarthome.di
 
-import com.example.SmartHome.fragments.settings.DevicesUseCase
-import com.example.SmartHome.fragments.settings.SettingsViewModel
-import com.example.SmartHome.repository.DeviceRepository
+import com.example.smarthome.fragments.settings.DevicesUseCase
+import com.example.smarthome.fragments.settings.SettingsViewModel
+import com.example.smarthome.repository.DeviceRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
