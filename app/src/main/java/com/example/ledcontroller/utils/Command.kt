@@ -3,6 +3,8 @@ package com.example.ledcontroller.utils
 enum class Command(val command: Pair<Int, Int>) {
     BroadCast(Pair(0xFF,0)),
 
+    MasterSendDate(Pair(0x00,0)),
+
     GetTemperature(Pair(0x01,0)),
 
     Conditioner(Pair(0x02,0)),

@@ -8,7 +8,7 @@ import com.example.ledcontroller.utils.Command
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewModel() {
+class InformationViewModel(private val informationInteractor: InformationInteractor) : ViewModel() {
 
     val state = MutableLiveData(InformationState(listOf()))
     val event = MutableLiveData<InformationEvent>()
@@ -17,13 +17,13 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
         sendPackage(Command.BroadCast.command)
     }
 
-    fun sendPackage(aPackage: Pair<Int, Int>){
-        getInfoUseCase.sendPackage(aPackage)
+    fun sendPackage(aPackage: Pair<Int, Int>) {
+        informationInteractor.sendPackage(aPackage)
     }
 
     fun getInfo() {
         viewModelScope.launch {
-            getInfoUseCase.getInfo().collectLatest {
+            informationInteractor.getInfo().collectLatest {
                 state.value?.let { informationState ->
                     if (informationState.data != null)
                         informationState.data.let { currentState ->
@@ -66,5 +66,15 @@ class InformationViewModel(private val getInfoUseCase: GetInfoUseCase) : ViewMod
                 else -> {}
             }
         }
+    }
+
+    fun onSettingsClicked() {
+        informationInteractor.getUserSettings {
+            event.postValue(InformationEvent.OpenSettingsMenuEvent(it))
+        }
+    }
+
+    fun saveUserSettings(value: Int) {
+        informationInteractor.saveUserSettings(value)
     }
 }

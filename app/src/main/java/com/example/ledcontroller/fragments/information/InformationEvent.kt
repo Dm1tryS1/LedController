@@ -5,4 +5,5 @@ sealed class InformationEvent {
     data class OpenHumidityMenuEvent(val humidity: String, val date: String) : InformationEvent()
     object OpenConditionerMenuEvent : InformationEvent()
     object OpenHumidifierMenuEvent: InformationEvent()
+    data class OpenSettingsMenuEvent(val value: Int): InformationEvent()
 }

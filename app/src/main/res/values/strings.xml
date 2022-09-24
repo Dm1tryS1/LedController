@@ -11,4 +11,7 @@
     <string name="conditioner_button_offOn">Включить/Выключить</string>
     <string name="conditioner_button_add">Увеличить температуру</string>
     <string name="conditioner_button_reduce">Уменьшить температуру</string>
+
+    <string name="settings_button_confirm">Сохранить изменения</string>
+    <string name="settings_label">Автоматическое обновление (мин):</string>
 </resources>

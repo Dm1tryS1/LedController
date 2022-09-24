@@ -8,10 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.ledcontroller.databinding.FragmentInformationBinding
-import com.example.ledcontroller.fragments.information.dialog.Conditioner
-import com.example.ledcontroller.fragments.information.dialog.Humidifier
-import com.example.ledcontroller.fragments.information.dialog.HumiditySensor
-import com.example.ledcontroller.fragments.information.dialog.TemperatureSensor
+import com.example.ledcontroller.fragments.information.dialog.*
 import com.example.ledcontroller.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.ledcontroller.utils.Command
 import com.example.ledcontroller.utils.supportBottomSheetScroll
@@ -77,11 +74,23 @@ class Information : Fragment() {
                         action = vm::sendPackage
                     ).show()
                 }
+                is InformationEvent.OpenSettingsMenuEvent -> {
+                    Settings.create(
+                        fragment = this@Information,
+                        action = vm::sendPackage,
+                        progress = event.value,
+                        save = vm::saveUserSettings
+                    ).show()
+                }
             }
         }
 
-        reload.setOnClickListener {
+        reloadButton.setOnClickListener {
             vm.sendPackage(Command.BroadCast.command)
+        }
+
+        settings.setOnClickListener {
+            vm.onSettingsClicked()
         }
 
         vm.getInfo()

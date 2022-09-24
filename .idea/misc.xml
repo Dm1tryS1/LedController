@@ -6,8 +6,10 @@
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2415" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/bg_menu_button.xml" value="0.2245" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/bottom_navigation.xml" value="0.137" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_baseline_update_24.xml" value="0.1885" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_bluetooth.xml" value="0.115" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_conditioner.xml" value="0.218" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_floating_button.xml" value="0.1165" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_home.xml" value="0.1" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_humidifier.xml" value="0.2265" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/drawable/ic_info.xml" value="0.218" />
@@ -25,6 +27,7 @@
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_conditioener.xml" value="0.27049180327868855" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_humidifier.xml" value="0.3" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_humidity.xml" value="0.3596014492753623" />
+        <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_settings.xml" value="0.365625" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/dropmenu_tempetarute.xml" value="0.33062330623306235" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/fragment_home.xml" value="0.21774193548387097" />
         <entry key="..\:/Users/dvm10/Desktop/LedController/Android/app/src/main/res/layout/fragment_information.xml" value="0.2558139534883721" />

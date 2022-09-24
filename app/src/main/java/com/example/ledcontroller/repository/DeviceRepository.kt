@@ -65,7 +65,7 @@ class DeviceRepository(applicationContext: Context) {
             inStream = btSocket!!.inputStream
             receiveThread = ReceiveThread()
             receiveThread?.start()
-            sendData()
+            sendTime()
             Log.d(tag, "Поток создан")
             return true
 
@@ -84,14 +84,14 @@ class DeviceRepository(applicationContext: Context) {
 
 
 
-    private fun sendData(): Boolean {
+    private fun sendTime(): Boolean {
         val msgBuffer = ByteArray(5)
         val time = Calendar.getInstance()
         msgBuffer[0] = 0.toByte()
-        msgBuffer[1] = time.get(Calendar.HOUR).toByte()
-        msgBuffer[2] = time.get(Calendar.MINUTE).toByte()
-        msgBuffer[3] = time.get(Calendar.SECOND).toByte()
-        msgBuffer[4] = 0.toByte()
+        msgBuffer[1] = 0.toByte()
+        msgBuffer[2] = time.get(Calendar.HOUR).toByte()
+        msgBuffer[3] = time.get(Calendar.MINUTE).toByte()
+        msgBuffer[4] = time.get(Calendar.SECOND).toByte()
 
         return try {
             outStream!!.write(msgBuffer)

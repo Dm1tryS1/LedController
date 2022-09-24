@@ -63,4 +63,9 @@ class Settings : Fragment() {
 
     }
 
+    override fun onResume() {
+        vm.findDevices()
+        super.onResume()
+    }
+
 }
