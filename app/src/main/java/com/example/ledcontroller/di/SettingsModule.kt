@@ -18,7 +18,7 @@ object SettingsModule {
     }
 
     private fun createDomainModule() = module {
-        factory { DevicesUseCase(get()) }
+        factory { DevicesUseCase(get(), get()) }
     }
 
     private fun createDataModule() = module {

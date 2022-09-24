@@ -11,6 +11,7 @@ import com.example.ledcontroller.fragments.settings.recyclerView.model.DeviceVie
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
+import kotlin.experimental.or
 
 @SuppressLint("MissingPermission")
 class DeviceRepository(applicationContext: Context) {
@@ -33,7 +34,7 @@ class DeviceRepository(applicationContext: Context) {
             (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
 
-    fun getInfo(callback: (aPackage: Package) -> Unit){
+    fun getInfo(callback: (aPackage: Package) -> Unit) {
         sendData = callback
     }
 
@@ -46,7 +47,7 @@ class DeviceRepository(applicationContext: Context) {
         return btDevices
     }
 
-    fun connect(address: String): Boolean {
+    fun connect(address: String, value: Int): Boolean {
         Log.d(tag, "Соединение ")
 
         try {
@@ -66,6 +67,12 @@ class DeviceRepository(applicationContext: Context) {
             receiveThread = ReceiveThread()
             receiveThread?.start()
             sendTime()
+            sendPackage(
+                Pair(
+                    0x00,
+                    ((value * 5).toByte() or 128.toByte()).toInt()
+                )
+            )
             Log.d(tag, "Поток создан")
             return true
 
@@ -82,8 +89,6 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-
-
     private fun sendTime(): Boolean {
         val msgBuffer = ByteArray(5)
         val time = Calendar.getInstance()
@@ -95,7 +100,10 @@ class DeviceRepository(applicationContext: Context) {
 
         return try {
             outStream!!.write(msgBuffer)
-            Log.d("Success", "Оправлены: ${msgBuffer[0]},${msgBuffer[1]},${msgBuffer[2]},${msgBuffer[3]},${msgBuffer[4]}")
+            Log.d(
+                "Success",
+                "Оправлены: ${msgBuffer[0]},${msgBuffer[1]},${msgBuffer[2]},${msgBuffer[3]},${msgBuffer[4]}"
+            )
             true
 
         } catch (e: Exception) {
@@ -145,7 +153,7 @@ class DeviceRepository(applicationContext: Context) {
     }
 
 
-    inner class ReceiveThread: Thread() {
+    inner class ReceiveThread : Thread() {
         override fun run() {
             receiveData()
         }

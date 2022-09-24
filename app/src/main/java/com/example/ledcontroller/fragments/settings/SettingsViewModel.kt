@@ -20,10 +20,12 @@ class SettingsViewModel(
 
     fun connect(address: String) {
         viewModelScope.launch {
-            if (devicesUseCase.connect(address))
-                event.postValue(SettingsEvent.ConnectionSuccessEvent)
-            else
-                event.postValue(SettingsEvent.ConnectionFailureEvent)
+            devicesUseCase.connect(address) {
+                if (it)
+                    event.postValue(SettingsEvent.ConnectionSuccessEvent)
+                else
+                    event.postValue(SettingsEvent.ConnectionFailureEvent)
+            }
         }
     }
 }
