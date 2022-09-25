@@ -36,6 +36,7 @@ class Settings : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
+        vm.findDevices()
         recyclerView.adapter = adapter
         recyclerView.supportBottomSheetScroll()
 
@@ -76,7 +77,6 @@ class Settings : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         }
     }
 
