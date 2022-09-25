@@ -15,13 +15,13 @@ import kotlin.experimental.or
 
 @SuppressLint("MissingPermission")
 class DeviceRepository(applicationContext: Context) {
-    private val tag = "BluetoothConnection"
 
     private var counter = 0
     private val aPackage =
         Package(null, null, null, null, null)
 
-    private var btAdapter: BluetoothAdapter? = null
+    private val btAdapter: BluetoothAdapter =
+        (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
     private var btSocket: BluetoothSocket? = null
     private var outStream: OutputStream? = null
     private var inStream: InputStream? = null
@@ -29,43 +29,36 @@ class DeviceRepository(applicationContext: Context) {
 
     private var sendData: ((aPackage: Package) -> Unit)? = null
 
-    init {
-        btAdapter =
-            (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-    }
-
     fun getInfo(callback: (aPackage: Package) -> Unit) {
         sendData = callback
     }
 
-    fun findDevices(): List<DeviceViewItem> {
-        val btDevices = mutableListOf<DeviceViewItem>()
-        (btAdapter?.bondedDevices)?.forEach {
-            Log.d(it.name, it.address)
-            btDevices.add(DeviceViewItem(it.name, it.address))
-        }
-        return btDevices
+    fun findDevices(): List<DeviceViewItem>? = (btAdapter.bondedDevices)?.map {
+        DeviceViewItem(it.name, it.address)
     }
 
+
     fun connect(address: String, value: Int): Boolean {
-        Log.d(tag, "Соединение ")
+        btSocket?.close()
 
         try {
-            val device = btAdapter?.getRemoteDevice(address)
-            val uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+            btSocket =
+                btAdapter.getRemoteDevice(address)
+                    .createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"))
+            Log.d("Сокет", "Создан")
 
-            btSocket = device!!.createRfcommSocketToServiceRecord(uuid)
-            Log.d(tag, "Создан")
-
-            btAdapter!!.cancelDiscovery()
+            btAdapter.cancelDiscovery()
 
             btSocket!!.connect()
-            Log.d(tag, "Соединено")
+            Log.d("Статус", "Соединено")
 
             outStream = btSocket!!.outputStream
             inStream = btSocket!!.inputStream
+            Log.d("Статус", "Поток создан")
+
             receiveThread = ReceiveThread()
             receiveThread?.start()
+
             sendTime()
             sendPackage(
                 Pair(
@@ -73,7 +66,6 @@ class DeviceRepository(applicationContext: Context) {
                     ((value * 5).toByte() or 128.toByte()).toInt()
                 )
             )
-            Log.d(tag, "Поток создан")
             return true
 
         } catch (e: Exception) {
@@ -86,6 +78,15 @@ class DeviceRepository(applicationContext: Context) {
             }
             Log.d("Ошибка", "Что-то пошло не так")
             return false
+        }
+    }
+
+    fun disconnect() : Boolean {
+        return try {
+            btSocket?.close()
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 

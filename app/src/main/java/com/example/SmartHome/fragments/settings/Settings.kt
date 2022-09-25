@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.smarthome.databinding.FragmentSettingsBinding
+import com.example.smarthome.fragments.settings.dialog.Connection
 import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapter
 import com.example.smarthome.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,7 +21,7 @@ class Settings : Fragment() {
 
     private val adapter =
         DeviceAdapter(onDeviceClicked = { address ->
-            vm.connect(address)
+            vm.onItemClicked(address)
         })
 
     override fun onCreateView(
@@ -58,9 +59,25 @@ class Settings : Fragment() {
                     "Ошибка",
                     Toast.LENGTH_SHORT
                 ).show()
+                is SettingsEvent.OnItemClickedEvent -> Connection.create(
+                    fragment = this@Settings,
+                    connectAction = vm::connect,
+                    disconnectAction = vm::disconnect,
+                    address = event.address
+                ).show()
+                is SettingsEvent.DisconnectFailureEvent -> Toast.makeText(
+                    requireContext(),
+                    "Ошибка",
+                    Toast.LENGTH_SHORT
+                ).show()
+                is SettingsEvent.DisconnectSuccessEvent -> Toast.makeText(
+                    requireContext(),
+                    "Отключено",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        }
 
+        }
     }
 
     override fun onResume() {

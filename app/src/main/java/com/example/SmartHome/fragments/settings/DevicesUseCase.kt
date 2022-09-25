@@ -5,7 +5,7 @@ import com.example.smarthome.repository.DeviceRepository
 import com.example.smarthome.repository.Storage
 
 class DevicesUseCase(private val deviceRepository: DeviceRepository, private val storage: Storage) {
-    fun findDevices(): List<DeviceViewItem> {
+    fun findDevices(): List<DeviceViewItem>? {
         return deviceRepository.findDevices()
     }
 
@@ -13,5 +13,9 @@ class DevicesUseCase(private val deviceRepository: DeviceRepository, private val
         storage.getUserSettings {
             callback(deviceRepository.connect(address, it))
         }
+    }
+
+    fun disconnect() : Boolean {
+        return deviceRepository.disconnect()
     }
 }

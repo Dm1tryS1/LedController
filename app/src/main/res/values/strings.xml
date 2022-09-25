@@ -14,4 +14,7 @@
 
     <string name="settings_button_confirm">Сохранить изменения</string>
     <string name="settings_label">Автоматическое обновление (мин):</string>
+
+    <string name="settings_button_connect">Подключиться</string>
+    <string name="settings_button_disconnect">Отключиться</string>
 </resources>
