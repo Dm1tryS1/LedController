@@ -80,9 +80,10 @@ class Settings : Fragment() {
         }
     }
 
-    override fun onResume() {
-        vm.findDevices()
-        super.onResume()
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden)
+            vm.findDevices()
     }
 
 }

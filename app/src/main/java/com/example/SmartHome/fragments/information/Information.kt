@@ -1,6 +1,7 @@
 package com.example.smarthome.fragments.information
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class Information : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInformationBinding.inflate(inflater)
+        Log.d("here", "here1")
         return binding.root
     }
 
@@ -96,5 +98,11 @@ class Information : Fragment() {
         vm.getInfo()
         vm.initializeState()
 
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden)
+            vm.initializeState()
     }
 }
