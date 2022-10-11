@@ -92,10 +92,10 @@ class DeviceRepository(applicationContext: Context) {
 
     private fun sendTime(): Boolean {
         val msgBuffer = ByteArray(5)
-        val time = Calendar.getInstance()
+        val time = Calendar.getInstance(Locale("ru", "RU"))
         msgBuffer[0] = 0.toByte()
         msgBuffer[1] = 0.toByte()
-        msgBuffer[2] = time.get(Calendar.HOUR).toByte()
+        msgBuffer[2] = time.get(Calendar.HOUR_OF_DAY).toByte()
         msgBuffer[3] = time.get(Calendar.MINUTE).toByte()
         msgBuffer[4] = time.get(Calendar.SECOND).toByte()
 
