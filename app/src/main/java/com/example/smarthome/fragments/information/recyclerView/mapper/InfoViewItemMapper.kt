@@ -11,6 +11,7 @@ fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
         2 -> packageToConditionerInfo(aPackage)
         3 -> packageToHumidityInfo(aPackage)
         4 -> packageToHumidifierInfo(aPackage)
+        5 -> packageToPressure(aPackage)
         else -> {
             InfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Ошибка", "Ошибка")
         }
@@ -105,6 +106,26 @@ fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
     }
 
     return InfoViewItem(R.drawable.ic_conditioner, aPackage.id!!, info, date)
+}
+
+fun packageToPressure(aPackage: Package): InfoViewItem {
+    val date = with(aPackage) {
+        if (hours == null || minutes == null || seconds == null)
+            "Нет информации"
+        else
+            "${hours!!.toTime()}:${
+                minutes!!.toTime()
+            }:${seconds!!.toTime()}"
+    }
+
+    val info = aPackage.info.let {
+        if (it == null)
+            "Нет информации"
+        else
+            "Давление: $it кПа"
+    }
+
+    return InfoViewItem(R.drawable.ic_pressure, aPackage.id!!, info, date)
 }
 
 fun Int.toTime(): String {
