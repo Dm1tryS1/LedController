@@ -7,11 +7,11 @@ import kotlin.experimental.and
 
 fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
     return when (aPackage.id) {
-        1 -> packageToTemperatureInfo(aPackage)
+        1,3 -> packageToTemperatureInfo(aPackage)
         2 -> packageToConditionerInfo(aPackage)
-        3 -> packageToHumidityInfo(aPackage)
+        5,6 -> packageToHumidityInfo(aPackage)
         4 -> packageToHumidifierInfo(aPackage)
-        5 -> packageToPressure(aPackage)
+        7,8 -> packageToPressure(aPackage)
         else -> {
             InfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Ошибка", "Ошибка")
         }
