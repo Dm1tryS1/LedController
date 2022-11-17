@@ -3,6 +3,7 @@ package com.example.smarthome.fragments.information.recyclerView.mapper
 import com.example.smarthome.R
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
+import com.example.smarthome.utils.SensorType
 import kotlin.experimental.and
 
 fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
@@ -13,7 +14,7 @@ fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
         4 -> packageToHumidifierInfo(aPackage)
         7,8 -> packageToPressure(aPackage)
         else -> {
-            InfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Ошибка", "Ошибка")
+            InfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Неизвестное устройство", "Нет дааных", SensorType.Unknown)
         }
     }
 }
@@ -35,7 +36,7 @@ fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
             "Температура: $it°C"
     }
 
-    return InfoViewItem(R.drawable.ic_temperature, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_temperature, aPackage.id!!, info, date, SensorType.TemperatureSensor)
 }
 
 fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
@@ -55,7 +56,7 @@ fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
             "Влажность: $it%"
     }
 
-    return InfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date, SensorType.HumidifierSensor)
 }
 
 fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
@@ -80,7 +81,7 @@ fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
                 } % воды"
     }
 
-    return InfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date, SensorType.Humidifier)
 }
 
 fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
@@ -105,7 +106,7 @@ fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
                 } °C"
     }
 
-    return InfoViewItem(R.drawable.ic_conditioner, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_conditioner, aPackage.id!!, info, date, SensorType.Conditioner)
 }
 
 fun packageToPressure(aPackage: Package): InfoViewItem {
@@ -125,7 +126,7 @@ fun packageToPressure(aPackage: Package): InfoViewItem {
             "Давление: $it кПа"
     }
 
-    return InfoViewItem(R.drawable.ic_pressure, aPackage.id!!, info, date)
+    return InfoViewItem(R.drawable.ic_pressure, aPackage.id!!, info, date, SensorType.PressureSensor)
 }
 
 fun Int.toTime(): String {

@@ -40,7 +40,9 @@ class Information : Fragment() {
         vm.state.observe(activity as LifecycleOwner) { state ->
             if (state.data != null) {
                 sensors.isVisible = true
-                adapter.items = state.data
+                adapter.items = state.data.sortedBy { item ->
+                    item.sensorType
+                }
             } else {
                 sensors.isVisible = false
             }
