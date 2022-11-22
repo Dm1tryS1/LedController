@@ -7,7 +7,7 @@ import com.example.smarthome.utils.SensorType
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 
-fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
+fun packageToInfoViewItem(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
     return when (aPackage.id) {
         1,3 -> packageToTemperatureInfo(aPackage)
         2 -> packageToConditionerInfo(aPackage)
@@ -15,12 +15,12 @@ fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
         4 -> packageToHumidifierInfo(aPackage)
         7,8 -> packageToPressure(aPackage)
         else -> {
-            InfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Неизвестное устройство", "Нет дааных", SensorType.Unknown)
+            InfoViewItem.SensorsInfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Неизвестное устройство", "Нет дааных", SensorType.Unknown)
         }
     }
 }
 
-fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
+fun packageToTemperatureInfo(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
     val date = with(aPackage) {
         if (hours == null || minutes == null || seconds == null)
             "Нет информации"
@@ -37,10 +37,10 @@ fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
             "Температура: $it°C"
     }
 
-    return InfoViewItem(R.drawable.ic_temperature, aPackage.id!!, info, date, SensorType.TemperatureSensor)
+    return InfoViewItem.SensorsInfoViewItem(R.drawable.ic_temperature, aPackage.id!!, info, date, SensorType.TemperatureSensor)
 }
 
-fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
+fun packageToHumidityInfo(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
     val date = with(aPackage) {
         if (hours == null || minutes == null || seconds == null)
             "Нет информации"
@@ -57,10 +57,10 @@ fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
             "Влажность: $it%"
     }
 
-    return InfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date, SensorType.HumidifierSensor)
+    return InfoViewItem.SensorsInfoViewItem(R.drawable.ic_humidity, aPackage.id!!, info, date, SensorType.HumidifierSensor)
 }
 
-fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
+fun packageToHumidifierInfo(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
     val date = with(aPackage) {
         if (hours == null || minutes == null || seconds == null)
             "Нет информации"
@@ -82,10 +82,10 @@ fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
                 } % воды"
     }
 
-    return InfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date, SensorType.Humidifier)
+    return InfoViewItem.SensorsInfoViewItem(R.drawable.ic_humidifier, aPackage.id!!, info, date, SensorType.Humidifier)
 }
 
-fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
+fun packageToConditionerInfo(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
     val date = with(aPackage) {
         if (hours == null || minutes == null || seconds == null)
             "Нет информации"
@@ -107,10 +107,10 @@ fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
                 } °C"
     }
 
-    return InfoViewItem(R.drawable.ic_conditioner, aPackage.id!!, info, date, SensorType.Conditioner)
+    return InfoViewItem.SensorsInfoViewItem(R.drawable.ic_conditioner, aPackage.id!!, info, date, SensorType.Conditioner)
 }
 
-fun packageToPressure(aPackage: Package): InfoViewItem {
+fun packageToPressure(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
     val date = with(aPackage) {
         if (hours == null || minutes == null || seconds == null)
             "Нет информации"
@@ -124,13 +124,11 @@ fun packageToPressure(aPackage: Package): InfoViewItem {
         if (it == null)
             "Нет информации"
         else {
-            val array = byteArrayOf( aPackage.info3!!, aPackage.info2!!, aPackage.info1!!, it)
-            val bb = ByteBuffer.wrap(array)
-            "Давление: ${bb.int} Па"
+            "Давление: ${ByteBuffer.wrap(byteArrayOf( aPackage.info3!!, aPackage.info2!!, aPackage.info1!!, it)).int} Па"
         }
     }
 
-    return InfoViewItem(R.drawable.ic_pressure, aPackage.id!!, info, date, SensorType.PressureSensor)
+    return InfoViewItem.SensorsInfoViewItem(R.drawable.ic_pressure, aPackage.id!!, info, date, SensorType.PressureSensor)
 }
 
 fun Int.toTime(): String {

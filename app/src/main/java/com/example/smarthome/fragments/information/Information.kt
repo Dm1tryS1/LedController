@@ -11,7 +11,9 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.smarthome.databinding.FragmentInformationBinding
 import com.example.smarthome.fragments.information.dialog.*
 import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.utils.Command
+import com.example.smarthome.utils.SensorType
 import com.example.smarthome.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,7 +22,7 @@ class Information : Fragment() {
     private lateinit var binding: FragmentInformationBinding
     private val vm: InformationViewModel by viewModel()
     private val adapter =
-        InformationAdapter(onMenuClicked = { id -> vm.onMenuClicked(id) })
+        InformationAdapter(onMenuClicked = { id, info, date -> vm.onMenuClicked(id,info,date) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +30,6 @@ class Information : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentInformationBinding.inflate(inflater)
-        Log.d("here", "here1")
         return binding.root
     }
 
@@ -40,9 +41,19 @@ class Information : Fragment() {
         vm.state.observe(activity as LifecycleOwner) { state ->
             if (state.data != null) {
                 sensors.isVisible = true
-                adapter.items = state.data.sortedBy { item ->
-                    item.sensorType
+                val items = state.data.sortedBy { item ->
+                    item.sensorType.type
                 }
+                var currentType = SensorType.Unknown
+                val newItems = mutableListOf<InfoViewItem>()
+                items.forEach {
+                    if (currentType.type != it.sensorType.type) {
+                        currentType = it.sensorType
+                        newItems.add(InfoViewItem.Header(it.sensorType.text))
+                    }
+                    newItems.add(it)
+                }
+                adapter.items = newItems
             } else {
                 sensors.isVisible = false
             }
