@@ -41,19 +41,17 @@ class Information : Fragment() {
         vm.state.observe(activity as LifecycleOwner) { state ->
             if (state.data != null) {
                 sensors.isVisible = true
-                val items = state.data.sortedBy { item ->
-                    item.sensorType.type
-                }
+
                 var currentType = SensorType.Unknown
-                val newItems = mutableListOf<InfoViewItem>()
-                items.forEach {
+                val items = mutableListOf<InfoViewItem>()
+                state.data.forEach {
                     if (currentType.type != it.sensorType.type) {
                         currentType = it.sensorType
-                        newItems.add(InfoViewItem.Header(it.sensorType.text))
+                        items.add(InfoViewItem.Header(it.sensorType.text))
                     }
-                    newItems.add(it)
+                    items.add(it)
                 }
-                adapter.items = newItems
+                adapter.items = items
             } else {
                 sensors.isVisible = false
             }

@@ -40,7 +40,9 @@ class InformationViewModel(private val informationInteractor: InformationInterac
                                     else
                                         item
                                 }
-                            state.postValue(InformationState(newState))
+                            state.postValue(InformationState(newState.sortedBy {
+                                it.sensorType.type
+                            }))
                         }
                     else
                         state.postValue(InformationState(listOf(packageToInfoViewItem(it))))
