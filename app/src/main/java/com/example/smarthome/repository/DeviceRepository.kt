@@ -18,7 +18,7 @@ class DeviceRepository(applicationContext: Context) {
 
     private var counter = 0
     private val aPackage =
-        Package(null, null, null, null, null)
+        Package(null, null, null, null, null, null, null, null)
 
     private val btAdapter: BluetoothAdapter =
         (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
@@ -140,8 +140,11 @@ class DeviceRepository(applicationContext: Context) {
                     2 -> aPackage.hours = msgBuffer[0].toInt()
                     3 -> aPackage.minutes = msgBuffer[0].toInt()
                     4 -> aPackage.seconds = msgBuffer[0].toInt()
-                    5 -> {
-                        aPackage.info = msgBuffer[0].toInt()
+                    5 -> aPackage.info0 = msgBuffer[0]
+                    6 -> aPackage.info1 = msgBuffer[0]
+                    7 -> aPackage.info2 = msgBuffer[0]
+                    8 -> {
+                        aPackage.info3 = msgBuffer[0]
                         counter = 0
                         sendData?.invoke(aPackage)
                     }

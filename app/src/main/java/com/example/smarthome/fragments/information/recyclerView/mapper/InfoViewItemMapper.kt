@@ -4,6 +4,7 @@ import com.example.smarthome.R
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.utils.SensorType
+import java.nio.ByteBuffer
 import kotlin.experimental.and
 
 fun packageToInfoViewItem(aPackage: Package): InfoViewItem {
@@ -29,7 +30,7 @@ fun packageToTemperatureInfo(aPackage: Package): InfoViewItem {
             }:${seconds!!.toTime()}"
     }
 
-    val info = aPackage.info.let {
+    val info = aPackage.info0.let {
         if (it == null)
             "Нет информации"
         else
@@ -49,7 +50,7 @@ fun packageToHumidityInfo(aPackage: Package): InfoViewItem {
             }:${seconds!!.toTime()}"
     }
 
-    val info = aPackage.info.let {
+    val info = aPackage.info0.let {
         if (it == null)
             "Нет информации"
         else
@@ -69,7 +70,7 @@ fun packageToHumidifierInfo(aPackage: Package): InfoViewItem {
             }:${seconds!!.toTime()}"
     }
 
-    val info = aPackage.info.let {
+    val info = aPackage.info0.let {
         if (it == null)
             "Нет информации"
         else
@@ -94,7 +95,7 @@ fun packageToConditionerInfo(aPackage: Package): InfoViewItem {
             }:${seconds!!.toTime()}"
     }
 
-    val info = aPackage.info.let {
+    val info = aPackage.info0.let {
         if (it == null)
             "Нет информации"
         else
@@ -119,11 +120,14 @@ fun packageToPressure(aPackage: Package): InfoViewItem {
             }:${seconds!!.toTime()}"
     }
 
-    val info = aPackage.info.let {
+    val info = aPackage.info0.let {
         if (it == null)
             "Нет информации"
-        else
-            "Давление: $it кПа"
+        else {
+            val array = byteArrayOf( aPackage.info3!!, aPackage.info2!!, aPackage.info1!!, it)
+            val bb = ByteBuffer.wrap(array)
+            "Давление: ${bb.int} Па"
+        }
     }
 
     return InfoViewItem(R.drawable.ic_pressure, aPackage.id!!, info, date, SensorType.PressureSensor)

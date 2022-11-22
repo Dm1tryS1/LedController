@@ -5,5 +5,8 @@ data class Package(
     var hours: Int?,
     var minutes: Int?,
     var seconds: Int?,
-    var info: Int?
+    var info0: Byte?,
+    var info1: Byte?,
+    var info2: Byte?,
+    var info3: Byte?,
 )
