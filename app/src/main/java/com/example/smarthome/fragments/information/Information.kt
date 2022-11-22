@@ -1,7 +1,6 @@
 package com.example.smarthome.fragments.information
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class Information : Fragment() {
     private lateinit var binding: FragmentInformationBinding
     private val vm: InformationViewModel by viewModel()
     private val adapter =
-        InformationAdapter(onMenuClicked = { id, info, date -> vm.onMenuClicked(id,info,date) })
+        InformationAdapter(onMenuClicked = { type, info, date -> vm.onMenuClicked(type, info, date) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,9 +51,9 @@ class Information : Fragment() {
                     items.add(it)
                 }
                 adapter.items = items
-            } else {
+            } else
                 sensors.isVisible = false
-            }
+
         }
 
         vm.event.observe(activity as LifecycleOwner) { event ->
@@ -93,6 +92,14 @@ class Information : Fragment() {
                         action = vm::sendPackage,
                         progress = event.value,
                         save = vm::saveUserSettings
+                    ).show()
+                }
+                is InformationEvent.OpenPressureMenuEvent -> {
+                    PressureSensor.create(
+                        fragment = this@Information,
+                        action = vm::sendPackage,
+                        data = event.pressure,
+                        date = event.date
                     ).show()
                 }
             }

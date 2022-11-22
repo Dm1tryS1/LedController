@@ -24,7 +24,7 @@ fun createParticipantsAdapter(onMenuClicked: (Int, String, String) -> Unit) =
         ItemInfoBinding::inflate
     ) {
         binding.dropdownMenu.setOnClickListener {
-            onMenuClicked(item.id, item.info, item.date)
+            onMenuClicked(item.sensorType.type, item.info, item.date)
         }
 
         bindWithBinding {

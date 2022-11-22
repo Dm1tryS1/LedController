@@ -28,7 +28,7 @@ class InformationViewModel(private val informationInteractor: InformationInterac
                     if (informationState.data != null)
                         informationState.data.let { currentState ->
                             val sensor = currentState.find { item ->
-                                    item.id == it.id
+                                item.id == it.id
                             }
 
                             val newState = if (sensor == null) {
@@ -52,12 +52,13 @@ class InformationViewModel(private val informationInteractor: InformationInterac
         }
     }
 
-    fun onMenuClicked(id: Int, info: String, date: String) {
-        when (id) {
-            1, 3 -> event.postValue(InformationEvent.OpenTemperatureMenuEvent(info, date))
-            2 -> event.postValue(InformationEvent.OpenConditionerMenuEvent)
-            5, 6 -> event.postValue(InformationEvent.OpenHumidityMenuEvent(info, date))
-            4 -> event.postValue(InformationEvent.OpenHumidifierMenuEvent)
+    fun onMenuClicked(type: Int, info: String, date: String) {
+        when (type) {
+            1 -> event.postValue(InformationEvent.OpenTemperatureMenuEvent(info, date))
+            2 -> event.postValue(InformationEvent.OpenPressureMenuEvent(info, date))
+            3 -> event.postValue(InformationEvent.OpenHumidityMenuEvent(info, date))
+            4 -> event.postValue(InformationEvent.OpenConditionerMenuEvent)
+            5 -> event.postValue(InformationEvent.OpenHumidifierMenuEvent)
             else -> {}
         }
     }
