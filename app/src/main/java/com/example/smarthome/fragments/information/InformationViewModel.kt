@@ -1,8 +1,10 @@
 package com.example.smarthome.fragments.information
 
+import android.icu.text.RelativeDateTimeFormatter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.smarthome.R
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.utils.Command
 import kotlinx.coroutines.flow.collectLatest
@@ -54,9 +56,9 @@ class InformationViewModel(private val informationInteractor: InformationInterac
 
     fun onMenuClicked(type: Int, info: String, date: String) {
         when (type) {
-            1 -> event.postValue(InformationEvent.OpenTemperatureMenuEvent(info, date))
-            2 -> event.postValue(InformationEvent.OpenPressureMenuEvent(info, date))
-            3 -> event.postValue(InformationEvent.OpenHumidityMenuEvent(info, date))
+            1 -> event.postValue(InformationEvent.OpenSensorMenuEvent(R.drawable.ic_temperature,info, date))
+            2 -> event.postValue(InformationEvent.OpenSensorMenuEvent(R.drawable.ic_pressure,info, date))
+            3 -> event.postValue(InformationEvent.OpenSensorMenuEvent(R.drawable.ic_humidity,info, date))
             4 -> event.postValue(InformationEvent.OpenConditionerMenuEvent)
             5 -> event.postValue(InformationEvent.OpenHumidifierMenuEvent)
             else -> {}

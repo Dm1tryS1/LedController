@@ -58,11 +58,12 @@ class Information : Fragment() {
 
         vm.event.observe(activity as LifecycleOwner) { event ->
             when (event) {
-                is InformationEvent.OpenTemperatureMenuEvent -> {
-                    TemperatureSensor.create(
+                is InformationEvent.OpenSensorMenuEvent -> {
+                    Sensor.create(
                         fragment = this@Information,
                         action = vm::sendPackage,
-                        data = event.temperature,
+                        id = event.id,
+                        data = event.data,
                         date = event.date
                     ).show()
                 }
@@ -70,14 +71,6 @@ class Information : Fragment() {
                     Conditioner.create(
                         fragment = this@Information,
                         action = vm::sendPackage,
-                    ).show()
-                }
-                is InformationEvent.OpenHumidityMenuEvent -> {
-                    HumiditySensor.create(
-                        fragment = this@Information,
-                        action = vm::sendPackage,
-                        data = event.humidity,
-                        date = event.date
                     ).show()
                 }
                 is InformationEvent.OpenHumidifierMenuEvent -> {
@@ -92,14 +85,6 @@ class Information : Fragment() {
                         action = vm::sendPackage,
                         progress = event.value,
                         save = vm::saveUserSettings
-                    ).show()
-                }
-                is InformationEvent.OpenPressureMenuEvent -> {
-                    PressureSensor.create(
-                        fragment = this@Information,
-                        action = vm::sendPackage,
-                        data = event.pressure,
-                        date = event.date
                     ).show()
                 }
             }
