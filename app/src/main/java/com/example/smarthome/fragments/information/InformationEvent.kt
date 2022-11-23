@@ -4,6 +4,6 @@ sealed class InformationEvent {
     object OpenConditionerMenuEvent : InformationEvent()
     object OpenHumidifierMenuEvent : InformationEvent()
     data class OpenSettingsMenuEvent(val value: Int) : InformationEvent()
-    data class OpenSensorMenuEvent(val id: Int, val data: String, val date: String) :
+    data class OpenSensorMenuEvent(val resources: Int ,val command: Pair<Int,Int>, val data: String, val date: String) :
         InformationEvent()
 }

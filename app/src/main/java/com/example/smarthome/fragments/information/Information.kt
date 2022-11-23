@@ -1,9 +1,7 @@
 package com.example.smarthome.fragments.information
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -21,7 +19,14 @@ class Information : Fragment() {
     private lateinit var binding: FragmentInformationBinding
     private val vm: InformationViewModel by viewModel()
     private val adapter =
-        InformationAdapter(onMenuClicked = { type, info, date -> vm.onMenuClicked(type, info, date) })
+        InformationAdapter(onMenuClicked = { type, id, info, date ->
+            vm.onMenuClicked(
+                type,
+                id,
+                info,
+                date
+            )
+        })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +56,9 @@ class Information : Fragment() {
                     items.add(it)
                 }
                 adapter.items = items
+
+                binding.progressBar.isVisible = state.progressVisibility
+                binding.settings.isClickable = !state.progressVisibility
             } else
                 sensors.isVisible = false
 
@@ -62,7 +70,8 @@ class Information : Fragment() {
                     Sensor.create(
                         fragment = this@Information,
                         action = vm::sendPackage,
-                        id = event.id,
+                        resources = event.resources,
+                        command = event.command,
                         data = event.data,
                         date = event.date
                     ).show()

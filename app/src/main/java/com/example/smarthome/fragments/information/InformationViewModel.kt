@@ -1,6 +1,5 @@
 package com.example.smarthome.fragments.information
 
-import android.icu.text.RelativeDateTimeFormatter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,17 +14,28 @@ class InformationViewModel(private val informationInteractor: InformationInterac
     val state = MutableLiveData(InformationState(listOf()))
     val event = MutableLiveData<InformationEvent>()
 
+    var deviceCount = 0
+
     fun initializeState() {
         sendPackage(Command.BroadCast.command)
+        deviceCount = 8
+        state.postValue(InformationState(state.value?.data, true))
     }
 
     fun sendPackage(aPackage: Pair<Int, Int>) {
         informationInteractor.sendPackage(aPackage)
+        deviceCount = if (aPackage.first == Command.BroadCast.command.first)
+            8
+        else
+            1
+        state.postValue(InformationState(state.value?.data, true))
     }
 
     fun getInfo() {
         viewModelScope.launch {
             informationInteractor.getInfo().collectLatest {
+                deviceCount = deviceCount.dec()
+
                 state.value?.let { informationState ->
                     if (informationState.data != null)
                         informationState.data.let { currentState ->
@@ -42,23 +52,62 @@ class InformationViewModel(private val informationInteractor: InformationInterac
                                     else
                                         item
                                 }
+
                             state.postValue(InformationState(newState.sortedBy {
                                 it.sensorType.type
-                            }))
+                            }, deviceCount != 0))
                         }
                     else
-                        state.postValue(InformationState(listOf(packageToInfoViewItem(it))))
+                        state.postValue(
+                            InformationState(
+                                listOf(packageToInfoViewItem(it)),
+                                deviceCount != 0
+                            )
+                        )
                 }
 
             }
         }
     }
 
-    fun onMenuClicked(type: Int, info: String, date: String) {
+    fun onMenuClicked(type: Int, id: Int, info: String, date: String) {
         when (type) {
-            1 -> event.postValue(InformationEvent.OpenSensorMenuEvent(R.drawable.ic_temperature,info, date))
-            2 -> event.postValue(InformationEvent.OpenSensorMenuEvent(R.drawable.ic_pressure,info, date))
-            3 -> event.postValue(InformationEvent.OpenSensorMenuEvent(R.drawable.ic_humidity,info, date))
+            1 -> event.postValue(
+                InformationEvent.OpenSensorMenuEvent(
+                    R.drawable.ic_temperature,
+                    when (id) {
+                        1 -> Command.GetTemperature1.command
+                        3 -> Command.GetTemperature2.command
+                        else -> Command.GetTemperature1.command
+                    },
+                    info,
+                    date
+                )
+            )
+            2 -> event.postValue(
+                InformationEvent.OpenSensorMenuEvent(
+                    R.drawable.ic_pressure,
+                    when (id) {
+                        7 -> Command.GetPressure1.command
+                        8 -> Command.GetPressure2.command
+                        else -> Command.GetPressure1.command
+                    },
+                    info,
+                    date
+                )
+            )
+            3 -> event.postValue(
+                InformationEvent.OpenSensorMenuEvent(
+                    R.drawable.ic_humidity,
+                    when (id) {
+                        5 -> Command.GetHumidity1.command
+                        6 -> Command.GetHumidity2.command
+                        else -> Command.GetHumidity1.command
+                    },
+                    info,
+                    date
+                )
+            )
             4 -> event.postValue(InformationEvent.OpenConditionerMenuEvent)
             5 -> event.postValue(InformationEvent.OpenHumidifierMenuEvent)
             else -> {}

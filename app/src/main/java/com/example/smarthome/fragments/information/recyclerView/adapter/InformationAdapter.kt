@@ -10,7 +10,7 @@ import com.example.smarthome.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 
-class InformationAdapter(onMenuClicked: (Int, String, String) -> Unit) :
+class InformationAdapter(onMenuClicked: (Int, Int, String, String) -> Unit) :
     AsyncListDifferDelegationAdapter<InfoViewItem>(
         AdapterUtil.diffUtilItemCallbackEquals(),
         AdapterUtil.adapterDelegatesManager(
@@ -19,12 +19,12 @@ class InformationAdapter(onMenuClicked: (Int, String, String) -> Unit) :
         )
     )
 
-fun createParticipantsAdapter(onMenuClicked: (Int, String, String) -> Unit) =
+fun createParticipantsAdapter(onMenuClicked: (Int, Int, String, String) -> Unit) =
     adapterDelegateViewBinding<InfoViewItem.SensorsInfoViewItem, ItemInfoBinding>(
         ItemInfoBinding::inflate
     ) {
         binding.dropdownMenu.setOnClickListener {
-            onMenuClicked(item.sensorType.type, item.info, item.date)
+            onMenuClicked(item.sensorType.type, item.id, item.info, item.date)
         }
 
         bindWithBinding {

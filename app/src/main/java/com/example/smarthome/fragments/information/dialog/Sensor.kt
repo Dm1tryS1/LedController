@@ -11,7 +11,8 @@ object Sensor {
     fun create(
         fragment: Fragment,
         action: (aPackage: Pair<Int, Int>) -> Unit,
-        id: Int,
+        resources: Int,
+        command: Pair<Int,Int>,
         data: String,
         date: String,
     ): Dialog {
@@ -30,12 +31,12 @@ object Sensor {
             icon.setImageDrawable(
                 ContextCompat.getDrawable(
                     fragment.requireContext(),
-                    id
+                    resources
                 )
             )
 
             update.setOnClickListener {
-                action(Command.GetTemperature.command)
+                action(command)
                 dialog.dismiss()
             }
 
