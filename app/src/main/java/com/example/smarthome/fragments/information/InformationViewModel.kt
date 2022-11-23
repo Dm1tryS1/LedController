@@ -17,18 +17,21 @@ class InformationViewModel(private val informationInteractor: InformationInterac
     var deviceCount = 0
 
     fun initializeState() {
-        sendPackage(Command.BroadCast.command)
         deviceCount = 8
         state.postValue(InformationState(state.value?.data, true))
+        sendPackage(Command.BroadCast.command)
     }
 
     fun sendPackage(aPackage: Pair<Int, Int>) {
-        informationInteractor.sendPackage(aPackage)
-        deviceCount = if (aPackage.first == Command.BroadCast.command.first)
+        deviceCount = if (aPackage.first == Command.BroadCast.command.first) {
+            state.postValue(InformationState(state.value?.data, true))
             8
-        else
+        }
+        else if (aPackage.first != Command.MasterSendDate.command.first) {
+            state.postValue(InformationState(state.value?.data, true))
             1
-        state.postValue(InformationState(state.value?.data, true))
+        } else 0
+        informationInteractor.sendPackage(aPackage)
     }
 
     fun getInfo() {
