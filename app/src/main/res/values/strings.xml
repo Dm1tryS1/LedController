@@ -17,4 +17,6 @@
 
     <string name="settings_button_connect">Подключиться</string>
     <string name="settings_button_disconnect">Отключиться</string>
+
+    <string name="error_connection">Подключитесь к системе</string>
 </resources>

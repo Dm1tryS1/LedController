@@ -23,4 +23,6 @@
     <color name="blue">#076ed1</color>
     <color name="red">#FF4B4B</color>
 
+    <color name="bg_snackBar">#484856</color>
+
 </resources>

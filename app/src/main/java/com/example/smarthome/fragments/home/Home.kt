@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.smarthome.R
 import com.example.smarthome.databinding.FragmentHomeBinding
 import com.example.smarthome.main.MainActivity
 import com.example.smarthome.main.Screen
+import com.example.smarthome.utils.showSnack
+import com.example.smarthome.utils.snackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : Fragment() {
@@ -27,7 +30,10 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.informationMode.setOnClickListener {
-            (activity as MainActivity).navigate(Screen.Information)
+            if (vm.checkConnection())
+                (activity as MainActivity).navigate(Screen.Information)
+            else
+                snackBar(getString(R.string.error_connection))
         }
     }
 }

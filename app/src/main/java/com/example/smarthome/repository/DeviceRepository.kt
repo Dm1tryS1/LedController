@@ -22,8 +22,13 @@ class DeviceRepository(applicationContext: Context) {
 
     private val btAdapter: BluetoothAdapter =
         (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+
     private var btSocket: BluetoothSocket? = null
     private var outStream: OutputStream? = null
+
+    val isConnected: Boolean
+        get() = outStream != null
+
     private var inStream: InputStream? = null
     private var receiveThread: ReceiveThread? = null
 
