@@ -7,6 +7,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.example.smarthome.R
 import com.example.smarthome.databinding.ActivitySplashBinding
 
@@ -31,10 +34,15 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onAnimationEnd(p0: Animation?) {
-
-                startActivity(Intent(this@SplashActivity,MainActivity::class.java))
-                overridePendingTransition(org.koin.android.R.anim.abc_grow_fade_in_from_bottom, org.koin.android.R.anim.abc_fade_in)
-                this@SplashActivity.finish()
+                binding.title.isVisible = true
+                YoYo.with(Techniques.BounceInUp).duration(1000).repeat(0).onEnd {
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    overridePendingTransition(
+                        org.koin.android.R.anim.abc_fade_in,
+                        org.koin.android.R.anim.abc_fade_out
+                    )
+                    this@SplashActivity.finish()
+                }.playOn(binding.title)
             }
 
             override fun onAnimationRepeat(p0: Animation?) {
@@ -43,7 +51,5 @@ class SplashActivity : AppCompatActivity() {
         })
 
         binding.icon.startAnimation(animation)
-
-
     }
 }
