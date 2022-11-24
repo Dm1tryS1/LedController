@@ -57,8 +57,12 @@ class Information : Fragment() {
                 }
                 adapter.items = items
 
+                if (state.progressVisibility)
+                    requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                else
+                    requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+
                 binding.progressBar.isVisible = state.progressVisibility
-                binding.settings.isClickable = !state.progressVisibility
             } else
                 sensors.isVisible = false
 
