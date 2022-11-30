@@ -5,10 +5,16 @@ import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.common.device.Command
+import com.example.smarthome.common.device.SensorType
+import com.example.smarthome.utils.Screens
+import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class InformationViewModel(private val informationInteractor: InformationInteractor) :
+class InformationViewModel(
+    private val informationInteractor: InformationInteractor,
+    private val router: Router
+) :
     BaseViewModel<InformationState, InformationEvent>() {
 
     var deviceCount = 0
@@ -123,6 +129,11 @@ class InformationViewModel(private val informationInteractor: InformationInterac
             5 -> sendEvent(InformationEvent.OpenHumidifierMenuEvent)
             else -> {}
         }
+    }
+
+    fun onChartOpen(type: Int, id: Int) {
+        if (type == SensorType.TemperatureSensor.type || type == SensorType.HumidifierSensor.type || type == SensorType.PressureSensor.type)
+            router.navigateTo(Screens.ChartScreen())
     }
 
     fun onSettingsClicked() {

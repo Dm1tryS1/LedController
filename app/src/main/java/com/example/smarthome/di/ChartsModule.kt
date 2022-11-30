@@ -1,12 +1,10 @@
 package com.example.smarthome.di
 
-import com.example.smarthome.fragments.information.InformationInteractor
-import com.example.smarthome.fragments.information.InformationViewModel
-import com.example.smarthome.repository.Storage
+import com.example.smarthome.fragments.charts.ChartsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-object InformationModule {
+object ChartsModule {
     operator fun invoke() = listOf(
         createDataModule(),
         createDomainModule(),
@@ -14,14 +12,14 @@ object InformationModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { InformationViewModel(get(), get()) }
+        viewModel { ChartsViewModel() }
     }
 
     private fun createDomainModule() = module {
-        factory { InformationInteractor(get(), get()) }
+
     }
 
     private fun createDataModule() = module {
-        factory { Storage(get()) }
+
     }
 }

@@ -62,4 +62,6 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
 
     implementation "com.github.terrakok:cicerone:7.0"
+
+    implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
 }

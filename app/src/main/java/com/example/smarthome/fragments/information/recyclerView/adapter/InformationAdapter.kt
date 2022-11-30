@@ -10,21 +10,25 @@ import com.example.smarthome.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 
-class InformationAdapter(onMenuClicked: (Int, Int, String, String) -> Unit) :
+class InformationAdapter(onMenuClicked: (Int, Int, String, String) -> Unit, onDeviceClicked: (Int, Int) -> Unit) :
     AsyncListDifferDelegationAdapter<InfoViewItem>(
         AdapterUtil.diffUtilItemCallbackEquals(),
         AdapterUtil.adapterDelegatesManager(
-            createParticipantsAdapter(onMenuClicked),
+            createParticipantsAdapter(onMenuClicked, onDeviceClicked),
             createHeaderAdapter()
         )
     )
 
-fun createParticipantsAdapter(onMenuClicked: (Int, Int, String, String) -> Unit) =
+fun createParticipantsAdapter(onMenuClicked: (Int, Int, String, String) -> Unit, onDeviceClicked: (Int, Int) -> Unit) =
     adapterDelegateViewBinding<InfoViewItem.SensorsInfoViewItem, ItemInfoBinding>(
         ItemInfoBinding::inflate
     ) {
         binding.dropdownMenu.setOnClickListener {
             onMenuClicked(item.sensorType.type, item.id, item.info, item.date)
+        }
+
+        binding.root.setOnClickListener {
+            onDeviceClicked(item.sensorType.type, item.id)
         }
 
         bindWithBinding {

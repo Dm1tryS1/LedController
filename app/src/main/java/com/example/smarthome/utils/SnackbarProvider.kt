@@ -60,10 +60,3 @@ fun View.showSnack(
 
     snackBar.show()
 }
-
-val Int.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
-
-fun Fragment.snackBar(text: String) {
-    requireActivity().window.decorView.findViewById<View>(android.R.id.content).showSnack(text)
-}

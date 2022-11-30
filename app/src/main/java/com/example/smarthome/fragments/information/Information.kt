@@ -25,7 +25,7 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
                 info,
                 date
             )
-        })
+        }, onDeviceClicked = { type, id -> vm.onChartOpen(type, id) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,7 +81,10 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
             adapter.items = items
 
             if (state.progressVisibility)
-                requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                )
             else
                 requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
