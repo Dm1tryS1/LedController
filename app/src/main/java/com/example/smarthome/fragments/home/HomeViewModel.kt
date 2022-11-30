@@ -4,18 +4,16 @@ import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.utils.Screens
 import com.github.terrakok.cicerone.Router
 
-class HomeViewModel(val homeInteractor: HomeInteractor, private val router: Router) : BaseViewModel<Unit,Unit>() {
+class HomeViewModel(val homeInteractor: HomeInteractor, private val router: Router) : BaseViewModel<Unit,HomeEvent>() {
 
-    fun checkConnection() : Boolean {
-        val isConnected = homeInteractor.checkConnection()
-        if (isConnected)
+    fun checkConnection() {
+        if (homeInteractor.checkConnection())
             router.navigateTo(Screens.InformationScreen())
-        return isConnected
+        else
+            sendEvent(HomeEvent.NoConnectionEvent)
     }
 
-    override fun createInitialState() {
-
-    }
+    override fun createInitialState() = Unit
 
 
 }

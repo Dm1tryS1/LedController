@@ -67,14 +67,15 @@ class MainActivity : AppCompatActivity() {
         if (fragment is BackPressConsumer && fragment.onBackPressed()) {
             return
         }
+
         router.exit()
     }
 
     private fun initNavigator(selectedId: Int?) {
         binding.navView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.home -> router.navigateTo(Screens.HomeScreen())
-                R.id.settings -> router.navigateTo(Screens.SettingsScreen())
+                R.id.home -> router.replaceScreen(Screens.HomeScreen())
+                R.id.settings -> router.replaceScreen(Screens.SettingsScreen())
                 else -> return@setOnItemSelectedListener false
             }
             return@setOnItemSelectedListener true
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         if (selectedId != null)
             binding.navView.selectedItemId = selectedId
 
-        router.navigateTo(Screens.HomeScreen())
+        router.newRootScreen(Screens.HomeScreen())
     }
 
     override fun onResume() {

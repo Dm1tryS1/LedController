@@ -10,7 +10,7 @@ import com.example.smarthome.databinding.FragmentHomeBinding
 import com.example.smarthome.utils.snackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Home : BaseFragment<Unit, Unit>() {
+class Home : BaseFragment<Unit, HomeEvent>() {
 
     private lateinit var binding: FragmentHomeBinding
     override val vm: HomeViewModel by viewModel()
@@ -27,17 +27,18 @@ class Home : BaseFragment<Unit, Unit>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.informationMode.setOnClickListener {
-            if (!vm.checkConnection())
-                snackBar(getString(R.string.error_connection))
+            vm.checkConnection()
         }
     }
 
-    override fun renderState(state: Unit) {
 
+    override fun handleEvent(event: HomeEvent) {
+        when(event){
+            is HomeEvent.NoConnectionEvent -> snackBar(getString(R.string.error_connection))
+        }
     }
 
-    override fun handleEvent(event: Unit) {
+    override fun renderState(state: Unit) = Unit
 
-    }
 
 }
