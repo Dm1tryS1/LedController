@@ -12,5 +12,6 @@ object AppModule {
         SettingsModule(),
         InformationModule(),
         NavigationModule(),
+        MainModule()
     ).flatten()
 }
