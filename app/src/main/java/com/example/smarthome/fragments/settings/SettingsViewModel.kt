@@ -3,13 +3,16 @@ package com.example.smarthome.fragments.settings
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.smarthome.base.presentation.BaseViewModel
+import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SettingsViewModel(
-    private val devicesUseCase: DevicesUseCase
-) : ViewModel() {
+    private val devicesUseCase: DevicesUseCase,
+    private val router: Router
+) : BaseViewModel() {
 
     val state = MutableLiveData<SettingsState>()
     val event = MutableLiveData<SettingsEvent>()

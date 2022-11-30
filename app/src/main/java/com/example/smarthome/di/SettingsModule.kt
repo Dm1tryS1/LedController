@@ -14,7 +14,7 @@ object SettingsModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { SettingsViewModel(get()) }
+        viewModel { SettingsViewModel(get(), get()) }
     }
 
     private fun createDomainModule() = module {

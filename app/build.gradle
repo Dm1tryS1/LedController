@@ -60,4 +60,6 @@ dependencies {
 
     implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
+
+    implementation "com.github.terrakok:cicerone:7.0"
 }

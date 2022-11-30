@@ -1,15 +1,15 @@
 package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
+import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.utils.Command
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class InformationViewModel(private val informationInteractor: InformationInteractor) : ViewModel() {
+class InformationViewModel(private val informationInteractor: InformationInteractor) : BaseViewModel() {
 
     val state = MutableLiveData(InformationState(listOf()))
     val event = MutableLiveData<InformationEvent>()
@@ -126,4 +126,5 @@ class InformationViewModel(private val informationInteractor: InformationInterac
     fun saveUserSettings(value: Int) {
         informationInteractor.saveUserSettings(value)
     }
+
 }

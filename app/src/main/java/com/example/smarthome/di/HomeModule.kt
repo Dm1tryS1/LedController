@@ -14,7 +14,7 @@ object HomeModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { HomeViewModel(get()) }
+        viewModel { HomeViewModel(get(), get()) }
     }
 
     private fun createDomainModule() = module {

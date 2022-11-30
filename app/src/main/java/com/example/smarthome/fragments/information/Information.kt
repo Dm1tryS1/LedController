@@ -5,6 +5,7 @@ import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import com.example.smarthome.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentInformationBinding
 import com.example.smarthome.fragments.information.dialog.*
 import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
@@ -14,10 +15,10 @@ import com.example.smarthome.utils.SensorType
 import com.example.smarthome.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Information : Fragment() {
+class Information : BaseFragment() {
 
     private lateinit var binding: FragmentInformationBinding
-    private val vm: InformationViewModel by viewModel()
+    override val vm: InformationViewModel by viewModel()
     private val adapter =
         InformationAdapter(onMenuClicked = { type, id, info, date ->
             vm.onMenuClicked(
@@ -120,5 +121,10 @@ class Information : Fragment() {
         super.onHiddenChanged(hidden)
         if (!hidden)
             vm.initializeState()
+    }
+
+    override fun onBackPressed(): Boolean {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        return super.onBackPressed()
     }
 }

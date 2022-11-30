@@ -7,6 +7,7 @@ import org.koin.core.context.startKoin
 
 
 class SmartHomeApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
 
@@ -16,4 +17,5 @@ class SmartHomeApplication : Application() {
             modules(AppModule())
         }
     }
+
 }

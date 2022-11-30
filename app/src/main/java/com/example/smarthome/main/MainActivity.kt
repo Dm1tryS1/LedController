@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,14 +16,41 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.example.smarthome.R
+import com.example.smarthome.common.navigation.BackPressConsumer
 import com.example.smarthome.databinding.ActivityMainBinding
-import kotlinx.coroutines.*
+import com.example.smarthome.utils.Screens
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navigator: HomeNavigator
+
+    private val fragmentContainer = R.id.fragment_container
+
+    private val navigatorCicerone by lazy { AppNavigator(this, fragmentContainer) }
+    private val navigatorHolder: NavigatorHolder by inject()
+    private val router: Router by inject()
+
     private var permissionGranted = false
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        navigatorHolder.removeNavigator()
+        navigatorHolder.setNavigator(navigatorCicerone)
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigatorCicerone)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        navigatorHolder.removeNavigator()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +63,19 @@ class MainActivity : AppCompatActivity() {
         initNavigator(savedInstanceState?.getInt("id"))
     }
 
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(fragmentContainer)
+        if (fragment is BackPressConsumer && fragment.onBackPressed()) {
+            return
+        }
+        router.exit()
+    }
+
     private fun initNavigator(selectedId: Int?) {
-        navigator = HomeNavigator(supportFragmentManager, R.id.nav_host_fragment_activity_main)
         binding.navView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.home -> navigate(Screen.Home)
-                R.id.settings -> navigate(Screen.Settings)
+                R.id.home -> router.navigateTo(Screens.HomeScreen())
+                R.id.settings -> router.navigateTo(Screens.SettingsScreen())
                 else -> {
                     Log.d("Navigator", "Something went wrong")
                     return@setOnItemSelectedListener false
@@ -51,12 +86,8 @@ class MainActivity : AppCompatActivity() {
 
         if (selectedId != null)
             binding.navView.selectedItemId = selectedId
-        navigator.setScreen(Screen.Home)
 
-    }
-
-    fun navigate(screen: Screen) {
-        navigator.setScreen(screen)
+        router.navigateTo(Screens.HomeScreen())
     }
 
     override fun onResume() {
