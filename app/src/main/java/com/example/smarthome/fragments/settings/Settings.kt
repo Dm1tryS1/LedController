@@ -14,7 +14,7 @@ import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapt
 import com.example.smarthome.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Settings : BaseFragment() {
+class Settings : BaseFragment<SettingsState, SettingsEvent>() {
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -44,47 +44,47 @@ class Settings : BaseFragment() {
         reload.setOnClickListener {
             vm.findDevices()
         }
-
-        vm.state.observe(activity as LifecycleOwner) { state ->
-            adapter.items = state.devices
-        }
-
-        vm.event.observe(activity as LifecycleOwner) { event ->
-            when (event) {
-                is SettingsEvent.ConnectionSuccessEvent -> Toast.makeText(
-                    requireContext(),
-                    "Соединено",
-                    Toast.LENGTH_SHORT
-                ).show()
-                is SettingsEvent.ConnectionFailureEvent -> Toast.makeText(
-                    requireContext(),
-                    "Ошибка",
-                    Toast.LENGTH_SHORT
-                ).show()
-                is SettingsEvent.OnItemClickedEvent -> Connection.create(
-                    fragment = this@Settings,
-                    connectAction = vm::connect,
-                    disconnectAction = vm::disconnect,
-                    address = event.address
-                ).show()
-                is SettingsEvent.DisconnectFailureEvent -> Toast.makeText(
-                    requireContext(),
-                    "Ошибка",
-                    Toast.LENGTH_SHORT
-                ).show()
-                is SettingsEvent.DisconnectSuccessEvent -> Toast.makeText(
-                    requireContext(),
-                    "Отключено",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden)
             vm.findDevices()
+    }
+
+    override fun renderState(state: SettingsState) {
+        adapter.items = state.devices
+    }
+
+    override fun handleEvent(event: SettingsEvent) {
+        when (event) {
+            is SettingsEvent.ConnectionSuccessEvent -> Toast.makeText(
+                requireContext(),
+                "Соединено",
+                Toast.LENGTH_SHORT
+            ).show()
+            is SettingsEvent.ConnectionFailureEvent -> Toast.makeText(
+                requireContext(),
+                "Ошибка",
+                Toast.LENGTH_SHORT
+            ).show()
+            is SettingsEvent.OnItemClickedEvent -> Connection.create(
+                fragment = this@Settings,
+                connectAction = vm::connect,
+                disconnectAction = vm::disconnect,
+                address = event.address
+            ).show()
+            is SettingsEvent.DisconnectFailureEvent -> Toast.makeText(
+                requireContext(),
+                "Ошибка",
+                Toast.LENGTH_SHORT
+            ).show()
+            is SettingsEvent.DisconnectSuccessEvent -> Toast.makeText(
+                requireContext(),
+                "Отключено",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
 }

@@ -1,34 +1,40 @@
 package com.example.smarthome.fragments.information
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
-import com.example.smarthome.utils.Command
+import com.example.smarthome.common.device.Command
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class InformationViewModel(private val informationInteractor: InformationInteractor) : BaseViewModel() {
-
-    val state = MutableLiveData(InformationState(listOf()))
-    val event = MutableLiveData<InformationEvent>()
+class InformationViewModel(private val informationInteractor: InformationInteractor) :
+    BaseViewModel<InformationState, InformationEvent>() {
 
     var deviceCount = 0
 
+    override fun createInitialState(): InformationState {
+        return InformationState(listOf(), true)
+    }
+
     fun initializeState() {
-        deviceCount = 8
-        state.postValue(InformationState(state.value?.data, true))
+        deviceCount = 6
+        updateState { state ->
+            state.copy(progressVisibility = true)
+        }
         sendPackage(Command.BroadCast.command)
     }
 
     fun sendPackage(aPackage: Pair<Int, Int>) {
         deviceCount = if (aPackage.first == Command.BroadCast.command.first) {
-            state.postValue(InformationState(state.value?.data, true))
-            8
-        }
-        else if (aPackage.first != Command.MasterSendDate.command.first) {
-            state.postValue(InformationState(state.value?.data, true))
+            updateState { state ->
+                state.copy(progressVisibility = true)
+            }
+            6
+        } else if (aPackage.first != Command.MasterSendDate.command.first) {
+            updateState { state ->
+                state.copy(progressVisibility = true)
+            }
             1
         } else 0
         informationInteractor.sendPackage(aPackage)
@@ -36,37 +42,39 @@ class InformationViewModel(private val informationInteractor: InformationInterac
 
     fun getInfo() {
         viewModelScope.launch {
-            informationInteractor.getInfo().collectLatest {
+            informationInteractor.getInfo().collectLatest { aPackage ->
                 deviceCount = deviceCount.dec()
 
-                state.value?.let { informationState ->
+                currentViewState.let { informationState ->
                     if (informationState.data != null)
                         informationState.data.let { currentState ->
                             val sensor = currentState.find { item ->
-                                item.id == it.id
+                                item.id == aPackage.id
                             }
 
                             val newState = if (sensor == null) {
-                                currentState + packageToInfoViewItem(it)
+                                currentState + packageToInfoViewItem(aPackage)
                             } else
                                 currentState.map { item ->
-                                    if (item.id == it.id)
-                                        packageToInfoViewItem(it)
+                                    if (item.id == aPackage.id)
+                                        packageToInfoViewItem(aPackage)
                                     else
                                         item
                                 }
 
-                            state.postValue(InformationState(newState.sortedBy {
-                                it.sensorType.type
-                            }, deviceCount != 0))
+                            updateState {
+                                InformationState(newState.sortedBy {
+                                    it.sensorType.type
+                                }, deviceCount != 0)
+                            }
                         }
                     else
-                        state.postValue(
+                        updateState {
                             InformationState(
-                                listOf(packageToInfoViewItem(it)),
+                                listOf(packageToInfoViewItem(aPackage)),
                                 deviceCount != 0
                             )
-                        )
+                        }
                 }
 
             }
@@ -75,7 +83,7 @@ class InformationViewModel(private val informationInteractor: InformationInterac
 
     fun onMenuClicked(type: Int, id: Int, info: String, date: String) {
         when (type) {
-            1 -> event.postValue(
+            1 -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_temperature,
                     when (id) {
@@ -87,7 +95,7 @@ class InformationViewModel(private val informationInteractor: InformationInterac
                     date
                 )
             )
-            2 -> event.postValue(
+            2 -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_pressure,
                     when (id) {
@@ -99,7 +107,7 @@ class InformationViewModel(private val informationInteractor: InformationInterac
                     date
                 )
             )
-            3 -> event.postValue(
+            3 -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_humidity,
                     when (id) {
@@ -111,15 +119,15 @@ class InformationViewModel(private val informationInteractor: InformationInterac
                     date
                 )
             )
-            4 -> event.postValue(InformationEvent.OpenConditionerMenuEvent)
-            5 -> event.postValue(InformationEvent.OpenHumidifierMenuEvent)
+            4 -> sendEvent(InformationEvent.OpenConditionerMenuEvent)
+            5 -> sendEvent(InformationEvent.OpenHumidifierMenuEvent)
             else -> {}
         }
     }
 
     fun onSettingsClicked() {
         informationInteractor.getUserSettings {
-            event.postValue(InformationEvent.OpenSettingsMenuEvent(it))
+            sendEvent(InformationEvent.OpenSettingsMenuEvent(it))
         }
     }
 

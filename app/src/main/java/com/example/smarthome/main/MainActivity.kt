@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -76,10 +75,7 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.home -> router.navigateTo(Screens.HomeScreen())
                 R.id.settings -> router.navigateTo(Screens.SettingsScreen())
-                else -> {
-                    Log.d("Navigator", "Something went wrong")
-                    return@setOnItemSelectedListener false
-                }
+                else -> return@setOnItemSelectedListener false
             }
             return@setOnItemSelectedListener true
         }

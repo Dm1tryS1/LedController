@@ -4,7 +4,7 @@ import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuHumidifierBinding
 import com.example.smarthome.utils.BottomSheetDialogBuilder
-import com.example.smarthome.utils.Command
+import com.example.smarthome.common.device.Command
 
 object Humidifier {
     fun create(

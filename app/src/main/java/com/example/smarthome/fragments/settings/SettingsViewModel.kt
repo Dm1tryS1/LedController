@@ -12,14 +12,14 @@ import kotlinx.coroutines.withContext
 class SettingsViewModel(
     private val devicesUseCase: DevicesUseCase,
     private val router: Router
-) : BaseViewModel() {
-
-    val state = MutableLiveData<SettingsState>()
-    val event = MutableLiveData<SettingsEvent>()
+) : BaseViewModel<SettingsState, SettingsEvent>() {
 
     fun findDevices() {
         viewModelScope.launch {
-            state.postValue(SettingsState(devicesUseCase.findDevices()))
+            val devices = devicesUseCase.findDevices()
+            updateState { state ->
+                state.copy(devices = devices)
+            }
         }
     }
 
@@ -28,24 +28,28 @@ class SettingsViewModel(
             withContext(Dispatchers.IO) {
                 devicesUseCase.connect(address) {
                     if (it)
-                        event.postValue(SettingsEvent.ConnectionSuccessEvent)
+                        sendEvent(SettingsEvent.ConnectionSuccessEvent)
                     else
-                        event.postValue(SettingsEvent.ConnectionFailureEvent)
+                        sendEvent(SettingsEvent.ConnectionFailureEvent)
                 }
             }
         }
     }
 
     fun onItemClicked(address: String) {
-        event.postValue(SettingsEvent.OnItemClickedEvent(address))
+        sendEvent(SettingsEvent.OnItemClickedEvent(address))
     }
 
     fun disconnect() {
         viewModelScope.launch {
             if (devicesUseCase.disconnect())
-                event.postValue(SettingsEvent.DisconnectSuccessEvent)
+                sendEvent(SettingsEvent.DisconnectSuccessEvent)
             else
-                event.postValue(SettingsEvent.DisconnectFailureEvent)
+                sendEvent(SettingsEvent.DisconnectFailureEvent)
         }
+    }
+
+    override fun createInitialState(): SettingsState {
+        return SettingsState(listOf())
     }
 }

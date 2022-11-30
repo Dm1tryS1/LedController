@@ -1,4 +1,4 @@
-package com.example.smarthome.utils
+package com.example.smarthome.common.device
 
 enum class Command(val command: Pair<Int, Int>) {
     BroadCast(Pair(0xFF,0)),

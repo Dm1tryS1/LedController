@@ -3,7 +3,7 @@ package com.example.smarthome.fragments.information.recyclerView.mapper
 import com.example.smarthome.R
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
-import com.example.smarthome.utils.SensorType
+import com.example.smarthome.common.device.SensorType
 import java.nio.ByteBuffer
 import kotlin.experimental.and
 

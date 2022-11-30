@@ -1,4 +1,4 @@
-package com.example.smarthome.utils
+package com.example.smarthome.common.device
 
 enum class SensorType(val type: Int, val text: String) {
     TemperatureSensor(1, "Датчики температуры"),

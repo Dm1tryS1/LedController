@@ -5,7 +5,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuSensorBinding
 import com.example.smarthome.utils.BottomSheetDialogBuilder
-import com.example.smarthome.utils.Command
 
 object Sensor {
     fun create(
