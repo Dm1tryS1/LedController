@@ -17,14 +17,11 @@ class InformationViewModel(
 ) :
     BaseViewModel<InformationState, InformationEvent>() {
 
-    var deviceCount = 0
-
     override fun createInitialState(): InformationState {
         return InformationState(listOf(), true)
     }
 
     fun initializeState() {
-        deviceCount = 6
         updateState { state ->
             state.copy(progressVisibility = true)
         }
@@ -32,56 +29,57 @@ class InformationViewModel(
     }
 
     fun sendPackage(aPackage: Pair<Int, Int>) {
-        deviceCount = if (aPackage.first == Command.BroadCast.command.first) {
+        if (aPackage.first == Command.BroadCast.command.first) {
             updateState { state ->
                 state.copy(progressVisibility = true)
             }
-            6
         } else if (aPackage.first != Command.MasterSendDate.command.first) {
             updateState { state ->
                 state.copy(progressVisibility = true)
             }
-            1
-        } else 0
+        }
         informationInteractor.sendPackage(aPackage)
     }
 
     fun getInfo() {
         viewModelScope.launch {
             informationInteractor.getInfo().collectLatest { aPackage ->
-                deviceCount = deviceCount.dec()
-
-                currentViewState.let { informationState ->
-                    if (informationState.data != null)
-                        informationState.data.let { currentState ->
-                            val sensor = currentState.find { item ->
-                                item.id == aPackage.id
-                            }
-
-                            val newState = if (sensor == null) {
-                                currentState + packageToInfoViewItem(aPackage)
-                            } else
-                                currentState.map { item ->
-                                    if (item.id == aPackage.id)
-                                        packageToInfoViewItem(aPackage)
-                                    else
-                                        item
+                if (aPackage.id == 0 && aPackage.info0 == 255.toByte() && aPackage.info1 == 255.toByte() && aPackage.info2 == 255.toByte() && aPackage.info3 == 255.toByte())
+                    updateState { state ->
+                        state.copy(progressVisibility = false)
+                    }
+                else
+                    currentViewState.let { informationState ->
+                        if (informationState.data != null)
+                            informationState.data.let { currentState ->
+                                val sensor = currentState.find { item ->
+                                    item.id == aPackage.id
                                 }
 
-                            updateState {
-                                InformationState(newState.sortedBy {
-                                    it.sensorType.type
-                                }, deviceCount != 0)
+                                val newState = if (sensor == null) {
+                                    currentState + packageToInfoViewItem(aPackage)
+                                } else
+                                    currentState.map { item ->
+                                        if (item.id == aPackage.id)
+                                            packageToInfoViewItem(aPackage)
+                                        else
+                                            item
+                                    }
+
+                                updateState {
+                                    InformationState(newState.sortedBy {
+                                        it.sensorType.type
+                                    }, true)
+                                }
                             }
-                        }
-                    else
-                        updateState {
-                            InformationState(
-                                listOf(packageToInfoViewItem(aPackage)),
-                                deviceCount != 0
-                            )
-                        }
-                }
+                        else
+                            updateState {
+                                InformationState(
+                                    listOf(packageToInfoViewItem(aPackage)),
+                                    true
+                                )
+                            }
+                    }
 
             }
         }
@@ -145,5 +143,4 @@ class InformationViewModel(
     fun saveUserSettings(value: Int) {
         informationInteractor.saveUserSettings(value)
     }
-
 }
