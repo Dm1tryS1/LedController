@@ -83,44 +83,32 @@ class InformationViewModel(
 
     fun onMenuClicked(type: Int, id: Int, info: String, date: String) {
         when (type) {
-            1 -> sendEvent(
+            SensorType.TemperatureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_temperature,
-                    when (id) {
-                        1 -> Command.GetTemperature1
-                        3 -> Command.GetTemperature2
-                        else -> Command.GetTemperature1
-                    },
+                    Command.SensorCommand(id),
                     info,
                     date
                 )
             )
-            2 -> sendEvent(
+            SensorType.PressureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_pressure,
-                    when (id) {
-                        7 -> Command.GetPressure1
-                        8 -> Command.GetPressure2
-                        else -> Command.GetPressure1
-                    },
+                    Command.SensorCommand(id),
                     info,
                     date
                 )
             )
-            3 -> sendEvent(
+            SensorType.HumidifierSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_humidity,
-                    when (id) {
-                        5 -> Command.GetHumidity1
-                        6 -> Command.GetHumidity2
-                        else -> Command.GetHumidity1
-                    },
+                    Command.SensorCommand(id),
                     info,
                     date
                 )
             )
-            4 -> sendEvent(InformationEvent.OpenConditionerMenuEvent)
-            5 -> sendEvent(InformationEvent.OpenHumidifierMenuEvent)
+            SensorType.Conditioner.type -> sendEvent(InformationEvent.OpenConditionerMenuEvent(id))
+            SensorType.Humidifier.type -> sendEvent(InformationEvent.OpenHumidifierMenuEvent(id))
             else -> {}
         }
     }

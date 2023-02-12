@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuHumidifierBinding
 import com.example.smarthome.utils.BottomSheetDialogBuilder
 import com.example.smarthome.common.device.Command
+import com.example.smarthome.common.device.CommandForHumidifier
 
 object Humidifier {
     fun create(
         fragment: Fragment,
         action: (aPackage: Command) -> Unit,
+        id: Int
     ): Dialog {
         val binding = DropmenuHumidifierBinding.inflate(fragment.layoutInflater)
 
@@ -21,7 +23,7 @@ object Humidifier {
 
 
             offOn.setOnClickListener {
-                action(Command.HumidifierOnOff)
+                action(Command.Humidifier(id, CommandForHumidifier.OnOff))
                 dialog.dismiss()
             }
 

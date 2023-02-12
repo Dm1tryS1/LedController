@@ -1,6 +1,7 @@
 package com.example.smarthome.fragments.information.recyclerView.mapper
 
 import com.example.smarthome.R
+import com.example.smarthome.common.device.Command
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.common.device.SensorType
@@ -8,12 +9,12 @@ import java.nio.ByteBuffer
 import kotlin.experimental.and
 
 fun packageToInfoViewItem(aPackage: Package): InfoViewItem.SensorsInfoViewItem {
-    return when (aPackage.id) {
-        1,3 -> packageToTemperatureInfo(aPackage)
-        2 -> packageToConditionerInfo(aPackage)
-        5,6 -> packageToHumidityInfo(aPackage)
-        4 -> packageToHumidifierInfo(aPackage)
-        7,8 -> packageToPressure(aPackage)
+    return when (aPackage.type) {
+        SensorType.TemperatureSensor.type -> packageToTemperatureInfo(aPackage)
+        SensorType.Conditioner.type -> packageToConditionerInfo(aPackage)
+        SensorType.HumidifierSensor.type -> packageToHumidityInfo(aPackage)
+        SensorType.Humidifier.type -> packageToHumidifierInfo(aPackage)
+        SensorType.PressureSensor.type -> packageToPressure(aPackage)
         else -> {
             InfoViewItem.SensorsInfoViewItem(R.drawable.ic_info, aPackage.id ?: 0, "Неизвестное устройство", "Нет дааных", SensorType.Unknown)
         }

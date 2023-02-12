@@ -101,12 +101,14 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
                 Conditioner.create(
                     fragment = this@Information,
                     action = vm::sendPackage,
+                    id = event.id
                 ).show()
             }
             is InformationEvent.OpenHumidifierMenuEvent -> {
                 Humidifier.create(
                     fragment = this@Information,
-                    action = vm::sendPackage
+                    action = vm::sendPackage,
+                    id = event.id
                 ).show()
             }
             is InformationEvent.OpenSettingsMenuEvent -> {

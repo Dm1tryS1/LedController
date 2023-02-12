@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuConditioenerBinding
 import com.example.smarthome.utils.BottomSheetDialogBuilder
 import com.example.smarthome.common.device.Command
+import com.example.smarthome.common.device.CommandForConditioner
 
 object Conditioner {
     fun create(
         fragment: Fragment,
         action: (aPackage: Command) -> Unit,
+        id: Int
         ): Dialog {
         val binding = DropmenuConditioenerBinding.inflate(fragment.layoutInflater)
 
@@ -21,15 +23,15 @@ object Conditioner {
 
 
             offOn.setOnClickListener {
-                action(Command.ConditionerOnOff)
+                action(Command.ConditionerCommand(id, CommandForConditioner.OnOff))
             }
 
             reduce.setOnClickListener {
-                action(Command.ConditionerReduceTemperature)
+                action(Command.ConditionerCommand(id, CommandForConditioner.ReduceTemperature))
             }
 
             add.setOnClickListener {
-               action(Command.ConditionerAddTemperature)
+               action(Command.ConditionerCommand(id, CommandForConditioner.AddTemperature))
             }
 
             close.setOnClickListener {

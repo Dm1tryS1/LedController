@@ -13,22 +13,26 @@ sealed class Command(val msgBuffer: MutableList<Int>) {
         }
     }
 
-    object GetTemperature1 : Command(mutableListOf(0x01, 0))
-    object GetTemperature2 : Command(mutableListOf(0x03, 0))
+    class SensorCommand(id: Int) : Command(mutableListOf()) {
+        init {
+            msgBuffer.add(id)
+            msgBuffer.add(0x00)
+        }
+    }
 
-    object GetPressure1 : Command(mutableListOf(0x07, 0))
-    object GetPressure2 : Command(mutableListOf(0x08, 0))
+    class ConditionerCommand(id: Int,command: CommandForConditioner) : Command(mutableListOf()) {
+        init {
+            msgBuffer.add(id)
+            msgBuffer.add(command.command)
+        }
+    }
 
-    object GetHumidity1 : Command(mutableListOf(0x05, 0))
-    object GetHumidity2 : Command(mutableListOf(0x06, 0))
-
-    object Conditioner : Command(mutableListOf(0x02, 0))
-    object ConditionerOnOff : Command(mutableListOf(0x02, 1))
-    object ConditionerAddTemperature : Command(mutableListOf(0x02, 2))
-    object ConditionerReduceTemperature : Command(mutableListOf(0x02, 3))
-
-    object Humidifier : Command(mutableListOf(0x04, 0))
-    object HumidifierOnOff : Command(mutableListOf(0x04, 1))
+    class Humidifier(id: Int, command: CommandForHumidifier) : Command(mutableListOf()) {
+        init {
+            msgBuffer.add(id)
+            msgBuffer.add(command.command)
+        }
+    }
 }
 
 enum class CommandsForMaster(val command: Int) {
@@ -37,4 +41,16 @@ enum class CommandsForMaster(val command: Int) {
     SetMaxTemperature(0x03),
     SetMinHumidity(0x04),
     SetMaxHumidity(0x05)
+}
+
+enum class CommandForConditioner(val command: Int) {
+    Conditioner(0),
+    OnOff(1),
+    AddTemperature(2),
+    ReduceTemperature(3)
+}
+
+enum class CommandForHumidifier(val command: Int) {
+    Humidifier(0),
+    OnOff(1)
 }
