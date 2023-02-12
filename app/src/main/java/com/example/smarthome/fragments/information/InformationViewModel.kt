@@ -29,7 +29,7 @@ class InformationViewModel(
     }
 
     fun sendPackage(aPackage: Command) {
-        if (aPackage is Command.BroadCast || aPackage !is Command.MasterCommand || aPackage !is Command.MasterSendDate) {
+        if (aPackage is Command.BroadCast || !(aPackage is Command.MasterCommand || aPackage is Command.MasterSendDate)) {
             updateState { state ->
                 state.copy(progressVisibility = true)
             }
