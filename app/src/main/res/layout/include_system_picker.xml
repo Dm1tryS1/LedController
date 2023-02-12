@@ -23,6 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="8dp"
         android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
         android:orientation="vertical"
         android:theme="@style/AppTheme.Picker" />
 

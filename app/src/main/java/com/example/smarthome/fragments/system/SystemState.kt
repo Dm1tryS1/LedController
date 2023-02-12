@@ -1,4 +1,9 @@
 package com.example.smarthome.fragments.system
 
-sealed class SystemState{
-}
+data class SystemState(
+    val maxTemp: Int,
+    val minTemp: Int,
+    val maxHum: Int,
+    val minHum: Int,
+    val displayedValue: Int
+)

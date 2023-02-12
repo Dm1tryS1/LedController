@@ -119,8 +119,8 @@ class InformationViewModel(
     }
 
     fun onSettingsClicked() {
-        informationInteractor.getUserSettings {
-            sendEvent(InformationEvent.OpenSettingsMenuEvent(it))
+        viewModelScope.launch {
+            sendEvent(InformationEvent.OpenSettingsMenuEvent(informationInteractor.getUserSettings()))
         }
     }
 

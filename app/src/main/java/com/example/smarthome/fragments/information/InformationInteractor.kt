@@ -20,14 +20,10 @@ class InformationInteractor(private val deviceRepository: DeviceRepository, priv
         awaitClose()
     }
 
-    fun getUserSettings(callback: (value: Int)-> Unit){
-        storage.getUserSettings{
-            callback(it)
-        }
-    }
+    fun getUserSettings() = storage.getUserSettings(Storage.userTimer)
 
     fun saveUserSettings(value: Int){
-        storage.saveUserSettings(value)
+        storage.saveUserSettings(Storage.userTimer, value)
     }
 
 }

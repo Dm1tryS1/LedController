@@ -1,50 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:background="@color/background">
 
-    <include
-        android:id="@+id/min_temp"
-        layout="@layout/include_system_picker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_weight="1" />
-
-    <include
-        android:id="@+id/max_temp"
-        layout="@layout/include_system_picker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_weight="1" />
-
-    <include
-        android:id="@+id/min_hum"
-        layout="@layout/include_system_picker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_weight="1" />
-
-    <include
-        android:id="@+id/max_hum"
-        layout="@layout/include_system_picker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_weight="1" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/save"
-        style="@style/text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/settings_button_update" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <include
+            android:id="@+id/min_temp"
+            layout="@layout/include_system_picker"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="16dp" />
+
+        <include
+            android:id="@+id/max_temp"
+            layout="@layout/include_system_picker"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="16dp" />
+
+        <include
+            android:id="@+id/min_hum"
+            layout="@layout/include_system_picker"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="16dp" />
+
+        <include
+            android:id="@+id/max_hum"
+            layout="@layout/include_system_picker"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="16dp" />
+
+        <TextView
+            android:layout_marginHorizontal="24dp"
+            style="@style/text"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/system_choose_title"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp">
+
+            <RadioButton
+                android:id="@+id/btn_max_temp"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/system_choose_max_temperature"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/btn_min_temp"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/system_choose_min_temperature"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/btn_max_hum"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/system_choose_max_humidity"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/btn_min_hum"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/system_choose_min_humidity"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/btn_timer"
+                style="@style/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/system_choose_timer"
+                android:textSize="12sp" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save"
+            style="@style/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/rounded_button"
+            android:text="@string/settings_button_update" />
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_marginBottom="16dp"
+            style="@style/Text.Gray"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/system_cancel_all"/>
+
+    </LinearLayout>
+
+</ScrollView>

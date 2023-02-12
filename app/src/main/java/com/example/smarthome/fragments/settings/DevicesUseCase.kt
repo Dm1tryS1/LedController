@@ -10,12 +10,10 @@ class DevicesUseCase(private val deviceRepository: DeviceRepository, private val
     }
 
     fun connect(address: String, callback: (result: Boolean) -> Unit) {
-        storage.getUserSettings {
-            callback(deviceRepository.connect(address, it))
-        }
+        callback(deviceRepository.connect(address, storage.getUserSettings(Storage.userTimer)))
     }
 
-    fun disconnect() : Boolean {
+    fun disconnect(): Boolean {
         return deviceRepository.disconnect()
     }
 }
