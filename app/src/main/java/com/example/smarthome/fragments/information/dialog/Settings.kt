@@ -13,6 +13,7 @@ object Settings {
         fragment: Fragment,
         action: (aPackage: Command) -> Unit,
         save: (value: Int) -> Unit,
+        openSystemSettings: () -> Unit,
         progress: Int = 0
     ): Dialog {
         val binding = DropmenuSettingsBinding.inflate(fragment.layoutInflater)
@@ -42,6 +43,10 @@ object Settings {
                 )
                 save(date.progress)
                 dialog.dismiss()
+            }
+
+            more.setOnClickListener {
+                openSystemSettings()
             }
 
             return dialog.build()

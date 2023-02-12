@@ -13,6 +13,7 @@ object AppModule {
         InformationModule(),
         NavigationModule(),
         MainModule(),
-        ChartsModule()
+        ChartsModule(),
+        SystemModule()
     ).flatten()
 }

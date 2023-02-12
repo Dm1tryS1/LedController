@@ -1,7 +1,6 @@
 package com.example.smarthome.fragments.charts
 
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,9 @@ import androidx.core.content.ContextCompat.getColor
 import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentChartsBinding
-import com.example.smarthome.utils.SensorDateFormatter
 import com.example.smarthome.utils.dp
 import com.example.smarthome.utils.setupEnvironments
 import com.github.mikephil.charting.charts.Chart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet

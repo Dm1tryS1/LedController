@@ -114,7 +114,8 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
                     fragment = this@Information,
                     action = vm::sendPackage,
                     progress = event.value,
-                    save = vm::saveUserSettings
+                    save = vm::saveUserSettings,
+                    openSystemSettings = vm::onMoreSettings
                 ).show()
             }
         }

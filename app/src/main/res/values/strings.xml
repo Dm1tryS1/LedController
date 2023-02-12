@@ -14,9 +14,15 @@
 
     <string name="settings_button_confirm">Сохранить изменения</string>
     <string name="settings_label">Автоматическое обновление (мин):</string>
+    <string name="settings_more">Дополнительные настройки</string>
 
     <string name="settings_button_connect">Подключиться</string>
     <string name="settings_button_disconnect">Отключиться</string>
 
     <string name="error_connection">Подключитесь к системе</string>
+
+    <string name="system_min_temp">Минимальная\nтемпература\n(°C)</string>
+    <string name="system_max_temp">Максимальная\nтемпература\n (°C)</string>
+    <string name="system_min_humidity">Минимальная\nвлажность\n(%)</string>
+    <string name="system_max_humidity">Максимальная\nвлажность\n(%)</string>
 </resources>

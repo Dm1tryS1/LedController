@@ -139,4 +139,8 @@ class InformationViewModel(
     fun saveUserSettings(value: Int) {
         informationInteractor.saveUserSettings(value)
     }
+
+    fun onMoreSettings() {
+        router.navigateTo(Screens.SystemScreen())
+    }
 }

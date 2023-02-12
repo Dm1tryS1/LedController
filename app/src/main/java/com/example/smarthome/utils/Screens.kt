@@ -5,7 +5,7 @@ import com.example.smarthome.fragments.home.Home
 import com.example.smarthome.fragments.information.Information
 import com.example.smarthome.fragments.main.Main
 import com.example.smarthome.fragments.settings.Settings
-
+import com.example.smarthome.fragments.system.System
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
@@ -14,4 +14,5 @@ object Screens {
     fun InformationScreen() = FragmentScreen { Information() }
     fun MainScreen() = FragmentScreen { Main() }
     fun ChartScreen() = FragmentScreen { Charts() }
+    fun SystemScreen() = FragmentScreen { System() }
 }
