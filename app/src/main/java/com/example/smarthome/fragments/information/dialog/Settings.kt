@@ -3,14 +3,15 @@ package com.example.smarthome.fragments.information.dialog
 import android.app.Dialog
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
+import com.example.smarthome.common.device.Command
+import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.databinding.DropmenuSettingsBinding
 import com.example.smarthome.utils.BottomSheetDialogBuilder
-import kotlin.experimental.or
 
 object Settings {
     fun create(
         fragment: Fragment,
-        action: (aPackage: Pair<Int, Int>) -> Unit,
+        action: (aPackage: Command) -> Unit,
         save: (value: Int) -> Unit,
         progress: Int = 0
     ): Dialog {
@@ -37,10 +38,7 @@ object Settings {
 
             update.setOnClickListener {
                 action(
-                    Pair(
-                        0x00,
-                        ((date.progress * 5).toByte() or 128.toByte()).toInt()
-                    )
+                    Command.MasterCommand(command = CommandsForMaster.SetTimer, value = progress * 5)
                 )
                 save(date.progress)
                 dialog.dismiss()

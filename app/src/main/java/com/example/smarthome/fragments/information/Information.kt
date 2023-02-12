@@ -42,7 +42,7 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
         sensors.supportBottomSheetScroll()
 
         reloadButton.setOnClickListener {
-            vm.sendPackage(Command.BroadCast.command)
+            vm.sendPackage(Command.BroadCast)
         }
 
         settings.setOnClickListener {
@@ -50,14 +50,6 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
         }
 
         vm.getInfo()
-        vm.initializeState()
-
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden)
-            vm.initializeState()
     }
 
     override fun onBackPressed(): Boolean {

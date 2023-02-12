@@ -9,7 +9,7 @@ import com.example.smarthome.common.device.Command
 object Humidifier {
     fun create(
         fragment: Fragment,
-        action: (aPackage: Pair<Int,Int>) -> Unit,
+        action: (aPackage: Command) -> Unit,
     ): Dialog {
         val binding = DropmenuHumidifierBinding.inflate(fragment.layoutInflater)
 
@@ -21,7 +21,7 @@ object Humidifier {
 
 
             offOn.setOnClickListener {
-                action(Command.HumidifierOnOff.command)
+                action(Command.HumidifierOnOff)
                 dialog.dismiss()
             }
 

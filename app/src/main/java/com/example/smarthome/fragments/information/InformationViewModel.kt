@@ -17,23 +17,19 @@ class InformationViewModel(
 ) :
     BaseViewModel<InformationState, InformationEvent>() {
 
+    init {
+        updateState { state ->
+            state.copy(progressVisibility = true)
+        }
+        sendPackage(Command.BroadCast)
+    }
+
     override fun createInitialState(): InformationState {
         return InformationState(listOf(), true)
     }
 
-    fun initializeState() {
-        updateState { state ->
-            state.copy(progressVisibility = true)
-        }
-        sendPackage(Command.BroadCast.command)
-    }
-
-    fun sendPackage(aPackage: Pair<Int, Int>) {
-        if (aPackage.first == Command.BroadCast.command.first) {
-            updateState { state ->
-                state.copy(progressVisibility = true)
-            }
-        } else if (aPackage.first != Command.MasterSendDate.command.first) {
+    fun sendPackage(aPackage: Command) {
+        if (aPackage is Command.BroadCast || aPackage !is Command.MasterCommand || aPackage !is Command.MasterSendDate) {
             updateState { state ->
                 state.copy(progressVisibility = true)
             }
@@ -91,9 +87,9 @@ class InformationViewModel(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_temperature,
                     when (id) {
-                        1 -> Command.GetTemperature1.command
-                        3 -> Command.GetTemperature2.command
-                        else -> Command.GetTemperature1.command
+                        1 -> Command.GetTemperature1
+                        3 -> Command.GetTemperature2
+                        else -> Command.GetTemperature1
                     },
                     info,
                     date
@@ -103,9 +99,9 @@ class InformationViewModel(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_pressure,
                     when (id) {
-                        7 -> Command.GetPressure1.command
-                        8 -> Command.GetPressure2.command
-                        else -> Command.GetPressure1.command
+                        7 -> Command.GetPressure1
+                        8 -> Command.GetPressure2
+                        else -> Command.GetPressure1
                     },
                     info,
                     date
@@ -115,9 +111,9 @@ class InformationViewModel(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_humidity,
                     when (id) {
-                        5 -> Command.GetHumidity1.command
-                        6 -> Command.GetHumidity2.command
-                        else -> Command.GetHumidity1.command
+                        5 -> Command.GetHumidity1
+                        6 -> Command.GetHumidity2
+                        else -> Command.GetHumidity1
                     },
                     info,
                     date

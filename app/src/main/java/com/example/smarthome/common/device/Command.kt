@@ -1,24 +1,40 @@
 package com.example.smarthome.common.device
 
-enum class Command(val command: Pair<Int, Int>) {
-    BroadCast(Pair(0xFF,0)),
+sealed class Command(val msgBuffer: MutableList<Int>) {
 
-    MasterSendDate(Pair(0x00,0)),
+    object BroadCast : Command(mutableListOf(0xFF, 0x00))
 
-    GetTemperature1(Pair(0x01,0)),
-    GetTemperature2(Pair(0x03,0)),
+    class MasterSendDate : Command(mutableListOf(0x00, 0x00))
 
-    GetPressure1(Pair(0x07,0)),
-    GetPressure2(Pair(0x08,0)),
+    class MasterCommand(command: CommandsForMaster, value: Int) : Command(mutableListOf(0x00)) {
+        init {
+            msgBuffer.add(command.command)
+            msgBuffer.add(value)
+        }
+    }
 
-    GetHumidity1(Pair(0x05,0)),
-    GetHumidity2(Pair(0x06,0)),
+    object GetTemperature1 : Command(mutableListOf(0x01, 0))
+    object GetTemperature2 : Command(mutableListOf(0x03, 0))
 
-    Conditioner(Pair(0x02,0)),
-    ConditionerOnOff(Pair(0x02,1)),
-    ConditionerAddTemperature(Pair(0x02,2)),
-    ConditionerReduceTemperature(Pair(0x02,3)),
+    object GetPressure1 : Command(mutableListOf(0x07, 0))
+    object GetPressure2 : Command(mutableListOf(0x08, 0))
 
-    Humidifier(Pair(0x04,0)),
-    HumidifierOnOff(Pair(0x04,1)),
+    object GetHumidity1 : Command(mutableListOf(0x05, 0))
+    object GetHumidity2 : Command(mutableListOf(0x06, 0))
+
+    object Conditioner : Command(mutableListOf(0x02, 0))
+    object ConditionerOnOff : Command(mutableListOf(0x02, 1))
+    object ConditionerAddTemperature : Command(mutableListOf(0x02, 2))
+    object ConditionerReduceTemperature : Command(mutableListOf(0x02, 3))
+
+    object Humidifier : Command(mutableListOf(0x04, 0))
+    object HumidifierOnOff : Command(mutableListOf(0x04, 1))
+}
+
+enum class CommandsForMaster(val command: Int) {
+    SetTimer(0x01),
+    SetMinTemperature(0x02),
+    SetMaxTemperature(0x03),
+    SetMinHumidity(0x04),
+    SetMaxHumidity(0x05)
 }

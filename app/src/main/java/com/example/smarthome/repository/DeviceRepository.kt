@@ -6,12 +6,13 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.util.Log
+import com.example.smarthome.common.device.Command
+import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.settings.recyclerView.model.DeviceViewItem
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
-import kotlin.experimental.or
 
 @SuppressLint("MissingPermission")
 class DeviceRepository(applicationContext: Context) {
@@ -64,13 +65,9 @@ class DeviceRepository(applicationContext: Context) {
             receiveThread = ReceiveThread()
             receiveThread?.start()
 
-            sendTime()
-            sendPackage(
-                Pair(
-                    0x00,
-                    ((value * 5).toByte() or 128.toByte()).toInt()
-                )
-            )
+            sendPackage(Command.MasterSendDate())
+            sendPackage(Command.MasterCommand(CommandsForMaster.SetTimer,value*5))
+
             return true
 
         } catch (e: Exception) {
@@ -95,38 +92,19 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    private fun sendTime(): Boolean {
-        val msgBuffer = ByteArray(5)
-        val time = Calendar.getInstance(Locale("ru", "RU"))
-        msgBuffer[0] = 0.toByte()
-        msgBuffer[1] = 0.toByte()
-        msgBuffer[2] = time.get(Calendar.HOUR_OF_DAY).toByte()
-        msgBuffer[3] = time.get(Calendar.MINUTE).toByte()
-        msgBuffer[4] = time.get(Calendar.SECOND).toByte()
-
-        return try {
-            outStream!!.write(msgBuffer)
-            Log.d(
-                "Success",
-                "Оправлены: ${msgBuffer[0]},${msgBuffer[1]},${msgBuffer[2]},${msgBuffer[3]},${msgBuffer[4]}"
-            )
-            true
-
-        } catch (e: Exception) {
-            Log.d("Error", "Ошибка отправки")
-            false
+    fun sendPackage(aPackage: Command): Boolean {
+        if(aPackage is Command.MasterSendDate) {
+            val time = Calendar.getInstance(Locale("ru", "RU"))
+            aPackage.msgBuffer.apply {
+                add(time.get(Calendar.HOUR_OF_DAY))
+                add(time.get(Calendar.MINUTE))
+                add(time.get(Calendar.SECOND))
+            }
         }
-    }
-
-    fun sendPackage(aPackage: Pair<Int, Int>): Boolean {
-        val msgBuffer = ByteArray(2)
-
-        msgBuffer[0] = aPackage.first.toByte()
-        msgBuffer[1] = aPackage.second.toByte()
 
         return try {
-            outStream!!.write(msgBuffer)
-            Log.d("Success", "Оправлены: $aPackage")
+            outStream!!.write(aPackage.msgBuffer.map { it.toByte() }.toByteArray())
+            Log.d("Success", "Оправлены")
             true
         } catch (e: Exception) {
             Log.d("Error", "Ошибка отправки")

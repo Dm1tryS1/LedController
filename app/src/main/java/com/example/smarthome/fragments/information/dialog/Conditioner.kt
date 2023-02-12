@@ -9,7 +9,7 @@ import com.example.smarthome.common.device.Command
 object Conditioner {
     fun create(
         fragment: Fragment,
-        action: (aPackage: Pair<Int,Int>) -> Unit,
+        action: (aPackage: Command) -> Unit,
         ): Dialog {
         val binding = DropmenuConditioenerBinding.inflate(fragment.layoutInflater)
 
@@ -21,15 +21,15 @@ object Conditioner {
 
 
             offOn.setOnClickListener {
-                action(Command.ConditionerOnOff.command)
+                action(Command.ConditionerOnOff)
             }
 
             reduce.setOnClickListener {
-                action(Command.ConditionerReduceTemperature.command)
+                action(Command.ConditionerReduceTemperature)
             }
 
             add.setOnClickListener {
-               action(Command.ConditionerAddTemperature.command)
+               action(Command.ConditionerAddTemperature)
             }
 
             close.setOnClickListener {
