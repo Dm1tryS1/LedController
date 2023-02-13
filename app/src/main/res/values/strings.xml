@@ -38,4 +38,12 @@
     <string name="notification_min_hum">Влажность на датчике (id: %1$d) ниже комфортной (%2$d%%)</string>
     <string name="notification_max_hum">Влажность на датчике (id: %1$d) выше комфортной (%2$d%%)</string>
     <string name="notification_title">Проблемы с климатом</string>
+
+    <string name="connect_device_title">Подключение устройства по сети Wi-Fi</string>
+    <string name="connect_device_text">Сначала Вы должны подключиться к устройству в настройках Wi-Fi на мобильном устройстве</string>
+    <string name="connect_device_next">Далее</string>
+    <string name="connect_device_error">Убедитесь, что Вы подключены к устройству по сети Wi-Fi</string>
+    <string name="connect_device_connection_error">Убедитесь в правильности данных и повторите попытку</string>
+    <string name="connect_device_network_ssid">Название сети</string>
+    <string name="connect_device_network_password">Пароль сети</string>
 </resources>

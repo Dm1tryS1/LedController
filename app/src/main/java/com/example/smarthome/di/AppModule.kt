@@ -14,6 +14,7 @@ object AppModule {
         NavigationModule(),
         MainModule(),
         ChartsModule(),
-        SystemModule()
+        SystemModule(),
+        ConnectDevice()
     ).flatten()
 }

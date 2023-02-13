@@ -42,6 +42,10 @@ class Settings : BaseFragment<SettingsState, SettingsEvent>() {
         reload.setOnClickListener {
             vm.findDevices()
         }
+
+        wifi.setOnClickListener {
+            vm.onWifiClicked()
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
