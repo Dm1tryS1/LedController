@@ -10,6 +10,7 @@ import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.settings.recyclerView.model.DeviceViewItem
+import kotlinx.coroutines.delay
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
@@ -44,7 +45,15 @@ class DeviceRepository(applicationContext: Context) {
     }
 
 
-    fun connect(address: String, value: Int): Boolean {
+    suspend fun connect(
+        address: String,
+        timer: Int?,
+        maxTemp: Int?,
+        minTemp: Int?,
+        maxHum: Int?,
+        minHum: Int?,
+        displayedValue: Int?
+    ): Boolean {
         btSocket?.close()
 
         try {
@@ -66,7 +75,17 @@ class DeviceRepository(applicationContext: Context) {
             receiveThread?.start()
 
             sendPackage(Command.MasterSendDate())
-            sendPackage(Command.MasterCommand(CommandsForMaster.SetTimer,value*5))
+            timer?.let { sendPackage(Command.MasterCommand(CommandsForMaster.SetTimer, it * 5)) }
+            delay(100)
+            maxTemp?.let { sendPackage(Command.MasterCommand(CommandsForMaster.SetMaxTemperature, it)) }
+            delay(100)
+            minTemp?.let { sendPackage(Command.MasterCommand(CommandsForMaster.SetMinTemperature, it)) }
+            delay(100)
+            maxHum?.let { sendPackage(Command.MasterCommand(CommandsForMaster.SetMaxHumidity, it)) }
+            delay(100)
+            minHum?.let { sendPackage(Command.MasterCommand(CommandsForMaster.SetMinHumidity, it)) }
+            delay(100)
+            displayedValue?.let { sendPackage(Command.MasterCommand(CommandsForMaster.SetDisplayedValue, it)) }
 
             return true
 
@@ -83,7 +102,7 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
-    fun disconnect() : Boolean {
+    fun disconnect(): Boolean {
         return try {
             btSocket?.close()
             true
@@ -93,7 +112,7 @@ class DeviceRepository(applicationContext: Context) {
     }
 
     fun sendPackage(aPackage: Command): Boolean {
-        if(aPackage is Command.MasterSendDate) {
+        if (aPackage is Command.MasterSendDate) {
             val time = Calendar.getInstance(Locale("ru", "RU"))
             aPackage.msgBuffer.apply {
                 add(time.get(Calendar.HOUR_OF_DAY))
