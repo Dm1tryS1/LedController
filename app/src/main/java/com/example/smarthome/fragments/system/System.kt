@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentSystemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.max
 
 class System : BaseFragment<SystemState, Unit>() {
 
@@ -71,7 +72,13 @@ class System : BaseFragment<SystemState, Unit>() {
                     minTemp.numberPicker.value,
                     maxHum.numberPicker.value,
                     minHum.numberPicker.value,
-                    radioGroup.checkedRadioButtonId
+                    when(radioGroup.checkedRadioButtonId) {
+                        R.id.btn_max_temp -> 0
+                        R.id.btn_min_temp -> 1
+                        R.id.btn_max_hum -> 2
+                        R.id.btn_min_hum -> 3
+                        else -> 4
+                    }
                 )
             }
             cancel.setOnClickListener {
@@ -88,11 +95,30 @@ class System : BaseFragment<SystemState, Unit>() {
 
     override fun renderState(state: SystemState) {
         with(binding) {
-            maxTemp.numberPicker.value = state.maxTemp
-            minTemp.numberPicker.value = state.minTemp
-            minHum.numberPicker.value = state.minHum
-            maxHum.numberPicker.value = state.maxHum
-            radioGroup.check(state.displayedValue)
+            when (state) {
+                is SystemState.Settings -> {
+                    maxTemp.numberPicker.value = state.maxTemp
+                    minTemp.numberPicker.value = state.minTemp
+                    minHum.numberPicker.value = state.minHum
+                    maxHum.numberPicker.value = state.maxHum
+                    radioGroup.check(
+                        when (state.displayedValue) {
+                            0 -> R.id.btn_max_temp
+                            1 -> R.id.btn_min_temp
+                            2 -> R.id.btn_max_hum
+                            3 -> R.id.btn_min_hum
+                            else -> R.id.btn_timer
+                        }
+                    )
+                }
+                is SystemState.Loading -> {
+                    loader.isVisible = true
+                    requireActivity().window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
+                }
+            }
         }
     }
 
@@ -103,6 +129,6 @@ class System : BaseFragment<SystemState, Unit>() {
         const val MAX_TEMP_VALUE = 28
         const val MIN_HUM_VALUE = 30
         const val MAX_HUM_VALUE = 60
-        const val DISPLAYED_VALUE = 2131231230
+        const val DISPLAYED_VALUE = 4
     }
 }

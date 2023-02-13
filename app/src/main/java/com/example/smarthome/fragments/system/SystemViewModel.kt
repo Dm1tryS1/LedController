@@ -35,8 +35,8 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
             if (displayedValue == -1)
                 displayedValue = System.DISPLAYED_VALUE
 
-            updateState { state ->
-                state.copy(
+            updateState {
+                SystemState.Settings(
                     maxTemp = maxTemp,
                     minTemp = minTemp,
                     maxHum = maxHum,
@@ -48,7 +48,7 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
     }
 
     override fun createInitialState(): SystemState {
-        return SystemState(
+        return SystemState.Settings(
             System.MIN_TEMP_VALUE,
             System.MIN_TEMP_VALUE,
             System.MIN_HUM_VALUE,
@@ -58,6 +58,9 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
     }
 
     fun save(maxTemp: Int, minTemp: Int, maxHum: Int, minHum: Int, displayedValue: Int) {
+        updateState {
+            SystemState.Loading
+        }
         viewModelScope.launch {
             systemInteractor.saveMaxTemperature(maxTemp)
             systemInteractor.saveMinTemperature(minTemp)

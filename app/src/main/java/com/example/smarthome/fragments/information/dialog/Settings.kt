@@ -39,7 +39,7 @@ object Settings {
 
             update.setOnClickListener {
                 action(
-                    Command.MasterCommand(command = CommandsForMaster.SetTimer, value = progress * 5)
+                    Command.MasterCommand(command = CommandsForMaster.SetTimer, value = date.progress * 5)
                 )
                 save(date.progress)
                 dialog.dismiss()
