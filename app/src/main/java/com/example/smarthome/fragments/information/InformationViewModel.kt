@@ -6,6 +6,7 @@ import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
+import com.example.smarthome.repository.DeviceRepository
 import com.example.smarthome.utils.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.collectLatest
@@ -40,13 +41,32 @@ class InformationViewModel(
     fun getInfo() {
         viewModelScope.launch {
             informationInteractor.getInfo().collectLatest { aPackage ->
-                if (aPackage.id == 0 && aPackage.info0 == 255.toByte() && aPackage.info1 == 255.toByte() && aPackage.info2 == 255.toByte() && aPackage.info3 == 255.toByte())
+                if (aPackage.id == 0
+                    && aPackage.type == DeviceRepository.EndOfTransmission.toInt()
+                    && aPackage.info0 == DeviceRepository.EndOfTransmission
+                    && aPackage.info1 == DeviceRepository.EndOfTransmission
+                    && aPackage.info2 == DeviceRepository.EndOfTransmission
+                    && aPackage.info3 == DeviceRepository.EndOfTransmission
+                ) {
                     updateState { state ->
                         state.copy(progressVisibility = false)
                     }
-                else
+                } else {
+                    if (aPackage.type == SensorType.TemperatureSensor.type || aPackage.type == SensorType.HumidifierSensor.type) {
+                        if (aPackage.info1 == DeviceRepository.Less || aPackage.info1 == DeviceRepository.More)
+                            if (aPackage.id != null && aPackage.type != null && aPackage.info2 != null)
+                                sendEvent(
+                                    InformationEvent.ShowNotification(
+                                        id = aPackage.id!!,
+                                        type = aPackage.type!!,
+                                        more = aPackage.info1 == DeviceRepository.More,
+                                        comfortableValue = aPackage.info2!!.toInt()
+                                    )
+                                )
+                    }
+
                     currentViewState.let { informationState ->
-                        if (informationState.data != null)
+                        if (informationState.data != null) {
                             informationState.data.let { currentState ->
                                 val sensor = currentState.find { item ->
                                     item.id == aPackage.id
@@ -68,15 +88,16 @@ class InformationViewModel(
                                     }, true)
                                 }
                             }
-                        else
+                        } else {
                             updateState {
                                 InformationState(
                                     listOf(packageToInfoViewItem(aPackage)),
                                     true
                                 )
                             }
+                        }
                     }
-
+                }
             }
         }
     }

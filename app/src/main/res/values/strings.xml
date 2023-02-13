@@ -32,4 +32,10 @@
     <string name="system_choose_timer">Таймер</string>
     <string name="system_choose_title">Выберите, что будет оборажаться на индикаторах:</string>
     <string name="system_cancel_all"><u>Отменить все настройки</u></string>
+
+    <string name="notification_min_temp">Температура на датчике (id: %1$d) ниже комфортной (%2$d°C)</string>
+    <string name="notification_max_temp">Температура на датчике (id: %1$d) выше комфортной (%2$d°C)</string>
+    <string name="notification_min_hum">Влажность на датчике (id: %1$d) ниже комфортной (%2$d%%)</string>
+    <string name="notification_max_hum">Влажность на датчике (id: %1$d) выше комфортной (%2$d%%)</string>
+    <string name="notification_title">Проблемы с климатом</string>
 </resources>

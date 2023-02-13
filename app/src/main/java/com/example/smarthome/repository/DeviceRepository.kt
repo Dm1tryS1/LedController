@@ -147,4 +147,10 @@ class DeviceRepository(applicationContext: Context) {
         }
     }
 
+    companion object {
+        const val EndOfTransmission = 255.toByte()
+        const val More = 254.toByte()
+        const val Less = 255.toByte()
+    }
+
 }

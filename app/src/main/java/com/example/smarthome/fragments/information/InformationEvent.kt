@@ -11,6 +11,12 @@ sealed class InformationEvent {
         val command: Command,
         val data: String,
         val date: String
-    ) :
-        InformationEvent()
+    ) : InformationEvent()
+
+    data class ShowNotification(
+        val id: Int,
+        val type: Int,
+        val more: Boolean,
+        val comfortableValue: Int
+    ) : InformationEvent()
 }

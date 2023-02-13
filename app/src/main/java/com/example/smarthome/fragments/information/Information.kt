@@ -1,8 +1,14 @@
 package com.example.smarthome.fragments.information
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import androidx.core.app.NotificationCompat
 import androidx.core.view.isVisible
+import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentInformationBinding
 import com.example.smarthome.fragments.information.dialog.*
@@ -50,6 +56,31 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
         }
 
         vm.getInfo()
+    }
+
+    private fun makeNotification(id: Int, text: String) {
+        val builder = NotificationCompat.Builder(requireContext(), CHANEL_ID)
+            .setSmallIcon(R.drawable.ic_smart_home)
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(text)
+            .setAutoCancel(true)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        val notificationManager =
+            requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(
+                NotificationChannel(
+                    CHANEL_ID,
+                    CHANEL_ID,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+            )
+        }
+
+        notificationManager.notify(id, builder.build())
     }
 
     override fun onBackPressed(): Boolean {
@@ -120,6 +151,26 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
                     openSystemSettings = vm::onMoreSettings
                 ).show()
             }
+            is InformationEvent.ShowNotification -> {
+                val text = if (event.type == SensorType.TemperatureSensor.type) {
+                    if (event.more) {
+                        getString(R.string.notification_max_temp, event.id, event.comfortableValue)
+                    } else {
+                        getString(R.string.notification_min_temp, event.id, event.comfortableValue)
+                    }
+                } else {
+                    if (event.more) {
+                        getString(R.string.notification_max_hum, event.id, event.comfortableValue)
+                    } else {
+                        getString(R.string.notification_min_hum, event.id, event.comfortableValue)
+                    }
+                }
+                makeNotification(event.id, text)
+            }
         }
+    }
+
+    companion object {
+        const val CHANEL_ID = "CHANNEL_ID"
     }
 }
