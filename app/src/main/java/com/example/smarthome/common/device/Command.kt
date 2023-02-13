@@ -41,7 +41,8 @@ enum class CommandsForMaster(val command: Int) {
     SetMaxTemperature(0x03),
     SetMinHumidity(0x04),
     SetMaxHumidity(0x05),
-    SetDisplayedValue(0x06)
+    SetDisplayedValue(0x06),
+    ClearSettings(0x07)
 }
 
 enum class CommandForConditioner(val command: Int) {

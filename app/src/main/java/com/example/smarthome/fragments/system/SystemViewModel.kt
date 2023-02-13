@@ -72,6 +72,18 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
         }
     }
 
+    fun clearSettings() {
+        viewModelScope.launch {
+            systemInteractor.clearMaxTemperature()
+            systemInteractor.clearMinTemperature()
+            systemInteractor.clearMaxHumidity()
+            systemInteractor.clearMinHumidity()
+            systemInteractor.clearDisplayedValue()
+            systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.ClearSettings, 0))
+            router.backTo(Screens.InformationScreen())
+        }
+    }
+
     private suspend fun sendPackages(maxTemp: Int, minTemp: Int, maxHum: Int, minHum: Int, displayedValue: Int) {
         systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.SetMaxTemperature, maxTemp))
         delay(200)

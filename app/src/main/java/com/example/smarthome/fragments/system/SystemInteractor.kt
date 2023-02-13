@@ -39,4 +39,14 @@ class SystemInteractor(private val storage: Storage, private val deviceRepositor
     fun getMinHumidity() = storage.getUserSettings(Storage.userMinHumidity)
 
     fun getDisplayedValue() = storage.getUserSettings(Storage.userDisplayedValue)
+
+    fun clearMaxTemperature() = storage.deleteUserSettings(Storage.userMaxTemperature)
+
+    fun clearMinTemperature() = storage.deleteUserSettings(Storage.userMinTemperature)
+
+    fun clearMaxHumidity() = storage.deleteUserSettings(Storage.userMaxHumidity)
+
+    fun clearMinHumidity() = storage.deleteUserSettings(Storage.userMinHumidity)
+
+    fun clearDisplayedValue() = storage.deleteUserSettings(Storage.userDisplayedValue)
 }

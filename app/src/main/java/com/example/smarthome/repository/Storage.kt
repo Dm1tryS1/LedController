@@ -17,6 +17,12 @@ class Storage(context: Context) {
         editor.apply()
     }
 
+    fun deleteUserSettings(key: String) {
+        val editor = preferences.edit()
+        editor.remove(key)
+        editor.apply()
+    }
+
     companion object {
         const val sharedPreferenceName = "SmartHomeStorage"
         const val userTimer = "UserTimer"

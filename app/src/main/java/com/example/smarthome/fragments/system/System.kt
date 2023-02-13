@@ -82,13 +82,7 @@ class System : BaseFragment<SystemState, Unit>() {
                 )
             }
             cancel.setOnClickListener {
-                vm.save(
-                    MIN_TEMP_VALUE,
-                    MIN_TEMP_VALUE,
-                    MIN_HUM_VALUE,
-                    MIN_HUM_VALUE,
-                    DISPLAYED_VALUE,
-                )
+                vm.clearSettings()
             }
         }
     }
