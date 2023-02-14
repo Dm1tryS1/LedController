@@ -11,23 +11,23 @@ class SystemInteractor(private val storage: Storage, private val deviceRepositor
     }
 
     fun saveMaxTemperature(value: Int) {
-        storage.saveUserSettings(Storage.userMaxTemperature, value)
+        storage.saveInt(Storage.userMaxTemperature, value)
     }
 
     fun saveMinTemperature(value: Int) {
-        storage.saveUserSettings(Storage.userMinTemperature, value)
+        storage.saveInt(Storage.userMinTemperature, value)
     }
 
     fun saveMaxHumidity(value: Int) {
-        storage.saveUserSettings(Storage.userMaxHumidity, value)
+        storage.saveInt(Storage.userMaxHumidity, value)
     }
 
     fun saveMinHumidity(value: Int) {
-        storage.saveUserSettings(Storage.userMinHumidity, value)
+        storage.saveInt(Storage.userMinHumidity, value)
     }
 
     fun saveDisplayedValue(value: Int) {
-        storage.saveUserSettings(Storage.userDisplayedValue, value)
+        storage.saveInt(Storage.userDisplayedValue, value)
     }
 
     fun getMaxTemperature() = storage.getUserSettings(Storage.userMaxTemperature)

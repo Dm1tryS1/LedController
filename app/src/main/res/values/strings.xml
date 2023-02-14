@@ -46,4 +46,9 @@
     <string name="connect_device_connection_error">Убедитесь в правильности данных и повторите попытку</string>
     <string name="connect_device_network_ssid">Название сети</string>
     <string name="connect_device_network_password">Пароль сети</string>
+    <string name="connect_device_cond">Кондиционер</string>
+    <string name="connect_device_hum">Увлажнитель воздуха</string>
+    <string name="connect_device_type">Выберите тип и бред\nподключаемого устройства</string>
+    <string name="connect_device_success">Устройство было подключено</string>
+    <string name="connect_device_empty_text">Данные не должны быть пустыми</string>
 </resources>

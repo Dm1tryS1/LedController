@@ -5,9 +5,9 @@ class WifiDeviceRepository {
         return true
     }
 
-    fun connect(ssid: String, password: String): List<Byte>? {
+    fun connect(ssid: String, password: String): String? {
         return if (true) {
-            listOf(192.toByte(), 168.toByte(), 0.toByte(), 4.toByte())
+            "192.168.0." + (1..255).random().toString()
         } else {
             null
         }

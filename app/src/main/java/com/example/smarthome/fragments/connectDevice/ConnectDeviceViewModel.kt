@@ -10,18 +10,9 @@ class ConnectDeviceViewModel(private val connectDeviceInteractor: ConnectDeviceI
 
     fun onNextClicked() {
         if (connectDeviceInteractor.checkDeviceConnection()) {
-            sendEvent(ConnectDeviceEvent.OpenDialog)
+            router.navigateTo(Screens.ChooseDeviceScreen())
         } else {
             sendEvent(ConnectDeviceEvent.OnError(R.string.connect_device_error))
-        }
-    }
-
-    fun connect(ssid: String, password: String) {
-        if (!connectDeviceInteractor.connect(ssid, password).isNullOrEmpty()) {
-            //TODO сохранение IP в бд
-            router.backTo(Screens.SettingsScreen())
-        } else {
-            sendEvent(ConnectDeviceEvent.OnError(R.string.connect_device_connection_error))
         }
     }
 

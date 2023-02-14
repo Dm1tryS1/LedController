@@ -11,9 +11,15 @@ class Storage(context: Context) {
 
     fun getUserSettings(key: String): Int = preferences.getInt(key, -1)
 
-    fun saveUserSettings(key: String, value: Int) {
+    fun saveInt(key: String, value: Int) {
         val editor = preferences.edit()
         editor.putInt(key, value)
+        editor.apply()
+    }
+
+    fun saveString(key: String, value: String) {
+        val editor = preferences.edit()
+        editor.putString(key, value)
         editor.apply()
     }
 
@@ -31,5 +37,7 @@ class Storage(context: Context) {
         const val userMaxHumidity = "UserMaxHumidity"
         const val userMinHumidity = "UserMinHumidity "
         const val userDisplayedValue = "UserDisplayedValue"
+        const val idOfConditioener = "IdOfConditioener"
+        const val ipOfConditioener = "IpOfConditioener"
     }
 }

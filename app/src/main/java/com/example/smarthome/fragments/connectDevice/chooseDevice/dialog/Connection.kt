@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.connectDevice.dialog
+package com.example.smarthome.fragments.connectDevice.chooseDevice.dialog
 
 import android.app.Dialog
 import androidx.fragment.app.Fragment
@@ -7,8 +7,9 @@ import com.example.smarthome.utils.BottomSheetDialogBuilder
 
 object Connection {
     fun create(
+        id: Int,
         fragment: Fragment,
-        connectAction: (ssid: String, password: String) -> Unit,
+        connectAction: (id: Int, ssid: String, password: String) -> Unit,
     ): Dialog {
         val binding = DropmenuConnectWifiDeviceBinding.inflate(fragment.layoutInflater)
 
@@ -19,7 +20,7 @@ object Connection {
                 .setCancelable(true)
 
             connect.setOnClickListener {
-                connectAction(ssid.text.toString(), password.text.toString())
+                connectAction(id, ssid.text.toString(), password.text.toString())
                 dialog.dismiss()
             }
 

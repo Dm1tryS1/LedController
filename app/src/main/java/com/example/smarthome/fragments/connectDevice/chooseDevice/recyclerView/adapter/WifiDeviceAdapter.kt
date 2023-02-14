@@ -1,0 +1,45 @@
+package com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.adapter
+
+import androidx.core.content.ContextCompat
+import com.example.smarthome.R
+import com.example.smarthome.common.device.SensorType
+import com.example.smarthome.databinding.ItemWifiDeviceBinding
+import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
+import com.example.smarthome.utils.AdapterUtil
+import com.example.smarthome.utils.adapterDelegateViewBinding
+import com.example.smarthome.utils.bindWithBinding
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+
+
+class WifiDeviceAdapter(onItemClicked: (id: Int) -> Unit) :
+    AsyncListDifferDelegationAdapter<WifiDevicesItem>(
+        AdapterUtil.diffUtilItemCallbackEquals(),
+        AdapterUtil.adapterDelegatesManager(
+            createParticipantsAdapter(onItemClicked)
+        )
+    )
+
+fun createParticipantsAdapter(onItemClicked: (id: Int) -> Unit) =
+    adapterDelegateViewBinding<WifiDevicesItem, ItemWifiDeviceBinding>(
+        ItemWifiDeviceBinding::inflate
+    ) {
+
+        binding.root.setOnClickListener {
+            onItemClicked(item.id)
+        }
+
+        bindWithBinding {
+            icon.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    if (item.deviceType == SensorType.Conditioner.type) {
+                        R.drawable.ic_conditioner
+                    } else {
+                        R.drawable.ic_humidifier
+                    }
+                )
+            )
+            name.text = "${item.brand} ${item.name}"
+        }
+    }
+

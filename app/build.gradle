@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
 }
 
 android {
@@ -64,4 +65,6 @@ dependencies {
     implementation "com.github.terrakok:cicerone:7.0"
 
     implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
+
+    implementation  "com.squareup.retrofit2:converter-gson:2.9.0"
 }

@@ -1,0 +1,26 @@
+{
+  "HaierLightera": {
+    "brand": "Haier",
+    "name": "Lightera",
+    "id": 2,
+    "deviceType": 4,
+    "commands": {
+      "On": "FF FF 0A 00 00 00 00 00 01 01 4D 02 5B",
+      "Off": "FF FF 0A 00 00 00 00 00 01 01 4D 03 5C",
+      "Status": "FF FF 0A 00 00 00 00 00 01 01 4D 01 5A",
+      "AddTemperature": "FF FF 0A 00 00 00 00 00 01 01 4D 04 5D",
+      "ReduceTemperature": "FF FF 0A 00 00 00 00 00 01 01 4D 05 5E"
+    }
+  },
+  "HaierHJS20U/AM1": {
+    "brand": "Haier",
+    "name": "HJS20U/AM1",
+    "id": 4,
+    "deviceType": 5,
+    "commands": {
+      "On": "FF FF 0A 00 00 00 00 00 01 01 7E 02 8C",
+      "Off": "FF FF 0A 00 00 00 00 00 01 01 7E 03 8D",
+      "Status": "FF FF 0A 00 00 00 00 00 01 01 7E 01 8B"
+    }
+  }
+}
