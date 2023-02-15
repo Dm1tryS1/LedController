@@ -3,17 +3,17 @@ package com.example.smarthome.fragments.connectDevice.chooseDevice.dialog
 import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuConnectWifiDeviceBinding
+import com.example.smarthome.databinding.DropmenuConnectWifiDeviceByIpBinding
 import com.example.smarthome.repository.model.WifiInfo
 import com.example.smarthome.utils.BottomSheetDialogBuilder
 
-object Connection {
+object ConnectionByIP {
     fun create(
         id: Int,
         fragment: Fragment,
-        wifiInfo: WifiInfo,
-        connectAction: (id: Int, wifiInfo: WifiInfo) -> Unit,
+        connectAction: (id: Int, ip: String) -> Unit,
     ): Dialog {
-        val binding = DropmenuConnectWifiDeviceBinding.inflate(fragment.layoutInflater)
+        val binding = DropmenuConnectWifiDeviceByIpBinding.inflate(fragment.layoutInflater)
 
         with(binding) {
 
@@ -21,10 +21,8 @@ object Connection {
                 .addCustomView(root)
                 .setCancelable(true)
 
-            title.text = "${title.text} ${wifiInfo.ssid}"
-
             connect.setOnClickListener {
-                connectAction(id, wifiInfo.copy(password = password.text.toString()))
+                connectAction(id, ip.text.toString())
                 dialog.dismiss()
             }
 

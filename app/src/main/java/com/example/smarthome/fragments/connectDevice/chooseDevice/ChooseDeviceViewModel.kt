@@ -1,15 +1,18 @@
 package com.example.smarthome.fragments.connectDevice.chooseDevice
 
 import android.content.Context
+import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.fragments.connectDevice.ConnectDeviceInteractor
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
+import com.example.smarthome.repository.model.WifiInfo
 import com.example.smarthome.utils.Screens
 import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
@@ -17,7 +20,8 @@ import java.nio.charset.StandardCharsets
 class ChooseDeviceViewModel(
     private val applicationContext: Context,
     private val connectDeviceInteractor: ConnectDeviceInteractor,
-    private val router: Router
+    private val router: Router,
+    private val byIp: Boolean
 ) :
     BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>() {
 
@@ -59,21 +63,32 @@ class ChooseDeviceViewModel(
     }
 
     fun onItemClicked(id: Int) {
-        sendEvent(ChooseDeviceEvent.OpenDeviceMenu(id))
+        if (byIp) {
+            sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(id))
+        } else {
+            sendEvent(ChooseDeviceEvent.OpenDeviceMenu(id, connectDeviceInteractor.getWifiInfo()))
+        }
     }
 
-    fun connect(id: Int, ssid: String, password: String) {
-        if (!(ssid.isEmpty() || password.isEmpty())) {
-            val ip = connectDeviceInteractor.connect(ssid, password)
-            if (!ip.isNullOrEmpty()) {
-                connectDeviceInteractor.saveIdConnectedDevice(id)
-                connectDeviceInteractor.saveIpConnectedDevice(ip)
-                sendEvent(ChooseDeviceEvent.OnSuccess)
-            } else {
-                sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_connection_error))
+    fun connectByIp(id: Int, ip: String) {
+
+    }
+
+    fun connect(id: Int, wifiInfo: WifiInfo) {
+        if (!(wifiInfo.ssid.isEmpty() || wifiInfo.password.isEmpty())) {
+            viewModelScope.launch {
+                connectDeviceInteractor.connect(wifiInfo) { ip ->
+                    if (!ip.isNullOrEmpty()) {
+                        connectDeviceInteractor.saveIdConnectedDevice(id)
+                        connectDeviceInteractor.saveIpConnectedDevice(ip)
+                        sendEvent(ChooseDeviceEvent.OnSuccess)
+                    } else {
+                        sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_connection_error))
+                    }
+                }
             }
         } else {
-            sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_empty_text))
+            sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_data))
         }
     }
 

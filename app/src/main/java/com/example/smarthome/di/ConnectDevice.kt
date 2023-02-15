@@ -15,7 +15,7 @@ object ConnectDevice {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { ConnectDeviceViewModel(get(), get()) }
+        viewModel { ConnectDeviceViewModel(get()) }
     }
 
     private fun createDomainModule() = module {
@@ -23,6 +23,6 @@ object ConnectDevice {
     }
 
     private fun createDataModule() = module {
-        factory { WifiDeviceRepository() }
+        factory { WifiDeviceRepository(get()) }
     }
 }

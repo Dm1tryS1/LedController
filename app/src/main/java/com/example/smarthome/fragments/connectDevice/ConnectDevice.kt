@@ -27,7 +27,10 @@ class ConnectDevice : BaseFragment<Unit, ConnectDeviceEvent>() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             next.setOnClickListener {
-                vm.onNextClicked()
+                vm.onNextClicked(false)
+            }
+            byIp.setOnClickListener {
+                vm.onNextClicked(true)
             }
         }
     }

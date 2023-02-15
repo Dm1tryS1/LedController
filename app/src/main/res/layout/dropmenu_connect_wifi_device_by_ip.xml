@@ -18,18 +18,20 @@
     <TextView
         android:id="@+id/title"
         style="@style/text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/connect_device_network_password"
-        app:layout_constraintBottom_toTopOf="@id/password"
-        app:layout_constraintStart_toStartOf="@id/password" />
+        android:text="@string/connect_device_ip_of_device"
+        app:layout_constraintBottom_toTopOf="@id/ip"
+        app:layout_constraintEnd_toEndOf="@id/ip"
+        app:layout_constraintStart_toStartOf="@id/ip" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/ip"
         style="@style/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="80dp"
         android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/icon" />
 
@@ -40,9 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/bg_menu_button"
-        android:text="@string/settings_button_connect"
+        android:text="@string/connect_device_connect"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/password" />
+        app:layout_constraintTop_toBottomOf="@id/ip" />
 
     <TextView
         android:id="@+id/close"

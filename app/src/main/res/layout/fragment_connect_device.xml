@@ -49,6 +49,19 @@
         android:text="@string/connect_device_next"
         app:layout_constraintTop_toBottomOf="@id/text" />
 
+    <TextView
+        android:id="@+id/by_ip"
+        style="@style/Text.Gray"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/connection_device_ip"
+        app:layout_constraintEnd_toEndOf="@id/next"
+        app:layout_constraintStart_toStartOf="@id/next"
+        app:layout_constraintTop_toBottomOf="@id/next" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/reload"

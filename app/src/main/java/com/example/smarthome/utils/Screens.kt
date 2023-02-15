@@ -19,5 +19,5 @@ object Screens {
     fun SystemScreen() = FragmentScreen { System() }
     fun ConnectDeviceScreen() = FragmentScreen { ConnectDevice() }
 
-    fun ChooseDeviceScreen() = FragmentScreen { ChooseDevice() }
+    fun ChooseDeviceScreen(byIp: Boolean) = FragmentScreen { ChooseDevice.getNewInstance(byIp) }
 }

@@ -40,15 +40,18 @@
     <string name="notification_title">Проблемы с климатом</string>
 
     <string name="connect_device_title">Подключение устройства по сети Wi-Fi</string>
-    <string name="connect_device_text">Сначала Вы должны подключиться к устройству в настройках Wi-Fi на мобильном устройстве</string>
+    <string name="connect_device_text">Для подключения устройства Вы должны быть подключены к своей домашней сети. Также необходимо включить геолокацию в настройках вашего мобильного устройства.</string>
+    <string name="connection_device_ip">Подключение по IP</string>
     <string name="connect_device_next">Далее</string>
     <string name="connect_device_error">Убедитесь, что Вы подключены к устройству по сети Wi-Fi</string>
     <string name="connect_device_connection_error">Убедитесь в правильности данных и повторите попытку</string>
     <string name="connect_device_network_ssid">Название сети</string>
-    <string name="connect_device_network_password">Пароль сети</string>
+    <string name="connect_device_network_password">Пароль от сети:</string>
+    <string name="connect_device_ip_of_device">Введите IP в локальной сети устройства, которое хотите подключить:</string>
     <string name="connect_device_cond">Кондиционер</string>
     <string name="connect_device_hum">Увлажнитель воздуха</string>
     <string name="connect_device_type">Выберите тип и бред\nподключаемого устройства</string>
     <string name="connect_device_success">Устройство было подключено</string>
-    <string name="connect_device_empty_text">Данные не должны быть пустыми</string>
+    <string name="connect_device_error_data">Проверьте правильноcть данных</string>
+    <string name="connect_device_connect">Подключить</string>
 </resources>
