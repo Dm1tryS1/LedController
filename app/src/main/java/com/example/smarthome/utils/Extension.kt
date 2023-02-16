@@ -1,19 +1,54 @@
 package com.example.smarthome.utils
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.example.smarthome.R
 import com.github.mikephil.charting.components.AxisBase
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
 
 val Int.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 fun Fragment.snackBar(text: String) {
     requireActivity().window.decorView.findViewById<View>(android.R.id.content).showSnack(text)
+}
+
+private val mainHandler = Handler(Looper.getMainLooper())
+fun <B : ViewBinding> Fragment.fragmentViewBinding(
+    bindingCreator: (View) -> B,
+) = object : ReadOnlyProperty<Fragment, B> {
+    private var binding: B? = null
+
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): B {
+        //view может быть null, если обращение к binding в onDestroyView
+        this.binding
+            ?.takeIf { view == null || it.root == view }
+            ?.let { return it }
+
+        val newBinding = bindingCreator(requireView())
+        binding = newBinding
+        viewLifecycleOwner.lifecycle.doOnDestroy {
+            mainHandler.post {
+                if (binding === newBinding) {
+                    binding = null
+                }
+            }
+        }
+
+        return newBinding
+    }
 }
 
 val Float.dp: Float
@@ -37,3 +72,13 @@ fun String.isIpAddress() : Boolean {
             + "[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}"
             + "|[1-9][0-9]|[0-9]))").toRegex().matches(this)
 }
+
+fun createCenter(view: View, cancelable: Boolean = true): Dialog {
+    val builder = AlertDialog.Builder(view.context)
+    builder.setCancelable(cancelable)
+    builder.setView(view)
+    val dialog: Dialog = builder.create()
+    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    return dialog
+}
+

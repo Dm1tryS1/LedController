@@ -10,6 +10,6 @@ class NetworkRepository {
     suspend fun sendConfig(systemIp: String, data: List<Pair<String, Int>>, callback: (BaseResponse<SendConfig>) -> Unit) {
         Log.d("here","system ${systemIp} ${data} ${data}}")
         delay(2000)
-        callback(BaseResponse(null, SendConfig()))
+        callback(BaseResponse(null, SendConfig(listOf(1,2))))
     }
 }

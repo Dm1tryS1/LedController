@@ -67,6 +67,14 @@ fun Lifecycle.doOnStartStop(
     })
 }
 
+fun Lifecycle.doOnDestroy(action: () -> Unit) {
+    addObserver(object : DefaultLifecycleObserver {
+        override fun onDestroy(owner: LifecycleOwner) {
+            action()
+        }
+    })
+}
+
 fun Lifecycle.doOnCreate(action: () -> Unit) {
     addObserver(object : DefaultLifecycleObserver {
         override fun onCreate(owner: LifecycleOwner) {
