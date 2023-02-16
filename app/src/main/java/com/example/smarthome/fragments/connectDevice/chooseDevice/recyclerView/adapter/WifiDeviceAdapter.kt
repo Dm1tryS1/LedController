@@ -11,7 +11,7 @@ import com.example.smarthome.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 
-class WifiDeviceAdapter(onItemClicked: (id: Int) -> Unit) :
+class WifiDeviceAdapter(onItemClicked: (type: Int, id: Int) -> Unit) :
     AsyncListDifferDelegationAdapter<WifiDevicesItem>(
         AdapterUtil.diffUtilItemCallbackEquals(),
         AdapterUtil.adapterDelegatesManager(
@@ -19,13 +19,13 @@ class WifiDeviceAdapter(onItemClicked: (id: Int) -> Unit) :
         )
     )
 
-fun createParticipantsAdapter(onItemClicked: (id: Int) -> Unit) =
+fun createParticipantsAdapter(onItemClicked: (type: Int, id: Int) -> Unit) =
     adapterDelegateViewBinding<WifiDevicesItem, ItemWifiDeviceBinding>(
         ItemWifiDeviceBinding::inflate
     ) {
 
         binding.root.setOnClickListener {
-            onItemClicked(item.id)
+            onItemClicked(item.deviceType, item.id)
         }
 
         bindWithBinding {

@@ -20,7 +20,7 @@ class InformationInteractor(private val deviceRepository: DeviceRepository, priv
         awaitClose()
     }
 
-    fun getUserSettings() = storage.getUserSettings(Storage.userTimer)
+    fun getUserSettings() = storage.getInt(Storage.userTimer)
 
     fun saveUserSettings(value: Int){
         storage.saveInt(Storage.userTimer, value)

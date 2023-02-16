@@ -141,7 +141,12 @@ class InformationViewModel(
 
     fun onSettingsClicked() {
         viewModelScope.launch {
-            sendEvent(InformationEvent.OpenSettingsMenuEvent(informationInteractor.getUserSettings()))
+            val timer = informationInteractor.getUserSettings()
+            if (timer >= 0) {
+                sendEvent(InformationEvent.OpenSettingsMenuEvent(informationInteractor.getUserSettings()))
+            } else {
+                sendEvent(InformationEvent.OpenSettingsMenuEvent(0))
+            }
         }
     }
 

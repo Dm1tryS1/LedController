@@ -8,10 +8,11 @@ import com.example.smarthome.utils.BottomSheetDialogBuilder
 
 object Connection {
     fun create(
+        type: Int,
         id: Int,
         fragment: Fragment,
         wifiInfo: WifiInfo,
-        connectAction: (id: Int, wifiInfo: WifiInfo) -> Unit,
+        connectAction: (type: Int, id: Int, wifiInfo: WifiInfo) -> Unit,
     ): Dialog {
         val binding = DropmenuConnectWifiDeviceBinding.inflate(fragment.layoutInflater)
 
@@ -24,7 +25,7 @@ object Connection {
             title.text = "${title.text} ${wifiInfo.ssid}"
 
             connect.setOnClickListener {
-                connectAction(id, wifiInfo.copy(password = password.text.toString()))
+                connectAction(type, id, wifiInfo.copy(password = password.text.toString()))
                 dialog.dismiss()
             }
 

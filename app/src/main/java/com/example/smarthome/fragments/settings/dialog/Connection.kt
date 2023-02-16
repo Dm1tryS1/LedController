@@ -3,14 +3,16 @@ package com.example.smarthome.fragments.settings.dialog
 import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuConnectBinding
+import com.example.smarthome.repository.model.WifiInfo
 import com.example.smarthome.utils.BottomSheetDialogBuilder
 
 object Connection {
     fun create(
         fragment: Fragment,
-        connectAction: (address: String) -> Unit,
+        connectAction: (address: String, wifiInfo: WifiInfo) -> Unit,
         disconnectAction: () -> Unit,
         address: String,
+        wifiInfo: WifiInfo
     ): Dialog {
         val binding = DropmenuConnectBinding.inflate(fragment.layoutInflater)
 
@@ -20,8 +22,10 @@ object Connection {
                 .addCustomView(root)
                 .setCancelable(true)
 
+            title.text = "${title.text} ${wifiInfo.ssid}"
+
             connect.setOnClickListener {
-                connectAction(address)
+                connectAction(address, wifiInfo.copy(password = password.text.toString()))
                 dialog.dismiss()
             }
 

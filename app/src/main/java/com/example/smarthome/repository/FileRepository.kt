@@ -1,0 +1,25 @@
+package com.example.smarthome.repository
+
+import android.content.Context
+import java.io.IOException
+import java.io.InputStream
+import java.nio.charset.StandardCharsets
+
+class FileRepository(private val context: Context) {
+
+    fun getJSONfromFile(path: String): String? {
+
+        val jsonString: String = try {
+            val `is`: InputStream = context.assets.open(path)
+            val size: Int = `is`.available()
+            val buffer = ByteArray(size)
+            `is`.read(buffer)
+            `is`.close()
+            String(buffer, StandardCharsets.UTF_8)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return null
+        }
+        return jsonString
+    }
+}

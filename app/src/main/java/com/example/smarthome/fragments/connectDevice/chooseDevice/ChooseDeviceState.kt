@@ -4,4 +4,5 @@ import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.m
 
 sealed class ChooseDeviceState {
     class OnSuccess(val devices: List<WifiDevicesItem>) : ChooseDeviceState()
+    class Loading(val isLoading: Boolean) : ChooseDeviceState()
 }

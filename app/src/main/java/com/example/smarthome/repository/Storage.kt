@@ -9,7 +9,9 @@ class Storage(context: Context) {
         Context.MODE_PRIVATE
     )
 
-    fun getUserSettings(key: String): Int = preferences.getInt(key, -1)
+    fun getInt(key: String) = preferences.getInt(key, -1)
+
+    fun getString(key: String) = preferences.getString(key, "")
 
     fun saveInt(key: String, value: Int) {
         val editor = preferences.edit()
@@ -37,7 +39,10 @@ class Storage(context: Context) {
         const val userMaxHumidity = "UserMaxHumidity"
         const val userMinHumidity = "UserMinHumidity "
         const val userDisplayedValue = "UserDisplayedValue"
-        const val idOfConditioener = "IdOfConditioener"
         const val ipOfConditioener = "IpOfConditioener"
+        const val idOfConditioener = "IdOfConditioener"
+        const val ipOfHumidifier = "ipOfHumidifier"
+        const val idOfHumidifier = "idOfHumidifier"
+        const val systemIp = "SystemIp"
     }
 }

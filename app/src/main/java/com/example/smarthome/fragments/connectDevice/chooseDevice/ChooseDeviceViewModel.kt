@@ -1,6 +1,5 @@
 package com.example.smarthome.fragments.connectDevice.chooseDevice
 
-import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseViewModel
@@ -13,35 +12,16 @@ import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.StandardCharsets
 
 class ChooseDeviceViewModel(
-    private val applicationContext: Context,
     private val connectDeviceInteractor: ConnectDeviceInteractor,
     private val router: Router,
     private val byIp: Boolean
 ) :
     BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>() {
 
-    private fun getJsonFromAssets(): String? {
-        val jsonString: String = try {
-            val `is`: InputStream = applicationContext.assets.open(FileName)
-            val size: Int = `is`.available()
-            val buffer = ByteArray(size)
-            `is`.read(buffer)
-            `is`.close()
-            String(buffer, StandardCharsets.UTF_8)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            return null
-        }
-        return jsonString
-    }
-
     private fun getDevices(type: Int) = (Gson().fromJson(
-        getJsonFromAssets(),
+        connectDeviceInteractor.getJSONfromFile(FileName),
         object : TypeToken<Map<String, WifiDevicesItem>>() {}.type
     ) as Map<String, WifiDevicesItem>).filter { it.value.deviceType == type }
         .map {
@@ -62,28 +42,35 @@ class ChooseDeviceViewModel(
         }
     }
 
-    fun onItemClicked(id: Int) {
+    fun onItemClicked(type: Int, id: Int) {
         if (byIp) {
-            sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(id))
+            sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
         } else {
-            sendEvent(ChooseDeviceEvent.OpenDeviceMenu(id, connectDeviceInteractor.getWifiInfo()))
+            sendEvent(ChooseDeviceEvent.OpenDeviceMenu(type, id, connectDeviceInteractor.getWifiInfo()))
         }
     }
 
-    fun connectByIp(id: Int, ip: String) {
-
+    fun connectByIp(type: Int, id: Int, ip: String) {
+        updateState {
+            ChooseDeviceState.Loading(true)
+        }
+        finishConnection(type, id, ip)
     }
 
-    fun connect(id: Int, wifiInfo: WifiInfo) {
+    fun connect(type:Int, id: Int, wifiInfo: WifiInfo) {
         if (!(wifiInfo.ssid.isEmpty() || wifiInfo.password.isEmpty())) {
             viewModelScope.launch {
+                updateState {
+                    ChooseDeviceState.Loading(true)
+                }
                 connectDeviceInteractor.connect(wifiInfo) { ip ->
                     if (!ip.isNullOrEmpty()) {
-                        connectDeviceInteractor.saveIdConnectedDevice(id)
-                        connectDeviceInteractor.saveIpConnectedDevice(ip)
-                        sendEvent(ChooseDeviceEvent.OnSuccess)
+                        finishConnection(type, id, ip)
                     } else {
                         sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_connection_error))
+                        updateState {
+                            ChooseDeviceState.Loading(false)
+                        }
                     }
                 }
             }
@@ -92,6 +79,32 @@ class ChooseDeviceViewModel(
         }
     }
 
+    private fun finishConnection(type: Int, id: Int, ip: String) {
+        viewModelScope.launch {
+            connectDeviceInteractor.saveConnectedDevice(id, type, ip)
+            val systemIp = connectDeviceInteractor.getSystemIp()
+            if (!systemIp.isNullOrEmpty()) {
+                connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip,id))) { result ->
+                    if (result.data != null) {
+                        sendEvent(ChooseDeviceEvent.OnSuccess)
+                        updateState {
+                            ChooseDeviceState.Loading(false)
+                        }
+                    } else {
+                        sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
+                        updateState {
+                            ChooseDeviceState.Loading(false)
+                        }
+                    }
+                }
+            } else {
+                sendEvent(ChooseDeviceEvent.OnSuccess)
+                updateState {
+                    ChooseDeviceState.Loading(false)
+                }
+            }
+        }
+    }
 
     companion object {
         private const val FileName = "wifi_devices.json"

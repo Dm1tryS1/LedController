@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentChooseDeviceBinding
@@ -21,8 +23,8 @@ class ChooseDevice : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
 
     override val vm: ChooseDeviceViewModel by viewModel { parametersOf(arguments?.getBoolean(BY_IP)) }
 
-    private val adapter = WifiDeviceAdapter(onItemClicked = {
-        vm.onItemClicked(it)
+    private val adapter = WifiDeviceAdapter(onItemClicked = { type, id ->
+        vm.onItemClicked(type, id)
     })
 
     override fun onCreateView(
@@ -52,12 +54,24 @@ class ChooseDevice : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
     override fun renderState(state: ChooseDeviceState) {
         when (state) {
             is ChooseDeviceState.OnSuccess -> adapter.items = state.devices
+            is ChooseDeviceState.Loading -> {
+                binding.loader.isVisible = state.isLoading
+                if (state.isLoading) {
+                    requireActivity().window.setFlags(
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    )
+                } else {
+                    requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                }
+            }
         }
     }
 
     override fun handleEvent(event: ChooseDeviceEvent) {
         when (event) {
             is ChooseDeviceEvent.OpenDeviceMenu -> Connection.create(
+                event.type,
                 event.id,
                 this,
                 event.wifiInfo,
@@ -66,6 +80,7 @@ class ChooseDevice : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
             is ChooseDeviceEvent.OnError -> snackBar(getString(event.message))
             is ChooseDeviceEvent.OnSuccess -> snackBar(getString(R.string.connect_device_success))
             is ChooseDeviceEvent.OpenDeviceMenuByIP -> ConnectionByIP.create(
+                event.type,
                 event.id,
                 this,
                 vm::connectByIp

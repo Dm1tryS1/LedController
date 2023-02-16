@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import com.espressif.iot.esptouch2.provision.*
 import com.example.smarthome.repository.model.WifiInfo
+import com.example.smarthome.utils.toBytes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -13,14 +14,13 @@ import java.nio.charset.StandardCharsets
 class WifiDeviceRepository(private val context: Context) {
 
     private val provisioner = EspProvisioner(context)
-    fun checkDeviceConnection(): Boolean {
-        return true
-    }
     fun getWifiInfo(): WifiInfo {
-        val network = (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager).connectionInfo
-        return WifiInfo(ssid = network.ssid, bssid = network.bssid, "")
+        val network =
+            (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager).connectionInfo
+        return WifiInfo(ssid = network.ssid.dropLast(1).drop(1), bssid = network.bssid, "")
     }
-    suspend fun connect(wifiInfo: WifiInfo,callback: (String?) -> Unit) {
+
+    suspend fun connect(wifiInfo: WifiInfo, callback: (String?) -> Unit) {
         try {
             val syncListener = object : EspSyncListener {
                 override fun onStart() {}
@@ -35,7 +35,7 @@ class WifiDeviceRepository(private val context: Context) {
 
             val request = EspProvisioningRequest.Builder(context)
                 .setSSID(wifiInfo.ssid.toByteArray())
-                .setBSSID(wifiInfo.bssid.toByteArray())
+                .setBSSID(wifiInfo.bssid.toBytes(":"))
                 .setPassword(wifiInfo.password.toByteArray())
                 .build()
 
@@ -48,7 +48,7 @@ class WifiDeviceRepository(private val context: Context) {
                 }
 
                 override fun onStop() {
-                    callback("192.168.4.1")
+                    callback("192.168.4." + (1..254).random().toString())
                     provisioner.stopSync()
                 }
 

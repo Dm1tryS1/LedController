@@ -15,6 +15,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/title"
+        style="@style/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_device_network_password"
+        app:layout_constraintBottom_toTopOf="@id/password"
+        app:layout_constraintStart_toStartOf="@id/password" />
+
+    <EditText
+        android:id="@+id/password"
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/icon" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/connect"
         style="@style/text"
@@ -24,7 +42,7 @@
         android:background="@drawable/bg_menu_button"
         android:text="@string/settings_button_connect"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/icon" />
+        app:layout_constraintTop_toBottomOf="@id/password" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -37,6 +55,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_menu_button"
         android:padding="10dp"
+        android:visibility="gone"
         android:text="@string/settings_button_disconnect"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/connect" />

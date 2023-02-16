@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.smarthome.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentSettingsBinding
 import com.example.smarthome.fragments.settings.dialog.Connection
@@ -56,7 +58,18 @@ class Settings : BaseFragment<SettingsState, SettingsEvent>() {
 
     override fun renderState(state: SettingsState) {
         adapter.items = state.devices
+
+        binding.loader.isVisible = state.isLoading
+        if (state.isLoading) {
+            requireActivity().window.setFlags(
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            )
+        } else {
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        }
     }
+
 
     override fun handleEvent(event: SettingsEvent) {
         when (event) {
@@ -74,7 +87,8 @@ class Settings : BaseFragment<SettingsState, SettingsEvent>() {
                 fragment = this@Settings,
                 connectAction = vm::connect,
                 disconnectAction = vm::disconnect,
-                address = event.address
+                address = event.address,
+                wifiInfo = event.wifiInfo
             ).show()
             is SettingsEvent.DisconnectFailureEvent -> Toast.makeText(
                 requireContext(),

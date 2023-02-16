@@ -19,7 +19,7 @@ object ConnectDevice {
     }
 
     private fun createDomainModule() = module {
-        factory { ConnectDeviceInteractor(get(), get()) }
+        factory { ConnectDeviceInteractor(get(), get(), get(), get()) }
     }
 
     private fun createDataModule() = module {

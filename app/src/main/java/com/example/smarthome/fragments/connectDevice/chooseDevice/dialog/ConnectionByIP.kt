@@ -1,17 +1,23 @@
 package com.example.smarthome.fragments.connectDevice.chooseDevice.dialog
 
 import android.app.Dialog
+import android.util.Patterns
 import androidx.fragment.app.Fragment
+import com.example.smarthome.R
 import com.example.smarthome.databinding.DropmenuConnectWifiDeviceBinding
 import com.example.smarthome.databinding.DropmenuConnectWifiDeviceByIpBinding
 import com.example.smarthome.repository.model.WifiInfo
 import com.example.smarthome.utils.BottomSheetDialogBuilder
+import com.example.smarthome.utils.isIpAddress
+import com.example.smarthome.utils.snackBar
+import java.util.regex.Pattern
 
 object ConnectionByIP {
     fun create(
+        type: Int,
         id: Int,
         fragment: Fragment,
-        connectAction: (id: Int, ip: String) -> Unit,
+        connectAction: (type: Int, id: Int, ip: String) -> Unit,
     ): Dialog {
         val binding = DropmenuConnectWifiDeviceByIpBinding.inflate(fragment.layoutInflater)
 
@@ -22,7 +28,12 @@ object ConnectionByIP {
                 .setCancelable(true)
 
             connect.setOnClickListener {
-                connectAction(id, ip.text.toString())
+                if ((ip.text.toString().isIpAddress())
+                ) {
+                    connectAction(type, id, ip.text.toString())
+                } else {
+                    fragment.snackBar(fragment.getString(R.string.connect_device_error_ip_format))
+                }
                 dialog.dismiss()
             }
 

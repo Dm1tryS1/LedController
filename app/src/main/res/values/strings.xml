@@ -47,11 +47,13 @@
     <string name="connect_device_connection_error">Убедитесь в правильности данных и повторите попытку</string>
     <string name="connect_device_network_ssid">Название сети</string>
     <string name="connect_device_network_password">Пароль от сети:</string>
-    <string name="connect_device_ip_of_device">Введите IP в локальной сети устройства, которое хотите подключить:</string>
+    <string name="connect_device_ip_of_device">Введите IP в локальной сети устройства, которое хотите подключить (формат: 255.255.255.255):</string>
     <string name="connect_device_cond">Кондиционер</string>
     <string name="connect_device_hum">Увлажнитель воздуха</string>
     <string name="connect_device_type">Выберите тип и бред\nподключаемого устройства</string>
     <string name="connect_device_success">Устройство было подключено</string>
     <string name="connect_device_error_data">Проверьте правильноcть данных</string>
     <string name="connect_device_connect">Подключить</string>
+    <string name="connect_device_error_send_config">Не удалось отправить конфигурацию в систему</string>
+    <string name="connect_device_error_ip_format">Неправильный формат IP</string>
 </resources>
