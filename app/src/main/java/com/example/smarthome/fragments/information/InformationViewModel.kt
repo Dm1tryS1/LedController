@@ -35,6 +35,11 @@ class InformationViewModel(
                 state.copy(progressVisibility = true)
             }
         }
+        if (aPackage is Command.BroadCast) {
+            updateState {state ->
+                state.copy(data = null)
+            }
+        }
         informationInteractor.sendPackage(aPackage)
     }
 
