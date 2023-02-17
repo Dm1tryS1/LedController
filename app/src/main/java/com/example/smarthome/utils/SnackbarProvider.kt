@@ -1,13 +1,11 @@
 package com.example.smarthome.utils
 
-import android.content.res.Resources
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
-import androidx.fragment.app.Fragment
 import com.example.smarthome.R
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -44,9 +42,7 @@ fun View.showSnack(
     if (actionText != null) {
         snackBar.setAction(actionText, actionClick)
     }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        snackBar.setActionTextColor(context.getColor(R.color.blue))
-    }
+    snackBar.setActionTextColor(context.getColor(R.color.blue))
     snackBar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
         override fun onShown(transientBottomBar: Snackbar?) {
             super.onShown(transientBottomBar)

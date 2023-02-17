@@ -6,9 +6,10 @@ import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.Storage
 import com.example.smarthome.repository.WifiDeviceRepository
 import com.example.smarthome.repository.model.BaseResponse
-import com.example.smarthome.repository.model.SendConfig
+import com.example.smarthome.repository.model.ErrorResponse
+import com.example.smarthome.service.network.model.SendConfigResponse
 import com.example.smarthome.repository.model.WifiInfo
-import kotlinx.coroutines.flow.callbackFlow
+import com.example.smarthome.service.network.mapper.sendConfigRequestMapper
 
 class ConnectDeviceInteractor(
     private val wifiDeviceRepository: WifiDeviceRepository,
@@ -38,13 +39,24 @@ class ConnectDeviceInteractor(
 
     fun getSystemIp() = storage.getString(Storage.systemIp)
 
+    @Deprecated("Переписать обработку ошибки")
     suspend fun sendConfig(
         systemIp: String,
         data: List<Pair<String, Int>>,
-        callback: (BaseResponse<SendConfig>) -> Unit
-    ) {
-        networkRepository.sendConfig(systemIp, data) {
-            callback(it)
-        }
+    ) = try {
+        networkRepository.sendConfig(
+            fileRepository.findDeviceConfig(data.map { it.second }).mapNotNull { item ->
+                val ip = data.find { it.second == item.id }?.first
+                if (!ip.isNullOrEmpty()) {
+                    sendConfigRequestMapper(item, ip)
+                } else {
+                    null
+                }
+            },
+            systemIp
+        )
+    } catch (e: Exception) {
+        BaseResponse<SendConfigResponse>(ErrorResponse(400, "Ошибка"), null)
     }
+
 }

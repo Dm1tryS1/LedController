@@ -6,6 +6,7 @@ import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.fragments.connectDevice.ConnectDeviceInteractor
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
+import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.repository.model.WifiInfo
 import com.example.smarthome.utils.Screens
 import com.github.terrakok.cicerone.Router
@@ -21,7 +22,7 @@ class ChooseDeviceViewModel(
     BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>() {
 
     private fun getDevices(type: Int) = (Gson().fromJson(
-        connectDeviceInteractor.getJSONfromFile(FileName),
+        connectDeviceInteractor.getJSONfromFile(FileRepository.FileName),
         object : TypeToken<Map<String, WifiDevicesItem>>() {}.type
     ) as Map<String, WifiDevicesItem>).filter { it.value.deviceType == type }
         .map {
@@ -46,7 +47,13 @@ class ChooseDeviceViewModel(
         if (byIp) {
             sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
         } else {
-            sendEvent(ChooseDeviceEvent.OpenDeviceMenu(type, id, connectDeviceInteractor.getWifiInfo()))
+            sendEvent(
+                ChooseDeviceEvent.OpenDeviceMenu(
+                    type,
+                    id,
+                    connectDeviceInteractor.getWifiInfo()
+                )
+            )
         }
     }
 
@@ -57,7 +64,7 @@ class ChooseDeviceViewModel(
         finishConnection(type, id, ip)
     }
 
-    fun connect(type:Int, id: Int, wifiInfo: WifiInfo) {
+    fun connect(type: Int, id: Int, wifiInfo: WifiInfo) {
         if (!(wifiInfo.ssid.isEmpty() || wifiInfo.password.isEmpty())) {
             viewModelScope.launch {
                 updateState {
@@ -84,17 +91,16 @@ class ChooseDeviceViewModel(
             connectDeviceInteractor.saveConnectedDevice(id, type, ip)
             val systemIp = connectDeviceInteractor.getSystemIp()
             if (!systemIp.isNullOrEmpty()) {
-                connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip,id))) { result ->
-                    if (result.data != null) {
-                        sendEvent(ChooseDeviceEvent.OnSuccess)
-                        updateState {
-                            ChooseDeviceState.Loading(false)
-                        }
-                    } else {
-                        sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
-                        updateState {
-                            ChooseDeviceState.Loading(false)
-                        }
+                val result = connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id)))
+                if (result.data != null) {
+                    sendEvent(ChooseDeviceEvent.OnSuccess)
+                    updateState {
+                        ChooseDeviceState.Loading(false)
+                    }
+                } else {
+                    sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
+                    updateState {
+                        ChooseDeviceState.Loading(false)
                     }
                 }
             } else {
@@ -104,10 +110,6 @@ class ChooseDeviceViewModel(
                 }
             }
         }
-    }
-
-    companion object {
-        private const val FileName = "wifi_devices.json"
     }
 
     enum class Type {

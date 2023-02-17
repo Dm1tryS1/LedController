@@ -44,16 +44,16 @@ class SettingsViewModel(
             }
 
             if (data.isNotEmpty()) {
-                devicesUseCase.sendConfig(ip, data) { result ->
-                    if (result.data != null) {
-                        bluetoothConnection(address)
-                    } else {
-                        sendEvent(SettingsEvent.DisconnectFailureEvent)
-                        updateState { state ->
-                            state.copy(isLoading = false)
-                        }
+                val result = devicesUseCase.sendConfig(ip, data)
+                if (result.data != null) {
+                    bluetoothConnection(address)
+                } else {
+                    sendEvent(SettingsEvent.DisconnectFailureEvent)
+                    updateState { state ->
+                        state.copy(isLoading = false)
                     }
                 }
+
             } else {
                 bluetoothConnection(address)
             }

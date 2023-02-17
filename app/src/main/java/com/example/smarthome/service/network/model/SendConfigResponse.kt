@@ -1,10 +1,10 @@
-package com.example.smarthome.repository.model
+package com.example.smarthome.service.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class SendConfig(
+class SendConfigResponse(
     @SerialName("connectedDevices")
     val connectedDevices: List<Int>
 )
