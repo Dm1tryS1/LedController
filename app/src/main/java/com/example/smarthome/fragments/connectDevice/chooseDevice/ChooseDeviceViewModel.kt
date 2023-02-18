@@ -8,7 +8,7 @@ import com.example.smarthome.fragments.connectDevice.ConnectDeviceInteractor
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.repository.model.WifiInfo
-import com.example.smarthome.utils.Screens
+import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

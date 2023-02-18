@@ -56,11 +56,11 @@ val Float.dp: Float
 
 fun AxisBase.setupEnvironments(font: Typeface?, textSize: Float, context: Context) {
     this.apply {
-        gridColor = ContextCompat.getColor(context, R.color.black)
+        gridColor = ContextCompat.getColor(context, R.color.white)
         enableGridDashedLine(10f, 10f, 0f)
         typeface = font
         this.textSize = textSize
-        textColor = ContextCompat.getColor(context, R.color.black)
+        textColor = ContextCompat.getColor(context, R.color.white)
     }
 }
 

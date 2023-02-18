@@ -1,5 +1,6 @@
-package com.example.smarthome.utils
+package com.example.smarthome.main
 
+import android.service.controls.DeviceTypes
 import com.example.smarthome.fragments.charts.Charts
 import com.example.smarthome.fragments.connectDevice.ConnectDevice
 import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDevice
@@ -15,7 +16,7 @@ object Screens {
     fun SettingsScreen() = FragmentScreen { Settings() }
     fun InformationScreen() = FragmentScreen { Information() }
     fun MainScreen() = FragmentScreen { Main() }
-    fun ChartScreen() = FragmentScreen { Charts() }
+    fun ChartScreen(deviceTypes: Int, id: Int) = FragmentScreen { Charts.getNewInstance(deviceTypes, id) }
     fun SystemScreen() = FragmentScreen { System() }
     fun ConnectDeviceScreen() = FragmentScreen { ConnectDevice() }
 

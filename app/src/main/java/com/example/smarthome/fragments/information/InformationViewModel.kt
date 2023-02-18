@@ -7,7 +7,7 @@ import com.example.smarthome.fragments.information.recyclerView.mapper.packageTo
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.repository.DeviceRepository
-import com.example.smarthome.utils.Screens
+import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -141,7 +141,7 @@ class InformationViewModel(
 
     fun onChartOpen(type: Int, id: Int) {
         if (type == SensorType.TemperatureSensor.type || type == SensorType.HumidifierSensor.type || type == SensorType.PressureSensor.type)
-            router.navigateTo(Screens.ChartScreen())
+            router.navigateTo(Screens.ChartScreen(type, id))
     }
 
     fun onSettingsClicked() {

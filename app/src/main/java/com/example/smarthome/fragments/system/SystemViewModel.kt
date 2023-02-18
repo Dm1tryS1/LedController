@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.smarthome.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.CommandsForMaster
-import com.example.smarthome.utils.Screens
+import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
