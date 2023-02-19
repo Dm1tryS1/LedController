@@ -12,6 +12,7 @@ import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ChooseDeviceViewModel(
@@ -66,7 +67,7 @@ class ChooseDeviceViewModel(
 
     fun connect(type: Int, id: Int, wifiInfo: WifiInfo) {
         if (!(wifiInfo.ssid.isEmpty() || wifiInfo.password.isEmpty())) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 updateState {
                     ChooseDeviceState.Loading(true)
                 }
