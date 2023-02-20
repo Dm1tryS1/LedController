@@ -7,8 +7,8 @@ import com.example.smarthome.service.storage.entity.DeviceInfo
 
 @Dao
 interface DeviceInfoDao {
-    @Query("SELECT * FROM DeviceInfo WHERE id = :id AND date = :date")
-    fun getInfoForDeviceByDate(id: Int, date: String): DeviceInfo
+    @Query("SELECT * FROM DeviceInfo WHERE deviceId = :id AND date = :date")
+    fun getInfoForDeviceByDate(id: Int, date: String): List<DeviceInfo>
 
     @Insert
     fun insert(deviceInfo: DeviceInfo)

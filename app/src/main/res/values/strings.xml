@@ -60,6 +60,7 @@
     <string name="chart_graph_temp">График температуры</string>
     <string name="chart_graph_hum">График влажности</string>
     <string name="chart_graph_pressure">График давления</string>
+    <string name="chart_choose_date">Выбрать дату</string>
 
     <string name="permission_geo_title">Доступ к местоположению</string>
     <string name="permission_storage_title">Доступ к хранилищу</string>

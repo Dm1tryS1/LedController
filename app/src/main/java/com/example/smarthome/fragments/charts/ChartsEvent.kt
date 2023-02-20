@@ -1,4 +1,5 @@
 package com.example.smarthome.fragments.charts
 
-class ChartsEvent {
+sealed class ChartsEvent {
+    object OpenDatePicker: ChartsEvent()
 }

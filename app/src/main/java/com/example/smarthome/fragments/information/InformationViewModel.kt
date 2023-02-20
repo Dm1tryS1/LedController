@@ -117,7 +117,7 @@ class InformationViewModel(
         if (aPackage.type == SensorType.TemperatureSensor.type || aPackage.type == SensorType.HumidifierSensor.type) {
             informationInteractor.saveInDataBase(
                 DeviceInfo(
-                    id = aPackage.id!!,
+                    deviceId = aPackage.id!!,
                     time = "${aPackage.hours}:${aPackage.minutes}",
                     value = aPackage.info0!!.toInt(),
                     date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
@@ -126,11 +126,18 @@ class InformationViewModel(
         } else if (aPackage.type == SensorType.PressureSensor.type) {
             informationInteractor.saveInDataBase(
                 DeviceInfo(
-                    id = aPackage.id!!,
+                    deviceId = aPackage.id!!,
                     time = "${aPackage.hours}:${aPackage.minutes}",
-                    value = ByteBuffer.wrap(byteArrayOf(aPackage.info3!!, aPackage.info2!!, aPackage.info1!!, aPackage.info0!!)).int,
+                    value = ByteBuffer.wrap(
+                        byteArrayOf(
+                            aPackage.info3!!,
+                            aPackage.info2!!,
+                            aPackage.info1!!,
+                            aPackage.info0!!
+                        )
+                    ).int,
                     date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-            )
+                )
             )
         }
     }

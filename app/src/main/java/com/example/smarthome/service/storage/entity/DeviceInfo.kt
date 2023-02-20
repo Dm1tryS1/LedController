@@ -5,8 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class DeviceInfo(
-    @PrimaryKey
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val deviceId: Int,
     val date: String,
     val time: String,
     val value: Int,

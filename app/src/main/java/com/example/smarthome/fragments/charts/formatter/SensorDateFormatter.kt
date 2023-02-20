@@ -11,7 +11,8 @@ class SensorDateFormatter : ValueFormatter() {
         return when {
             dates.isEmpty() -> "-"
             value == axisBase.mEntries[axisBase.mEntryCount - 1] -> dates.last()
-            else -> dates[value.toInt()]
+            value.toInt() in 0 until dates.size -> dates[value.toInt()]
+            else -> "-"
         }
     }
 
