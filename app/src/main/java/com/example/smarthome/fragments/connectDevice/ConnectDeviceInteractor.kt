@@ -5,9 +5,6 @@ import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.Storage
 import com.example.smarthome.repository.WifiDeviceRepository
-import com.example.smarthome.repository.model.BaseResponse
-import com.example.smarthome.repository.model.ErrorResponse
-import com.example.smarthome.service.network.model.SendConfigResponse
 import com.example.smarthome.repository.model.WifiInfo
 import com.example.smarthome.service.network.mapper.sendConfigRequestMapper
 
@@ -39,11 +36,11 @@ class ConnectDeviceInteractor(
 
     fun getSystemIp() = storage.getString(Storage.systemIp)
 
-    @Deprecated("Переписать обработку ошибки")
     suspend fun sendConfig(
         systemIp: String,
         data: List<Pair<String, Int>>,
-    ) = try {
+        callback: (success: Boolean) -> Unit
+    ) {
         networkRepository.sendConfig(
             fileRepository.findDeviceConfig(data.map { it.second }).mapNotNull { item ->
                 val ip = data.find { it.second == item.id }?.first
@@ -54,9 +51,9 @@ class ConnectDeviceInteractor(
                 }
             },
             systemIp
-        )
-    } catch (e: Exception) {
-        BaseResponse<SendConfigResponse>(ErrorResponse(400, "Ошибка"), null)
+        ) {
+            callback(it)
+        }
     }
 
 }

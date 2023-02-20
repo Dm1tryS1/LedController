@@ -35,6 +35,8 @@ class SettingsViewModel(
             val hum = devicesUseCase.getHumIpInfo()
 
             val data = mutableListOf<Pair<String, Int>>()
+//            data.add(Pair("192.168.1.1", 2))
+//            data.add(Pair("192.168.1.2", 4))
 
             if (!cond.first.isNullOrEmpty() && cond.second != -1) {
                 data.add(Pair(cond.first!!, cond.second))
@@ -44,16 +46,16 @@ class SettingsViewModel(
             }
 
             if (data.isNotEmpty()) {
-                val result = devicesUseCase.sendConfig(ip, data)
-                if (result.data != null) {
-                    bluetoothConnection(address)
-                } else {
-                    sendEvent(SettingsEvent.DisconnectFailureEvent)
-                    updateState { state ->
-                        state.copy(isLoading = false)
+                devicesUseCase.sendConfig(ip, data) { result ->
+                    if (result) {
+                        bluetoothConnection(address)
+                    } else {
+                        sendEvent(SettingsEvent.DisconnectFailureEvent)
+                        updateState { state ->
+                            state.copy(isLoading = false)
+                        }
                     }
                 }
-
             } else {
                 bluetoothConnection(address)
             }

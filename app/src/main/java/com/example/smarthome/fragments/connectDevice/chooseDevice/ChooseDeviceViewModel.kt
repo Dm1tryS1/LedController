@@ -92,18 +92,19 @@ class ChooseDeviceViewModel(
             connectDeviceInteractor.saveConnectedDevice(id, type, ip)
             val systemIp = connectDeviceInteractor.getSystemIp()
             if (!systemIp.isNullOrEmpty()) {
-                val result = connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id)))
-                if (result.data != null) {
-                    sendEvent(ChooseDeviceEvent.OnSuccess)
-                    updateState {
-                        ChooseDeviceState.Loading(false)
+                    connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id))) { result ->
+                        if (result) {
+                            sendEvent(ChooseDeviceEvent.OnSuccess)
+                            updateState {
+                                ChooseDeviceState.Loading(false)
+                            }
+                        } else {
+                            sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
+                            updateState {
+                                ChooseDeviceState.Loading(false)
+                            }
+                        }
                     }
-                } else {
-                    sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
-                    updateState {
-                        ChooseDeviceState.Loading(false)
-                    }
-                }
             } else {
                 sendEvent(ChooseDeviceEvent.OnSuccess)
                 updateState {

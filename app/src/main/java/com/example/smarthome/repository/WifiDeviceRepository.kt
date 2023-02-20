@@ -6,7 +6,6 @@ import android.util.Log
 import com.espressif.iot.esptouch.EsptouchTask
 import com.example.smarthome.repository.model.WifiInfo
 
-
 class WifiDeviceRepository(private val context: Context) {
     fun getWifiInfo(): WifiInfo {
         val network =
