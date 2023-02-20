@@ -1,4 +1,4 @@
-package com.example.smarthome.permissions
+package com.example.smarthome.core.permissions
 
 import android.Manifest
 import android.app.Activity
@@ -75,7 +75,7 @@ object PermissionHelper {
         var tempFlag = false
         permissions.forEach { permission ->
             val prevShouldShowStatus: Boolean = getRatinaleDisplayStatus(activity, permission)
-            val currShouldShowStatus = activity.shouldShowRequestPermissionRationale(permission!!)
+            val currShouldShowStatus = activity.shouldShowRequestPermissionRationale(permission)
             tempFlag = prevShouldShowStatus != currShouldShowStatus
             if (tempFlag) {
                 return@forEach
@@ -132,11 +132,11 @@ object PermissionHelper {
         context: Context?,
         permissions: Array<String>
     ): Boolean {
-        if (context != null && permissions != null) {
+        if (context != null) {
             for (permission in permissions) {
                 if (ActivityCompat.checkSelfPermission(
                         context,
-                        permission.toString()
+                        permission
                     ) != PackageManager.PERMISSION_GRANTED
                 ) {
                     return false

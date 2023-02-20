@@ -1,14 +1,15 @@
-package com.example.smarthome.base.presentation
+package com.example.smarthome.core.base.presentation
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.utils.kotlin.Activable
-import com.example.smarthome.utils.kotlin.activableFlow
+import com.example.smarthome.core.utils.kotlin.Activable
+import com.example.smarthome.core.utils.kotlin.activableFlow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 
-abstract class BaseViewModel<State : Any, Event : Any> : ViewModel(), ViewModelInterface<State, Event> {
+abstract class BaseViewModel<State : Any, Event : Any> : ViewModel(),
+    ViewModelInterface<State, Event> {
 
     private val _viewState by lazy { MutableStateFlow(createInitialState()) }
     override val viewState get() = _viewState.asStateFlow()

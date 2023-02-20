@@ -9,14 +9,14 @@ import android.view.*
 import androidx.core.app.NotificationCompat
 import androidx.core.view.isVisible
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentInformationBinding
 import com.example.smarthome.fragments.information.dialog.*
 import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
-import com.example.smarthome.utils.supportBottomSheetScroll
+import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Information : BaseFragment<InformationState, InformationEvent>() {

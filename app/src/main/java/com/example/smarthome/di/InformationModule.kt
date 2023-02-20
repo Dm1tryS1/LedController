@@ -2,7 +2,7 @@ package com.example.smarthome.di
 
 import com.example.smarthome.fragments.information.InformationInteractor
 import com.example.smarthome.fragments.information.InformationViewModel
-import com.example.smarthome.repository.Storage
+import com.example.smarthome.repository.SharedPreferencesRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,6 +22,6 @@ object InformationModule {
     }
 
     private fun createDataModule() = module {
-        factory { Storage(get()) }
+        factory { SharedPreferencesRepository(get()) }
     }
 }

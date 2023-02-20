@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.databinding.FragmentChartsBinding
 import com.example.smarthome.fragments.charts.formatter.SensorDateFormatter
 import com.example.smarthome.fragments.charts.formatter.SensorValueFormatter
-import com.example.smarthome.utils.dp
-import com.example.smarthome.utils.setupEnvironments
+import com.example.smarthome.core.utils.dp
+import com.example.smarthome.core.utils.setupEnvironments
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData

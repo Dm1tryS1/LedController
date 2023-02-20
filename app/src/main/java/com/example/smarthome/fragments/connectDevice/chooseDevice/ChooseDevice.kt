@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentChooseDeviceBinding
 import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.Connection
 import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.ConnectionByIP
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.adapter.WifiDeviceAdapter
-import com.example.smarthome.utils.snackBar
-import com.example.smarthome.utils.supportBottomSheetScroll
+import com.example.smarthome.core.utils.snackBar
+import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 

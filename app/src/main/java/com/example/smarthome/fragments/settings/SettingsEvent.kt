@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.settings
 
-import com.example.smarthome.repository.model.WifiInfo
+import com.example.smarthome.common.wifi.WifiInfo
 
 sealed class SettingsEvent {
     object ConnectionSuccessEvent: SettingsEvent()

@@ -1,4 +1,4 @@
-package com.example.smarthome.permissions
+package com.example.smarthome.core.permissions
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentPermissionBinding
-import com.example.smarthome.utils.fragmentViewBinding
+import com.example.smarthome.core.utils.fragmentViewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PermissionFragment : BaseFragment<PermissionState, Unit>(R.layout.fragment_permission) {

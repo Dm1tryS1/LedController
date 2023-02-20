@@ -1,8 +1,8 @@
-package com.example.smarthome.permissions
+package com.example.smarthome.core.permissions
 
 import android.Manifest
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseViewModel
+import com.example.smarthome.core.base.presentation.BaseViewModel
 
 class PermissionViewModel() : BaseViewModel<PermissionState, Unit>() {
 

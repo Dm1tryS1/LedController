@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentSystemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

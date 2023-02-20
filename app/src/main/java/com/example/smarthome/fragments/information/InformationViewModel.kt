@@ -2,7 +2,7 @@ package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseViewModel
+import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType

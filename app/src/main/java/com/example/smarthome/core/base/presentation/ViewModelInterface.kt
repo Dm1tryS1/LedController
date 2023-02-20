@@ -1,4 +1,4 @@
-package com.example.smarthome.base.presentation
+package com.example.smarthome.core.base.presentation
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow

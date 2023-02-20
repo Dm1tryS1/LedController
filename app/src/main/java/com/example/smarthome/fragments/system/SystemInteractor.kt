@@ -2,51 +2,51 @@ package com.example.smarthome.fragments.system
 
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.repository.DeviceRepository
-import com.example.smarthome.repository.Storage
+import com.example.smarthome.repository.SharedPreferencesRepository
 
-class SystemInteractor(private val storage: Storage, private val deviceRepository: DeviceRepository) {
+class SystemInteractor(private val sharedPreferencesRepository: SharedPreferencesRepository, private val deviceRepository: DeviceRepository) {
 
     fun sendPackage(aPackage: Command) {
         deviceRepository.sendPackage(aPackage)
     }
 
     fun saveMaxTemperature(value: Int) {
-        storage.saveInt(Storage.userMaxTemperature, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMaxTemperature, value)
     }
 
     fun saveMinTemperature(value: Int) {
-        storage.saveInt(Storage.userMinTemperature, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMinTemperature, value)
     }
 
     fun saveMaxHumidity(value: Int) {
-        storage.saveInt(Storage.userMaxHumidity, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMaxHumidity, value)
     }
 
     fun saveMinHumidity(value: Int) {
-        storage.saveInt(Storage.userMinHumidity, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMinHumidity, value)
     }
 
     fun saveDisplayedValue(value: Int) {
-        storage.saveInt(Storage.userDisplayedValue, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userDisplayedValue, value)
     }
 
-    fun getMaxTemperature() = storage.getInt(Storage.userMaxTemperature)
+    fun getMaxTemperature() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxTemperature)
 
-    fun getMinTemperature() = storage.getInt(Storage.userMinTemperature)
+    fun getMinTemperature() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinTemperature)
 
-    fun getMaxHumidity() = storage.getInt(Storage.userMaxHumidity)
+    fun getMaxHumidity() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxHumidity)
 
-    fun getMinHumidity() = storage.getInt(Storage.userMinHumidity)
+    fun getMinHumidity() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinHumidity)
 
-    fun getDisplayedValue() = storage.getInt(Storage.userDisplayedValue)
+    fun getDisplayedValue() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userDisplayedValue)
 
-    fun clearMaxTemperature() = storage.deleteUserSettings(Storage.userMaxTemperature)
+    fun clearMaxTemperature() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxTemperature)
 
-    fun clearMinTemperature() = storage.deleteUserSettings(Storage.userMinTemperature)
+    fun clearMinTemperature() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinTemperature)
 
-    fun clearMaxHumidity() = storage.deleteUserSettings(Storage.userMaxHumidity)
+    fun clearMaxHumidity() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxHumidity)
 
-    fun clearMinHumidity() = storage.deleteUserSettings(Storage.userMinHumidity)
+    fun clearMinHumidity() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinHumidity)
 
-    fun clearDisplayedValue() = storage.deleteUserSettings(Storage.userDisplayedValue)
+    fun clearDisplayedValue() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userDisplayedValue)
 }

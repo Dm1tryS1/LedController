@@ -1,4 +1,4 @@
-package com.example.smarthome.permissions
+package com.example.smarthome.core.permissions
 
 import android.content.Intent
 import android.net.Uri
@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.smarthome.R
-import com.example.smarthome.permissions.PermissionHelper.hasPermissions
-import com.example.smarthome.utils.createCenter
-import com.example.smarthome.utils.showSnack
+import com.example.smarthome.core.permissions.PermissionHelper.hasPermissions
+import com.example.smarthome.core.utils.createCenter
+import com.example.smarthome.core.utils.showSnack
 
 
 class PermissionActivity : AppCompatActivity() {

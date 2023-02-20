@@ -1,4 +1,4 @@
-package com.example.smarthome.utils.kotlin
+package com.example.smarthome.core.utils.kotlin
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

@@ -2,7 +2,7 @@ package com.example.smarthome.repository
 
 import android.content.Context
 
-class Storage(context: Context) {
+class SharedPreferencesRepository(context: Context) {
 
     private val preferences = context.getSharedPreferences(
         sharedPreferenceName,

@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.smarthome.R
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentHomeBinding
-import com.example.smarthome.utils.snackBar
+import com.example.smarthome.core.utils.snackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : BaseFragment<Unit, HomeEvent>() {

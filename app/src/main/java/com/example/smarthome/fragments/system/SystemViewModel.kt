@@ -1,7 +1,7 @@
 package com.example.smarthome.fragments.system
 
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.base.presentation.BaseViewModel
+import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.main.Screens

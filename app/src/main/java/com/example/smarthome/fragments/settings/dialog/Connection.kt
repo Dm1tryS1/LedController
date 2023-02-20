@@ -3,8 +3,8 @@ package com.example.smarthome.fragments.settings.dialog
 import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuConnectBinding
-import com.example.smarthome.repository.model.WifiInfo
-import com.example.smarthome.utils.BottomSheetDialogBuilder
+import com.example.smarthome.common.wifi.WifiInfo
+import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 
 object Connection {
     fun create(

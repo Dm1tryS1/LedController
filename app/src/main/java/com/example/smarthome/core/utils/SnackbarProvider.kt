@@ -1,6 +1,5 @@
-package com.example.smarthome.utils
+package com.example.smarthome.core.utils
 
-import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -20,9 +19,7 @@ fun View.showSnack(
 
     snackBar.view.apply {
         findViewById<TextView>(com.google.android.material.R.id.snackbar_text).apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setTextAppearance(R.style.text)
-            }
+            setTextAppearance(R.style.text)
             textAlignment = View.TEXT_ALIGNMENT_CENTER
         }
 

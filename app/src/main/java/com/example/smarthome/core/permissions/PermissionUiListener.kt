@@ -1,4 +1,4 @@
-package com.example.smarthome.permissions
+package com.example.smarthome.core.permissions
 
 interface PermissionUiListener {
     fun onBack()

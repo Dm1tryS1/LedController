@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.connectDevice
 
-import com.example.smarthome.base.presentation.BaseViewModel
+import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 

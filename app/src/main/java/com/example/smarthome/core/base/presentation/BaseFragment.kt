@@ -1,13 +1,13 @@
-package com.example.smarthome.base.presentation
+package com.example.smarthome.core.base.presentation
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.example.smarthome.common.navigation.BackPressConsumer
 import com.example.smarthome.common.navigation.onBackPressed
-import com.example.smarthome.utils.collectWhenStarted
-import com.example.smarthome.utils.doOnCreate
-import com.example.smarthome.utils.doOnStartStop
+import com.example.smarthome.core.utils.collectWhenStarted
+import com.example.smarthome.core.utils.doOnCreate
+import com.example.smarthome.core.utils.doOnStartStop
 
 abstract class BaseFragment<State : Any, Event : Any> : Fragment, BackPressConsumer {
 

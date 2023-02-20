@@ -1,7 +1,6 @@
 package com.example.smarthome.repository
 
 import android.content.Context
-import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDeviceViewModel
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -11,7 +10,7 @@ import java.nio.charset.StandardCharsets
 
 class FileRepository(private val context: Context) {
 
-    fun getJSONfromFile(path: String): String? {
+    fun getJSONFromFile(path: String): String? {
 
         val jsonString: String = try {
             val `is`: InputStream = context.assets.open(path)
@@ -28,7 +27,7 @@ class FileRepository(private val context: Context) {
     }
 
     fun findDeviceConfig(ids: List<Int>): List<WifiDevicesItem> = (Gson().fromJson(
-        getJSONfromFile(FileName),
+        getJSONFromFile(FileName),
         object : TypeToken<Map<String, WifiDevicesItem>>() {}.type
     ) as Map<String, WifiDevicesItem>).filter { ids.contains(it.value.id) }
         .map {

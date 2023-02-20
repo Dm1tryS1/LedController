@@ -1,7 +1,7 @@
 package com.example.smarthome.fragments.main
 
 import androidx.fragment.app.Fragment
-import com.example.smarthome.base.presentation.BaseViewModel
+import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.home.Home
 import com.example.smarthome.fragments.settings.Settings
 import java.util.*

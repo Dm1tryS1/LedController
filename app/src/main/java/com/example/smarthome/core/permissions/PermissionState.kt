@@ -1,4 +1,4 @@
-package com.example.smarthome.permissions
+package com.example.smarthome.core.permissions
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes

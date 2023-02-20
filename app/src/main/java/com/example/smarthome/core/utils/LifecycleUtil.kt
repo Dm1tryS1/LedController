@@ -1,4 +1,4 @@
-package com.example.smarthome.utils
+package com.example.smarthome.core.utils
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Job

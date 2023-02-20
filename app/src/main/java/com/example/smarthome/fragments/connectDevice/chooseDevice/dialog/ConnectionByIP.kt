@@ -1,16 +1,12 @@
 package com.example.smarthome.fragments.connectDevice.chooseDevice.dialog
 
 import android.app.Dialog
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import com.example.smarthome.R
-import com.example.smarthome.databinding.DropmenuConnectWifiDeviceBinding
 import com.example.smarthome.databinding.DropmenuConnectWifiDeviceByIpBinding
-import com.example.smarthome.repository.model.WifiInfo
-import com.example.smarthome.utils.BottomSheetDialogBuilder
-import com.example.smarthome.utils.isIpAddress
-import com.example.smarthome.utils.snackBar
-import java.util.regex.Pattern
+import com.example.smarthome.core.utils.BottomSheetDialogBuilder
+import com.example.smarthome.core.utils.isIpAddress
+import com.example.smarthome.core.utils.snackBar
 
 object ConnectionByIP {
     fun create(

@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.databinding.DropmenuSettingsBinding
-import com.example.smarthome.utils.BottomSheetDialogBuilder
+import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 
 object Settings {
     fun create(

@@ -3,12 +3,12 @@ package com.example.smarthome.fragments.information
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.repository.DeviceRepository
-import com.example.smarthome.repository.Storage
+import com.example.smarthome.repository.SharedPreferencesRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-class InformationInteractor(private val deviceRepository: DeviceRepository, private val storage: Storage) {
+class InformationInteractor(private val deviceRepository: DeviceRepository, private val sharedPreferencesRepository: SharedPreferencesRepository) {
     fun sendPackage(aPackage: Command) {
         deviceRepository.sendPackage(aPackage)
     }
@@ -20,10 +20,10 @@ class InformationInteractor(private val deviceRepository: DeviceRepository, priv
         awaitClose()
     }
 
-    fun getUserSettings() = storage.getInt(Storage.userTimer)
+    fun getUserSettings() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userTimer)
 
     fun saveUserSettings(value: Int){
-        storage.saveInt(Storage.userTimer, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userTimer, value)
     }
 
 }

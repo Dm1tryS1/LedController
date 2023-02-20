@@ -4,9 +4,9 @@ import androidx.core.content.ContextCompat
 import com.example.smarthome.databinding.ItemDeviceSeparatorBinding
 import com.example.smarthome.databinding.ItemInfoBinding
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
-import com.example.smarthome.utils.AdapterUtil
-import com.example.smarthome.utils.adapterDelegateViewBinding
-import com.example.smarthome.utils.bindWithBinding
+import com.example.smarthome.core.utils.AdapterUtil
+import com.example.smarthome.core.utils.adapterDelegateViewBinding
+import com.example.smarthome.core.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 

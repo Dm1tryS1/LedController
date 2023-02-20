@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.example.smarthome.base.presentation.BaseFragment
+import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentSettingsBinding
 import com.example.smarthome.fragments.settings.dialog.Connection
 import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapter
-import com.example.smarthome.utils.supportBottomSheetScroll
+import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Settings : BaseFragment<SettingsState, SettingsEvent>() {

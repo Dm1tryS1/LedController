@@ -1,7 +1,7 @@
 package com.example.smarthome.fragments.charts
 
 import android.annotation.SuppressLint
-import com.example.smarthome.base.presentation.BaseViewModel
+import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.github.mikephil.charting.data.Entry
 import java.text.SimpleDateFormat
 import java.util.*

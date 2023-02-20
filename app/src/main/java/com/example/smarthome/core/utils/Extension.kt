@@ -1,4 +1,4 @@
-package com.example.smarthome.utils
+package com.example.smarthome.core.utils
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -63,9 +63,6 @@ fun AxisBase.setupEnvironments(font: Typeface?, textSize: Float, context: Contex
         textColor = ContextCompat.getColor(context, R.color.white)
     }
 }
-
-fun String.toBytes(split: String) = (this as CharSequence).split(split).map{ it.toInt(16).toByte() }.toByteArray()
-
 fun String.isIpAddress() : Boolean {
     return ("((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
             + "[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]"
