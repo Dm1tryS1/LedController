@@ -22,7 +22,7 @@ import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Charts : BaseFragment<ChartsState, ChartsEvent>() {
+class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
 
     private var xAxisFormatter = SensorDateFormatter()
 
@@ -122,8 +122,8 @@ class Charts : BaseFragment<ChartsState, ChartsEvent>() {
     companion object {
         private const val DEVICE_TYPE = "device_type"
         private const val ID = "id"
-        fun getNewInstance(deviceType: Int, id: Int): Charts {
-            return Charts().apply {
+        fun getNewInstance(deviceType: Int, id: Int): ChartsFragment {
+            return ChartsFragment().apply {
                 arguments = Bundle().apply {
                     putInt(DEVICE_TYPE, deviceType)
                     putInt(ID, id)

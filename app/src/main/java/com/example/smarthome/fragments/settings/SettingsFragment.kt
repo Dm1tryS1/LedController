@@ -14,7 +14,7 @@ import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapt
 import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Settings : BaseFragment<SettingsState, SettingsEvent>() {
+class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
 
     private lateinit var binding: FragmentSettingsBinding
 
@@ -84,7 +84,7 @@ class Settings : BaseFragment<SettingsState, SettingsEvent>() {
                 Toast.LENGTH_SHORT
             ).show()
             is SettingsEvent.OnItemClickedEvent -> Connection.create(
-                fragment = this@Settings,
+                fragment = this@SettingsFragment,
                 connectAction = vm::connect,
                 disconnectAction = vm::disconnect,
                 address = event.address,

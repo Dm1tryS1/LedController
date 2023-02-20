@@ -17,7 +17,7 @@ import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class ChooseDevice : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
+class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
 
     private lateinit var binding: FragmentChooseDeviceBinding
 
@@ -90,8 +90,8 @@ class ChooseDevice : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
 
     companion object {
         private const val BY_IP = "by_ip"
-        fun getNewInstance(byIp: Boolean): ChooseDevice {
-            return ChooseDevice().apply {
+        fun getNewInstance(byIp: Boolean): ChooseDeviceFragment {
+            return ChooseDeviceFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(BY_IP, byIp)
                 }

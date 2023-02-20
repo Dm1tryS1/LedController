@@ -9,7 +9,7 @@ import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Main : BaseFragment<MainState, Unit>() {
+class MainFragment : BaseFragment<MainState, Unit>() {
     private lateinit var binding: FragmentMainBinding
     override val vm: MainViewModel by viewModel()
 

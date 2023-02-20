@@ -10,7 +10,7 @@ import com.example.smarthome.databinding.FragmentHomeBinding
 import com.example.smarthome.core.utils.snackBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Home : BaseFragment<Unit, HomeEvent>() {
+class HomeFragment : BaseFragment<Unit, HomeEvent>() {
 
     private lateinit var binding: FragmentHomeBinding
     override val vm: HomeViewModel by viewModel()

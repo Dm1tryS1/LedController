@@ -19,7 +19,7 @@ import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class Information : BaseFragment<InformationState, InformationEvent>() {
+class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
 
     private lateinit var binding: FragmentInformationBinding
     override val vm: InformationViewModel by viewModel()
@@ -120,7 +120,7 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
         when (event) {
             is InformationEvent.OpenSensorMenuEvent -> {
                 Sensor.create(
-                    fragment = this@Information,
+                    fragment = this@InformationFragment,
                     action = vm::sendPackage,
                     resources = event.resources,
                     command = event.command,
@@ -130,21 +130,21 @@ class Information : BaseFragment<InformationState, InformationEvent>() {
             }
             is InformationEvent.OpenConditionerMenuEvent -> {
                 Conditioner.create(
-                    fragment = this@Information,
+                    fragment = this@InformationFragment,
                     action = vm::sendPackage,
                     id = event.id
                 ).show()
             }
             is InformationEvent.OpenHumidifierMenuEvent -> {
                 Humidifier.create(
-                    fragment = this@Information,
+                    fragment = this@InformationFragment,
                     action = vm::sendPackage,
                     id = event.id
                 ).show()
             }
             is InformationEvent.OpenSettingsMenuEvent -> {
                 Settings.create(
-                    fragment = this@Information,
+                    fragment = this@InformationFragment,
                     action = vm::sendPackage,
                     progress = event.value,
                     save = vm::saveUserSettings,

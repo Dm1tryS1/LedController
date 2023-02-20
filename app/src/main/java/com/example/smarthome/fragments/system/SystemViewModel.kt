@@ -21,19 +21,19 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
             var displayedValue = systemInteractor.getDisplayedValue()
 
             if (maxTemp == -1)
-                maxTemp = System.MIN_TEMP_VALUE
+                maxTemp = SystemFragment.MIN_TEMP_VALUE
 
             if (minTemp == -1)
-                minTemp = System.MIN_TEMP_VALUE
+                minTemp = SystemFragment.MIN_TEMP_VALUE
 
             if (minHum == -1)
-                minHum = System.MIN_HUM_VALUE
+                minHum = SystemFragment.MIN_HUM_VALUE
 
             if (maxHum == -1)
-                maxHum = System.MIN_HUM_VALUE
+                maxHum = SystemFragment.MIN_HUM_VALUE
 
             if (displayedValue == -1)
-                displayedValue = System.DISPLAYED_VALUE
+                displayedValue = SystemFragment.DISPLAYED_VALUE
 
             updateState {
                 SystemState.Settings(
@@ -49,11 +49,11 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
 
     override fun createInitialState(): SystemState {
         return SystemState.Settings(
-            System.MIN_TEMP_VALUE,
-            System.MIN_TEMP_VALUE,
-            System.MIN_HUM_VALUE,
-            System.MIN_HUM_VALUE,
-            System.DISPLAYED_VALUE
+            SystemFragment.MIN_TEMP_VALUE,
+            SystemFragment.MIN_TEMP_VALUE,
+            SystemFragment.MIN_HUM_VALUE,
+            SystemFragment.MIN_HUM_VALUE,
+            SystemFragment.DISPLAYED_VALUE
         )
     }
 

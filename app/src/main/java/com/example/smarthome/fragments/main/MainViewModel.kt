@@ -2,8 +2,8 @@ package com.example.smarthome.fragments.main
 
 import androidx.fragment.app.Fragment
 import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.fragments.home.Home
-import com.example.smarthome.fragments.settings.Settings
+import com.example.smarthome.fragments.home.HomeFragment
+import com.example.smarthome.fragments.settings.SettingsFragment
 import java.util.*
 
 class MainViewModel: BaseViewModel<MainState, Unit>() {
@@ -35,8 +35,8 @@ class MainViewModel: BaseViewModel<MainState, Unit>() {
 
     fun buildFragment(type: TabType): Fragment {
         return when (type) {
-            TabType.Home -> Home()
-            TabType.Settings -> Settings()
+            TabType.Home -> HomeFragment()
+            TabType.Settings -> SettingsFragment()
         }
     }
 }

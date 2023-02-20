@@ -8,7 +8,7 @@ import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentConnectDeviceBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ConnectDevice : BaseFragment<Unit, ConnectDeviceEvent>() {
+class ConnectDeviceFragment : BaseFragment<Unit, ConnectDeviceEvent>() {
 
     private lateinit var binding: FragmentConnectDeviceBinding
 

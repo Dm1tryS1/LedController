@@ -11,7 +11,7 @@ import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentSystemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class System : BaseFragment<SystemState, Unit>() {
+class SystemFragment : BaseFragment<SystemState, Unit>() {
 
     private lateinit var binding: FragmentSystemBinding
     override val vm: SystemViewModel by viewModel()

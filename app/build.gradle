@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -73,4 +74,8 @@ dependencies {
     implementation "com.github.EspressifApp:lib-esptouch-android:1.1.1"
 
     implementation "com.airbnb.android:lottie:5.2.0"
+
+    implementation "androidx.room:room-runtime:2.4.0"
+    kapt "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-ktx:2.4.0"
 }
