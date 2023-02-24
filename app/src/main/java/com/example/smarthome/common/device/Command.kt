@@ -47,7 +47,7 @@ enum class CommandsForMaster(val command: Int) {
 
 enum class CommandForConditioner(val command: Int) {
     Conditioner(0),
-    OnOff(1), //TODO разделить
+    OnOff(1),
     AddTemperature(2),
     ReduceTemperature(3)
 }
