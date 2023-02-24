@@ -48,13 +48,18 @@ class ChooseDeviceViewModel(
         if (byIp) {
             sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
         } else {
-            sendEvent(
-                ChooseDeviceEvent.OpenDeviceMenu(
-                    type,
-                    id,
-                    connectDeviceInteractor.getWifiInfo()
+            val wifiInfo = connectDeviceInteractor.getWifiInfo()
+            if (wifiInfo != null) {
+                sendEvent(
+                    ChooseDeviceEvent.OpenDeviceMenu(
+                        type,
+                        id,
+                        wifiInfo
+                    )
                 )
-            )
+            } else {
+                sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error))
+            }
         }
     }
 
@@ -92,19 +97,19 @@ class ChooseDeviceViewModel(
             connectDeviceInteractor.saveConnectedDevice(id, type, ip)
             val systemIp = connectDeviceInteractor.getSystemIp()
             if (!systemIp.isNullOrEmpty()) {
-                    connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id))) { result ->
-                        if (result) {
-                            sendEvent(ChooseDeviceEvent.OnSuccess)
-                            updateState {
-                                ChooseDeviceState.Loading(false)
-                            }
-                        } else {
-                            sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
-                            updateState {
-                                ChooseDeviceState.Loading(false)
-                            }
+                connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id))) { result ->
+                    if (result) {
+                        sendEvent(ChooseDeviceEvent.OnSuccess)
+                        updateState {
+                            ChooseDeviceState.Loading(false)
+                        }
+                    } else {
+                        sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
+                        updateState {
+                            ChooseDeviceState.Loading(false)
                         }
                     }
+                }
             } else {
                 sendEvent(ChooseDeviceEvent.OnSuccess)
                 updateState {

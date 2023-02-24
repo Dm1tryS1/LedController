@@ -1,6 +1,7 @@
 package com.example.smarthome.fragments.settings
 
 import androidx.lifecycle.viewModelScope
+import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.common.wifi.WifiInfo
 import com.example.smarthome.main.Screens
@@ -99,7 +100,12 @@ class SettingsViewModel(
     }
 
     fun onItemClicked(address: String) {
-        sendEvent(SettingsEvent.OnItemClickedEvent(address, devicesUseCase.getWifiInfo()))
+        val wifiInfo = devicesUseCase.getWifiInfo()
+        if (wifiInfo != null) {
+            sendEvent(SettingsEvent.OnItemClickedEvent(address, wifiInfo))
+        } else {
+            sendEvent(SettingsEvent.Error(R.string.connect_device_error))
+        }
     }
 
     fun disconnect() {

@@ -15,7 +15,6 @@
     <string name="settings_button_confirm">Сохранить изменения</string>
     <string name="settings_label">Автоматическое обновление (мин):</string>
     <string name="settings_more">Дополнительные настройки</string>
-
     <string name="settings_button_connect">Подключиться</string>
     <string name="settings_button_disconnect">Отключиться</string>
 
@@ -43,7 +42,7 @@
     <string name="connect_device_text">Для подключения устройства Вы должны быть подключены к своей домашней сети. Также необходимо включить геолокацию в настройках вашего мобильного устройства.</string>
     <string name="connection_device_ip">Подключение по IP</string>
     <string name="connect_device_next">Далее</string>
-    <string name="connect_device_error">Убедитесь, что Вы подключены к устройству по сети Wi-Fi</string>
+    <string name="connect_device_error">Убедитесь, что Вы подключены к сети Wi-Fi</string>
     <string name="connect_device_connection_error">Убедитесь в правильности данных и повторите попытку</string>
     <string name="connect_device_network_ssid">Название сети</string>
     <string name="connect_device_network_password">Пароль от сети:</string>

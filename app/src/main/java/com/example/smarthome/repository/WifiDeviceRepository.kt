@@ -7,14 +7,22 @@ import com.espressif.iot.esptouch.EsptouchTask
 import com.example.smarthome.common.wifi.WifiInfo
 
 class WifiDeviceRepository(private val context: Context) {
-    fun getWifiInfo(): WifiInfo {
-        val network =
-            (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager).connectionInfo
-        return WifiInfo(ssid = network.ssid.dropLast(1).drop(1), bssid = network.bssid, "")
+    fun getWifiInfo(): WifiInfo? {
+        return try {
+            val network =
+                (context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager).connectionInfo
+            WifiInfo(
+                ssid = network.ssid.dropLast(1).drop(1),
+                bssid = network.bssid,
+                ""
+            )
+        } catch (e: Exception) {
+            null
+        }
     }
 
     suspend fun connect(wifiInfo: WifiInfo, callback: (String?) -> Unit) {
-//        val task = EsptouchTask(wifiInfo.ssid, wifiInfo.bssid, wifiInfo.password, context)
+//        val task = EsptouchTask(wifiInfo.ssid, wifiInfo.bssid, wifiInfo.password, context) //TODO ВЕРНУТь
 //        task.setPackageBroadcast(false)
 //        task.setEsptouchListener { response ->
 //            if (response.isSuc) {

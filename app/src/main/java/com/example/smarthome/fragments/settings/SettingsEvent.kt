@@ -8,4 +8,6 @@ sealed class SettingsEvent {
     class OnItemClickedEvent(val address: String, val wifiInfo: WifiInfo): SettingsEvent()
     object DisconnectSuccessEvent: SettingsEvent()
     object DisconnectFailureEvent: SettingsEvent()
+
+    class Error(val message: Int): SettingsEvent()
 }

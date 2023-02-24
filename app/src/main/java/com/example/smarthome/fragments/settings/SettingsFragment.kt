@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentSettingsBinding
 import com.example.smarthome.fragments.settings.dialog.Connection
 import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapter
@@ -100,6 +101,7 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
                 "Отключено",
                 Toast.LENGTH_SHORT
             ).show()
+            is SettingsEvent.Error -> snackBar(getString(event.message))
         }
     }
 
