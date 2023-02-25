@@ -9,5 +9,5 @@ interface ConfigService {
     @POST("sendconfig")
     suspend fun sendConfig(
         @Body wifiDevicesItem: List<SendConfigRequest>
-    ): Call<Unit>
+    ): Unit
 }

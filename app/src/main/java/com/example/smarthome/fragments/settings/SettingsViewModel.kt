@@ -29,22 +29,22 @@ class SettingsViewModel(
     }
 
     private fun finishConnection(ip: String, address: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             devicesUseCase.saveSystemIp(ip)
 
-            val cond = devicesUseCase.getCondInfo()
-            val hum = devicesUseCase.getHumIpInfo()
-
             val data = mutableListOf<Pair<String, Int>>()
-//            data.add(Pair("192.168.1.1", 2))
-//            data.add(Pair("192.168.1.2", 4))
+            data.add(Pair("192.168.1.1", 2))
+            data.add(Pair("192.168.1.2", 4))
 
-            if (!cond.first.isNullOrEmpty() && cond.second != -1) {
-                data.add(Pair(cond.first!!, cond.second))
-            }
-            if (!hum.first.isNullOrEmpty() && hum.second != -1) {
-                data.add(Pair(hum.first!!, hum.second))
-            }
+//            val cond = devicesUseCase.getCondInfo()
+//            val hum = devicesUseCase.getHumIpInfo()
+//
+//            if (!cond.first.isNullOrEmpty() && cond.second != -1) {
+//                data.add(Pair(cond.first!!, cond.second))
+//            }
+//            if (!hum.first.isNullOrEmpty() && hum.second != -1) {
+//                data.add(Pair(hum.first!!, hum.second))
+//            }
 
             if (data.isNotEmpty()) {
                 devicesUseCase.sendConfig(ip, data) { result ->
