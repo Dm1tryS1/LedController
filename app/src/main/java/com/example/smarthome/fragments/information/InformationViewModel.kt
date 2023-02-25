@@ -168,8 +168,18 @@ class InformationViewModel(
                     date
                 )
             )
-            SensorType.Conditioner.type -> sendEvent(InformationEvent.OpenConditionerMenuEvent(id))
-            SensorType.Humidifier.type -> sendEvent(InformationEvent.OpenHumidifierMenuEvent(id))
+            SensorType.Conditioner.type -> sendEvent(
+                InformationEvent.OpenConditionerMenuEvent(
+                    id,
+                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true
+                )
+            )
+            SensorType.Humidifier.type -> sendEvent(
+                InformationEvent.OpenHumidifierMenuEvent(
+                    id,
+                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true
+                )
+            )
             else -> {}
         }
     }

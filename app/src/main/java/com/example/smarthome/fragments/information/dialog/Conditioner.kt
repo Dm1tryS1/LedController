@@ -11,7 +11,8 @@ object Conditioner {
     fun create(
         fragment: Fragment,
         action: (aPackage: Command) -> Unit,
-        id: Int
+        id: Int,
+        on: Boolean
         ): Dialog {
         val binding = DropmenuConditioenerBinding.inflate(fragment.layoutInflater)
 
@@ -21,9 +22,13 @@ object Conditioner {
                 .addCustomView(root)
                 .setCancelable(true)
 
-
             offOn.setOnClickListener {
-                action(Command.ConditionerCommand(id, CommandForConditioner.OnOff))
+                if (on) {
+                    action(Command.ConditionerCommand(id, CommandForConditioner.On))
+                } else {
+                    action(Command.ConditionerCommand(id, CommandForConditioner.Off))
+                }
+                dialog.dismiss()
             }
 
             reduce.setOnClickListener {

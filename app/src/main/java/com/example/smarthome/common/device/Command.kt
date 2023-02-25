@@ -47,12 +47,14 @@ enum class CommandsForMaster(val command: Int) {
 
 enum class CommandForConditioner(val command: Int) {
     Conditioner(0),
-    OnOff(1),
-    AddTemperature(2),
-    ReduceTemperature(3)
+    On(1),
+    Off(2),
+    AddTemperature(3),
+    ReduceTemperature(4)
 }
 
 enum class CommandForHumidifier(val command: Int) {
     Humidifier(0),
-    OnOff(1)
+    On(1),
+    Off(2)
 }

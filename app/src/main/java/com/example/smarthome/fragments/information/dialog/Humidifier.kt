@@ -11,7 +11,8 @@ object Humidifier {
     fun create(
         fragment: Fragment,
         action: (aPackage: Command) -> Unit,
-        id: Int
+        id: Int,
+        on: Boolean
     ): Dialog {
         val binding = DropmenuHumidifierBinding.inflate(fragment.layoutInflater)
 
@@ -21,9 +22,12 @@ object Humidifier {
                 .addCustomView(root)
                 .setCancelable(true)
 
-
             offOn.setOnClickListener {
-                action(Command.Humidifier(id, CommandForHumidifier.OnOff))
+                if (on) {
+                    action(Command.Humidifier(id, CommandForHumidifier.On))
+                } else {
+                    action(Command.Humidifier(id, CommandForHumidifier.Off))
+                }
                 dialog.dismiss()
             }
 
