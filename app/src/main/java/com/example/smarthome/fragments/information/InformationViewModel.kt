@@ -5,18 +5,13 @@ import com.example.smarthome.R
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.main.Screens
 import com.example.smarthome.repository.DeviceRepository
-import com.example.smarthome.service.storage.entity.DeviceInfo
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.nio.ByteBuffer
-import java.text.SimpleDateFormat
-import java.util.*
 
 class InformationViewModel(
     private val informationInteractor: InformationInteractor,
@@ -75,7 +70,6 @@ class InformationViewModel(
                                     )
                                 )
                     }
-                    saveInDataBase(aPackage)
                     currentViewState.let { informationState ->
                         if (informationState.data != null) {
                             informationState.data.let { currentState ->
@@ -110,35 +104,6 @@ class InformationViewModel(
                     }
                 }
             }
-        }
-    }
-
-    private fun saveInDataBase(aPackage: Package) {
-        if (aPackage.type == SensorType.TemperatureSensor.type || aPackage.type == SensorType.HumidifierSensor.type) {
-            informationInteractor.saveInDataBase(
-                DeviceInfo(
-                    deviceId = aPackage.id!!,
-                    time = "${aPackage.hours}:${aPackage.minutes}",
-                    value = aPackage.info0!!.toInt(),
-                    date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                )
-            )
-        } else if (aPackage.type == SensorType.PressureSensor.type) {
-            informationInteractor.saveInDataBase(
-                DeviceInfo(
-                    deviceId = aPackage.id!!,
-                    time = "${aPackage.hours}:${aPackage.minutes}",
-                    value = ByteBuffer.wrap(
-                        byteArrayOf(
-                            aPackage.info3!!,
-                            aPackage.info2!!,
-                            aPackage.info1!!,
-                            aPackage.info0!!
-                        )
-                    ).int,
-                    date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                )
-            )
         }
     }
 

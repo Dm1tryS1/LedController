@@ -1,5 +1,8 @@
 package com.example.smarthome.fragments.information.data
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Package(
     var id: Int?,
     var type: Int?,

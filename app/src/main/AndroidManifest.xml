@@ -41,5 +41,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".service.BluetoothService"
+            android:exported="false" />
+
     </application>
 </manifest>
