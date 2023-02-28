@@ -4,8 +4,6 @@ import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuConditioenerBinding
 import com.example.smarthome.core.utils.BottomSheetDialogBuilder
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.common.device.CommandForConditioner
 import com.example.smarthome.common.device.ConditionerCommands
 
 object Conditioner {

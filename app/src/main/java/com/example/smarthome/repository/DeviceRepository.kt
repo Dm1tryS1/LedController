@@ -12,7 +12,6 @@ import android.util.Log
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.fragments.information.data.Package
-import com.example.smarthome.fragments.settings.recyclerView.model.DeviceViewItem
 import com.example.smarthome.service.BluetoothService
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
@@ -29,18 +28,6 @@ class DeviceRepository(private val applicationContext: Context) {
 
     private var btSocket: BluetoothSocket? = null
     private var outStream: OutputStream? = null
-
-    val isConnected: Boolean
-        get() = btSocket?.isConnected == true
-
-
-    fun getInfo(callback: (aPackage: Package) -> Unit) {
-        sendData = callback
-    }
-
-    fun findDevices(): List<DeviceViewItem>? = (btAdapter.bondedDevices)?.map {
-        DeviceViewItem(it.name, it.address)
-    }
 
 
     suspend fun connect(
@@ -126,15 +113,6 @@ class DeviceRepository(private val applicationContext: Context) {
             }
             Log.d("12345", "Что-то пошло не так")
             return false
-        }
-    }
-
-    fun disconnect(): Boolean {
-        return try {
-            btSocket?.close()
-            true
-        } catch (e: Exception) {
-            false
         }
     }
 

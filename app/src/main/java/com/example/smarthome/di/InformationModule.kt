@@ -20,7 +20,7 @@ object InformationModule {
     }
 
     private fun createDomainModule() = module {
-        factory { InformationInteractor(get(), get(), get(), get()) }
+        factory { InformationInteractor(get(), get(), get()) }
     }
 
     private fun createDataModule() = module {

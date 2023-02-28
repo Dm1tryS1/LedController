@@ -1,7 +1,5 @@
 package com.example.smarthome.fragments.system
 
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.repository.DeviceRepository
 import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 

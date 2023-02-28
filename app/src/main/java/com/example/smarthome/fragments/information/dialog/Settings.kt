@@ -36,7 +36,7 @@ object Settings {
             date.setOnSeekBarChangeListener(Listener(binding))
 
             update.setOnClickListener {
-                action.invoke(date.progress)
+                action.invoke(date.progress * 5)
                 save(date.progress)
                 dialog.dismiss()
             }

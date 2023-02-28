@@ -11,8 +11,6 @@ import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentSettingsBinding
 import com.example.smarthome.fragments.settings.dialog.Connection
-import com.example.smarthome.fragments.settings.recyclerView.adapter.DeviceAdapter
-import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
@@ -20,11 +18,6 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
     private lateinit var binding: FragmentSettingsBinding
 
     override val vm: SettingsViewModel by viewModel()
-
-    private val adapter =
-        DeviceAdapter(onDeviceClicked = { address ->
-            vm.onItemClicked(address)
-        })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +31,8 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        vm.findDevices()
-        recyclerView.adapter = adapter
-        recyclerView.supportBottomSheetScroll()
-
-        reload.setOnClickListener {
-            vm.findDevices()
+        connect.setOnClickListener {
+            vm.onConnectClicked()
         }
 
         wifi.setOnClickListener {
@@ -51,15 +40,7 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
         }
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden)
-            vm.findDevices()
-    }
-
     override fun renderState(state: SettingsState) {
-        adapter.items = state.devices
-
         binding.loader.isVisible = state.isLoading
         if (state.isLoading) {
             requireActivity().window.setFlags(
@@ -87,7 +68,6 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
             is SettingsEvent.OnItemClickedEvent -> Connection.create(
                 fragment = this@SettingsFragment,
                 connectAction = vm::connect,
-                address = event.address,
                 wifiInfo = event.wifiInfo
             ).show()
             is SettingsEvent.DisconnectFailureEvent -> Toast.makeText(
