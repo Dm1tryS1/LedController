@@ -2,35 +2,12 @@ package com.example.smarthome.common.device
 
 sealed class Command(val msgBuffer: MutableList<Int>) {
 
-    object BroadCast : Command(mutableListOf(0xFF, 0x00))
-
     class MasterSendDate : Command(mutableListOf(0x00, 0x00))
 
     class MasterCommand(command: CommandsForMaster, value: Int) : Command(mutableListOf(0x00)) {
         init {
             msgBuffer.add(command.command)
             msgBuffer.add(value)
-        }
-    }
-
-    class SensorCommand(id: Int) : Command(mutableListOf()) {
-        init {
-            msgBuffer.add(id)
-            msgBuffer.add(0x00)
-        }
-    }
-
-    class ConditionerCommand(id: Int,command: CommandForConditioner) : Command(mutableListOf()) {
-        init {
-            msgBuffer.add(id)
-            msgBuffer.add(command.command)
-        }
-    }
-
-    class Humidifier(id: Int, command: CommandForHumidifier) : Command(mutableListOf()) {
-        init {
-            msgBuffer.add(id)
-            msgBuffer.add(command.command)
         }
     }
 }
@@ -45,25 +22,16 @@ enum class CommandsForMaster(val command: Int) {
     ClearSettings(0x07)
 }
 
-enum class CommandForConditioner(val command: Int) {
-    Conditioner(0),
-    On(1),
-    Off(2),
-    AddTemperature(3),
-    ReduceTemperature(4)
-}
-
-enum class CommandForHumidifier(val command: Int) {
-    Humidifier(0),
-    On(1),
-    Off(2)
-}
-
 enum class ConditionerCommands(val command: String) {
     Conditioner("Status"),
     On("On"),
     Off("Off"),
     AddTemperature("AddTemperature"),
     ReduceTemperature("ReduceTemperature")
+}
 
+enum class HumidifierCommands(val command: String) {
+    Conditioner("Status"),
+    On("On"),
+    Off("Off"),
 }

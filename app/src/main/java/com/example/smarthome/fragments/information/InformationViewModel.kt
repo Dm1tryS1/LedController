@@ -184,7 +184,8 @@ class InformationViewModel(
             SensorType.Humidifier.type -> sendEvent(
                 InformationEvent.OpenHumidifierMenuEvent(
                     id,
-                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true
+                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true,
+                    this::sendHumCommand
                 )
             )
             else -> {}

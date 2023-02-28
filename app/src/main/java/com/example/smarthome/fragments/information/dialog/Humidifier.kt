@@ -4,13 +4,12 @@ import android.app.Dialog
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuHumidifierBinding
 import com.example.smarthome.core.utils.BottomSheetDialogBuilder
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.common.device.CommandForHumidifier
+import com.example.smarthome.common.device.HumidifierCommands
 
 object Humidifier {
     fun create(
         fragment: Fragment,
-        action: ((aPackage: Command) -> Unit)? = null,
+        action: (command: String) -> Unit,
         id: Int,
         on: Boolean
     ): Dialog {
@@ -24,9 +23,9 @@ object Humidifier {
 
             offOn.setOnClickListener {
                 if (on) {
-                    action?.invoke(Command.Humidifier(id, CommandForHumidifier.On))
+                    action.invoke(HumidifierCommands.On.command)
                 } else {
-                    action?.invoke(Command.Humidifier(id, CommandForHumidifier.Off))
+                    action.invoke(HumidifierCommands.Off.command)
                 }
                 dialog.dismiss()
             }
