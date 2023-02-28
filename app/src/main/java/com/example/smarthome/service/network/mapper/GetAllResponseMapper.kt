@@ -8,8 +8,9 @@ fun getAllResponseMapper(
     response: GetAllResponse
 ): List<DeviceInfoSchema> {
     val list = mutableListOf<DeviceInfoSchema>()
-    response.temperature.let { list.add(temperatureResponseMapper(it)) }
-    response.humidity.let { list.add(humidityResponseMapper(it)) }
-    response.pressure.let { list.add(pressureResponseMapper(it)) }
+    response.temperature?.let { list.add(temperatureResponseMapper(it)) }
+    response.humidity?.let { list.add(humidityResponseMapper(it)) }
+    response.pressure?.let { list.add(pressureResponseMapper(it)) }
+    response.conditioner?.let { list.add(conditionerResponseMapper(it)) }
     return list.toList()
 }

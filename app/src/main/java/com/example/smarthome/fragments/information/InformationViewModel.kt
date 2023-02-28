@@ -68,9 +68,41 @@ class InformationViewModel(
 
     }
 
-    fun getTemperature() {
+    private fun getTemperature() {
         viewModelScope.launch(Dispatchers.IO) {
             val response = informationInteractor.getTemperature()
+            if (response != null) {
+                val newState = currentViewState.data?.map { item ->
+                    if (item.id == response.id) {
+                        packageToInfoViewItem(response)
+                    } else {
+                        item
+                    }
+                }
+                updateState { InformationState(newState, false) }
+            }
+        }
+    }
+
+    private fun getPressure() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.getPressure()
+            if (response != null) {
+                val newState = currentViewState.data?.map { item ->
+                    if (item.id == response.id) {
+                        packageToInfoViewItem(response)
+                    } else {
+                        item
+                    }
+                }
+                updateState { InformationState(newState, false) }
+            }
+        }
+    }
+
+    private fun getHumidity() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.getHumidity()
             if (response != null) {
                 val newState = currentViewState.data?.map { item ->
                     if (item.id == response.id) {
@@ -97,7 +129,7 @@ class InformationViewModel(
             SensorType.PressureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_pressure,
-                    this::getTemperature,
+                    this::getPressure,
                     info,
                     date
                 )
@@ -105,7 +137,7 @@ class InformationViewModel(
             SensorType.HumidifierSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_humidity,
-                    this::getTemperature,
+                    this::getHumidity,
                     info,
                     date
                 )

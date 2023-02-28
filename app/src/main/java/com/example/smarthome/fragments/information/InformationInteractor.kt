@@ -21,9 +21,15 @@ class InformationInteractor(
         deviceRepository.sendPackage(aPackage)
     }
 
-    suspend fun getInfo() = networkRepository.getInfo("192.168.1.51")
+    private fun getSystemIp() = "192.168.1.35"
 
-    suspend fun getTemperature() = networkRepository.getTemperature("192.168.1.51")
+    suspend fun getInfo() = networkRepository.getInfo(getSystemIp())
+
+    suspend fun getTemperature() = networkRepository.getTemperature(getSystemIp())
+
+    suspend fun getPressure() = networkRepository.getPressure(getSystemIp())
+
+    suspend fun getHumidity() = networkRepository.getHumidity(getSystemIp())
 
     fun getUserSettings() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userTimer)

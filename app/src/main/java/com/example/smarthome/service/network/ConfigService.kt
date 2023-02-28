@@ -1,10 +1,6 @@
 package com.example.smarthome.service.network
 
-import com.example.smarthome.service.network.model.GetAllResponse
-import com.example.smarthome.service.network.model.SendConfigRequest
-import com.example.smarthome.service.network.model.SendConfigResponse
-import com.example.smarthome.service.network.model.TemperatureResponse
-import retrofit2.Call
+import com.example.smarthome.service.network.model.*
 import retrofit2.http.*
 
 interface ConfigService {
@@ -17,6 +13,14 @@ interface ConfigService {
     @GET("temperature")
     suspend fun temperature(
     ): TemperatureResponse
+
+    @GET("pressure")
+    suspend fun pressure(
+    ): PressureResponse
+
+    @GET("humidity")
+    suspend fun humidity(
+    ): HumidityResponse
 
     @GET("getall")
     suspend fun getAll(

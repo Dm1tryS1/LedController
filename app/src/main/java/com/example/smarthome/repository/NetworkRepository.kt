@@ -2,6 +2,8 @@ package com.example.smarthome.repository
 
 import com.example.smarthome.service.network.NetworkModule
 import com.example.smarthome.service.network.mapper.getAllResponseMapper
+import com.example.smarthome.service.network.mapper.humidityResponseMapper
+import com.example.smarthome.service.network.mapper.pressureResponseMapper
 import com.example.smarthome.service.network.mapper.temperatureResponseMapper
 import com.example.smarthome.service.network.model.SendConfigRequest
 
@@ -37,6 +39,26 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         try {
             val response = networkModule.createConfigService(systemIp).temperature()
             temperatureResponseMapper(response)
+        } catch (e: Exception) {
+            null
+        }
+
+    suspend fun getPressure(
+        systemIp: String,
+    ) =
+        try {
+            val response = networkModule.createConfigService(systemIp).pressure()
+            pressureResponseMapper(response)
+        } catch (e: Exception) {
+            null
+        }
+
+    suspend fun getHumidity(
+        systemIp: String,
+    ) =
+        try {
+            val response = networkModule.createConfigService(systemIp).humidity()
+            humidityResponseMapper(response)
         } catch (e: Exception) {
             null
         }

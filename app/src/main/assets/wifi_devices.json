@@ -2,7 +2,7 @@
   "HaierLightera": {
     "brand": "Haier",
     "name": "Lightera",
-    "id": 2,
+    "id": 4,
     "deviceType": 4,
     "commands": {
       "On": "FF FF 0A 00 00 00 00 00 01 01 4D 02 5B",
@@ -15,7 +15,7 @@
   "HaierHJS20U/AM1": {
     "brand": "Haier",
     "name": "HJS20U/AM1",
-    "id": 4,
+    "id": 5,
     "deviceType": 5,
     "commands": {
       "On": "FF FF 0A 00 00 00 00 00 01 01 7E 02 8C",
