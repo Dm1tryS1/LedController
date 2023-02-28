@@ -159,9 +159,6 @@ class DeviceRepository(private val applicationContext: Context) {
     }
 
     companion object {
-        const val EndOfTransmission = 255.toByte()
-        const val More = 254.toByte()
-        const val Less = 255.toByte()
         var inStream: InputStream? = null
         var sendData: ((aPackage: Package) -> Unit)? = null
         const val DEVICE_INFO = "DEVICE_INFO"

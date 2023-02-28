@@ -1,5 +1,6 @@
 package com.example.smarthome.repository
 
+import com.example.smarthome.common.getTime
 import com.example.smarthome.service.network.NetworkModule
 import com.example.smarthome.service.network.mapper.*
 import com.example.smarthome.service.network.model.ConditionerRequest
@@ -26,7 +27,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     ) =
         try {
             val response = networkModule.createConfigService(systemIp).getAll()
-            getAllResponseMapper(response)
+            getAllResponseMapper(response, getTime())
         } catch (e: Exception) {
             emptyList()
         }
@@ -36,7 +37,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     ) =
         try {
             val response = networkModule.createConfigService(systemIp).temperature()
-            temperatureResponseMapper(response)
+            temperatureResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
@@ -46,7 +47,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     ) =
         try {
             val response = networkModule.createConfigService(systemIp).pressure()
-            pressureResponseMapper(response)
+            pressureResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
@@ -56,7 +57,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     ) =
         try {
             val response = networkModule.createConfigService(systemIp).humidity()
-            humidityResponseMapper(response)
+            humidityResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
@@ -67,7 +68,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     ) =
         try {
             val response = networkModule.createConfigService(systemIp).condcommand(ConditionerRequest(command))
-            conditionerResponseMapper(response)
+            conditionerResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
@@ -78,7 +79,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     ) =
         try {
             val response = networkModule.createConfigService(systemIp).humcommand(HumidifierRequest(command))
-            humidifierResponseMapper(response)
+            humidifierResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
