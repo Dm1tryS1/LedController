@@ -12,5 +12,6 @@ fun getAllResponseMapper(
     response.humidity?.let { list.add(humidityResponseMapper(it)) }
     response.pressure?.let { list.add(pressureResponseMapper(it)) }
     response.conditioner?.let { list.add(conditionerResponseMapper(it)) }
+    response.humidifier?.let { list.add(humidifierResponseMapper(it)) }
     return list.toList()
 }

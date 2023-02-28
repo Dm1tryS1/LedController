@@ -3,7 +3,7 @@ package com.example.smarthome.fragments.information
 import com.example.smarthome.common.device.Command
 
 sealed class InformationEvent {
-    data class OpenConditionerMenuEvent(val id: Int, val on: Boolean) : InformationEvent()
+    data class OpenConditionerMenuEvent(val id: Int, val on: Boolean, val command: (String) -> Unit) : InformationEvent()
     data class OpenHumidifierMenuEvent(val id: Int, val on: Boolean) : InformationEvent()
     data class OpenSettingsMenuEvent(val value: Int) : InformationEvent()
     data class OpenSensorMenuEvent(

@@ -1,10 +1,9 @@
 package com.example.smarthome.repository
 
 import com.example.smarthome.service.network.NetworkModule
-import com.example.smarthome.service.network.mapper.getAllResponseMapper
-import com.example.smarthome.service.network.mapper.humidityResponseMapper
-import com.example.smarthome.service.network.mapper.pressureResponseMapper
-import com.example.smarthome.service.network.mapper.temperatureResponseMapper
+import com.example.smarthome.service.network.mapper.*
+import com.example.smarthome.service.network.model.ConditionerRequest
+import com.example.smarthome.service.network.model.HumidifierRequest
 import com.example.smarthome.service.network.model.SendConfigRequest
 
 class NetworkRepository(private val networkModule: NetworkModule) {
@@ -32,7 +31,6 @@ class NetworkRepository(private val networkModule: NetworkModule) {
             emptyList()
         }
 
-
     suspend fun getTemperature(
         systemIp: String,
     ) =
@@ -59,6 +57,28 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         try {
             val response = networkModule.createConfigService(systemIp).humidity()
             humidityResponseMapper(response)
+        } catch (e: Exception) {
+            null
+        }
+
+    suspend fun condCommand(
+        systemIp: String,
+        command: String
+    ) =
+        try {
+            val response = networkModule.createConfigService(systemIp).condcommand(ConditionerRequest(command))
+            conditionerResponseMapper(response)
+        } catch (e: Exception) {
+            null
+        }
+
+    suspend fun humCommand(
+        systemIp: String,
+        command: String
+    ) =
+        try {
+            val response = networkModule.createConfigService(systemIp).humcommand(HumidifierRequest(command))
+            humidifierResponseMapper(response)
         } catch (e: Exception) {
             null
         }

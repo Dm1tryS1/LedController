@@ -116,6 +116,38 @@ class InformationViewModel(
         }
     }
 
+    private fun sendCondCommand(command: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.condCommand(command)
+            if (response != null) {
+                val newState = currentViewState.data?.map { item ->
+                    if (item.id == response.id) {
+                        packageToInfoViewItem(response)
+                    } else {
+                        item
+                    }
+                }
+                updateState { InformationState(newState, false) }
+            }
+        }
+    }
+
+    private fun sendHumCommand(command: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.humCommand(command)
+            if (response != null) {
+                val newState = currentViewState.data?.map { item ->
+                    if (item.id == response.id) {
+                        packageToInfoViewItem(response)
+                    } else {
+                        item
+                    }
+                }
+                updateState { InformationState(newState, false) }
+            }
+        }
+    }
+
     fun onMenuClicked(type: Int, id: Int, info: String, date: String) {
         when (type) {
             SensorType.TemperatureSensor.type -> sendEvent(
@@ -145,7 +177,8 @@ class InformationViewModel(
             SensorType.Conditioner.type -> sendEvent(
                 InformationEvent.OpenConditionerMenuEvent(
                     id,
-                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true
+                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true,
+                    this::sendCondCommand
                 )
             )
             SensorType.Humidifier.type -> sendEvent(

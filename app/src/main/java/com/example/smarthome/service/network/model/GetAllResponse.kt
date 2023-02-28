@@ -7,5 +7,6 @@ class GetAllResponse (
     val temperature: TemperatureResponse?,
     val pressure: PressureResponse?,
     val humidity: HumidityResponse?,
-    val conditioner: ConditionerResponse?
+    val conditioner: ConditionerResponse?,
+    val humidifier: HumidifierResponse?
 )

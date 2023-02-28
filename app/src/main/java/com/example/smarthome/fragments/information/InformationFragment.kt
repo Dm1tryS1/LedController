@@ -129,7 +129,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenConditionerMenuEvent -> {
                 Conditioner.create(
                     fragment = this@InformationFragment,
-                    action = null,
+                    action = event.command,
                     id = event.id,
                     on = event.on
                 ).show()

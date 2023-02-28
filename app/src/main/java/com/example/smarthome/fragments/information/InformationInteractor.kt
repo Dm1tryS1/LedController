@@ -17,10 +17,6 @@ class InformationInteractor(
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository,
     private val networkRepository: NetworkRepository,
 ) {
-    fun sendPackage(aPackage: Command) {
-        deviceRepository.sendPackage(aPackage)
-    }
-
     private fun getSystemIp() = "192.168.1.35"
 
     suspend fun getInfo() = networkRepository.getInfo(getSystemIp())
@@ -30,6 +26,10 @@ class InformationInteractor(
     suspend fun getPressure() = networkRepository.getPressure(getSystemIp())
 
     suspend fun getHumidity() = networkRepository.getHumidity(getSystemIp())
+
+    suspend fun condCommand(command: String) = networkRepository.condCommand(getSystemIp(),command)
+
+    suspend fun humCommand(command: String) = networkRepository.humCommand(getSystemIp(),command)
 
     fun getUserSettings() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userTimer)

@@ -58,3 +58,12 @@ enum class CommandForHumidifier(val command: Int) {
     On(1),
     Off(2)
 }
+
+enum class ConditionerCommands(val command: String) {
+    Conditioner("Status"),
+    On("On"),
+    Off("Off"),
+    AddTemperature("AddTemperature"),
+    ReduceTemperature("ReduceTemperature")
+
+}

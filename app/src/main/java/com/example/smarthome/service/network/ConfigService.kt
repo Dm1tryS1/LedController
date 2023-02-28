@@ -1,5 +1,6 @@
 package com.example.smarthome.service.network
 
+import com.example.smarthome.common.device.Command
 import com.example.smarthome.service.network.model.*
 import retrofit2.http.*
 
@@ -25,4 +26,14 @@ interface ConfigService {
     @GET("getall")
     suspend fun getAll(
     ): GetAllResponse
+
+    @POST("condcommand")
+    suspend fun condcommand(
+        @Body command: ConditionerRequest
+    ): ConditionerResponse
+
+    @POST("humcommand")
+    suspend fun humcommand(
+        @Body command: HumidifierRequest
+    ): HumidifierResponse
 }
