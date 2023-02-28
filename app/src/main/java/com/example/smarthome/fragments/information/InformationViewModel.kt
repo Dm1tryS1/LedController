@@ -2,15 +2,14 @@ package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.main.Screens
-import com.example.smarthome.repository.DeviceRepository
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class InformationViewModel(
@@ -19,90 +18,68 @@ class InformationViewModel(
 ) :
     BaseViewModel<InformationState, InformationEvent>() {
 
-    init {
-        updateState { state ->
-            state.copy(progressVisibility = true)
-        }
-        sendPackage(Command.BroadCast)
-    }
-
     override fun createInitialState(): InformationState {
+        getInfo()
         return InformationState(listOf(), true)
     }
 
-    fun sendPackage(aPackage: Command) {
-        if (aPackage is Command.BroadCast || !(aPackage is Command.MasterCommand || aPackage is Command.MasterSendDate)) {
-            updateState { state ->
-                state.copy(progressVisibility = true)
-            }
-        }
-        if (aPackage is Command.BroadCast) {
-            updateState { state ->
-                state.copy(data = null)
-            }
-        }
-        informationInteractor.sendPackage(aPackage)
+    private fun makeNotification(schema: DeviceInfoSchema.TemperatureSensorSchema) {
+        if (schema.id != null && schema.type != null && schema.comfortableValue != null && schema.more != null)
+            sendEvent(
+                InformationEvent.ShowNotification(
+                    id = schema.id,
+                    type = schema.type,
+                    more = schema.more,
+                    comfortableValue = schema.comfortableValue.toInt()
+                )
+            )
+    }
+
+    private fun makeNotification(schema: DeviceInfoSchema.HumiditySensorSchema) {
+        if (schema.id != null && schema.type != null && schema.comfortableValue != null && schema.more != null)
+            sendEvent(
+                InformationEvent.ShowNotification(
+                    id = schema.id,
+                    type = schema.type,
+                    more = schema.more,
+                    comfortableValue = schema.comfortableValue.toInt()
+                )
+            )
     }
 
     fun getInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            informationInteractor.getInfo().collectLatest { aPackage ->
-                if (aPackage.id == 0
-                    && aPackage.type == DeviceRepository.EndOfTransmission.toInt()
-                    && aPackage.info0 == DeviceRepository.EndOfTransmission
-                    && aPackage.info1 == DeviceRepository.EndOfTransmission
-                    && aPackage.info2 == DeviceRepository.EndOfTransmission
-                    && aPackage.info3 == DeviceRepository.EndOfTransmission
-                ) {
-                    updateState { state ->
-                        state.copy(progressVisibility = false)
+            val response = informationInteractor.getInfo()
+            val newState = mutableListOf<InfoViewItem.SensorsInfoViewItem>()
+            if (response.isNotEmpty()) {
+                response.forEach { schema ->
+                    if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
+                        makeNotification(schema)
                     }
-                } else {
-                    if (aPackage.type == SensorType.TemperatureSensor.type || aPackage.type == SensorType.HumidifierSensor.type) {
-                        if (aPackage.info1 == DeviceRepository.Less || aPackage.info1 == DeviceRepository.More)
-                            if (aPackage.id != null && aPackage.type != null && aPackage.info2 != null)
-                                sendEvent(
-                                    InformationEvent.ShowNotification(
-                                        id = aPackage.id!!,
-                                        type = aPackage.type!!,
-                                        more = aPackage.info1 == DeviceRepository.More,
-                                        comfortableValue = aPackage.info2!!.toInt()
-                                    )
-                                )
+                    if (schema is DeviceInfoSchema.HumiditySensorSchema) {
+                        makeNotification(schema)
                     }
-                    currentViewState.let { informationState ->
-                        if (informationState.data != null) {
-                            informationState.data.let { currentState ->
-                                val sensor = currentState.find { item ->
-                                    item.id == aPackage.id
-                                }
 
-                                val newState = if (sensor == null) {
-                                    currentState + packageToInfoViewItem(aPackage)
-                                } else
-                                    currentState.map { item ->
-                                        if (item.id == aPackage.id)
-                                            packageToInfoViewItem(aPackage)
-                                        else
-                                            item
-                                    }
+                    newState.add(packageToInfoViewItem(schema))
+                }
+            }
+            updateState { InformationState(newState, false) }
+        }
 
-                                updateState {
-                                    InformationState(newState.sortedBy {
-                                        it.sensorType.type
-                                    }, true)
-                                }
-                            }
-                        } else {
-                            updateState {
-                                InformationState(
-                                    listOf(packageToInfoViewItem(aPackage)),
-                                    true
-                                )
-                            }
-                        }
+    }
+
+    fun getTemperature() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.getTemperature()
+            if (response != null) {
+                val newState = currentViewState.data?.map { item ->
+                    if (item.id == response.id) {
+                        packageToInfoViewItem(response)
+                    } else {
+                        item
                     }
                 }
+                updateState { InformationState(newState, false) }
             }
         }
     }
@@ -112,7 +89,7 @@ class InformationViewModel(
             SensorType.TemperatureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_temperature,
-                    Command.SensorCommand(id),
+                    this::getTemperature,
                     info,
                     date
                 )
@@ -120,7 +97,7 @@ class InformationViewModel(
             SensorType.PressureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_pressure,
-                    Command.SensorCommand(id),
+                    this::getTemperature,
                     info,
                     date
                 )
@@ -128,7 +105,7 @@ class InformationViewModel(
             SensorType.HumidifierSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_humidity,
-                    Command.SensorCommand(id),
+                    this::getTemperature,
                     info,
                     date
                 )

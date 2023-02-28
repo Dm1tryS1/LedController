@@ -11,7 +11,7 @@ import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 object Settings {
     fun create(
         fragment: Fragment,
-        action: (aPackage: Command) -> Unit,
+        action: ((aPackage: Command) -> Unit)? = null,
         save: (value: Int) -> Unit,
         openSystemSettings: () -> Unit,
         progress: Int = 0
@@ -38,7 +38,7 @@ object Settings {
             date.setOnSeekBarChangeListener(Listener(binding))
 
             update.setOnClickListener {
-                action(
+                action?.invoke(
                     Command.MasterCommand(command = CommandsForMaster.SetTimer, value = date.progress * 5)
                 )
                 save(date.progress)

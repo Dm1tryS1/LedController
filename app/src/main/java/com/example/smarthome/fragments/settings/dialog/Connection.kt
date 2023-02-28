@@ -10,7 +10,6 @@ object Connection {
     fun create(
         fragment: Fragment,
         connectAction: (address: String, wifiInfo: WifiInfo) -> Unit,
-        disconnectAction: () -> Unit,
         address: String,
         wifiInfo: WifiInfo
     ): Dialog {
@@ -30,7 +29,6 @@ object Connection {
             }
 
             disconnect.setOnClickListener {
-                disconnectAction()
                 dialog.dismiss()
             }
 

@@ -10,7 +10,7 @@ import com.example.smarthome.common.device.CommandForConditioner
 object Conditioner {
     fun create(
         fragment: Fragment,
-        action: (aPackage: Command) -> Unit,
+        action: ((aPackage: Command) -> Unit)?,
         id: Int,
         on: Boolean
         ): Dialog {
@@ -24,19 +24,19 @@ object Conditioner {
 
             offOn.setOnClickListener {
                 if (on) {
-                    action(Command.ConditionerCommand(id, CommandForConditioner.On))
+                    action?.invoke(Command.ConditionerCommand(id, CommandForConditioner.On))
                 } else {
-                    action(Command.ConditionerCommand(id, CommandForConditioner.Off))
+                    action?.invoke(Command.ConditionerCommand(id, CommandForConditioner.Off))
                 }
                 dialog.dismiss()
             }
 
             reduce.setOnClickListener {
-                action(Command.ConditionerCommand(id, CommandForConditioner.ReduceTemperature))
+                action?.invoke(Command.ConditionerCommand(id, CommandForConditioner.ReduceTemperature))
             }
 
             add.setOnClickListener {
-               action(Command.ConditionerCommand(id, CommandForConditioner.AddTemperature))
+                action?.invoke(Command.ConditionerCommand(id, CommandForConditioner.AddTemperature))
             }
 
             close.setOnClickListener {

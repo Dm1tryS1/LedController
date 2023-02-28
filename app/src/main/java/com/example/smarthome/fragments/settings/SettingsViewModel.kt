@@ -36,42 +36,25 @@ class SettingsViewModel(
            // data.add(Pair("192.168.1.1", 2))
            // data.add(Pair("192.168.1.2", 4))
 
-//            val cond = devicesUseCase.getCondInfo()
-//            val hum = devicesUseCase.getHumIpInfo()
-//
-//            if (!cond.first.isNullOrEmpty() && cond.second != -1) {
-//                data.add(Pair(cond.first!!, cond.second))
-//            }
-//            if (!hum.first.isNullOrEmpty() && hum.second != -1) {
-//                data.add(Pair(hum.first!!, hum.second))
-//            }
+            val cond = devicesUseCase.getCondInfo()
+            val hum = devicesUseCase.getHumIpInfo()
+
+            if (!cond.first.isNullOrEmpty() && cond.second != -1) {
+                data.add(Pair(cond.first!!, cond.second))
+            }
+            if (!hum.first.isNullOrEmpty() && hum.second != -1) {
+                data.add(Pair(hum.first!!, hum.second))
+            }
 
             if (data.isNotEmpty()) {
                 devicesUseCase.sendConfig(ip, data) { result ->
-                    if (result) {
-                        bluetoothConnection(address)
-                    } else {
-                        sendEvent(SettingsEvent.DisconnectFailureEvent)
-                        updateState { state ->
-                            state.copy(isLoading = false)
-                        }
+                    sendEvent(SettingsEvent.DisconnectFailureEvent)
+                    updateState { state ->
+                        state.copy(isLoading = false)
                     }
                 }
+
             } else {
-                bluetoothConnection(address)
-            }
-        }
-    }
-
-    private fun bluetoothConnection(address: String) {
-        viewModelScope.launch {
-            devicesUseCase.connect(address) {
-                if (it) {
-                    sendEvent(SettingsEvent.ConnectionSuccessEvent)
-                } else {
-                    sendEvent(SettingsEvent.ConnectionFailureEvent)
-                }
-
                 updateState { state ->
                     state.copy(isLoading = false)
                 }
@@ -105,15 +88,6 @@ class SettingsViewModel(
             sendEvent(SettingsEvent.OnItemClickedEvent(address, wifiInfo))
         } else {
             sendEvent(SettingsEvent.Error(R.string.connect_device_error))
-        }
-    }
-
-    fun disconnect() {
-        viewModelScope.launch {
-            if (devicesUseCase.disconnect())
-                sendEvent(SettingsEvent.DisconnectSuccessEvent)
-            else
-                sendEvent(SettingsEvent.DisconnectFailureEvent)
         }
     }
 

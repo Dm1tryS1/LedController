@@ -10,10 +10,7 @@ class HomeViewModel(
 ) : BaseViewModel<Unit, HomeEvent>() {
 
     fun checkConnection() {
-        if (homeInteractor.checkConnection())
-            router.navigateTo(Screens.InformationScreen())
-        else
-            sendEvent(HomeEvent.NoConnectionEvent)
+        router.navigateTo(Screens.InformationScreen())
     }
 
     override fun createInitialState() = Unit

@@ -14,7 +14,6 @@ import com.example.smarthome.databinding.FragmentInformationBinding
 import com.example.smarthome.fragments.information.dialog.*
 import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,7 +47,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
         sensors.supportBottomSheetScroll()
 
         reloadButton.setOnClickListener {
-            vm.sendPackage(Command.BroadCast)
+            vm.getInfo()
         }
 
         settings.setOnClickListener {
@@ -121,9 +120,8 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenSensorMenuEvent -> {
                 Sensor.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
+                    action = event.command,
                     resources = event.resources,
-                    command = event.command,
                     data = event.data,
                     date = event.date
                 ).show()
@@ -131,7 +129,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenConditionerMenuEvent -> {
                 Conditioner.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
+                    action = null,
                     id = event.id,
                     on = event.on
                 ).show()
@@ -139,7 +137,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenHumidifierMenuEvent -> {
                 Humidifier.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
+                    action = null,
                     id = event.id,
                     on = event.on
                 ).show()
@@ -147,7 +145,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenSettingsMenuEvent -> {
                 Settings.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
+                    action = null,
                     progress = event.value,
                     save = vm::saveUserSettings,
                     openSystemSettings = vm::onMoreSettings

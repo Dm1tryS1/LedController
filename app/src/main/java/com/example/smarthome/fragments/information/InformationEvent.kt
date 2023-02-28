@@ -8,7 +8,7 @@ sealed class InformationEvent {
     data class OpenSettingsMenuEvent(val value: Int) : InformationEvent()
     data class OpenSensorMenuEvent(
         val resources: Int,
-        val command: Command,
+        val command: () -> Unit,
         val data: String,
         val date: String
     ) : InformationEvent()

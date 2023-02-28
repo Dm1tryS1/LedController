@@ -87,7 +87,6 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
             is SettingsEvent.OnItemClickedEvent -> Connection.create(
                 fragment = this@SettingsFragment,
                 connectAction = vm::connect,
-                disconnectAction = vm::disconnect,
                 address = event.address,
                 wifiInfo = event.wifiInfo
             ).show()

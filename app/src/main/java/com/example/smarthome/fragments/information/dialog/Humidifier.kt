@@ -10,7 +10,7 @@ import com.example.smarthome.common.device.CommandForHumidifier
 object Humidifier {
     fun create(
         fragment: Fragment,
-        action: (aPackage: Command) -> Unit,
+        action: ((aPackage: Command) -> Unit)? = null,
         id: Int,
         on: Boolean
     ): Dialog {
@@ -24,9 +24,9 @@ object Humidifier {
 
             offOn.setOnClickListener {
                 if (on) {
-                    action(Command.Humidifier(id, CommandForHumidifier.On))
+                    action?.invoke(Command.Humidifier(id, CommandForHumidifier.On))
                 } else {
-                    action(Command.Humidifier(id, CommandForHumidifier.Off))
+                    action?.invoke(Command.Humidifier(id, CommandForHumidifier.Off))
                 }
                 dialog.dismiss()
             }

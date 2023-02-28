@@ -24,10 +24,6 @@ import java.util.*
 @SuppressLint("MissingPermission")
 class DeviceRepository(private val applicationContext: Context) {
 
-    private var counter = 0
-    private val aPackage =
-        Package(null, null, null, null, null, null, null, null, null)
-
     private val btAdapter: BluetoothAdapter =
         (applicationContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
 
@@ -35,7 +31,8 @@ class DeviceRepository(private val applicationContext: Context) {
     private var outStream: OutputStream? = null
 
     val isConnected: Boolean
-        get() = outStream != null
+        get() = btSocket?.isConnected == true
+
 
     fun getInfo(callback: (aPackage: Package) -> Unit) {
         sendData = callback
@@ -122,12 +119,12 @@ class DeviceRepository(private val applicationContext: Context) {
         } catch (e: Exception) {
             try {
                 btSocket!!.close()
-                Log.d("Socket", "Закрыт")
+                Log.d("12345", "Закрыт")
             } catch (e: Exception) {
-                Log.d("Ошибка", "Нет соединения")
+                Log.d("12345", "Нет соединения")
                 return false
             }
-            Log.d("Ошибка", "Что-то пошло не так")
+            Log.d("12345", "Что-то пошло не так")
             return false
         }
     }
@@ -153,39 +150,11 @@ class DeviceRepository(private val applicationContext: Context) {
 
         return try {
             outStream!!.write(aPackage.msgBuffer.map { it.toByte() }.toByteArray())
-            Log.d("Success", "Оправлены")
+            Log.d("12345", "Оправлены")
             true
         } catch (e: Exception) {
-            Log.d("Error", "Ошибка отправки")
+            Log.d("12345", "Ошибка отправки")
             false
-        }
-    }
-
-    private fun receiveData() {
-        val msgBuffer = ByteArray(1)
-        while (true) {
-            try {
-                inStream?.read(msgBuffer)
-                counter = counter.inc()
-                when (counter) {
-                    1 -> aPackage.id = msgBuffer[0].toInt()
-                    2 -> aPackage.type = msgBuffer[0].toInt()
-                    3 -> aPackage.hours = msgBuffer[0].toInt()
-                    4 -> aPackage.minutes = msgBuffer[0].toInt()
-                    5 -> aPackage.seconds = msgBuffer[0].toInt()
-                    6 -> aPackage.info0 = msgBuffer[0]
-                    7 -> aPackage.info1 = msgBuffer[0]
-                    8 -> aPackage.info2 = msgBuffer[0]
-                    9 -> {
-                        aPackage.info3 = msgBuffer[0]
-                        counter = 0
-                        sendData?.invoke(aPackage)
-                    }
-                }
-                Log.d("Success", "Message: ${msgBuffer[0].toInt()}")
-            } catch (i: Exception) {
-                break
-            }
         }
     }
 
