@@ -3,15 +3,13 @@ package com.example.smarthome.fragments.information.dialog
 import android.app.Dialog
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.databinding.DropmenuSettingsBinding
 import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 
 object Settings {
     fun create(
         fragment: Fragment,
-        action: ((aPackage: Command) -> Unit)? = null,
+        action: (value: Int) -> Unit,
         save: (value: Int) -> Unit,
         openSystemSettings: () -> Unit,
         progress: Int = 0
@@ -38,9 +36,7 @@ object Settings {
             date.setOnSeekBarChangeListener(Listener(binding))
 
             update.setOnClickListener {
-                action?.invoke(
-                    Command.MasterCommand(command = CommandsForMaster.SetTimer, value = date.progress * 5)
-                )
+                action.invoke(date.progress)
                 save(date.progress)
                 dialog.dismiss()
             }

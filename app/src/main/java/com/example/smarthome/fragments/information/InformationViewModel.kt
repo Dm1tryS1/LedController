@@ -198,6 +198,12 @@ class InformationViewModel(
         }
     }
 
+    private fun setTimer(value: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            informationInteractor.setTimer(value)
+        }
+    }
+
     fun onChartOpen(type: Int, id: Int) {
         if (type == SensorType.TemperatureSensor.type || type == SensorType.HumidifierSensor.type || type == SensorType.PressureSensor.type)
             router.navigateTo(Screens.ChartScreen(type, id))
@@ -207,9 +213,9 @@ class InformationViewModel(
         viewModelScope.launch {
             val timer = informationInteractor.getUserSettings()
             if (timer >= 0) {
-                sendEvent(InformationEvent.OpenSettingsMenuEvent(informationInteractor.getUserSettings()))
+                sendEvent(InformationEvent.OpenSettingsMenuEvent(timer, this@InformationViewModel::setTimer))
             } else {
-                sendEvent(InformationEvent.OpenSettingsMenuEvent(0))
+                sendEvent(InformationEvent.OpenSettingsMenuEvent(0, this@InformationViewModel::setTimer))
             }
         }
     }

@@ -145,7 +145,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenSettingsMenuEvent -> {
                 Settings.create(
                     fragment = this@InformationFragment,
-                    action = null,
+                    action = event.setTimer,
                     progress = event.value,
                     save = vm::saveUserSettings,
                     openSystemSettings = vm::onMoreSettings

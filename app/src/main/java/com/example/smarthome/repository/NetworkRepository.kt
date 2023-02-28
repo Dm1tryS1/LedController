@@ -3,9 +3,7 @@ package com.example.smarthome.repository
 import com.example.smarthome.common.getTime
 import com.example.smarthome.service.network.NetworkModule
 import com.example.smarthome.service.network.mapper.*
-import com.example.smarthome.service.network.model.ConditionerRequest
-import com.example.smarthome.service.network.model.HumidifierRequest
-import com.example.smarthome.service.network.model.SendConfigRequest
+import com.example.smarthome.service.network.model.*
 
 class NetworkRepository(private val networkModule: NetworkModule) {
 
@@ -15,7 +13,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         callback: (success: Boolean) -> Unit
     ) {
         try {
-            val response = networkModule.createConfigService(systemIp).sendConfig(wifiDevicesItem)
+            networkModule.createConfigService(systemIp).sendConfig(wifiDevicesItem)
             callback(true)
         } catch (e: Exception) {
             callback(false)
@@ -67,7 +65,8 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         command: String
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).condcommand(ConditionerRequest(command))
+            val response =
+                networkModule.createConfigService(systemIp).condcommand(ConditionerRequest(command))
             conditionerResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
@@ -78,8 +77,41 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         command: String
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).humcommand(HumidifierRequest(command))
+            val response =
+                networkModule.createConfigService(systemIp).humcommand(HumidifierRequest(command))
             humidifierResponseMapper(response, getTime())
+        } catch (e: Exception) {
+            null
+        }
+
+    suspend fun setTimer(
+        systemIp: String,
+        value: Int
+    ) =
+        try {
+            networkModule.createConfigService(systemIp).systemtimer(SystemTimerRequest(value))
+        } catch (e: Exception) {
+            null
+        }
+
+    suspend fun setSystemSettings(
+        systemIp: String,
+        minTemp: Int,
+        maxTemp: Int,
+        minHum: Int,
+        maxHum: Int,
+        displayedValue: Int
+    ) =
+        try {
+            networkModule.createConfigService(systemIp).systemsettings(
+                SystemSettingsRequest(
+                    minHum = minHum,
+                    maxHum = maxHum,
+                    minTemp = minTemp,
+                    maxTemp = maxTemp,
+                    displayedValue = displayedValue
+                )
+            )
         } catch (e: Exception) {
             null
         }

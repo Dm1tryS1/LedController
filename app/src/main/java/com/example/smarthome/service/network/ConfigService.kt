@@ -36,4 +36,14 @@ interface ConfigService {
     suspend fun humcommand(
         @Body command: HumidifierRequest
     ): HumidifierResponse
+
+    @POST("systemtimer")
+    suspend fun systemtimer(
+        @Body timer: SystemTimerRequest
+    )
+
+    @POST("systemsettings")
+    suspend fun systemsettings(
+        @Body systemSettingsRequest: SystemSettingsRequest
+    )
 }

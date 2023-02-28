@@ -2,13 +2,23 @@ package com.example.smarthome.fragments.system
 
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.repository.DeviceRepository
+import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 
-class SystemInteractor(private val sharedPreferencesRepository: SharedPreferencesRepository, private val deviceRepository: DeviceRepository) {
+class SystemInteractor(
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val networkRepository: NetworkRepository
+) {
 
-    fun sendPackage(aPackage: Command) {
-        deviceRepository.sendPackage(aPackage)
-    }
+    private fun getSystemIp() = sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp) ?: ""
+
+    suspend fun setSystemSetting(
+        maxTemp: Int,
+        minTemp: Int,
+        maxHum: Int,
+        minHum: Int,
+        displayedValue: Int
+    ) = networkRepository.setSystemSettings(getSystemIp(), minTemp, maxTemp, minHum, maxHum, displayedValue)
 
     fun saveMaxTemperature(value: Int) {
         sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMaxTemperature, value)
@@ -30,23 +40,33 @@ class SystemInteractor(private val sharedPreferencesRepository: SharedPreference
         sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userDisplayedValue, value)
     }
 
-    fun getMaxTemperature() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxTemperature)
+    fun getMaxTemperature() =
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxTemperature)
 
-    fun getMinTemperature() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinTemperature)
+    fun getMinTemperature() =
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinTemperature)
 
-    fun getMaxHumidity() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxHumidity)
+    fun getMaxHumidity() =
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxHumidity)
 
-    fun getMinHumidity() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinHumidity)
+    fun getMinHumidity() =
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinHumidity)
 
-    fun getDisplayedValue() = sharedPreferencesRepository.getInt(SharedPreferencesRepository.userDisplayedValue)
+    fun getDisplayedValue() =
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userDisplayedValue)
 
-    fun clearMaxTemperature() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxTemperature)
+    fun clearMaxTemperature() =
+        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxTemperature)
 
-    fun clearMinTemperature() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinTemperature)
+    fun clearMinTemperature() =
+        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinTemperature)
 
-    fun clearMaxHumidity() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxHumidity)
+    fun clearMaxHumidity() =
+        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxHumidity)
 
-    fun clearMinHumidity() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinHumidity)
+    fun clearMinHumidity() =
+        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinHumidity)
 
-    fun clearDisplayedValue() = sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userDisplayedValue)
+    fun clearDisplayedValue() =
+        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userDisplayedValue)
 }

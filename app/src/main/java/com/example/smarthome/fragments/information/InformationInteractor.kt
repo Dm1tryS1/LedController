@@ -1,23 +1,16 @@
 package com.example.smarthome.fragments.information
 
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
-import com.example.smarthome.repository.DeviceRepository
 import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 import com.example.smarthome.service.storage.entity.DeviceInfo
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 
 class InformationInteractor(
-    private val deviceRepository: DeviceRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository,
     private val networkRepository: NetworkRepository,
 ) {
-    private fun getSystemIp() = "192.168.1.35"
+    private fun getSystemIp() = sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp) ?: ""
 
     suspend fun getInfo() = networkRepository.getInfo(getSystemIp())
 
@@ -31,15 +24,17 @@ class InformationInteractor(
 
     suspend fun humCommand(command: String) = networkRepository.humCommand(getSystemIp(),command)
 
+    suspend fun setTimer(value: Int) = networkRepository.setTimer(getSystemIp(), value)
+
+    fun saveInDataBase(deviceInfo: DeviceInfo) {
+        deviceInfoDataBaseRepository.saveDeviceInfo(deviceInfo)
+    }
+
     fun getUserSettings() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userTimer)
 
     fun saveUserSettings(value: Int) {
         sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userTimer, value)
-    }
-
-    fun saveInDataBase(deviceInfo: DeviceInfo) {
-        deviceInfoDataBaseRepository.saveDeviceInfo(deviceInfo)
     }
 
 }
