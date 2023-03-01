@@ -10,15 +10,14 @@ class NetworkRepository(private val networkModule: NetworkModule) {
     suspend fun sendConfig(
         wifiDevicesItem: List<SendConfigRequest>,
         systemIp: String,
-        callback: (success: Boolean) -> Unit
-    ) {
+    ) =
         try {
             networkModule.createConfigService(systemIp).sendConfig(wifiDevicesItem)
-            callback(true)
+            true
         } catch (e: Exception) {
-            callback(false)
+            false
         }
-    }
+
 
     suspend fun getInfo(
         systemIp: String,

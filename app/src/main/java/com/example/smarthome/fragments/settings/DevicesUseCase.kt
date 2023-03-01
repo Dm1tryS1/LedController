@@ -16,20 +16,25 @@ class DevicesUseCase(
         wifiDeviceRepository.connect(wifiInfo) { callback(it) }
     }
 
-    fun saveSystemIp(ip: String) = sharedPreferencesRepository.saveString(SharedPreferencesRepository.systemIp, ip)
+    fun saveSystemIp(ip: String) =
+        sharedPreferencesRepository.saveString(SharedPreferencesRepository.systemIp, ip)
 
     fun getCondInfo() =
-        Pair(sharedPreferencesRepository.getString(SharedPreferencesRepository.ipOfConditioener), sharedPreferencesRepository.getInt(SharedPreferencesRepository.idOfConditioener))
+        Pair(
+            sharedPreferencesRepository.getString(SharedPreferencesRepository.ipOfConditioener),
+            sharedPreferencesRepository.getInt(SharedPreferencesRepository.idOfConditioener)
+        )
 
     fun getHumIpInfo() =
-        Pair(sharedPreferencesRepository.getString(SharedPreferencesRepository.ipOfHumidifier), sharedPreferencesRepository.getInt(SharedPreferencesRepository.idOfHumidifier))
+        Pair(
+            sharedPreferencesRepository.getString(SharedPreferencesRepository.ipOfHumidifier),
+            sharedPreferencesRepository.getInt(SharedPreferencesRepository.idOfHumidifier)
+        )
 
     suspend fun sendConfig(
         systemIp: String,
         data: List<Pair<String, Int>>,
-        callback: (result: Boolean) -> Unit
-    ) {
-        networkRepository.sendConfig(
+    ) = networkRepository.sendConfig(
             fileRepository.findDeviceConfig(data.map { it.second }).mapNotNull { item ->
                 val ip = data.find { it.second == item.id }?.first
                 if (!ip.isNullOrEmpty()) {
@@ -39,8 +44,6 @@ class DevicesUseCase(
                 }
             },
             systemIp
-        ) {
-            callback(it)
-        }
-    }
+        )
+
 }

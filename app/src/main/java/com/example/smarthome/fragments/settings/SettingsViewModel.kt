@@ -38,17 +38,14 @@ class SettingsViewModel(
             }
 
             if (data.isNotEmpty()) {
-                devicesUseCase.sendConfig(ip, data) { result ->
-                    if (result) {
-                        sendEvent(SettingsEvent.ConnectionSuccessEvent)
-                    } else {
-                        sendEvent(SettingsEvent.ConnectionFailureEvent)
-                    }
-                    updateState { state ->
-                        state.copy(isLoading = false)
-                    }
+                if (devicesUseCase.sendConfig(ip, data)) {
+                    sendEvent(SettingsEvent.ConnectionSuccessEvent)
+                } else {
+                    sendEvent(SettingsEvent.ConnectionFailureEvent)
                 }
-
+                updateState { state ->
+                    state.copy(isLoading = false)
+                }
             } else {
                 sendEvent(SettingsEvent.ConnectionSuccessEvent)
                 updateState { state ->

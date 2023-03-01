@@ -24,11 +24,20 @@ class ConnectDeviceInteractor(
     fun saveConnectedDevice(id: Int, type: Int, ip: String) {
         when (type) {
             SensorType.Conditioner.type -> {
-                sharedPreferencesRepository.saveString(SharedPreferencesRepository.ipOfConditioener, ip)
-                sharedPreferencesRepository.saveInt(SharedPreferencesRepository.idOfConditioener, id)
+                sharedPreferencesRepository.saveString(
+                    SharedPreferencesRepository.ipOfConditioener,
+                    ip
+                )
+                sharedPreferencesRepository.saveInt(
+                    SharedPreferencesRepository.idOfConditioener,
+                    id
+                )
             }
             SensorType.Humidifier.type -> {
-                sharedPreferencesRepository.saveString(SharedPreferencesRepository.ipOfHumidifier, ip)
+                sharedPreferencesRepository.saveString(
+                    SharedPreferencesRepository.ipOfHumidifier,
+                    ip
+                )
                 sharedPreferencesRepository.saveInt(SharedPreferencesRepository.ipOfHumidifier, id)
             }
         }
@@ -39,21 +48,17 @@ class ConnectDeviceInteractor(
     suspend fun sendConfig(
         systemIp: String,
         data: List<Pair<String, Int>>,
-        callback: (success: Boolean) -> Unit
-    ) {
-        networkRepository.sendConfig(
-            fileRepository.findDeviceConfig(data.map { it.second }).mapNotNull { item ->
-                val ip = data.find { it.second == item.id }?.first
-                if (!ip.isNullOrEmpty()) {
-                    sendConfigRequestMapper(item, ip)
-                } else {
-                    null
-                }
-            },
-            systemIp
-        ) {
-            callback(it)
-        }
-    }
+    ) = networkRepository.sendConfig(
+        fileRepository.findDeviceConfig(data.map { it.second }).mapNotNull { item ->
+            val ip = data.find { it.second == item.id }?.first
+            if (!ip.isNullOrEmpty()) {
+                sendConfigRequestMapper(item, ip)
+            } else {
+                null
+            }
+        },
+        systemIp
+    )
+
 
 }
