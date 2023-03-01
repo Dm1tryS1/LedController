@@ -8,6 +8,6 @@ data class HumidityResponse(
     val deviceType: Int,
     val humidity: Int,
     val notification: Boolean,
-    val more: Boolean?,
-    val comfortableValue: Int?
+    val minHum: Int,
+    val maxHum: Int
 )

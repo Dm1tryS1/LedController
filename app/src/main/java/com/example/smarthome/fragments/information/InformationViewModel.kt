@@ -26,25 +26,25 @@ class InformationViewModel(
     }
 
     private fun makeNotification(schema: DeviceInfoSchema.TemperatureSensorSchema) {
-        if (schema.id != null && schema.type != null && schema.comfortableValue != null && schema.more != null)
+        if (schema.id != null && schema.type != null && schema.notification && schema.data != null)
             sendEvent(
                 InformationEvent.ShowNotification(
                     id = schema.id,
                     type = schema.type,
-                    more = schema.more,
-                    comfortableValue = schema.comfortableValue.toInt()
+                    more = schema.data < schema.minTemp,
+                    comfortableValue = if (schema.data < schema.minTemp) schema.minTemp else schema.maxTemp
                 )
             )
     }
 
     private fun makeNotification(schema: DeviceInfoSchema.HumiditySensorSchema) {
-        if (schema.id != null && schema.type != null && schema.comfortableValue != null && schema.more != null)
+        if (schema.id != null && schema.type != null && schema.notification && schema.data != null)
             sendEvent(
                 InformationEvent.ShowNotification(
                     id = schema.id,
                     type = schema.type,
-                    more = schema.more,
-                    comfortableValue = schema.comfortableValue.toInt()
+                    more = schema.data < schema.minHum,
+                    comfortableValue = if (schema.data < schema.minHum) schema.minHum else schema.maxHum
                 )
             )
     }

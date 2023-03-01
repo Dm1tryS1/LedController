@@ -8,6 +8,6 @@ class TemperatureResponse(
     val deviceType: Int,
     val temperature: Float,
     val notification: Boolean,
-    val more: Boolean?,
-    val comfortableValue: Int?
+    val minTemp: Int,
+    val maxTemp: Int
 )

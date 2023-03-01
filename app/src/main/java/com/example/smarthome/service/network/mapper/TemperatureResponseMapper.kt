@@ -16,6 +16,6 @@ fun temperatureResponseMapper(
     seconds = time.seconds,
     type = response.deviceType,
     notification = response.notification,
-    more = response.more,
-    comfortableValue = response.comfortableValue
+    maxTemp = response.maxTemp,
+    minTemp = response.minTemp
 )

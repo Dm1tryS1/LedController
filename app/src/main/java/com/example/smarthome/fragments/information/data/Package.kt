@@ -30,8 +30,8 @@ sealed class DeviceInfoSchema {
         override val seconds: Int?,
         val data: Int?,
         val notification: Boolean,
-        val more: Boolean?,
-        val comfortableValue: Int?
+        val minTemp: Int,
+        val maxTemp: Int
     ) : DeviceInfoSchema()
 
     data class PressureSensorSchema(
@@ -51,8 +51,8 @@ sealed class DeviceInfoSchema {
         override val seconds: Int?,
         val data: Int?,
         val notification: Boolean,
-        val more: Boolean?,
-        val comfortableValue: Int?
+        val minHum: Int,
+        val maxHum: Int
     ) : DeviceInfoSchema()
 
     data class HumidifierSchema(

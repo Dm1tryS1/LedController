@@ -17,6 +17,6 @@ fun humidityResponseMapper(
     seconds = time.seconds,
     type = response.deviceType,
     notification = response.notification,
-    more = response.more,
-    comfortableValue = response.comfortableValue
+    minHum = response.minHum,
+    maxHum = response.maxHum
 )
