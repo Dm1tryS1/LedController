@@ -24,8 +24,8 @@ class SettingsViewModel(
             devicesUseCase.saveSystemIp(ip)
 
             val data = mutableListOf<Pair<String, Int>>()
-           // data.add(Pair("192.168.1.1", 2))
-           // data.add(Pair("192.168.1.2", 4))
+            // data.add(Pair("192.168.1.1", 2))
+            // data.add(Pair("192.168.1.2", 4))
 
             val cond = devicesUseCase.getCondInfo()
             val hum = devicesUseCase.getHumIpInfo()

@@ -12,7 +12,7 @@ import android.util.Log
 import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.fragments.information.data.Package
-import com.example.smarthome.service.BluetoothService
+import com.example.smarthome.service.WiFiService
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import java.io.InputStream
@@ -60,7 +60,7 @@ class DeviceRepository(private val applicationContext: Context) {
             applicationContext.startService(
                 Intent(
                     applicationContext,
-                    BluetoothService::class.java
+                    WiFiService::class.java
                 )
             )
 

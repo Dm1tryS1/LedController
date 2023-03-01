@@ -31,9 +31,8 @@ class HomeFragment : BaseFragment<Unit, HomeEvent>() {
         }
     }
 
-
     override fun handleEvent(event: HomeEvent) {
-        when(event){
+        when (event) {
             is HomeEvent.NoConnectionEvent -> snackBar(getString(R.string.error_connection))
         }
     }

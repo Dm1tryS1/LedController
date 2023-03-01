@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.BluetoothService"
+        <service android:name=".service.WiFiService"
             android:exported="false" />
 
     </application>

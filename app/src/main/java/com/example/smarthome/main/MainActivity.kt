@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.example.smarthome.R
 import com.example.smarthome.common.navigation.BackPressConsumer
 import com.example.smarthome.databinding.ActivityMainBinding
+import com.example.smarthome.service.WiFiService
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        startService(Intent(this, WiFiService::class.java))
         router.newRootScreen(Screens.MainScreen())
     }
 
