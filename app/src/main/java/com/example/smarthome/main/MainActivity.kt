@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        startService(Intent(this, WiFiService::class.java))
         router.newRootScreen(Screens.MainScreen())
     }
 
@@ -87,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        startService(Intent(this, WiFiService::class.java))
         if (!permissionGranted)
             getLocationPermission()
     }
