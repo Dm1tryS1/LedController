@@ -13,10 +13,21 @@
         android:layout_marginHorizontal="32dp"
         android:background="@drawable/rounded_button"
         android:text="@string/settings_button_connect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/wifi"
         app:layout_constraintBottom_toBottomOf="@id/wifi"
+        app:layout_constraintEnd_toStartOf="@id/wifi"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/wifi" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_settings_view"
+        app:layout_constraintBottom_toTopOf="@id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/wifi"
@@ -28,6 +39,19 @@
         android:src="@drawable/ic_wifi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="@string/settings_connect_title"
+        app:layout_constraintBottom_toTopOf="@id/connect"
+        app:layout_constraintEnd_toEndOf="@id/icon"
+        app:layout_constraintStart_toStartOf="@id/icon"
+        app:layout_constraintTop_toBottomOf="@id/icon" />
 
     <ProgressBar
         android:id="@+id/loader"

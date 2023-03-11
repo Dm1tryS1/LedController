@@ -101,18 +101,20 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
                 items.add(it)
             }
             adapter.items = items
-
-            if (state.progressVisibility)
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                )
-            else
-                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
             binding.progressBar.isVisible = state.progressVisibility
-        } else
+
+            if(!state.progressVisibility && items.isEmpty()) {
+                binding.icon.isVisible = true
+                binding.title.isVisible = true
+            } else {
+                binding.icon.isVisible = false
+                binding.title.isVisible = false
+            }
+        } else {
             binding.sensors.isVisible = false
+            binding.icon.isVisible = true
+            binding.title.isVisible = true
+        }
     }
 
     override fun handleEvent(event: InformationEvent) {

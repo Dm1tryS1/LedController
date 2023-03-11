@@ -15,8 +15,11 @@
     <string name="settings_button_confirm">Сохранить изменения</string>
     <string name="settings_label">Автоматическое обновление (мин):</string>
     <string name="settings_more">Дополнительные настройки</string>
-    <string name="settings_button_connect">Подключиться</string>
+    <string name="settings_button_connect">Подключить</string>
     <string name="settings_button_disconnect">Отключиться</string>
+    <string name="settings_connect_title">Для того, чтобы начать пользоваться приложением, подключите устройство к локальной сети</string>
+
+    <string name="information_empty_view">Нет данных\nПроверьте подключение к системе</string>
 
     <string name="error_connection">Подключитесь к системе</string>
 
@@ -49,7 +52,7 @@
     <string name="connect_device_ip_of_device">Введите IP в локальной сети устройства, которое хотите подключить (формат: 255.255.255.255):</string>
     <string name="connect_device_cond">Кондиционер</string>
     <string name="connect_device_hum">Увлажнитель воздуха</string>
-    <string name="connect_device_type">Выберите тип и бред\nподключаемого устройства</string>
+    <string name="connect_device_type">Выберите тип и бренд\nподключаемого устройства</string>
     <string name="connect_device_success">Устройство было подключено</string>
     <string name="connect_device_error_data">Проверьте правильноcть данных</string>
     <string name="connect_device_connect">Подключить</string>
