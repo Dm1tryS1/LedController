@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 class ConditionerResponse(
     val id: Int,
     val deviceType: Int,
-    val status: Boolean,
-    val temperature: Int
+    val status: Boolean? = false,
+    val temperature: Int?
 )

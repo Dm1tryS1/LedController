@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import com.example.smarthome.R
+import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentChooseDeviceBinding
 import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.Connection
@@ -21,7 +22,13 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
 
     private lateinit var binding: FragmentChooseDeviceBinding
 
-    override val vm: ChooseDeviceViewModel by viewModel { parametersOf(arguments?.getBoolean(BY_IP)) }
+    override val vm: ChooseDeviceViewModel by viewModel {
+        when (arguments?.getInt(CONTROL_TYPE,0)) {
+            0 -> parametersOf(ControlType.Connect)
+            1 -> parametersOf(ControlType.IP)
+            else -> parametersOf(ControlType.Connect)
+        }
+    }
 
     private val adapter = WifiDeviceAdapter(onItemClicked = { type, id ->
         vm.onItemClicked(type, id)
@@ -89,11 +96,11 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
     }
 
     companion object {
-        private const val BY_IP = "by_ip"
-        fun getNewInstance(byIp: Boolean): ChooseDeviceFragment {
+        private const val CONTROL_TYPE = "CONTROL_TYPE"
+        fun getNewInstance(controlType: Int): ChooseDeviceFragment {
             return ChooseDeviceFragment().apply {
                 arguments = Bundle().apply {
-                    putBoolean(BY_IP, byIp)
+                    putInt(CONTROL_TYPE, controlType)
                 }
             }
         }

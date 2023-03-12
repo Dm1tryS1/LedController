@@ -9,7 +9,7 @@ fun conditionerResponseMapper(
     time: Time
 ) = DeviceInfoSchema.ConditionerSchema(
     id = conditionerResponse.id,
-    status = conditionerResponse.status,
+    status = conditionerResponse.status?: false,
     hours = time.hours,
     minutes = time.minutes,
     seconds = time.seconds,

@@ -63,7 +63,11 @@ class SettingsViewModel(
             withContext(Dispatchers.IO) {
                 devicesUseCase.connectWifiModule(wifiInfo) { ip ->
                     if (!ip.isNullOrEmpty()) {
-                        finishConnection(ip)
+                        //finishConnection(ip)
+                        sendEvent(SettingsEvent.ConnectionSuccessEvent)
+                        updateState { state ->
+                            state.copy(isLoading = false)
+                        }
                     } else {
                         sendEvent(SettingsEvent.DisconnectFailureEvent)
                         updateState { state ->
