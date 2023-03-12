@@ -35,7 +35,5 @@ class WifiDeviceRepository(private val context: Context) {
             }
         }
         task.executeForResult()
-
-        //callback("192.168.1.42")
     }
 }
