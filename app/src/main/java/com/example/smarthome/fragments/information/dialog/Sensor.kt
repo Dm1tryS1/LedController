@@ -3,7 +3,6 @@ package com.example.smarthome.fragments.information.dialog
 import android.app.Dialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.databinding.DropmenuSensorBinding
 import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 

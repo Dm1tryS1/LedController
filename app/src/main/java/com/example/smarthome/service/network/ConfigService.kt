@@ -1,6 +1,5 @@
 package com.example.smarthome.service.network
 
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.service.network.model.*
 import retrofit2.http.*
 
@@ -46,4 +45,9 @@ interface ConfigService {
     suspend fun systemsettings(
         @Body systemSettingsRequest: SystemSettingsRequest
     )
+
+    @POST("irreceiver")
+    suspend fun irreceiver(
+        @Body irReceiverRequest: IrReceiverRequest
+    ): IrReceiverResponse
 }

@@ -115,4 +115,10 @@ class NetworkRepository(private val networkModule: NetworkModule) {
             null
         }
 
+    suspend fun writeCommandForRemoteControl(systemIp: String, deviceType: Int, command: String) = try {
+        networkModule.createConfigService(systemIp).irreceiver(IrReceiverRequest(command, deviceType))
+    } catch (e: Exception) {
+        null
+    }
+
 }

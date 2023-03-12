@@ -65,6 +65,8 @@
     <string name="remote_control_off">Записать команду выключения</string>
     <string name="remote_control_add_temp">Записать команду повышения температуры</string>
     <string name="remote_control_reduce_temp">Записать команду понижения температуры</string>
+    <string name="remote_control_success">Команда успешно записана</string>
+    <string name="remote_control_error">Что-то пошло не так. Повторите попытку</string>
 
     <string name="chart_graph_temp">График температуры</string>
     <string name="chart_graph_hum">График влажности</string>

@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.example.smarthome.R
+import com.example.smarthome.common.device.ConditionerCommands
+import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentRemoteControlBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +38,18 @@ class RemoteControlFragment : BaseFragment<RemoteControlState, RemoteControlEven
                     else -> vm.changeList(RemoteControlViewModel.Type.TypeHum)
                 }
             }
+            condOn.setOnClickListener {
+                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.On.command)
+            }
+            condOff.setOnClickListener {
+                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.Off.command)
+            }
+            condAddTemp.setOnClickListener {
+                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.AddTemperature.command)
+            }
+            condReduceTemp.setOnClickListener {
+                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.ReduceTemperature.command)
+            }
         }
     }
 
@@ -56,6 +72,11 @@ class RemoteControlFragment : BaseFragment<RemoteControlState, RemoteControlEven
     }
 
     override fun handleEvent(event: RemoteControlEvent) {
+        when (event) {
+            is RemoteControlEvent.OnSuccess -> snackBar(getString(R.string.remote_control_success))
+            is RemoteControlEvent.OnError -> snackBar(getString(R.string.remote_control_error))
+            else -> {}
+        }
     }
 
 
