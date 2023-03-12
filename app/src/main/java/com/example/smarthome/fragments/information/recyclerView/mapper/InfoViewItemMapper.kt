@@ -108,10 +108,13 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.ConditionerSchema): InfoView
     val info = deviceInfoSchema.status.let {
         if (!it)
             "Выключено"
-        else
+        else if (deviceInfoSchema.temperature != null) {
             "Включено: ${
                 deviceInfoSchema.temperature
             } °C"
+        }else {
+            "Включено"
+        }
     }
 
     return InfoViewItem.SensorsInfoViewItem(
