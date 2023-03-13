@@ -11,15 +11,15 @@ interface ConfigService {
     ): SendConfigResponse
 
     @GET("temperature")
-    suspend fun temperature(
+    suspend fun temperature(@Query("id") id: Int
     ): TemperatureResponse
 
     @GET("pressure")
-    suspend fun pressure(
+    suspend fun pressure(@Query("id") id: Int
     ): PressureResponse
 
     @GET("humidity")
-    suspend fun humidity(
+    suspend fun humidity(@Query("id") id: Int
     ): HumidityResponse
 
     @GET("getall")

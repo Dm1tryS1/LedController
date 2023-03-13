@@ -30,30 +30,33 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         }
 
     suspend fun getTemperature(
+        id: Int,
         systemIp: String,
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).temperature()
+            val response = networkModule.createConfigService(systemIp).temperature(id)
             temperatureResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun getPressure(
+        id: Int,
         systemIp: String,
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).pressure()
+            val response = networkModule.createConfigService(systemIp).pressure(id)
             pressureResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun getHumidity(
+        id: Int,
         systemIp: String,
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).humidity()
+            val response = networkModule.createConfigService(systemIp).humidity(id)
             humidityResponseMapper(response, getTime())
         } catch (e: Exception) {
             null

@@ -118,24 +118,24 @@ class InformationViewModel(
         updateState { InformationState(newState, false) }
     }
 
-    private fun getTemperature() {
+    private fun getTemperature(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getTemperature()
+            val response = informationInteractor.getTemperature(id)
             if (response != null) update(response)
 
         }
     }
 
-    private fun getPressure() {
+    private fun getPressure(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getPressure()
+            val response = informationInteractor.getPressure(id)
             if (response != null) update(response)
         }
     }
 
-    private fun getHumidity() {
+    private fun getHumidity(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getHumidity()
+            val response = informationInteractor.getHumidity(id)
             if (response != null) update(response)
         }
     }
@@ -158,6 +158,7 @@ class InformationViewModel(
         when (type) {
             SensorType.TemperatureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
+                    id,
                     R.drawable.ic_temperature,
                     this::getTemperature,
                     info,
@@ -166,6 +167,7 @@ class InformationViewModel(
             )
             SensorType.PressureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
+                    id,
                     R.drawable.ic_pressure,
                     this::getPressure,
                     info,
@@ -174,6 +176,7 @@ class InformationViewModel(
             )
             SensorType.HumiditySensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
+                    id,
                     R.drawable.ic_humidity,
                     this::getHumidity,
                     info,

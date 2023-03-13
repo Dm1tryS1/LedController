@@ -8,8 +8,9 @@ import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 
 object Sensor {
     fun create(
+        id: Int,
         fragment: Fragment,
-        action: () -> Unit,
+        action: (id: Int) -> Unit,
         resources: Int,
         data: String,
         date: String,
@@ -34,7 +35,7 @@ object Sensor {
             )
 
             update.setOnClickListener {
-                action()
+                action(id)
                 dialog.dismiss()
             }
 

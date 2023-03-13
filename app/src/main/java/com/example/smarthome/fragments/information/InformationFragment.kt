@@ -121,6 +121,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
         when (event) {
             is InformationEvent.OpenSensorMenuEvent -> {
                 Sensor.create(
+                    id = event.id,
                     fragment = this@InformationFragment,
                     action = event.command,
                     resources = event.resources,
