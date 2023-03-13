@@ -172,7 +172,7 @@ class InformationViewModel(
                     date
                 )
             )
-            SensorType.HumidifierSensor.type -> sendEvent(
+            SensorType.HumiditySensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
                     R.drawable.ic_humidity,
                     this::getHumidity,
@@ -205,7 +205,7 @@ class InformationViewModel(
     }
 
     fun onChartOpen(type: Int, id: Int) {
-        if (type == SensorType.TemperatureSensor.type || type == SensorType.HumidifierSensor.type || type == SensorType.PressureSensor.type)
+        if (type == SensorType.TemperatureSensor.type || type == SensorType.HumiditySensor.type || type == SensorType.PressureSensor.type)
             router.navigateTo(Screens.ChartScreen(type, id))
     }
 

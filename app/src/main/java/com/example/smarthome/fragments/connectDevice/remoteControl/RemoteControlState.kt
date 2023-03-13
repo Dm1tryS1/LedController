@@ -1,5 +1,3 @@
 package com.example.smarthome.fragments.connectDevice.remoteControl
 
-sealed class RemoteControlState {
-    class ShowCommands(val deviceType: RemoteControlViewModel.Type) : RemoteControlState()
-}
+data class RemoteControlState(val deviceType: RemoteControlViewModel.Type, val loading: Boolean = false)

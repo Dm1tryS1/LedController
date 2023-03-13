@@ -63,7 +63,7 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.HumiditySensorSchema): InfoV
         deviceInfoSchema.id!!,
         info,
         date,
-        SensorType.HumidifierSensor
+        SensorType.HumiditySensor
     )
 }
 

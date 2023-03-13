@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.common.device.ConditionerCommands
+import com.example.smarthome.common.device.HumidifierCommands
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.core.utils.snackBar
@@ -39,43 +40,63 @@ class RemoteControlFragment : BaseFragment<RemoteControlState, RemoteControlEven
                 }
             }
             condOn.setOnClickListener {
-                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.On.command)
+                vm.writeCommandForRemoteControl(
+                    SensorType.Conditioner.type,
+                    ConditionerCommands.On.command
+                )
             }
             condOff.setOnClickListener {
-                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.Off.command)
+                vm.writeCommandForRemoteControl(
+                    SensorType.Conditioner.type,
+                    ConditionerCommands.Off.command
+                )
             }
             condAddTemp.setOnClickListener {
-                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.AddTemperature.command)
+                vm.writeCommandForRemoteControl(
+                    SensorType.Conditioner.type,
+                    ConditionerCommands.AddTemperature.command
+                )
             }
             condReduceTemp.setOnClickListener {
-                vm.writeCommandForRemoteControl(SensorType.Conditioner.type, ConditionerCommands.ReduceTemperature.command)
+                vm.writeCommandForRemoteControl(
+                    SensorType.Conditioner.type,
+                    ConditionerCommands.ReduceTemperature.command
+                )
+            }
+            humOn.setOnClickListener {
+                vm.writeCommandForRemoteControl(
+                    SensorType.Humidifier.type,
+                    HumidifierCommands.On.command
+                )
+            }
+            humOff.setOnClickListener {
+                vm.writeCommandForRemoteControl(
+                    SensorType.Humidifier.type,
+                    HumidifierCommands.Off.command
+                )
             }
         }
     }
 
 
     override fun renderState(state: RemoteControlState) {
-        when (state) {
-            is RemoteControlState.ShowCommands -> {
-                when (state.deviceType) {
-                    RemoteControlViewModel.Type.TypeCond -> {
-                        binding.condCommands.isVisible = true
-                        binding.humCommands.isVisible = false
-                    }
-                    RemoteControlViewModel.Type.TypeHum -> {
-                        binding.condCommands.isVisible = false
-                        binding.humCommands.isVisible = true
-                    }
-                }
+        when (state.deviceType) {
+            RemoteControlViewModel.Type.TypeCond -> {
+                binding.condCommands.isVisible = true
+                binding.humCommands.isVisible = false
+            }
+            RemoteControlViewModel.Type.TypeHum -> {
+                binding.condCommands.isVisible = false
+                binding.humCommands.isVisible = true
             }
         }
+        binding.loader.isVisible = state.loading
     }
 
     override fun handleEvent(event: RemoteControlEvent) {
         when (event) {
             is RemoteControlEvent.OnSuccess -> snackBar(getString(R.string.remote_control_success))
             is RemoteControlEvent.OnError -> snackBar(getString(R.string.remote_control_error))
-            else -> {}
         }
     }
 

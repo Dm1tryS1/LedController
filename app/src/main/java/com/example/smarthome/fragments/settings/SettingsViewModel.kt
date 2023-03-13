@@ -19,42 +19,6 @@ class SettingsViewModel(
         router.navigateTo(Screens.ConnectDeviceScreen())
     }
 
-    private fun finishConnection(ip: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            devicesUseCase.saveSystemIp(ip)
-
-            val data = mutableListOf<Pair<String, Int>>()
-            // data.add(Pair("192.168.1.1", 2))
-            // data.add(Pair("192.168.1.2", 4))
-
-            val cond = devicesUseCase.getCondInfo()
-            val hum = devicesUseCase.getHumIpInfo()
-
-            if (!cond.first.isNullOrEmpty() && cond.second != -1) {
-                data.add(Pair(cond.first!!, cond.second))
-            }
-            if (!hum.first.isNullOrEmpty() && hum.second != -1) {
-                data.add(Pair(hum.first!!, hum.second))
-            }
-
-            if (data.isNotEmpty()) {
-                if (devicesUseCase.sendConfig(ip, data)) {
-                    sendEvent(SettingsEvent.ConnectionSuccessEvent)
-                } else {
-                    sendEvent(SettingsEvent.ConnectionFailureEvent)
-                }
-                updateState { state ->
-                    state.copy(isLoading = false)
-                }
-            } else {
-                sendEvent(SettingsEvent.ConnectionSuccessEvent)
-                updateState { state ->
-                    state.copy(isLoading = false)
-                }
-            }
-        }
-    }
-
     fun connect(wifiInfo: WifiInfo) {
         updateState { state ->
             state.copy(isLoading = true)
@@ -63,7 +27,7 @@ class SettingsViewModel(
             withContext(Dispatchers.IO) {
                 devicesUseCase.connectWifiModule(wifiInfo) { ip ->
                     if (!ip.isNullOrEmpty()) {
-                        //finishConnection(ip)
+                        devicesUseCase.saveSystemIp(ip)
                         sendEvent(SettingsEvent.ConnectionSuccessEvent)
                         updateState { state ->
                             state.copy(isLoading = false)

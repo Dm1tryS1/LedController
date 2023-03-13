@@ -14,7 +14,7 @@ class RemoteControlViewModel(
 
 
     override fun createInitialState(): RemoteControlState {
-        return RemoteControlState.ShowCommands(Type.TypeCond)
+        return RemoteControlState(Type.TypeCond)
     }
 
 
@@ -25,17 +25,20 @@ class RemoteControlViewModel(
 
     fun changeList(type: Type) {
         when (type) {
-            Type.TypeCond -> updateState { RemoteControlState.ShowCommands(Type.TypeCond) }
-            Type.TypeHum -> updateState { RemoteControlState.ShowCommands(Type.TypeHum) }
+            Type.TypeCond -> updateState { RemoteControlState(Type.TypeCond) }
+            Type.TypeHum -> updateState { RemoteControlState(Type.TypeHum) }
         }
     }
 
     fun writeCommandForRemoteControl(deviceType: Int, command: String) {
         viewModelScope.launch {
+            updateState { state -> state.copy(loading = true) }
             val result = remoteControlInteractor.writeCommandForRemoteControl(deviceType, command)
             if (result != null && result.result == "success") {
+                updateState { state -> state.copy(loading = false) }
                 sendEvent(RemoteControlEvent.OnSuccess)
             } else {
+                updateState { state -> state.copy(loading = false) }
                 sendEvent(RemoteControlEvent.OnError)
             }
         }
