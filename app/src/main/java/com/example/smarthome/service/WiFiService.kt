@@ -77,6 +77,11 @@ class WiFiService : Service() {
         }
     }
 
+    override fun onDestroy() {
+        Log.d("12345", "Destroyed")
+        super.onDestroy()
+    }
+
     private fun receiveData() {
         CoroutineScope(Dispatchers.IO).launch {
             while(true) {

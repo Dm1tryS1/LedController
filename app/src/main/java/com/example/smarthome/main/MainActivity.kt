@@ -72,7 +72,11 @@ class MainActivity : AppCompatActivity() {
                 1
             )
         }
-        startService(Intent(this, WiFiService::class.java))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(Intent(this, WiFiService::class.java))
+        } else {
+            startService(Intent(this, WiFiService::class.java))
+        }
         router.newRootScreen(Screens.MainScreen())
     }
 
