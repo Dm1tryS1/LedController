@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
@@ -107,10 +106,6 @@ class SystemFragment : BaseFragment<SystemState, Unit>() {
                 }
                 is SystemState.Loading -> {
                     loader.isVisible = true
-                    requireActivity().window.setFlags(
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    )
                 }
             }
         }

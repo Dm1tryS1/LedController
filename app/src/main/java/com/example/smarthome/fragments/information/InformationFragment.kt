@@ -82,11 +82,6 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
         notificationManager.notify(id, builder.build())
     }
 
-    override fun onBackPressed(): Boolean {
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        return super.onBackPressed()
-    }
-
     override fun renderState(state: InformationState) {
         if (state.data != null) {
             binding.sensors.isVisible = true
