@@ -87,6 +87,7 @@ class WiFiService : Service() {
                             ?: ""
                     if (ip.isEmpty()) continue
                     val socket = Socket(ip, 81)
+                    socket.soTimeout = 1000
                     val input = socket.getInputStream()
                     input.read(msg)
                     Log.d(
