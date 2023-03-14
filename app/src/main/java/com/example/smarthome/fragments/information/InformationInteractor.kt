@@ -1,29 +1,34 @@
 package com.example.smarthome.fragments.information
 
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.fragments.information.data.Package
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
-import com.example.smarthome.repository.DeviceRepository
+import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 import com.example.smarthome.service.storage.entity.DeviceInfo
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 
 class InformationInteractor(
-    private val deviceRepository: DeviceRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository
+    private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository,
+    private val networkRepository: NetworkRepository,
 ) {
-    fun sendPackage(aPackage: Command) {
-        deviceRepository.sendPackage(aPackage)
-    }
+    private fun getSystemIp() =
+        sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp) ?: ""
 
-    fun getInfo(): Flow<Package> = callbackFlow {
-        deviceRepository.getInfo {
-            trySend(it)
-        }
-        awaitClose()
+    suspend fun getInfo() = networkRepository.getInfo(getSystemIp())
+
+    suspend fun getTemperature(id: Int) = networkRepository.getTemperature(id, getSystemIp())
+
+    suspend fun getPressure(id: Int) = networkRepository.getPressure(id, getSystemIp())
+
+    suspend fun getHumidity(id: Int) = networkRepository.getHumidity(id, getSystemIp())
+
+    suspend fun condCommand(command: String) = networkRepository.condCommand(getSystemIp(), command)
+
+    suspend fun humCommand(command: String) = networkRepository.humCommand(getSystemIp(), command)
+
+    suspend fun setTimer(value: Int) = networkRepository.setTimer(getSystemIp(), value)
+
+    fun saveInDataBase(deviceInfo: DeviceInfo) {
+        deviceInfoDataBaseRepository.saveDeviceInfo(deviceInfo)
     }
 
     fun getUserSettings() =
@@ -31,10 +36,6 @@ class InformationInteractor(
 
     fun saveUserSettings(value: Int) {
         sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userTimer, value)
-    }
-
-    fun saveInDataBase(deviceInfo: DeviceInfo) {
-        deviceInfoDataBaseRepository.saveDeviceInfo(deviceInfo)
     }
 
 }

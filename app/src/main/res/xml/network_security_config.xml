@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.49</domain>
-    </domain-config>
+<domain-config cleartextTrafficPermitted="true">
+    <domain includeSubdomains="true">192.168.1.30</domain>
+    <domain includeSubdomains="true">192.168.1.31</domain>
+    <domain includeSubdomains="true">192.168.1.32</domain>
+    <domain includeSubdomains="true">192.168.1.33</domain>
+    <domain includeSubdomains="true">192.168.1.34</domain>
+    <domain includeSubdomains="true">192.168.1.35</domain>
+    <domain includeSubdomains="true">192.168.1.36</domain>
+    <domain includeSubdomains="true">192.168.1.37</domain>
+    <domain includeSubdomains="true">192.168.1.38</domain>
+    <domain includeSubdomains="true">192.168.1.39</domain>
+    <domain includeSubdomains="true">192.168.1.40</domain>
+    <domain includeSubdomains="true">192.168.1.41</domain>
+    <domain includeSubdomains="true">192.168.1.42</domain>
+    <domain includeSubdomains="true">192.168.1.43</domain>
+    <domain includeSubdomains="true">192.168.1.44</domain>
+    <domain includeSubdomains="true">192.168.1.45</domain>
+    <domain includeSubdomains="true">192.168.1.46</domain>
+    <domain includeSubdomains="true">192.168.1.47</domain>
+    <domain includeSubdomains="true">192.168.1.48</domain>
+    <domain includeSubdomains="true">192.168.1.49</domain>
+    <domain includeSubdomains="true">192.168.1.50</domain>
+    <domain includeSubdomains="true">192.168.1.51</domain>
+    <domain includeSubdomains="true">192.168.1.52</domain>
+    <domain includeSubdomains="true">192.168.1.53</domain>
+    <domain includeSubdomains="true">192.168.1.54</domain>
+    <domain includeSubdomains="true">192.168.1.55</domain>
+    <domain includeSubdomains="true">192.168.1.56</domain>
+    <domain includeSubdomains="true">192.168.1.57</domain>
+    <domain includeSubdomains="true">192.168.1.58</domain>
+    <domain includeSubdomains="true">192.168.1.59</domain>
+    <domain includeSubdomains="true">192.168.1.60</domain>
+    <domain includeSubdomains="true">192.168.1.61</domain>
+    <domain includeSubdomains="true">192.168.1.62</domain>
+    <domain includeSubdomains="true">192.168.1.63</domain>
+    <domain includeSubdomains="true">192.168.1.64</domain>
+    <domain includeSubdomains="true">192.168.1.65</domain>
+    <domain includeSubdomains="true">192.168.1.66</domain>
+    <domain includeSubdomains="true">192.168.1.67</domain>
+    <domain includeSubdomains="true">192.168.1.68</domain>
+    <domain includeSubdomains="true">192.168.1.69</domain>
+</domain-config>
 </network-security-config>

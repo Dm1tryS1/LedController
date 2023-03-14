@@ -14,7 +14,6 @@ import com.example.smarthome.databinding.FragmentInformationBinding
 import com.example.smarthome.fragments.information.dialog.*
 import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,7 +47,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
         sensors.supportBottomSheetScroll()
 
         reloadButton.setOnClickListener {
-            vm.sendPackage(Command.BroadCast)
+            vm.getInfo()
         }
 
         settings.setOnClickListener {
@@ -102,28 +101,30 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
                 items.add(it)
             }
             adapter.items = items
+            binding.loader.isVisible = state.progressVisibility
 
-            if (state.progressVisibility)
-                requireActivity().window.setFlags(
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                )
-            else
-                requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-
-            binding.progressBar.isVisible = state.progressVisibility
-        } else
+            if(!state.progressVisibility && items.isEmpty()) {
+                binding.icon.isVisible = true
+                binding.title.isVisible = true
+            } else {
+                binding.icon.isVisible = false
+                binding.title.isVisible = false
+            }
+        } else {
             binding.sensors.isVisible = false
+            binding.icon.isVisible = true
+            binding.title.isVisible = true
+        }
     }
 
     override fun handleEvent(event: InformationEvent) {
         when (event) {
             is InformationEvent.OpenSensorMenuEvent -> {
                 Sensor.create(
+                    id = event.id,
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
+                    action = event.command,
                     resources = event.resources,
-                    command = event.command,
                     data = event.data,
                     date = event.date
                 ).show()
@@ -131,23 +132,21 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
             is InformationEvent.OpenConditionerMenuEvent -> {
                 Conditioner.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
-                    id = event.id,
+                    action = event.command,
                     on = event.on
                 ).show()
             }
             is InformationEvent.OpenHumidifierMenuEvent -> {
                 Humidifier.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
-                    id = event.id,
+                    action = event.command,
                     on = event.on
                 ).show()
             }
             is InformationEvent.OpenSettingsMenuEvent -> {
                 Settings.create(
                     fragment = this@InformationFragment,
-                    action = vm::sendPackage,
+                    action = event.setTimer,
                     progress = event.value,
                     save = vm::saveUserSettings,
                     openSystemSettings = vm::onMoreSettings

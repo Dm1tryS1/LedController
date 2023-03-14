@@ -82,7 +82,7 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
                     title.text = getString(R.string.chart_graph_temp)
                 }
 
-                SensorType.HumidifierSensor.type -> {
+                SensorType.HumiditySensor.type -> {
                     valueFormatterValue = SensorValueFormatter("%")
                     title.text = getString(R.string.chart_graph_hum)
                 }

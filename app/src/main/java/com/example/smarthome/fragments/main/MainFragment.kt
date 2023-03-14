@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commitNow
+import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : BaseFragment<MainState, Unit>() {
+class MainFragment : BaseFragment<MainState, MainEvent>() {
     private lateinit var binding: FragmentMainBinding
     override val vm: MainViewModel by viewModel()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,7 +56,12 @@ class MainFragment : BaseFragment<MainState, Unit>() {
         }
     }
 
-    override fun handleEvent(event: Unit) = Unit
+    override fun handleEvent(event: MainEvent) {
+        when(event){
+            is MainEvent.ShowSnack -> snackBar(getString(R.string.main_double_click_exit))
+        }
+    }
+
 
 
 }

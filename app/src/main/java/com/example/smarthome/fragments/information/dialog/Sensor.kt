@@ -3,16 +3,15 @@ package com.example.smarthome.fragments.information.dialog
 import android.app.Dialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.databinding.DropmenuSensorBinding
 import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 
 object Sensor {
     fun create(
+        id: Int,
         fragment: Fragment,
-        action: (aPackage: Command) -> Unit,
+        action: (id: Int) -> Unit,
         resources: Int,
-        command: Command,
         data: String,
         date: String,
     ): Dialog {
@@ -36,7 +35,7 @@ object Sensor {
             )
 
             update.setOnClickListener {
-                action(command)
+                action(id)
                 dialog.dismiss()
             }
 

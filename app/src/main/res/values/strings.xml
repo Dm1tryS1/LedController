@@ -15,8 +15,11 @@
     <string name="settings_button_confirm">Сохранить изменения</string>
     <string name="settings_label">Автоматическое обновление (мин):</string>
     <string name="settings_more">Дополнительные настройки</string>
-    <string name="settings_button_connect">Подключиться</string>
+    <string name="settings_button_connect">Подключить</string>
     <string name="settings_button_disconnect">Отключиться</string>
+    <string name="settings_connect_title">Для того, чтобы начать пользоваться приложением, подключите устройство к локальной сети</string>
+
+    <string name="information_empty_view">Нет данных\nПроверьте подключение к системе</string>
 
     <string name="error_connection">Подключитесь к системе</string>
 
@@ -41,6 +44,7 @@
     <string name="connect_device_title">Подключение устройства по сети Wi-Fi</string>
     <string name="connect_device_text">Для подключения устройства Вы должны быть подключены к своей домашней сети. Также необходимо включить геолокацию в настройках вашего мобильного устройства.</string>
     <string name="connection_device_ip">Подключение по IP</string>
+    <string name="connection_remote_control">Добавить пульт</string>
     <string name="connect_device_next">Далее</string>
     <string name="connect_device_error">Убедитесь, что Вы подключены к сети Wi-Fi</string>
     <string name="connect_device_connection_error">Убедитесь в правильности данных и повторите попытку</string>
@@ -49,17 +53,27 @@
     <string name="connect_device_ip_of_device">Введите IP в локальной сети устройства, которое хотите подключить (формат: 255.255.255.255):</string>
     <string name="connect_device_cond">Кондиционер</string>
     <string name="connect_device_hum">Увлажнитель воздуха</string>
-    <string name="connect_device_type">Выберите тип и бред\nподключаемого устройства</string>
+    <string name="connect_device_type">Выберите тип и бренд\nподключаемого устройства</string>
     <string name="connect_device_success">Устройство было подключено</string>
     <string name="connect_device_error_data">Проверьте правильноcть данных</string>
     <string name="connect_device_connect">Подключить</string>
     <string name="connect_device_error_send_config">Не удалось отправить конфигурацию в систему</string>
     <string name="connect_device_error_ip_format">Неправильный формат IP</string>
 
+    <string name="remote_control_type">Выберите тип подключаемого устройства и\nкоманду для записи.\nПосле выбора наведите\nпульт от устройства и нажмите необходимую кнопку.</string>
+    <string name="remote_control_on">Записать команду включения</string>
+    <string name="remote_control_off">Записать команду выключения</string>
+    <string name="remote_control_add_temp">Записать команду повышения температуры</string>
+    <string name="remote_control_reduce_temp">Записать команду понижения температуры</string>
+    <string name="remote_control_success">Команда успешно записана</string>
+    <string name="remote_control_error">Что-то пошло не так. Повторите попытку</string>
+
     <string name="chart_graph_temp">График температуры</string>
     <string name="chart_graph_hum">График влажности</string>
     <string name="chart_graph_pressure">График давления</string>
     <string name="chart_choose_date">Выбрать дату</string>
+
+    <string name="main_double_click_exit">Для выхода из приложения нажмите кнопку \"Назад\" еще раз</string>
 
     <string name="permission_geo_title">Доступ к местоположению</string>
     <string name="permission_storage_title">Доступ к хранилищу</string>

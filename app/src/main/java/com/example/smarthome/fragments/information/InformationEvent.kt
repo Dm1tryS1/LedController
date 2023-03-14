@@ -1,14 +1,13 @@
 package com.example.smarthome.fragments.information
 
-import com.example.smarthome.common.device.Command
-
 sealed class InformationEvent {
-    data class OpenConditionerMenuEvent(val id: Int, val on: Boolean) : InformationEvent()
-    data class OpenHumidifierMenuEvent(val id: Int, val on: Boolean) : InformationEvent()
-    data class OpenSettingsMenuEvent(val value: Int) : InformationEvent()
+    data class OpenConditionerMenuEvent(val id: Int, val on: Boolean, val command: (String) -> Unit) : InformationEvent()
+    data class OpenHumidifierMenuEvent(val id: Int, val on: Boolean, val command: (String) -> Unit) : InformationEvent()
+    data class OpenSettingsMenuEvent(val value: Int, val setTimer: (value: Int) -> Unit) : InformationEvent()
     data class OpenSensorMenuEvent(
+        val id: Int,
         val resources: Int,
-        val command: Command,
+        val command: (id: Int) -> Unit,
         val data: String,
         val date: String
     ) : InformationEvent()

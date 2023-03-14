@@ -2,6 +2,7 @@ package com.example.smarthome.fragments.connectDevice.chooseDevice
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
+import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.fragments.connectDevice.ConnectDeviceInteractor
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 class ChooseDeviceViewModel(
     private val connectDeviceInteractor: ConnectDeviceInteractor,
     private val router: Router,
-    private val byIp: Boolean
+    private val controlType: ControlType
 ) :
     BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>() {
 
@@ -45,20 +46,21 @@ class ChooseDeviceViewModel(
     }
 
     fun onItemClicked(type: Int, id: Int) {
-        if (byIp) {
-            sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
-        } else {
-            val wifiInfo = connectDeviceInteractor.getWifiInfo()
-            if (wifiInfo != null) {
-                sendEvent(
-                    ChooseDeviceEvent.OpenDeviceMenu(
-                        type,
-                        id,
-                        wifiInfo
+        when (controlType) {
+            ControlType.IP -> sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
+            ControlType.Connect -> {
+                val wifiInfo = connectDeviceInteractor.getWifiInfo()
+                if (wifiInfo != null) {
+                    sendEvent(
+                        ChooseDeviceEvent.OpenDeviceMenu(
+                            type,
+                            id,
+                            wifiInfo
+                        )
                     )
-                )
-            } else {
-                sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error))
+                } else {
+                    sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error))
+                }
             }
         }
     }
@@ -97,24 +99,16 @@ class ChooseDeviceViewModel(
             connectDeviceInteractor.saveConnectedDevice(id, type, ip)
             val systemIp = connectDeviceInteractor.getSystemIp()
             if (!systemIp.isNullOrEmpty()) {
-                connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id))) { result ->
-                    if (result) {
-                        sendEvent(ChooseDeviceEvent.OnSuccess)
-                        updateState {
-                            ChooseDeviceState.Loading(false)
-                        }
-                    } else {
-                        sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
-                        updateState {
-                            ChooseDeviceState.Loading(false)
-                        }
-                    }
+                if (connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id)))) {
+                    sendEvent(ChooseDeviceEvent.OnSuccess)
+                } else {
+                    sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
                 }
             } else {
                 sendEvent(ChooseDeviceEvent.OnSuccess)
-                updateState {
-                    ChooseDeviceState.Loading(false)
-                }
+            }
+            updateState {
+                ChooseDeviceState.Loading(false)
             }
         }
     }

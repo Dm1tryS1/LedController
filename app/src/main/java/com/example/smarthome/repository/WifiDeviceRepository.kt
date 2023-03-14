@@ -22,20 +22,18 @@ class WifiDeviceRepository(private val context: Context) {
     }
 
     suspend fun connect(wifiInfo: WifiInfo, callback: (String?) -> Unit) {
-//        val task = EsptouchTask(wifiInfo.ssid, wifiInfo.bssid, wifiInfo.password, context) //TODO ВЕРНУТь
-//        task.setPackageBroadcast(false)
-//        task.setEsptouchListener { response ->
-//            if (response.isSuc) {
-//                Log.d("12345", response.inetAddress.toString().drop(1))
-//                callback(response.inetAddress.toString().drop(1))
-//                task.interrupt()
-//            } else {
-//                callback(null)
-//                task.interrupt()
-//            }
-//        }
-//        task.executeForResult()
-
-        callback("192.168.1.42")
+        val task = EsptouchTask(wifiInfo.ssid, wifiInfo.bssid, wifiInfo.password, context) //TODO ВЕРНУТь
+        task.setPackageBroadcast(false)
+        task.setEsptouchListener { response ->
+            if (response.isSuc) {
+                Log.d("12345", response.inetAddress.toString().drop(1))
+                callback(response.inetAddress.toString().drop(1))
+                task.interrupt()
+            } else {
+                callback(null)
+                task.interrupt()
+            }
+        }
+        task.executeForResult()
     }
 }

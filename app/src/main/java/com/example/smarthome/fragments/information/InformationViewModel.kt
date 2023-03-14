@@ -2,16 +2,18 @@ package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
-import com.example.smarthome.common.device.Command
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.main.Screens
-import com.example.smarthome.repository.DeviceRepository
+import com.example.smarthome.service.storage.entity.DeviceInfo
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InformationViewModel(
     private val informationInteractor: InformationInteractor,
@@ -19,91 +21,136 @@ class InformationViewModel(
 ) :
     BaseViewModel<InformationState, InformationEvent>() {
 
-    init {
-        updateState { state ->
-            state.copy(progressVisibility = true)
-        }
-        sendPackage(Command.BroadCast)
-    }
-
     override fun createInitialState(): InformationState {
         return InformationState(listOf(), true)
     }
 
-    fun sendPackage(aPackage: Command) {
-        if (aPackage is Command.BroadCast || !(aPackage is Command.MasterCommand || aPackage is Command.MasterSendDate)) {
-            updateState { state ->
-                state.copy(progressVisibility = true)
+    private fun makeNotification(schema: DeviceInfoSchema.TemperatureSensorSchema) {
+        if (schema.id != null && schema.type != null && schema.notification && schema.data != null)
+            sendEvent(
+                InformationEvent.ShowNotification(
+                    id = schema.id,
+                    type = schema.type,
+                    more = schema.data < schema.minTemp,
+                    comfortableValue = if (schema.data < schema.minTemp) schema.minTemp else schema.maxTemp
+                )
+            )
+    }
+
+    private fun makeNotification(schema: DeviceInfoSchema.HumiditySensorSchema) {
+        if (schema.id != null && schema.type != null && schema.notification && schema.data != null)
+            sendEvent(
+                InformationEvent.ShowNotification(
+                    id = schema.id,
+                    type = schema.type,
+                    more = schema.data < schema.minHum,
+                    comfortableValue = if (schema.data < schema.minHum) schema.minHum else schema.maxHum
+                )
+            )
+    }
+
+    private fun saveInDataBase(deviceInfoSchema: DeviceInfoSchema) {
+        when (deviceInfoSchema) {
+            is DeviceInfoSchema.HumiditySensorSchema -> {
+                informationInteractor.saveInDataBase(
+                    DeviceInfo(
+                        deviceId = deviceInfoSchema.id!!,
+                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
+                        value = deviceInfoSchema.data!!,
+                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+                    )
+                )
             }
-        }
-        if (aPackage is Command.BroadCast) {
-            updateState { state ->
-                state.copy(data = null)
+            is DeviceInfoSchema.TemperatureSensorSchema -> {
+                informationInteractor.saveInDataBase(
+                    DeviceInfo(
+                        deviceId = deviceInfoSchema.id!!,
+                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
+                        value = deviceInfoSchema.data!!,
+                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+                    )
+                )
             }
+            is DeviceInfoSchema.PressureSensorSchema -> {
+                informationInteractor.saveInDataBase(
+                    DeviceInfo(
+                        deviceId = deviceInfoSchema.id!!,
+                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
+                        value = deviceInfoSchema.data!!,
+                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+                    )
+                )
+            }
+            else -> {}
         }
-        informationInteractor.sendPackage(aPackage)
     }
 
     fun getInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            informationInteractor.getInfo().collectLatest { aPackage ->
-                if (aPackage.id == 0
-                    && aPackage.type == DeviceRepository.EndOfTransmission.toInt()
-                    && aPackage.info0 == DeviceRepository.EndOfTransmission
-                    && aPackage.info1 == DeviceRepository.EndOfTransmission
-                    && aPackage.info2 == DeviceRepository.EndOfTransmission
-                    && aPackage.info3 == DeviceRepository.EndOfTransmission
-                ) {
-                    updateState { state ->
-                        state.copy(progressVisibility = false)
+            val response = informationInteractor.getInfo()
+            val newState = mutableListOf<InfoViewItem.SensorsInfoViewItem>()
+            if (response.isNotEmpty()) {
+                response.forEach { schema ->
+                    if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
+                        makeNotification(schema)
                     }
-                } else {
-                    if (aPackage.type == SensorType.TemperatureSensor.type || aPackage.type == SensorType.HumidifierSensor.type) {
-                        if (aPackage.info1 == DeviceRepository.Less || aPackage.info1 == DeviceRepository.More)
-                            if (aPackage.id != null && aPackage.type != null && aPackage.info2 != null)
-                                sendEvent(
-                                    InformationEvent.ShowNotification(
-                                        id = aPackage.id!!,
-                                        type = aPackage.type!!,
-                                        more = aPackage.info1 == DeviceRepository.More,
-                                        comfortableValue = aPackage.info2!!.toInt()
-                                    )
-                                )
+                    if (schema is DeviceInfoSchema.HumiditySensorSchema) {
+                        makeNotification(schema)
                     }
-                    currentViewState.let { informationState ->
-                        if (informationState.data != null) {
-                            informationState.data.let { currentState ->
-                                val sensor = currentState.find { item ->
-                                    item.id == aPackage.id
-                                }
-
-                                val newState = if (sensor == null) {
-                                    currentState + packageToInfoViewItem(aPackage)
-                                } else
-                                    currentState.map { item ->
-                                        if (item.id == aPackage.id)
-                                            packageToInfoViewItem(aPackage)
-                                        else
-                                            item
-                                    }
-
-                                updateState {
-                                    InformationState(newState.sortedBy {
-                                        it.sensorType.type
-                                    }, true)
-                                }
-                            }
-                        } else {
-                            updateState {
-                                InformationState(
-                                    listOf(packageToInfoViewItem(aPackage)),
-                                    true
-                                )
-                            }
-                        }
-                    }
+                    saveInDataBase(schema)
+                    newState.add(packageToInfoViewItem(schema))
                 }
             }
+            updateState { InformationState(newState, false) }
+        }
+
+    }
+
+    private fun update(response: DeviceInfoSchema) {
+        saveInDataBase(response)
+        val newState = currentViewState.data?.map { item ->
+            if (item.id == response.id) {
+                packageToInfoViewItem(response)
+            } else {
+                item
+            }
+        }
+        updateState { InformationState(newState, false) }
+    }
+
+    private fun getTemperature(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.getTemperature(id)
+            if (response != null) update(response)
+
+        }
+    }
+
+    private fun getPressure(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.getPressure(id)
+            if (response != null) update(response)
+        }
+    }
+
+    private fun getHumidity(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.getHumidity(id)
+            if (response != null) update(response)
+        }
+    }
+
+    private fun sendCondCommand(command: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.condCommand(command)
+            if (response != null) update(response)
+        }
+    }
+
+    private fun sendHumCommand(command: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = informationInteractor.humCommand(command)
+            if (response != null) update(response)
         }
     }
 
@@ -111,24 +158,27 @@ class InformationViewModel(
         when (type) {
             SensorType.TemperatureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
+                    id,
                     R.drawable.ic_temperature,
-                    Command.SensorCommand(id),
+                    this::getTemperature,
                     info,
                     date
                 )
             )
             SensorType.PressureSensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
+                    id,
                     R.drawable.ic_pressure,
-                    Command.SensorCommand(id),
+                    this::getPressure,
                     info,
                     date
                 )
             )
-            SensorType.HumidifierSensor.type -> sendEvent(
+            SensorType.HumiditySensor.type -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
+                    id,
                     R.drawable.ic_humidity,
-                    Command.SensorCommand(id),
+                    this::getHumidity,
                     info,
                     date
                 )
@@ -136,21 +186,29 @@ class InformationViewModel(
             SensorType.Conditioner.type -> sendEvent(
                 InformationEvent.OpenConditionerMenuEvent(
                     id,
-                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true
+                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true,
+                    this::sendCondCommand
                 )
             )
             SensorType.Humidifier.type -> sendEvent(
                 InformationEvent.OpenHumidifierMenuEvent(
                     id,
-                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true
+                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true,
+                    this::sendHumCommand
                 )
             )
             else -> {}
         }
     }
 
+    private fun setTimer(value: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            informationInteractor.setTimer(value)
+        }
+    }
+
     fun onChartOpen(type: Int, id: Int) {
-        if (type == SensorType.TemperatureSensor.type || type == SensorType.HumidifierSensor.type || type == SensorType.PressureSensor.type)
+        if (type == SensorType.TemperatureSensor.type || type == SensorType.HumiditySensor.type || type == SensorType.PressureSensor.type)
             router.navigateTo(Screens.ChartScreen(type, id))
     }
 
@@ -158,9 +216,9 @@ class InformationViewModel(
         viewModelScope.launch {
             val timer = informationInteractor.getUserSettings()
             if (timer >= 0) {
-                sendEvent(InformationEvent.OpenSettingsMenuEvent(informationInteractor.getUserSettings()))
+                sendEvent(InformationEvent.OpenSettingsMenuEvent(timer, this@InformationViewModel::setTimer))
             } else {
-                sendEvent(InformationEvent.OpenSettingsMenuEvent(0))
+                sendEvent(InformationEvent.OpenSettingsMenuEvent(0, this@InformationViewModel::setTimer))
             }
         }
     }

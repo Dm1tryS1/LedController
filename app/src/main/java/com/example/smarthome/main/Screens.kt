@@ -1,8 +1,10 @@
 package com.example.smarthome.main
 
+import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.fragments.charts.ChartsFragment
 import com.example.smarthome.fragments.connectDevice.ConnectDeviceFragment
 import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDeviceFragment
+import com.example.smarthome.fragments.connectDevice.remoteControl.RemoteControlFragment
 import com.example.smarthome.fragments.home.HomeFragment
 import com.example.smarthome.fragments.information.InformationFragment
 import com.example.smarthome.fragments.main.MainFragment
@@ -18,6 +20,6 @@ object Screens {
     fun ChartScreen(deviceTypes: Int, id: Int) = FragmentScreen { ChartsFragment.getNewInstance(deviceTypes, id) }
     fun SystemScreen() = FragmentScreen { SystemFragment() }
     fun ConnectDeviceScreen() = FragmentScreen { ConnectDeviceFragment() }
-
-    fun ChooseDeviceScreen(byIp: Boolean) = FragmentScreen { ChooseDeviceFragment.getNewInstance(byIp) }
+    fun ChooseDeviceScreen(controlType: Int) = FragmentScreen { ChooseDeviceFragment.getNewInstance(controlType) }
+    fun RemoteControlScreen() = FragmentScreen { RemoteControlFragment() }
 }

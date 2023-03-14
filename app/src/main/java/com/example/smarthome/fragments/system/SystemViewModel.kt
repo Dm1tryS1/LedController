@@ -2,11 +2,8 @@ package com.example.smarthome.fragments.system
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.common.device.Command
-import com.example.smarthome.common.device.CommandsForMaster
 import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SystemViewModel(private val router: Router, private val systemInteractor: SystemInteractor) :
@@ -67,7 +64,7 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
             systemInteractor.saveMaxHumidity(maxHum)
             systemInteractor.saveMinHumidity(minHum)
             systemInteractor.saveDisplayedValue(displayedValue)
-            sendPackages(maxTemp, minTemp, maxHum, minHum, displayedValue)
+            systemInteractor.setSystemSetting(maxTemp, minTemp, maxHum, minHum, displayedValue)
             router.backTo(Screens.InformationScreen())
         }
     }
@@ -79,22 +76,9 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
             systemInteractor.clearMaxHumidity()
             systemInteractor.clearMinHumidity()
             systemInteractor.clearDisplayedValue()
-            systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.ClearSettings, 0))
+            systemInteractor.setSystemSetting(-1, -1, -1, -1, -1)
             router.backTo(Screens.InformationScreen())
         }
-    }
-
-    private suspend fun sendPackages(maxTemp: Int, minTemp: Int, maxHum: Int, minHum: Int, displayedValue: Int) {
-        systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.SetMaxTemperature, maxTemp))
-        delay(200)
-        systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.SetMinTemperature, minTemp))
-        delay(200)
-        systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.SetMaxHumidity, maxHum))
-        delay(200)
-        systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.SetMinHumidity, minHum))
-        delay(200)
-        systemInteractor.sendPackage(Command.MasterCommand(CommandsForMaster.SetDisplayedValue, displayedValue))
-        delay(200)
     }
 
 }

@@ -9,9 +9,7 @@ import com.example.smarthome.core.utils.BottomSheetDialogBuilder
 object Connection {
     fun create(
         fragment: Fragment,
-        connectAction: (address: String, wifiInfo: WifiInfo) -> Unit,
-        disconnectAction: () -> Unit,
-        address: String,
+        connectAction: (wifiInfo: WifiInfo) -> Unit,
         wifiInfo: WifiInfo
     ): Dialog {
         val binding = DropmenuConnectBinding.inflate(fragment.layoutInflater)
@@ -25,12 +23,11 @@ object Connection {
             title.text = "${title.text} ${wifiInfo.ssid}"
 
             connect.setOnClickListener {
-                connectAction(address, wifiInfo.copy(password = password.text.toString()))
+                connectAction(wifiInfo.copy(password = password.text.toString()))
                 dialog.dismiss()
             }
 
             disconnect.setOnClickListener {
-                disconnectAction()
                 dialog.dismiss()
             }
 
