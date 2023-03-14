@@ -10,7 +10,6 @@ object Humidifier {
     fun create(
         fragment: Fragment,
         action: (command: String) -> Unit,
-        id: Int,
         on: Boolean
     ): Dialog {
         val binding = DropmenuHumidifierBinding.inflate(fragment.layoutInflater)

@@ -101,20 +101,14 @@ class ChooseDeviceViewModel(
             if (!systemIp.isNullOrEmpty()) {
                 if (connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id)))) {
                     sendEvent(ChooseDeviceEvent.OnSuccess)
-                    updateState {
-                        ChooseDeviceState.Loading(false)
-                    }
                 } else {
                     sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
-                    updateState {
-                        ChooseDeviceState.Loading(false)
-                    }
                 }
             } else {
                 sendEvent(ChooseDeviceEvent.OnSuccess)
-                updateState {
-                    ChooseDeviceState.Loading(false)
-                }
+            }
+            updateState {
+                ChooseDeviceState.Loading(false)
             }
         }
     }

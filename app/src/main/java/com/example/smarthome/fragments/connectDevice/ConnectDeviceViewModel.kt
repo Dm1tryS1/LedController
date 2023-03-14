@@ -8,7 +8,7 @@ import com.github.terrakok.cicerone.Router
 class ConnectDeviceViewModel(
     private val router: Router
 ) :
-    BaseViewModel<Unit, ConnectDeviceEvent>() {
+    BaseViewModel<Unit, Unit>() {
 
     fun onNextClicked(controlType: ControlType) {
         router.navigateTo(Screens.ChooseDeviceScreen(controlType.type))

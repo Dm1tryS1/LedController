@@ -1,14 +1,19 @@
 package com.example.smarthome.fragments.main
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.home.HomeFragment
 import com.example.smarthome.fragments.settings.SettingsFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
-class MainViewModel: BaseViewModel<MainState, Unit>() {
+class MainViewModel: BaseViewModel<MainState, MainEvent>() {
 
     private val fragmentsStack = Stack<TabType>()
+
+    private var onBackWasPressed = false
 
     init {
         fragmentsStack.add(TabType.Home)
@@ -39,4 +44,15 @@ class MainViewModel: BaseViewModel<MainState, Unit>() {
             TabType.Settings -> SettingsFragment()
         }
     }
+
+    override fun onBackPressed(): Boolean {
+        onBackWasPressed = !onBackWasPressed
+        sendEvent(MainEvent.ShowSnack)
+        viewModelScope.launch {
+            delay(3000)
+            onBackWasPressed = false
+        }
+        return onBackWasPressed
+    }
+
 }

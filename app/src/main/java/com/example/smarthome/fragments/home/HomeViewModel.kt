@@ -5,9 +5,8 @@ import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 
 class HomeViewModel(
-    val homeInteractor: HomeInteractor,
     private val router: Router,
-) : BaseViewModel<Unit, HomeEvent>() {
+) : BaseViewModel<Unit, Unit>() {
 
     fun checkConnection() {
         router.navigateTo(Screens.InformationScreen())

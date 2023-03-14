@@ -133,7 +133,6 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
                 Conditioner.create(
                     fragment = this@InformationFragment,
                     action = event.command,
-                    id = event.id,
                     on = event.on
                 ).show()
             }
@@ -141,7 +140,6 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
                 Humidifier.create(
                     fragment = this@InformationFragment,
                     action = event.command,
-                    id = event.id,
                     on = event.on
                 ).show()
             }

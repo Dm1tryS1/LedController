@@ -73,6 +73,8 @@
     <string name="chart_graph_pressure">График давления</string>
     <string name="chart_choose_date">Выбрать дату</string>
 
+    <string name="main_double_click_exit">Для выхода из приложения нажмите кнопку \"Назад\" еще раз</string>
+
     <string name="permission_geo_title">Доступ к местоположению</string>
     <string name="permission_storage_title">Доступ к хранилищу</string>
     <string name="permission_already_permited">Разрешение получено</string>

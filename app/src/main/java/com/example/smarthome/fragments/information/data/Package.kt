@@ -1,20 +1,4 @@
 package com.example.smarthome.fragments.information.data
-
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class Package(
-    var id: Int?,
-    var type: Int?,
-    var hours: Int?,
-    var minutes: Int?,
-    var seconds: Int?,
-    var info0: Byte?,
-    var info1: Byte?,
-    var info2: Byte?,
-    var info3: Byte?,
-)
-
 sealed class DeviceInfoSchema {
 
     abstract val id: Int?
@@ -71,7 +55,7 @@ sealed class DeviceInfoSchema {
         override val hours: Int?,
         override val minutes: Int?,
         override val seconds: Int?,
-        val status: Boolean,
+        val status: Boolean?,
         val temperature: Int?,
     ) : DeviceInfoSchema()
 

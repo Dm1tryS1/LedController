@@ -10,7 +10,6 @@ object Conditioner {
     fun create(
         fragment: Fragment,
         action: (command: String) -> Unit,
-        id: Int,
         on: Boolean
         ): Dialog {
         val binding = DropmenuConditioenerBinding.inflate(fragment.layoutInflater)

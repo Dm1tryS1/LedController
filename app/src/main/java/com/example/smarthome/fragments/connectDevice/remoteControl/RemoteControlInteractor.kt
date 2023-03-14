@@ -4,8 +4,8 @@ import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 
 class RemoteControlInteractor(
-    val networkRepository: NetworkRepository,
-    val sharedPreferencesRepository: SharedPreferencesRepository
+    private val networkRepository: NetworkRepository,
+    private val sharedPreferencesRepository: SharedPreferencesRepository
 ) {
     suspend fun writeCommandForRemoteControl(deviceType: Int, command: String) =
         networkRepository.writeCommandForRemoteControl(

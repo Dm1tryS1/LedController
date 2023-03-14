@@ -105,16 +105,16 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.ConditionerSchema): InfoView
             }:${seconds.toTime()}"
     }
 
-    val info = deviceInfoSchema.status.let {
-        if (!it)
+    val info = if (deviceInfoSchema.status != null) {
+        if (!deviceInfoSchema.status) {
             "Выключено"
-        else if (deviceInfoSchema.temperature != null) {
+        } else {
             "Включено: ${
                 deviceInfoSchema.temperature
             } °C"
-        }else {
-            "Включено"
         }
+    } else {
+        "Кондиционер"
     }
 
     return InfoViewItem.SensorsInfoViewItem(
@@ -140,7 +140,7 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.PressureSensorSchema): InfoV
         if (it == null)
             "Нет информации"
         else {
-            "Давление: ${it} Па"
+            "Давление: $it Па"
         }
     }
 

@@ -9,7 +9,7 @@ import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentConnectDeviceBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ConnectDeviceFragment : BaseFragment<Unit, ConnectDeviceEvent>() {
+class ConnectDeviceFragment : BaseFragment<Unit, Unit>() {
 
     private lateinit var binding: FragmentConnectDeviceBinding
 
@@ -40,10 +40,9 @@ class ConnectDeviceFragment : BaseFragment<Unit, ConnectDeviceEvent>() {
     }
 
 
-    override fun renderState(state: Unit) {}
+    override fun renderState(state: Unit) = Unit
 
-    override fun handleEvent(event: ConnectDeviceEvent) {
-    }
+    override fun handleEvent(event: Unit) = Unit
 
 
 }
