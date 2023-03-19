@@ -40,9 +40,7 @@ class SharedPreferencesRepository(context: Context) {
         const val userMinHumidity = "UserMinHumidity "
         const val userDisplayedValue = "UserDisplayedValue"
         const val ipOfConditioener = "IpOfConditioener"
-        const val idOfConditioener = "IdOfConditioener"
-        const val ipOfHumidifier = "ipOfHumidifier"
-        const val idOfHumidifier = "idOfHumidifier"
+        const val ipOfHumidifier = "IpOfHumidifier"
         const val systemIp = "SystemIp"
     }
 }

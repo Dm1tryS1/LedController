@@ -22,16 +22,12 @@ class ConnectDeviceInteractor(
         wifiDeviceRepository.connect(wifiInfo) { callback(it) }
     }
 
-    fun saveConnectedDevice(id: Int, type: Int, ip: String) {
+    fun saveConnectedDevice(type: Int, ip: String) {
         when (type) {
             SensorType.Conditioner.type -> {
                 sharedPreferencesRepository.saveString(
                     SharedPreferencesRepository.ipOfConditioener,
                     ip
-                )
-                sharedPreferencesRepository.saveInt(
-                    SharedPreferencesRepository.idOfConditioener,
-                    id
                 )
             }
             SensorType.Humidifier.type -> {
@@ -39,7 +35,6 @@ class ConnectDeviceInteractor(
                     SharedPreferencesRepository.ipOfHumidifier,
                     ip
                 )
-                sharedPreferencesRepository.saveInt(SharedPreferencesRepository.ipOfHumidifier, id)
             }
         }
     }

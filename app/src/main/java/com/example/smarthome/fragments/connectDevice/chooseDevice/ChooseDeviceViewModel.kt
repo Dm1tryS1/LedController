@@ -96,7 +96,7 @@ class ChooseDeviceViewModel(
 
     private fun finishConnection(type: Int, id: Int, ip: String) {
         viewModelScope.launch {
-            connectDeviceInteractor.saveConnectedDevice(id, type, ip)
+            connectDeviceInteractor.saveConnectedDevice(type, ip)
             val systemIp = connectDeviceInteractor.getSystemIp()
             if (!systemIp.isNullOrEmpty()) {
                 if (connectDeviceInteractor.sendConfig(listOf(Pair(ip, id))).data != null) {
