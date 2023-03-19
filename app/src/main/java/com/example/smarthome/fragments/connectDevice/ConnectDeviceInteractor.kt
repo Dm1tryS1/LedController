@@ -46,7 +46,6 @@ class ConnectDeviceInteractor(
     fun getSystemIp() = sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp)
 
     suspend fun sendConfig(
-        systemIp: String,
         data: List<Pair<String, Int>>,
     ) = networkRepository.sendConfig(
         fileRepository.findDeviceConfig(data.map { it.second }).mapNotNull { item ->
@@ -56,8 +55,7 @@ class ConnectDeviceInteractor(
             } else {
                 null
             }
-        },
-        systemIp
+        }
     )
 
 

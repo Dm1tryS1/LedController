@@ -26,6 +26,6 @@ object ChooseDevice {
     private fun createDataModule() = module {
         factory { FileRepository(get()) }
         factory { NetworkRepository(get()) }
-        factory { NetworkModule() }
+        factory { NetworkModule(get()) }
     }
 }

@@ -7,16 +7,13 @@ class SystemInteractor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val networkRepository: NetworkRepository
 ) {
-
-    private fun getSystemIp() = sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp) ?: ""
-
     suspend fun setSystemSetting(
         maxTemp: Int,
         minTemp: Int,
         maxHum: Int,
         minHum: Int,
         displayedValue: Int
-    ) = networkRepository.setSystemSettings(getSystemIp(), minTemp, maxTemp, minHum, maxHum, displayedValue)
+    ) = networkRepository.setSystemSettings(minTemp, maxTemp, minHum, maxHum, displayedValue)
 
     fun saveMaxTemperature(value: Int) {
         sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMaxTemperature, value)

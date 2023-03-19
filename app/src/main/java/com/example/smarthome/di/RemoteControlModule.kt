@@ -18,7 +18,7 @@ object RemoteControlModule {
     }
 
     private fun createDomainModule() = module {
-        factory { RemoteControlInteractor(get(), get()) }
+        factory { RemoteControlInteractor(get()) }
     }
 
     private fun createDataModule() = module {

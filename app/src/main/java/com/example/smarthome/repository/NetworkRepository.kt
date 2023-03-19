@@ -8,96 +8,86 @@ import com.example.smarthome.service.network.model.*
 class NetworkRepository(private val networkModule: NetworkModule) {
 
     suspend fun sendConfig(
-        wifiDevicesItem: List<SendConfigRequest>,
-        systemIp: String,
+        wifiDevicesItem: List<SendConfigRequest>
     ) =
         try {
-            networkModule.createConfigService(systemIp).sendConfig(wifiDevicesItem)
+            networkModule.createConfigService().sendConfig(wifiDevicesItem)
             true
         } catch (e: Exception) {
             false
         }
 
 
-    suspend fun getInfo(
-        systemIp: String,
-    ) =
+    suspend fun getInfo() =
         try {
-            val response = networkModule.createConfigService(systemIp).getAll()
+            val response = networkModule.createConfigService().getAll()
             getAllResponseMapper(response, getTime())
         } catch (e: Exception) {
             emptyList()
         }
 
     suspend fun getTemperature(
-        id: Int,
-        systemIp: String,
+        id: Int
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).temperature(id)
+            val response = networkModule.createConfigService().temperature(id)
             temperatureResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun getPressure(
-        id: Int,
-        systemIp: String,
+        id: Int
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).pressure(id)
+            val response = networkModule.createConfigService().pressure(id)
             pressureResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun getHumidity(
-        id: Int,
-        systemIp: String,
+        id: Int
     ) =
         try {
-            val response = networkModule.createConfigService(systemIp).humidity(id)
+            val response = networkModule.createConfigService().humidity(id)
             humidityResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun condCommand(
-        systemIp: String,
         command: String
     ) =
         try {
             val response =
-                networkModule.createConfigService(systemIp).condcommand(ConditionerRequest(command))
+                networkModule.createConfigService().condcommand(ConditionerRequest(command))
             conditionerResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun humCommand(
-        systemIp: String,
         command: String
     ) =
         try {
             val response =
-                networkModule.createConfigService(systemIp).humcommand(HumidifierRequest(command))
+                networkModule.createConfigService().humcommand(HumidifierRequest(command))
             humidifierResponseMapper(response, getTime())
         } catch (e: Exception) {
             null
         }
 
     suspend fun setTimer(
-        systemIp: String,
         value: Int
     ) =
         try {
-            networkModule.createConfigService(systemIp).systemtimer(SystemTimerRequest(value))
+            networkModule.createConfigService().systemtimer(SystemTimerRequest(value))
         } catch (e: Exception) {
             null
         }
 
     suspend fun setSystemSettings(
-        systemIp: String,
         minTemp: Int,
         maxTemp: Int,
         minHum: Int,
@@ -105,7 +95,7 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         displayedValue: Int
     ) =
         try {
-            networkModule.createConfigService(systemIp).systemsettings(
+            networkModule.createConfigService().systemsettings(
                 SystemSettingsRequest(
                     minHum = minHum,
                     maxHum = maxHum,
@@ -118,10 +108,12 @@ class NetworkRepository(private val networkModule: NetworkModule) {
             null
         }
 
-    suspend fun writeCommandForRemoteControl(systemIp: String, deviceType: Int, command: String) = try {
-        networkModule.createConfigService(systemIp).irreceiver(IrReceiverRequest(command, deviceType))
-    } catch (e: Exception) {
-        null
-    }
+    suspend fun writeCommandForRemoteControl(deviceType: Int, command: String) =
+        try {
+            networkModule.createConfigService()
+                .irreceiver(IrReceiverRequest(command, deviceType))
+        } catch (e: Exception) {
+            null
+        }
 
 }
