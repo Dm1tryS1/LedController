@@ -71,7 +71,7 @@ class SystemFragment : BaseFragment<SystemState, Unit>() {
                     minTemp.numberPicker.value,
                     maxHum.numberPicker.value,
                     minHum.numberPicker.value,
-                    when(radioGroup.checkedRadioButtonId) {
+                    when (radioGroup.checkedRadioButtonId) {
                         R.id.btn_max_temp -> 0
                         R.id.btn_min_temp -> 1
                         R.id.btn_max_hum -> 2
@@ -88,27 +88,22 @@ class SystemFragment : BaseFragment<SystemState, Unit>() {
 
     override fun renderState(state: SystemState) {
         with(binding) {
-            when (state) {
-                is SystemState.Settings -> {
-                    maxTemp.numberPicker.value = state.maxTemp
-                    minTemp.numberPicker.value = state.minTemp
-                    minHum.numberPicker.value = state.minHum
-                    maxHum.numberPicker.value = state.maxHum
-                    radioGroup.check(
-                        when (state.displayedValue) {
-                            0 -> R.id.btn_max_temp
-                            1 -> R.id.btn_min_temp
-                            2 -> R.id.btn_max_hum
-                            3 -> R.id.btn_min_hum
-                            else -> R.id.btn_timer
-                        }
-                    )
+            maxTemp.numberPicker.value = state.maxTemp
+            minTemp.numberPicker.value = state.minTemp
+            minHum.numberPicker.value = state.minHum
+            maxHum.numberPicker.value = state.maxHum
+            radioGroup.check(
+                when (state.displayedValue) {
+                    0 -> R.id.btn_max_temp
+                    1 -> R.id.btn_min_temp
+                    2 -> R.id.btn_max_hum
+                    3 -> R.id.btn_min_hum
+                    else -> R.id.btn_timer
                 }
-                is SystemState.Loading -> {
-                    loader.isVisible = true
-                }
-            }
+            )
+            loader.isVisible = state.loading
         }
+
     }
 
     override fun handleEvent(event: Unit) {}

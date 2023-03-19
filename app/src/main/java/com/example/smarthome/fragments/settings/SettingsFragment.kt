@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
+import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentSettingsBinding
@@ -45,35 +45,16 @@ class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
         binding.title.isVisible = !state.isLoading
     }
 
-
     override fun handleEvent(event: SettingsEvent) {
         when (event) {
-            is SettingsEvent.ConnectionSuccessEvent -> Toast.makeText(
-                requireContext(),
-                "Соединено",
-                Toast.LENGTH_SHORT
-            ).show()
-            is SettingsEvent.ConnectionFailureEvent -> Toast.makeText(
-                requireContext(),
-                "Ошибка",
-                Toast.LENGTH_SHORT
-            ).show()
+            is SettingsEvent.ConnectionSuccessEvent -> snackBar(getString(R.string.settings_connected))
+            is SettingsEvent.ConnectionFailureEvent -> snackBar(getString(R.string.settings_fail))
+            is SettingsEvent.Error -> snackBar(getString(event.message))
             is SettingsEvent.OnItemClickedEvent -> Connection.create(
                 fragment = this@SettingsFragment,
                 connectAction = vm::connect,
                 wifiInfo = event.wifiInfo
             ).show()
-            is SettingsEvent.DisconnectFailureEvent -> Toast.makeText(
-                requireContext(),
-                "Ошибка",
-                Toast.LENGTH_SHORT
-            ).show()
-            is SettingsEvent.DisconnectSuccessEvent -> Toast.makeText(
-                requireContext(),
-                "Отключено",
-                Toast.LENGTH_SHORT
-            ).show()
-            is SettingsEvent.Error -> snackBar(getString(event.message))
         }
     }
 

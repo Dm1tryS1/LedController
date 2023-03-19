@@ -18,6 +18,8 @@
     <string name="settings_button_connect">Подключить</string>
     <string name="settings_button_disconnect">Отключиться</string>
     <string name="settings_connect_title">Для того, чтобы начать пользоваться приложением, подключите устройство к локальной сети</string>
+    <string name="settings_connected">Соединено</string>
+    <string name="settings_fail">Ошибка подключения</string>
 
     <string name="information_empty_view">Нет данных\nПроверьте подключение к системе</string>
 

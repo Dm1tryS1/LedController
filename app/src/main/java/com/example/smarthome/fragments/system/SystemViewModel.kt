@@ -10,53 +10,44 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
     BaseViewModel<SystemState, Unit>() {
 
     init {
+        updateState { state ->
+            state.copy(loading = true)
+        }
+
         viewModelScope.launch {
-            var maxTemp = systemInteractor.getMaxTemperature()
-            var minTemp = systemInteractor.getMinTemperature()
-            var maxHum = systemInteractor.getMaxHumidity()
-            var minHum = systemInteractor.getMinHumidity()
-            var displayedValue = systemInteractor.getDisplayedValue()
-
-            if (maxTemp == -1)
-                maxTemp = SystemFragment.MIN_TEMP_VALUE
-
-            if (minTemp == -1)
-                minTemp = SystemFragment.MIN_TEMP_VALUE
-
-            if (minHum == -1)
-                minHum = SystemFragment.MIN_HUM_VALUE
-
-            if (maxHum == -1)
-                maxHum = SystemFragment.MIN_HUM_VALUE
-
-            if (displayedValue == -1)
-                displayedValue = SystemFragment.DISPLAYED_VALUE
+            val maxTemp = systemInteractor.getMaxTemperature()
+            val minTemp = systemInteractor.getMinTemperature()
+            val maxHum = systemInteractor.getMaxHumidity()
+            val minHum = systemInteractor.getMinHumidity()
+            val displayedValue = systemInteractor.getDisplayedValue()
 
             updateState {
-                SystemState.Settings(
+                SystemState (
                     maxTemp = maxTemp,
                     minTemp = minTemp,
                     maxHum = maxHum,
                     minHum = minHum,
-                    displayedValue = displayedValue
+                    displayedValue = displayedValue,
+                    loading = false
                 )
             }
         }
     }
 
     override fun createInitialState(): SystemState {
-        return SystemState.Settings(
+        return SystemState(
             SystemFragment.MIN_TEMP_VALUE,
             SystemFragment.MIN_TEMP_VALUE,
             SystemFragment.MIN_HUM_VALUE,
             SystemFragment.MIN_HUM_VALUE,
-            SystemFragment.DISPLAYED_VALUE
+            SystemFragment.DISPLAYED_VALUE,
+            loading = false
         )
     }
 
     fun save(maxTemp: Int, minTemp: Int, maxHum: Int, minHum: Int, displayedValue: Int) {
-        updateState {
-            SystemState.Loading
+        updateState {state ->
+            state.copy(loading = true)
         }
         viewModelScope.launch {
             systemInteractor.saveMaxTemperature(maxTemp)
@@ -71,11 +62,7 @@ class SystemViewModel(private val router: Router, private val systemInteractor: 
 
     fun clearSettings() {
         viewModelScope.launch {
-            systemInteractor.clearMaxTemperature()
-            systemInteractor.clearMinTemperature()
-            systemInteractor.clearMaxHumidity()
-            systemInteractor.clearMinHumidity()
-            systemInteractor.clearDisplayedValue()
+            systemInteractor.clearSettings()
             systemInteractor.setSystemSetting(-1, -1, -1, -1, -1)
             router.backTo(Screens.InformationScreen())
         }

@@ -8,7 +8,6 @@ import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SettingsViewModel(
     private val devicesUseCase: DevicesUseCase,
@@ -23,21 +22,16 @@ class SettingsViewModel(
         updateState { state ->
             state.copy(isLoading = true)
         }
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                devicesUseCase.connectWifiModule(wifiInfo) { ip ->
-                    if (!ip.isNullOrEmpty()) {
-                        devicesUseCase.saveSystemIp(ip)
-                        sendEvent(SettingsEvent.ConnectionSuccessEvent)
-                        updateState { state ->
-                            state.copy(isLoading = false)
-                        }
-                    } else {
-                        sendEvent(SettingsEvent.DisconnectFailureEvent)
-                        updateState { state ->
-                            state.copy(isLoading = false)
-                        }
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            devicesUseCase.connectWifiModule(wifiInfo) { ip ->
+                if (!ip.isNullOrEmpty()) {
+                    devicesUseCase.saveSystemIp(ip)
+                    sendEvent(SettingsEvent.ConnectionSuccessEvent)
+                } else {
+                    sendEvent(SettingsEvent.ConnectionFailureEvent)
+                }
+                updateState { state ->
+                    state.copy(isLoading = false)
                 }
             }
         }

@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -89,4 +90,12 @@ inline fun <T> request(result: () -> T): BaseResponse<T> =
     } catch (e: Exception) {
         BaseResponse(error = ErrorResponse(400, e.message))
     }
+
+fun Int.setPickerNumber(extremeValue: Int): Int {
+    return if (this == -1) {
+        extremeValue
+    } else {
+        this
+    }
+}
 

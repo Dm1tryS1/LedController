@@ -1,5 +1,6 @@
 package com.example.smarthome.fragments.system
 
+import com.example.smarthome.core.utils.setPickerNumber
 import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 
@@ -36,32 +37,25 @@ class SystemInteractor(
     }
 
     fun getMaxTemperature() =
-        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxTemperature)
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxTemperature).setPickerNumber(SystemFragment.MAX_TEMP_VALUE)
 
     fun getMinTemperature() =
-        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinTemperature)
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinTemperature).setPickerNumber(SystemFragment.MIN_TEMP_VALUE)
 
     fun getMaxHumidity() =
-        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxHumidity)
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxHumidity).setPickerNumber(SystemFragment.MAX_HUM_VALUE)
 
     fun getMinHumidity() =
-        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinHumidity)
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinHumidity).setPickerNumber(SystemFragment.MIN_HUM_VALUE)
 
     fun getDisplayedValue() =
-        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userDisplayedValue)
+        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userDisplayedValue).setPickerNumber(SystemFragment.DISPLAYED_VALUE)
 
-    fun clearMaxTemperature() =
+    fun clearSettings() {
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxTemperature)
-
-    fun clearMinTemperature() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinTemperature)
-
-    fun clearMaxHumidity() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxHumidity)
-
-    fun clearMinHumidity() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinHumidity)
-
-    fun clearDisplayedValue() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userDisplayedValue)
+    }
 }

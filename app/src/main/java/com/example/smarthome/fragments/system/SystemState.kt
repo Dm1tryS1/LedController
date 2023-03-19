@@ -1,14 +1,12 @@
 package com.example.smarthome.fragments.system
 
-sealed class SystemState {
-    data class Settings(
-        val maxTemp: Int,
-        val minTemp: Int,
-        val maxHum: Int,
-        val minHum: Int,
-        val displayedValue: Int
-    ) : SystemState()
+data class SystemState(
+    val maxTemp: Int,
+    val minTemp: Int,
+    val maxHum: Int,
+    val minHum: Int,
+    val displayedValue: Int,
+    val loading: Boolean
+)
 
-    object Loading : SystemState()
 
-}
