@@ -1,5 +1,6 @@
 package com.example.smarthome.fragments.information
 
+import com.example.smarthome.core.utils.request
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
@@ -10,19 +11,19 @@ class InformationInteractor(
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository,
     private val networkRepository: NetworkRepository,
 ) {
-    suspend fun getInfo() = networkRepository.getInfo()
+    suspend fun getInfo() = request { networkRepository.getInfo() }
 
-    suspend fun getTemperature(id: Int) = networkRepository.getTemperature(id)
+    suspend fun getTemperature(id: Int) = request { networkRepository.getTemperature(id) }
 
-    suspend fun getPressure(id: Int) = networkRepository.getPressure(id)
+    suspend fun getPressure(id: Int) = request { networkRepository.getPressure(id) }
 
-    suspend fun getHumidity(id: Int) = networkRepository.getHumidity(id)
+    suspend fun getHumidity(id: Int) = request { networkRepository.getHumidity(id) }
 
-    suspend fun condCommand(command: String) = networkRepository.condCommand(command)
+    suspend fun condCommand(command: String) = request { networkRepository.condCommand(command) }
 
-    suspend fun humCommand(command: String) = networkRepository.humCommand(command)
+    suspend fun humCommand(command: String) = request { networkRepository.humCommand(command) }
 
-    suspend fun setTimer(value: Int) = networkRepository.setTimer(value)
+    suspend fun setTimer(value: Int) = request { networkRepository.setTimer(value) }
 
     fun saveInDataBase(deviceInfo: DeviceInfo) {
         deviceInfoDataBaseRepository.saveDeviceInfo(deviceInfo)

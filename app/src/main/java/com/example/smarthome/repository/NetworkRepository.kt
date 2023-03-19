@@ -9,83 +9,45 @@ class NetworkRepository(private val networkModule: NetworkModule) {
 
     suspend fun sendConfig(
         wifiDevicesItem: List<SendConfigRequest>
-    ) =
-        try {
-            networkModule.createConfigService().sendConfig(wifiDevicesItem)
-            true
-        } catch (e: Exception) {
-            false
-        }
+    ) = networkModule.createService().sendConfig(wifiDevicesItem)
 
 
     suspend fun getInfo() =
-        try {
-            val response = networkModule.createConfigService().getAll()
-            getAllResponseMapper(response, getTime())
-        } catch (e: Exception) {
-            emptyList()
-        }
+        getAllResponseMapper(networkModule.createService().getAll(), getTime())
 
     suspend fun getTemperature(
         id: Int
-    ) =
-        try {
-            val response = networkModule.createConfigService().temperature(id)
-            temperatureResponseMapper(response, getTime())
-        } catch (e: Exception) {
-            null
-        }
+    ) = temperatureResponseMapper(networkModule.createService().temperature(id), getTime())
+
 
     suspend fun getPressure(
         id: Int
-    ) =
-        try {
-            val response = networkModule.createConfigService().pressure(id)
-            pressureResponseMapper(response, getTime())
-        } catch (e: Exception) {
-            null
-        }
+    ) = pressureResponseMapper(networkModule.createService().pressure(id), getTime())
+
 
     suspend fun getHumidity(
         id: Int
-    ) =
-        try {
-            val response = networkModule.createConfigService().humidity(id)
-            humidityResponseMapper(response, getTime())
-        } catch (e: Exception) {
-            null
-        }
+    ) = humidityResponseMapper(networkModule.createService().humidity(id), getTime())
+
 
     suspend fun condCommand(
         command: String
-    ) =
-        try {
-            val response =
-                networkModule.createConfigService().condcommand(ConditionerRequest(command))
-            conditionerResponseMapper(response, getTime())
-        } catch (e: Exception) {
-            null
-        }
+    ) = conditionerResponseMapper(
+        networkModule.createService().condcommand(ConditionerRequest(command)), getTime()
+    )
 
     suspend fun humCommand(
         command: String
-    ) =
-        try {
-            val response =
-                networkModule.createConfigService().humcommand(HumidifierRequest(command))
-            humidifierResponseMapper(response, getTime())
-        } catch (e: Exception) {
-            null
-        }
+    ) = humidifierResponseMapper(
+        networkModule.createService().humcommand(HumidifierRequest(command)),
+        getTime()
+    )
 
     suspend fun setTimer(
         value: Int
     ) =
-        try {
-            networkModule.createConfigService().systemtimer(SystemTimerRequest(value))
-        } catch (e: Exception) {
-            null
-        }
+        networkModule.createService().systemtimer(SystemTimerRequest(value))
+
 
     suspend fun setSystemSettings(
         minTemp: Int,
@@ -94,26 +56,19 @@ class NetworkRepository(private val networkModule: NetworkModule) {
         maxHum: Int,
         displayedValue: Int
     ) =
-        try {
-            networkModule.createConfigService().systemsettings(
-                SystemSettingsRequest(
-                    minHum = minHum,
-                    maxHum = maxHum,
-                    minTemp = minTemp,
-                    maxTemp = maxTemp,
-                    displayedValue = displayedValue
-                )
+        networkModule.createService().systemsettings(
+            SystemSettingsRequest(
+                minHum = minHum,
+                maxHum = maxHum,
+                minTemp = minTemp,
+                maxTemp = maxTemp,
+                displayedValue = displayedValue
             )
-        } catch (e: Exception) {
-            null
-        }
+        )
+
 
     suspend fun writeCommandForRemoteControl(deviceType: Int, command: String) =
-        try {
-            networkModule.createConfigService()
-                .irreceiver(IrReceiverRequest(command, deviceType))
-        } catch (e: Exception) {
-            null
-        }
+        networkModule.createService()
+            .irreceiver(IrReceiverRequest(command, deviceType))
 
 }

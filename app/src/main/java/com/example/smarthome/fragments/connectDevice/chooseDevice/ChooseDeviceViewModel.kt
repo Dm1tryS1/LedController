@@ -99,7 +99,7 @@ class ChooseDeviceViewModel(
             connectDeviceInteractor.saveConnectedDevice(id, type, ip)
             val systemIp = connectDeviceInteractor.getSystemIp()
             if (!systemIp.isNullOrEmpty()) {
-                if (connectDeviceInteractor.sendConfig(listOf(Pair(ip, id)))) {
+                if (connectDeviceInteractor.sendConfig(listOf(Pair(ip, id))).data != null) {
                     sendEvent(ChooseDeviceEvent.OnSuccess)
                 } else {
                     sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))

@@ -87,19 +87,16 @@ class InformationViewModel(
 
     fun getInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getInfo()
             val newState = mutableListOf<InfoViewItem.SensorsInfoViewItem>()
-            if (response.isNotEmpty()) {
-                response.forEach { schema ->
-                    if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
-                        makeNotification(schema)
-                    }
-                    if (schema is DeviceInfoSchema.HumiditySensorSchema) {
-                        makeNotification(schema)
-                    }
-                    saveInDataBase(schema)
-                    newState.add(packageToInfoViewItem(schema))
+            informationInteractor.getInfo().data?.forEach { schema ->
+                if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
+                    makeNotification(schema)
                 }
+                if (schema is DeviceInfoSchema.HumiditySensorSchema) {
+                    makeNotification(schema)
+                }
+                saveInDataBase(schema)
+                newState.add(packageToInfoViewItem(schema))
             }
             updateState { InformationState(newState, false) }
         }
@@ -120,7 +117,7 @@ class InformationViewModel(
 
     private fun getTemperature(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getTemperature(id)
+            val response = informationInteractor.getTemperature(id).data
             if (response != null) update(response)
 
         }
@@ -128,28 +125,28 @@ class InformationViewModel(
 
     private fun getPressure(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getPressure(id)
+            val response = informationInteractor.getPressure(id).data
             if (response != null) update(response)
         }
     }
 
     private fun getHumidity(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getHumidity(id)
+            val response = informationInteractor.getHumidity(id).data
             if (response != null) update(response)
         }
     }
 
     private fun sendCondCommand(command: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.condCommand(command)
+            val response = informationInteractor.condCommand(command).data
             if (response != null) update(response)
         }
     }
 
     private fun sendHumCommand(command: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.humCommand(command)
+            val response = informationInteractor.humCommand(command).data
             if (response != null) update(response)
         }
     }

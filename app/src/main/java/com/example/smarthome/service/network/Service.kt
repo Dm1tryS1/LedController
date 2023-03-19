@@ -3,7 +3,7 @@ package com.example.smarthome.service.network
 import com.example.smarthome.service.network.model.*
 import retrofit2.http.*
 
-interface ConfigService {
+interface Service {
 
     @POST("sendconfig")
     suspend fun sendConfig(

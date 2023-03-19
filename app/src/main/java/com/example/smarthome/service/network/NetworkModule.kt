@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 
 class NetworkModule(private val sharedPreferencesRepository: SharedPreferencesRepository) {
-    fun createConfigService(): ConfigService {
+    fun createService(): Service {
         val gson = GsonBuilder().create()
 
         val interceptor = HttpLoggingInterceptor()
@@ -18,8 +18,9 @@ class NetworkModule(private val sharedPreferencesRepository: SharedPreferencesRe
 
         val client =
             OkHttpClient.Builder().addInterceptor(interceptor).retryOnConnectionFailure(true)
-                .connectTimeout(120, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://${getIpAddress()}/")
@@ -27,7 +28,8 @@ class NetworkModule(private val sharedPreferencesRepository: SharedPreferencesRe
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        return retrofit.create(ConfigService::class.java)
+        return retrofit.create(Service::class.java)
+
     }
 
     private fun getIpAddress() =
