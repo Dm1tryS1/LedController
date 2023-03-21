@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding

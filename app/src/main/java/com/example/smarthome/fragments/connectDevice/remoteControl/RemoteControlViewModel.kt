@@ -33,7 +33,7 @@ class RemoteControlViewModel(
     fun writeCommandForRemoteControl(deviceType: Int, command: String) {
         viewModelScope.launch {
             updateState { state -> state.copy(loading = true) }
-            val result = remoteControlInteractor.writeCommandForRemoteControl(deviceType, command)
+            val result = remoteControlInteractor.writeCommandForRemoteControl(deviceType, command).data
             if (result != null && result.result == "success") {
                 updateState { state -> state.copy(loading = false) }
                 sendEvent(RemoteControlEvent.OnSuccess)
