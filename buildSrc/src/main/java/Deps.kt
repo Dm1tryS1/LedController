@@ -1,7 +1,4 @@
 object Deps {
-
-    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.JetBrains.kotlin}"
-
     object AndroidX {
         const val core = "androidx.core:core-ktx:${Versions.AndroidX.core}"
         const val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
