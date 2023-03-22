@@ -96,9 +96,9 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
                 items.add(it)
             }
             adapter.items = items
-            binding.loader.isVisible = state.progressVisibility
+            binding.loader.isVisible = state.isLoading
 
-            if(!state.progressVisibility && items.isEmpty()) {
+            if(!state.isLoading && items.isEmpty()) {
                 binding.icon.isVisible = true
                 binding.title.isVisible = true
             } else {

@@ -5,7 +5,7 @@ import com.example.smarthome.core.utils.setPickerNumber
 import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 
-class SystemInteractor(
+class SystemUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val networkRepository: NetworkRepository
 ) {

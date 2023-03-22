@@ -6,7 +6,7 @@ data class SystemState(
     val maxHum: Int,
     val minHum: Int,
     val displayedValue: Int,
-    val loading: Boolean
+    val isLoading: Boolean
 )
 
 

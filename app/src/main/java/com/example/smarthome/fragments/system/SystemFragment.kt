@@ -81,7 +81,7 @@ class SystemFragment : BaseFragment<SystemState, Unit>() {
                 )
             }
             cancel.setOnClickListener {
-                vm.clearSettings()
+                vm.clear()
             }
         }
     }
@@ -101,7 +101,7 @@ class SystemFragment : BaseFragment<SystemState, Unit>() {
                     else -> R.id.btn_timer
                 }
             )
-            loader.isVisible = state.loading
+            loader.isVisible = state.isLoading
         }
 
     }

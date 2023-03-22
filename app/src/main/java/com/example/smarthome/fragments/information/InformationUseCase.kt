@@ -6,7 +6,7 @@ import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
 import com.example.smarthome.service.storage.entity.DeviceInfo
 
-class InformationInteractor(
+class InformationUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository,
     private val networkRepository: NetworkRepository,

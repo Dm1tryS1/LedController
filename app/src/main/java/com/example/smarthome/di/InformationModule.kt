@@ -1,6 +1,6 @@
 package com.example.smarthome.di
 
-import com.example.smarthome.fragments.information.InformationInteractor
+import com.example.smarthome.fragments.information.InformationUseCase
 import com.example.smarthome.fragments.information.InformationViewModel
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
@@ -20,7 +20,7 @@ object InformationModule {
     }
 
     private fun createDomainModule() = module {
-        factory { InformationInteractor(get(), get(), get()) }
+        factory { InformationUseCase(get(), get(), get()) }
     }
 
     private fun createDataModule() = module {

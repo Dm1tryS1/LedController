@@ -8,7 +8,7 @@ class HomeViewModel(
     private val router: Router,
 ) : BaseViewModel<Unit, Unit>() {
 
-    fun checkConnection() {
+    fun openInformationFragment() {
         router.navigateTo(Screens.InformationScreen())
     }
 

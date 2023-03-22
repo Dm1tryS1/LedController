@@ -25,7 +25,7 @@ class HomeFragment : BaseFragment<Unit, Unit>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.informationMode.setOnClickListener {
-            vm.checkConnection()
+            vm.openInformationFragment()
         }
     }
     override fun renderState(state: Unit) = Unit

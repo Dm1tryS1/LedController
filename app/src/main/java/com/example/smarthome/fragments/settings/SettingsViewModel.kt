@@ -26,9 +26,9 @@ class SettingsViewModel(
             devicesUseCase.connectWifiModule(wifiInfo) { ip ->
                 if (!ip.isNullOrEmpty()) {
                     devicesUseCase.saveSystemIp(ip)
-                    sendEvent(SettingsEvent.ConnectionSuccessEvent)
+                    sendEvent(SettingsEvent.ShowSnack(R.string.settings_connected))
                 } else {
-                    sendEvent(SettingsEvent.ConnectionFailureEvent)
+                    sendEvent(SettingsEvent.ShowSnack(R.string.settings_fail))
                 }
                 updateState { state ->
                     state.copy(isLoading = false)
@@ -40,9 +40,9 @@ class SettingsViewModel(
     fun onConnectClicked() {
         val wifiInfo = devicesUseCase.getWifiInfo()
         if (wifiInfo != null) {
-            sendEvent(SettingsEvent.OnItemClickedEvent(wifiInfo))
+            sendEvent(SettingsEvent.OpenDialog(wifiInfo))
         } else {
-            sendEvent(SettingsEvent.Error(R.string.connect_device_error))
+            sendEvent(SettingsEvent.ShowSnack(R.string.connect_device_error))
         }
     }
 
