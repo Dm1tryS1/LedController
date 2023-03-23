@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.charts.formatter
+package com.example.smarthome.fragments.charts
 
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 

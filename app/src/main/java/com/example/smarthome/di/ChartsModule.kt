@@ -1,7 +1,7 @@
 package com.example.smarthome.di
 
 import com.example.smarthome.fragments.charts.ChartsViewModel
-import com.example.smarthome.fragments.charts.formatter.ChartUseCase
+import com.example.smarthome.fragments.charts.ChartUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

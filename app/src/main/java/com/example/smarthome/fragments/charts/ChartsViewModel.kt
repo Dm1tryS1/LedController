@@ -3,7 +3,6 @@ package com.example.smarthome.fragments.charts
 import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.fragments.charts.formatter.ChartUseCase
 import com.github.mikephil.charting.data.Entry
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +10,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChartsViewModel(private val chartUseCase: ChartUseCase,router: Router) :
+class ChartsViewModel(private val chartUseCase: ChartUseCase, router: Router) :
     BaseViewModel<ChartsState, ChartsEvent>(router = router) {
 
     override fun createInitialState(): ChartsState {
