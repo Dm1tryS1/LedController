@@ -16,7 +16,7 @@ object ChooseDevice {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { parameters -> ChooseDeviceViewModel(get(), get(), controlType = parameters.get()) }
+        viewModel { parameters -> ChooseDeviceViewModel(get(), controlType = parameters.get(), get()) }
     }
 
     private fun createDomainModule() = module {

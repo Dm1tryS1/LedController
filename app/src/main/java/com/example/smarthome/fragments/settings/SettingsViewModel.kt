@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val devicesUseCase: DevicesUseCase,
-    private val router: Router
-) : BaseViewModel<SettingsState, SettingsEvent>() {
+    router: Router
+) : BaseViewModel<SettingsState, SettingsEvent>(router = router) {
 
     fun onWifiClicked() {
         router.navigateTo(Screens.ConnectDeviceScreen())

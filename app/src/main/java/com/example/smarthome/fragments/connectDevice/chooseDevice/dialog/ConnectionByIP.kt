@@ -10,10 +10,9 @@ import com.example.smarthome.core.utils.snackBar
 
 object ConnectionByIP {
     fun create(
-        type: Int,
         id: Int,
         fragment: Fragment,
-        connectAction: (type: Int, id: Int, ip: String) -> Unit,
+        connectAction: (id: Int, ip: String) -> Unit,
     ): Dialog {
         val binding = DropmenuConnectWifiDeviceByIpBinding.inflate(fragment.layoutInflater)
 
@@ -26,7 +25,7 @@ object ConnectionByIP {
             connect.setOnClickListener {
                 if ((ip.text.toString().isIpAddress())
                 ) {
-                    connectAction(type, id, ip.text.toString())
+                    connectAction(id, ip.text.toString())
                 } else {
                     fragment.snackBar(fragment.getString(R.string.connect_device_error_ip_format))
                 }

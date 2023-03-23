@@ -1,16 +1,17 @@
 package com.example.smarthome.fragments.connectDevice.remoteControl
 
 import androidx.lifecycle.viewModelScope
+import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.launch
 
 class RemoteControlViewModel(
-    private val router: Router,
-    private val remoteControlInteractor: RemoteControlInteractor
+    router: Router,
+    private val remoteControlUseCase: RemoteControlUseCase
 ) :
-    BaseViewModel<RemoteControlState, RemoteControlEvent>() {
+    BaseViewModel<RemoteControlState, RemoteControlEvent>(router = router) {
 
 
     override fun createInitialState(): RemoteControlState {
@@ -32,14 +33,14 @@ class RemoteControlViewModel(
 
     fun writeCommandForRemoteControl(deviceType: Int, command: String) {
         viewModelScope.launch {
-            updateState { state -> state.copy(loading = true) }
-            val result = remoteControlInteractor.writeCommandForRemoteControl(deviceType, command).data
+            updateState { state -> state.copy(isLoading = true) }
+            val result = remoteControlUseCase.writeCommandForRemoteControl(deviceType, command).data
             if (result != null && result.result == "success") {
-                updateState { state -> state.copy(loading = false) }
-                sendEvent(RemoteControlEvent.OnSuccess)
+                updateState { state -> state.copy(isLoading = false) }
+                sendEvent(RemoteControlEvent.ShowToast(R.string.remote_control_success))
             } else {
-                updateState { state -> state.copy(loading = false) }
-                sendEvent(RemoteControlEvent.OnError)
+                updateState { state -> state.copy(isLoading = false) }
+                sendEvent(RemoteControlEvent.ShowToast(R.string.remote_control_error))
             }
         }
     }

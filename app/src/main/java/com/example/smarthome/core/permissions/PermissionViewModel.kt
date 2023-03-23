@@ -3,8 +3,9 @@ package com.example.smarthome.core.permissions
 import android.Manifest
 import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.github.terrakok.cicerone.Router
 
-class PermissionViewModel() : BaseViewModel<PermissionState, Unit>() {
+class PermissionViewModel(router: Router) : BaseViewModel<PermissionState, Unit>(router = router) {
 
     private var requestPermission: Permission? = null
 

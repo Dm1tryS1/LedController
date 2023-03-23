@@ -69,7 +69,6 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
     override fun handleEvent(event: ChooseDeviceEvent) {
         when (event) {
             is ChooseDeviceEvent.OpenDeviceMenu -> Connection.create(
-                event.type,
                 event.id,
                 this,
                 event.wifiInfo,
@@ -78,7 +77,6 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
             is ChooseDeviceEvent.OnError -> snackBar(getString(event.message))
             is ChooseDeviceEvent.OnSuccess -> snackBar(getString(R.string.connect_device_success))
             is ChooseDeviceEvent.OpenDeviceMenuByIP -> ConnectionByIP.create(
-                event.type,
                 event.id,
                 this,
                 vm::connectByIp

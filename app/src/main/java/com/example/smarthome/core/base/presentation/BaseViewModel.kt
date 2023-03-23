@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.core.utils.kotlin.Activable
 import com.example.smarthome.core.utils.kotlin.activableFlow
+import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 
-abstract class BaseViewModel<State : Any, Event : Any> : ViewModel(),
-    ViewModelInterface<State, Event> {
+abstract class BaseViewModel<State : Any, Event : Any>(
+    protected val router:Router
+) : ViewModel(), ViewModelInterface<State, Event> {
 
     private val _viewState by lazy { MutableStateFlow(createInitialState()) }
     override val viewState get() = _viewState.asStateFlow()

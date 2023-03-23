@@ -6,9 +6,9 @@ import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 
 class ConnectDeviceViewModel(
-    private val router: Router
+    router: Router
 ) :
-    BaseViewModel<Unit, Unit>() {
+    BaseViewModel<Unit, Unit>(router = router) {
 
     fun onNextClicked(controlType: ControlType) {
         router.navigateTo(Screens.ChooseDeviceScreen(controlType.type))

@@ -6,8 +6,8 @@ import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.launch
 
-class SystemViewModel(private val router: Router, private val systemUseCase: SystemUseCase) :
-    BaseViewModel<SystemState, Unit>() {
+class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) :
+    BaseViewModel<SystemState, Unit>(router = router) {
 
     init {
         updateState { state ->

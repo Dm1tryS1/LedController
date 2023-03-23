@@ -17,9 +17,9 @@ import java.util.*
 
 class InformationViewModel(
     private val informationUseCase: InformationUseCase,
-    private val router: Router
+    router: Router
 ) :
-    BaseViewModel<InformationState, InformationEvent>() {
+    BaseViewModel<InformationState, InformationEvent>(router = router) {
 
     override fun createInitialState(): InformationState {
         return InformationState(listOf(), true)

@@ -90,13 +90,12 @@ class RemoteControlFragment : BaseFragment<RemoteControlState, RemoteControlEven
                 binding.humCommands.isVisible = true
             }
         }
-        binding.loader.isVisible = state.loading
+        binding.loader.isVisible = state.isLoading
     }
 
     override fun handleEvent(event: RemoteControlEvent) {
         when (event) {
-            is RemoteControlEvent.OnSuccess -> snackBar(getString(R.string.remote_control_success))
-            is RemoteControlEvent.OnError -> snackBar(getString(R.string.remote_control_error))
+            is RemoteControlEvent.ShowToast -> snackBar(getString(event.message))
         }
     }
 
