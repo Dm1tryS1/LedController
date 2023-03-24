@@ -20,7 +20,6 @@ object MainModule {
     }
 
     private fun createDataModule() = module {
-
     }
 
 }

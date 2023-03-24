@@ -2,12 +2,12 @@ package com.example.smarthome.fragments.system
 
 import com.example.smarthome.core.utils.request
 import com.example.smarthome.core.utils.setPickerNumber
-import com.example.smarthome.repository.NetworkRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
+import com.example.smarthome.repository.SystemRepository
 
 class SystemUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val networkRepository: NetworkRepository
+    private val systemRepository: SystemRepository
 ) {
     suspend fun setSystemSetting(
         maxTemp: Int,
@@ -16,7 +16,7 @@ class SystemUseCase(
         minHum: Int,
         displayedValue: Int
     ) = request {
-        networkRepository.setSystemSettings(
+        systemRepository.setSystemSettings(
             minTemp,
             maxTemp,
             minHum,

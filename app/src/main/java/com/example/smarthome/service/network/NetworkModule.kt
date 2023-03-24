@@ -9,8 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-class NetworkModule(private val sharedPreferencesRepository: SharedPreferencesRepository) {
-    fun createService(): Service {
+class NetworkModule(sharedPreferencesRepository: SharedPreferencesRepository) {
+
+    private val ip = (sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp)
+        ?: "").ifEmpty { "192.168.1.30" }
+
+    fun <T> createService(type: Class<T>): T {
         val gson = GsonBuilder().create()
 
         val interceptor = HttpLoggingInterceptor()
@@ -23,16 +27,13 @@ class NetworkModule(private val sharedPreferencesRepository: SharedPreferencesRe
 
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://${getIpAddress()}/")
+            .baseUrl("http://${ip}/")
             .client(client.build())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        return retrofit.create(Service::class.java)
+        return retrofit.create(type)
 
     }
-
-    private fun getIpAddress() =
-        sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp) ?: ""
 
 }

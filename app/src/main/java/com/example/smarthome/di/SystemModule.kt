@@ -2,6 +2,7 @@ package com.example.smarthome.di
 
 import com.example.smarthome.fragments.system.SystemUseCase
 import com.example.smarthome.fragments.system.SystemViewModel
+import com.example.smarthome.repository.SystemRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -21,5 +22,6 @@ object SystemModule {
     }
 
     private fun createDataModule() = module {
+        factory { SystemRepository(get()) }
     }
 }

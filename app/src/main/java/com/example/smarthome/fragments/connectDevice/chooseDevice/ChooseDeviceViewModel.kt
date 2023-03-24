@@ -5,7 +5,6 @@ import com.example.smarthome.R
 import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.SensorType
-import com.example.smarthome.fragments.connectDevice.ConnectDeviceUseCase
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.common.wifi.WifiInfo
@@ -17,14 +16,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ChooseDeviceViewModel(
-    private val connectDeviceUseCase: ConnectDeviceUseCase,
+    private val chooseDeviceUseCase: ChooseDeviceUseCase,
     private val controlType: ControlType,
     router: Router
 ) :
     BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>(router = router) {
 
     private fun getDevices(type: Int) = (Gson().fromJson(
-        connectDeviceUseCase.getJSONfromFile(FileRepository.FileName),
+        chooseDeviceUseCase.getJSONfromFile(FileRepository.FileName),
         object : TypeToken<Map<String, WifiDevicesItem>>() {}.type
     ) as Map<String, WifiDevicesItem>).filter { it.value.deviceType == type }
         .map {
@@ -49,7 +48,7 @@ class ChooseDeviceViewModel(
         when (controlType) {
             ControlType.IP -> sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
             ControlType.Connect -> {
-                val wifiInfo = connectDeviceUseCase.getWifiInfo()
+                val wifiInfo = chooseDeviceUseCase.getWifiInfo()
                 if (wifiInfo != null) {
                     sendEvent(
                         ChooseDeviceEvent.OpenDeviceMenu(
@@ -78,7 +77,7 @@ class ChooseDeviceViewModel(
                 updateState {
                     ChooseDeviceState.Loading(true)
                 }
-                connectDeviceUseCase.connect(wifiInfo) { ip ->
+                chooseDeviceUseCase.connect(wifiInfo) { ip ->
                     if (!ip.isNullOrEmpty()) {
                         finishConnection(id, ip)
                     } else {
@@ -96,7 +95,7 @@ class ChooseDeviceViewModel(
 
     private fun finishConnection(id: Int, ip: String) {
         viewModelScope.launch {
-            if (connectDeviceUseCase.sendConfig(listOf(Pair(ip, id))).data != null) {
+            if (chooseDeviceUseCase.sendConfig(listOf(Pair(ip, id))).data != null) {
                 sendEvent(ChooseDeviceEvent.OnSuccess)
             } else {
                 sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))

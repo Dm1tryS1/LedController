@@ -3,12 +3,7 @@ package com.example.smarthome.service.network
 import com.example.smarthome.service.network.model.*
 import retrofit2.http.*
 
-interface Service {
-
-    @POST("sendconfig")
-    suspend fun sendConfig(
-        @Body wifiDevicesItem: List<SendConfigRequest>
-    ): SendConfigResponse
+interface InformationService {
 
     @GET("temperature")
     suspend fun temperature(@Query("id") id: Int
@@ -40,14 +35,4 @@ interface Service {
     suspend fun systemtimer(
         @Body timer: SystemTimerRequest
     )
-
-    @POST("systemsettings")
-    suspend fun systemsettings(
-        @Body systemSettingsRequest: SystemSettingsRequest
-    )
-
-    @POST("irreceiver")
-    suspend fun irreceiver(
-        @Body irReceiverRequest: IrReceiverRequest
-    ): IrReceiverResponse
 }
