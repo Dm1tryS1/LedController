@@ -6,77 +6,64 @@ import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.launch
 
-class SystemViewModel(private val router: Router, private val systemInteractor: SystemInteractor) :
-    BaseViewModel<SystemState, Unit>() {
+class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) :
+    BaseViewModel<SystemState, Unit>(router = router) {
 
     init {
+        updateState { state ->
+            state.copy(isLoading = true)
+        }
+
         viewModelScope.launch {
-            var maxTemp = systemInteractor.getMaxTemperature()
-            var minTemp = systemInteractor.getMinTemperature()
-            var maxHum = systemInteractor.getMaxHumidity()
-            var minHum = systemInteractor.getMinHumidity()
-            var displayedValue = systemInteractor.getDisplayedValue()
-
-            if (maxTemp == -1)
-                maxTemp = SystemFragment.MIN_TEMP_VALUE
-
-            if (minTemp == -1)
-                minTemp = SystemFragment.MIN_TEMP_VALUE
-
-            if (minHum == -1)
-                minHum = SystemFragment.MIN_HUM_VALUE
-
-            if (maxHum == -1)
-                maxHum = SystemFragment.MIN_HUM_VALUE
-
-            if (displayedValue == -1)
-                displayedValue = SystemFragment.DISPLAYED_VALUE
+            val maxTemp = systemUseCase.getMaxTemperature()
+            val minTemp = systemUseCase.getMinTemperature()
+            val maxHum = systemUseCase.getMaxHumidity()
+            val minHum = systemUseCase.getMinHumidity()
+            val displayedValue = systemUseCase.getDisplayedValue()
 
             updateState {
-                SystemState.Settings(
+                SystemState (
                     maxTemp = maxTemp,
                     minTemp = minTemp,
                     maxHum = maxHum,
                     minHum = minHum,
-                    displayedValue = displayedValue
+                    displayedValue = displayedValue,
+                    isLoading = false
                 )
             }
         }
     }
 
     override fun createInitialState(): SystemState {
-        return SystemState.Settings(
+        return SystemState(
             SystemFragment.MIN_TEMP_VALUE,
             SystemFragment.MIN_TEMP_VALUE,
             SystemFragment.MIN_HUM_VALUE,
             SystemFragment.MIN_HUM_VALUE,
-            SystemFragment.DISPLAYED_VALUE
+            SystemFragment.DISPLAYED_VALUE,
+            isLoading = false
         )
     }
 
     fun save(maxTemp: Int, minTemp: Int, maxHum: Int, minHum: Int, displayedValue: Int) {
-        updateState {
-            SystemState.Loading
+        updateState {state ->
+            state.copy(isLoading = true)
         }
         viewModelScope.launch {
-            systemInteractor.saveMaxTemperature(maxTemp)
-            systemInteractor.saveMinTemperature(minTemp)
-            systemInteractor.saveMaxHumidity(maxHum)
-            systemInteractor.saveMinHumidity(minHum)
-            systemInteractor.saveDisplayedValue(displayedValue)
-            systemInteractor.setSystemSetting(maxTemp, minTemp, maxHum, minHum, displayedValue)
+            systemUseCase.saveMaxTemperature(maxTemp)
+            systemUseCase.saveMinTemperature(minTemp)
+            systemUseCase.saveMaxHumidity(maxHum)
+            systemUseCase.saveMinHumidity(minHum)
+            systemUseCase.saveDisplayedValue(displayedValue)
+            systemUseCase.setSystemSetting(maxTemp, minTemp, maxHum, minHum, displayedValue)
             router.backTo(Screens.InformationScreen())
         }
     }
 
-    fun clearSettings() {
+    fun clear() {
         viewModelScope.launch {
-            systemInteractor.clearMaxTemperature()
-            systemInteractor.clearMinTemperature()
-            systemInteractor.clearMaxHumidity()
-            systemInteractor.clearMinHumidity()
-            systemInteractor.clearDisplayedValue()
-            systemInteractor.setSystemSetting(-1, -1, -1, -1, -1)
+            systemUseCase.clearSettings()
+            systemUseCase.setSystemSetting(-1, -1, -1, -1, -1)
             router.backTo(Screens.InformationScreen())
         }
     }

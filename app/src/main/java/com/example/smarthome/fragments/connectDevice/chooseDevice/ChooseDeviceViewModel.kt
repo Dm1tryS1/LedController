@@ -5,7 +5,6 @@ import com.example.smarthome.R
 import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.common.device.SensorType
-import com.example.smarthome.fragments.connectDevice.ConnectDeviceInteractor
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.common.wifi.WifiInfo
@@ -17,14 +16,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ChooseDeviceViewModel(
-    private val connectDeviceInteractor: ConnectDeviceInteractor,
-    private val router: Router,
-    private val controlType: ControlType
+    private val chooseDeviceUseCase: ChooseDeviceUseCase,
+    private val controlType: ControlType,
+    router: Router
 ) :
-    BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>() {
+    BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>(router = router) {
 
     private fun getDevices(type: Int) = (Gson().fromJson(
-        connectDeviceInteractor.getJSONfromFile(FileRepository.FileName),
+        chooseDeviceUseCase.getJSONfromFile(FileRepository.FileName),
         object : TypeToken<Map<String, WifiDevicesItem>>() {}.type
     ) as Map<String, WifiDevicesItem>).filter { it.value.deviceType == type }
         .map {
@@ -49,7 +48,7 @@ class ChooseDeviceViewModel(
         when (controlType) {
             ControlType.IP -> sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
             ControlType.Connect -> {
-                val wifiInfo = connectDeviceInteractor.getWifiInfo()
+                val wifiInfo = chooseDeviceUseCase.getWifiInfo()
                 if (wifiInfo != null) {
                     sendEvent(
                         ChooseDeviceEvent.OpenDeviceMenu(
@@ -65,22 +64,22 @@ class ChooseDeviceViewModel(
         }
     }
 
-    fun connectByIp(type: Int, id: Int, ip: String) {
+    fun connectByIp(id: Int, ip: String) {
         updateState {
             ChooseDeviceState.Loading(true)
         }
-        finishConnection(type, id, ip)
+        finishConnection(id, ip)
     }
 
-    fun connect(type: Int, id: Int, wifiInfo: WifiInfo) {
+    fun connect(id: Int, wifiInfo: WifiInfo) {
         if (!(wifiInfo.ssid.isEmpty() || wifiInfo.password.isEmpty())) {
             viewModelScope.launch(Dispatchers.IO) {
                 updateState {
                     ChooseDeviceState.Loading(true)
                 }
-                connectDeviceInteractor.connect(wifiInfo) { ip ->
+                chooseDeviceUseCase.connect(wifiInfo) { ip ->
                     if (!ip.isNullOrEmpty()) {
-                        finishConnection(type, id, ip)
+                        finishConnection(id, ip)
                     } else {
                         sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_connection_error))
                         updateState {
@@ -94,19 +93,14 @@ class ChooseDeviceViewModel(
         }
     }
 
-    private fun finishConnection(type: Int, id: Int, ip: String) {
+    private fun finishConnection(id: Int, ip: String) {
         viewModelScope.launch {
-            connectDeviceInteractor.saveConnectedDevice(id, type, ip)
-            val systemIp = connectDeviceInteractor.getSystemIp()
-            if (!systemIp.isNullOrEmpty()) {
-                if (connectDeviceInteractor.sendConfig(systemIp, listOf(Pair(ip, id)))) {
-                    sendEvent(ChooseDeviceEvent.OnSuccess)
-                } else {
-                    sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
-                }
-            } else {
+            if (chooseDeviceUseCase.sendConfig(listOf(Pair(ip, id))).data != null) {
                 sendEvent(ChooseDeviceEvent.OnSuccess)
+            } else {
+                sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_send_config))
             }
+
             updateState {
                 ChooseDeviceState.Loading(false)
             }
@@ -118,7 +112,7 @@ class ChooseDeviceViewModel(
     }
 
     override fun onBackPressed(): Boolean {
-        router.backTo(Screens.SettingsScreen())
+        router.backTo(Screens.MainScreen())
         return !super.onBackPressed()
     }
 

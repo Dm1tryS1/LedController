@@ -1,22 +1,29 @@
 package com.example.smarthome.fragments.system
 
-import com.example.smarthome.repository.NetworkRepository
+import com.example.smarthome.core.utils.request
+import com.example.smarthome.core.utils.setPickerNumber
 import com.example.smarthome.repository.SharedPreferencesRepository
+import com.example.smarthome.repository.SystemRepository
 
-class SystemInteractor(
+class SystemUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val networkRepository: NetworkRepository
+    private val systemRepository: SystemRepository
 ) {
-
-    private fun getSystemIp() = sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp) ?: ""
-
     suspend fun setSystemSetting(
         maxTemp: Int,
         minTemp: Int,
         maxHum: Int,
         minHum: Int,
         displayedValue: Int
-    ) = networkRepository.setSystemSettings(getSystemIp(), minTemp, maxTemp, minHum, maxHum, displayedValue)
+    ) = request {
+        systemRepository.setSystemSettings(
+            minTemp,
+            maxTemp,
+            minHum,
+            maxHum,
+            displayedValue
+        )
+    }
 
     fun saveMaxTemperature(value: Int) {
         sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userMaxTemperature, value)
@@ -40,31 +47,29 @@ class SystemInteractor(
 
     fun getMaxTemperature() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxTemperature)
+            .setPickerNumber(SystemFragment.MAX_TEMP_VALUE)
 
     fun getMinTemperature() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinTemperature)
+            .setPickerNumber(SystemFragment.MIN_TEMP_VALUE)
 
     fun getMaxHumidity() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMaxHumidity)
+            .setPickerNumber(SystemFragment.MAX_HUM_VALUE)
 
     fun getMinHumidity() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userMinHumidity)
+            .setPickerNumber(SystemFragment.MIN_HUM_VALUE)
 
     fun getDisplayedValue() =
         sharedPreferencesRepository.getInt(SharedPreferencesRepository.userDisplayedValue)
+            .setPickerNumber(SystemFragment.DISPLAYED_VALUE)
 
-    fun clearMaxTemperature() =
+    fun clearSettings() {
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxTemperature)
-
-    fun clearMinTemperature() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinTemperature)
-
-    fun clearMaxHumidity() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMaxHumidity)
-
-    fun clearMinHumidity() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userMinHumidity)
-
-    fun clearDisplayedValue() =
         sharedPreferencesRepository.deleteUserSettings(SharedPreferencesRepository.userDisplayedValue)
+    }
 }

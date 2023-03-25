@@ -5,11 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.home.HomeFragment
 import com.example.smarthome.fragments.settings.SettingsFragment
+import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MainViewModel: BaseViewModel<MainState, MainEvent>() {
+class MainViewModel(router: Router): BaseViewModel<MainState, MainEvent>(router = router) {
 
     private val fragmentsStack = Stack<TabType>()
 

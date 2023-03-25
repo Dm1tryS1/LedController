@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.smarthome.R
+import com.example.smarthome.repository.model.BaseResponse
+import com.example.smarthome.repository.model.ErrorResponse
 import com.github.mikephil.charting.components.AxisBase
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
@@ -63,7 +65,8 @@ fun AxisBase.setupEnvironments(font: Typeface?, textSize: Float, context: Contex
         textColor = ContextCompat.getColor(context, R.color.white)
     }
 }
-fun String.isIpAddress() : Boolean {
+
+fun String.isIpAddress(): Boolean {
     return ("((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
             + "[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]"
             + "[0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}"
@@ -77,5 +80,21 @@ fun createCenter(view: View, cancelable: Boolean = true): Dialog {
     val dialog: Dialog = builder.create()
     dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     return dialog
+}
+
+inline fun <T> request(result: () -> T): BaseResponse<T> =
+    try {
+        val data = result()
+        BaseResponse(data = data)
+    } catch (e: Exception) {
+        BaseResponse(error = ErrorResponse(400, e.message))
+    }
+
+fun Int.setPickerNumber(extremeValue: Int): Int {
+    return if (this == -1) {
+        extremeValue
+    } else {
+        this
+    }
 }
 

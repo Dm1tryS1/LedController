@@ -22,7 +22,7 @@ class WifiDeviceRepository(private val context: Context) {
     }
 
     suspend fun connect(wifiInfo: WifiInfo, callback: (String?) -> Unit) {
-        val task = EsptouchTask(wifiInfo.ssid, wifiInfo.bssid, wifiInfo.password, context) //TODO ВЕРНУТь
+        val task = EsptouchTask(wifiInfo.ssid, wifiInfo.bssid, wifiInfo.password, context)
         task.setPackageBroadcast(false)
         task.setEsptouchListener { response ->
             if (response.isSuc) {

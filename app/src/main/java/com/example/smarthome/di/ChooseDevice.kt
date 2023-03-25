@@ -1,9 +1,6 @@
 package com.example.smarthome.di
 
 import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDeviceViewModel
-import com.example.smarthome.repository.FileRepository
-import com.example.smarthome.repository.NetworkRepository
-import com.example.smarthome.service.network.NetworkModule
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -16,7 +13,7 @@ object ChooseDevice {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { parameters -> ChooseDeviceViewModel(get(), get(), controlType = parameters.get()) }
+        viewModel { parameters -> ChooseDeviceViewModel(get(), controlType = parameters.get(), get()) }
     }
 
     private fun createDomainModule() = module {
@@ -24,8 +21,5 @@ object ChooseDevice {
     }
 
     private fun createDataModule() = module {
-        factory { FileRepository(get()) }
-        factory { NetworkRepository(get()) }
-        factory { NetworkModule() }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.smarthome.service.network
 
+import com.example.smarthome.repository.SharedPreferencesRepository
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,8 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-class NetworkModule {
-    fun createConfigService(systemAddress: String): ConfigService {
+class NetworkModule(sharedPreferencesRepository: SharedPreferencesRepository) {
+
+    private val ip = (sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp)
+        ?: "").ifEmpty { "192.168.1.30" }
+
+    fun <T> createService(type: Class<T>): T {
         val gson = GsonBuilder().create()
 
         val interceptor = HttpLoggingInterceptor()
@@ -17,15 +22,18 @@ class NetworkModule {
 
         val client =
             OkHttpClient.Builder().addInterceptor(interceptor).retryOnConnectionFailure(true)
-                .connectTimeout(120, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://$systemAddress/")
+            .baseUrl("http://${ip}/")
             .client(client.build())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        return retrofit.create(ConfigService::class.java)
+        return retrofit.create(type)
+
     }
+
 }

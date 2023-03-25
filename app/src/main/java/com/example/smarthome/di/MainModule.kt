@@ -12,7 +12,7 @@ object MainModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { MainViewModel() }
+        viewModel { MainViewModel(get()) }
     }
 
     private fun createDomainModule() = module {
@@ -20,7 +20,6 @@ object MainModule {
     }
 
     private fun createDataModule() = module {
-
     }
 
 }

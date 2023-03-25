@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.common.device.ControlType
@@ -63,14 +62,6 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
             is ChooseDeviceState.OnSuccess -> adapter.items = state.devices
             is ChooseDeviceState.Loading -> {
                 binding.loader.isVisible = state.isLoading
-                if (state.isLoading) {
-                    requireActivity().window.setFlags(
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    )
-                } else {
-                    requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-                }
             }
         }
     }
@@ -78,7 +69,6 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
     override fun handleEvent(event: ChooseDeviceEvent) {
         when (event) {
             is ChooseDeviceEvent.OpenDeviceMenu -> Connection.create(
-                event.type,
                 event.id,
                 this,
                 event.wifiInfo,
@@ -87,7 +77,6 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
             is ChooseDeviceEvent.OnError -> snackBar(getString(event.message))
             is ChooseDeviceEvent.OnSuccess -> snackBar(getString(R.string.connect_device_success))
             is ChooseDeviceEvent.OpenDeviceMenuByIP -> ConnectionByIP.create(
-                event.type,
                 event.id,
                 this,
                 vm::connectByIp

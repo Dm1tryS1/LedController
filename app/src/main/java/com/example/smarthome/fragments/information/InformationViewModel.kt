@@ -16,10 +16,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class InformationViewModel(
-    private val informationInteractor: InformationInteractor,
-    private val router: Router
+    private val informationUseCase: InformationUseCase,
+    router: Router
 ) :
-    BaseViewModel<InformationState, InformationEvent>() {
+    BaseViewModel<InformationState, InformationEvent>(router = router) {
 
     override fun createInitialState(): InformationState {
         return InformationState(listOf(), true)
@@ -52,7 +52,7 @@ class InformationViewModel(
     private fun saveInDataBase(deviceInfoSchema: DeviceInfoSchema) {
         when (deviceInfoSchema) {
             is DeviceInfoSchema.HumiditySensorSchema -> {
-                informationInteractor.saveInDataBase(
+                informationUseCase.saveInDataBase(
                     DeviceInfo(
                         deviceId = deviceInfoSchema.id!!,
                         time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
@@ -62,7 +62,7 @@ class InformationViewModel(
                 )
             }
             is DeviceInfoSchema.TemperatureSensorSchema -> {
-                informationInteractor.saveInDataBase(
+                informationUseCase.saveInDataBase(
                     DeviceInfo(
                         deviceId = deviceInfoSchema.id!!,
                         time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
@@ -72,7 +72,7 @@ class InformationViewModel(
                 )
             }
             is DeviceInfoSchema.PressureSensorSchema -> {
-                informationInteractor.saveInDataBase(
+                informationUseCase.saveInDataBase(
                     DeviceInfo(
                         deviceId = deviceInfoSchema.id!!,
                         time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
@@ -87,19 +87,16 @@ class InformationViewModel(
 
     fun getInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getInfo()
             val newState = mutableListOf<InfoViewItem.SensorsInfoViewItem>()
-            if (response.isNotEmpty()) {
-                response.forEach { schema ->
-                    if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
-                        makeNotification(schema)
-                    }
-                    if (schema is DeviceInfoSchema.HumiditySensorSchema) {
-                        makeNotification(schema)
-                    }
-                    saveInDataBase(schema)
-                    newState.add(packageToInfoViewItem(schema))
+            informationUseCase.getInfo().data?.forEach { schema ->
+                if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
+                    makeNotification(schema)
                 }
+                if (schema is DeviceInfoSchema.HumiditySensorSchema) {
+                    makeNotification(schema)
+                }
+                saveInDataBase(schema)
+                newState.add(packageToInfoViewItem(schema))
             }
             updateState { InformationState(newState, false) }
         }
@@ -120,7 +117,7 @@ class InformationViewModel(
 
     private fun getTemperature(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getTemperature(id)
+            val response = informationUseCase.getTemperature(id).data
             if (response != null) update(response)
 
         }
@@ -128,28 +125,28 @@ class InformationViewModel(
 
     private fun getPressure(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getPressure(id)
+            val response = informationUseCase.getPressure(id).data
             if (response != null) update(response)
         }
     }
 
     private fun getHumidity(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.getHumidity(id)
+            val response = informationUseCase.getHumidity(id).data
             if (response != null) update(response)
         }
     }
 
     private fun sendCondCommand(command: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.condCommand(command)
+            val response = informationUseCase.condCommand(command).data
             if (response != null) update(response)
         }
     }
 
     private fun sendHumCommand(command: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = informationInteractor.humCommand(command)
+            val response = informationUseCase.humCommand(command).data
             if (response != null) update(response)
         }
     }
@@ -203,7 +200,7 @@ class InformationViewModel(
 
     private fun setTimer(value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            informationInteractor.setTimer(value)
+            informationUseCase.setTimer(value)
         }
     }
 
@@ -214,7 +211,7 @@ class InformationViewModel(
 
     fun onSettingsClicked() {
         viewModelScope.launch {
-            val timer = informationInteractor.getUserSettings()
+            val timer = informationUseCase.getUserSettings()
             if (timer >= 0) {
                 sendEvent(InformationEvent.OpenSettingsMenuEvent(timer, this@InformationViewModel::setTimer))
             } else {
@@ -224,7 +221,7 @@ class InformationViewModel(
     }
 
     fun saveUserSettings(value: Int) {
-        informationInteractor.saveUserSettings(value)
+        informationUseCase.saveUserSettings(value)
     }
 
     fun onMoreSettings() {
