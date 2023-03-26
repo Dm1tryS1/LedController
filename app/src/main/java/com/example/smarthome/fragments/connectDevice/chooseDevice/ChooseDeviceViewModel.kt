@@ -8,8 +8,8 @@ import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.common.wifi.WifiInfo
+import com.example.smarthome.core.utils.isIpAddress
 import com.example.smarthome.main.ChooseDeviceParams
-import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -66,10 +66,14 @@ class ChooseDeviceViewModel(
     }
 
     fun connectByIp(id: Int, ip: String) {
-        updateState {
-            ChooseDeviceState.Loading(true)
+        if (ip.isIpAddress()) {
+            updateState {
+                ChooseDeviceState.Loading(true)
+            }
+            finishConnection(id, ip)
+        } else {
+            sendEvent(ChooseDeviceEvent.OnError(R.string.connect_device_error_ip_format))
         }
-        finishConnection(id, ip)
     }
 
     fun connect(id: Int, wifiInfo: WifiInfo) {

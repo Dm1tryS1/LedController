@@ -65,7 +65,7 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
             is ChooseDeviceEvent.OpenDeviceMenuByIP -> ConnectionByIP.create(
                 event.id,
                 this,
-                vm::connectByIp
+                vm::connectByIp,
             ).show()
         }
     }

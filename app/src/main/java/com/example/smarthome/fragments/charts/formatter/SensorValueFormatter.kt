@@ -12,8 +12,8 @@ class SensorValueFormatter(private val suffix: String) : ValueFormatter() {
     override fun getFormattedValue(value: Float) = formatter.format(value) + suffix
 
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-        return when {
-            axis is XAxis -> formatter.format(value)
+        return when (axis) {
+            is XAxis -> formatter.format(value)
             else -> formatter.format(value) + suffix
         }
     }
