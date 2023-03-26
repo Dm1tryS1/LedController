@@ -15,12 +15,14 @@ import com.example.smarthome.fragments.information.dialog.*
 import com.example.smarthome.fragments.information.recyclerView.adapter.InformationAdapter
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.common.device.SensorType
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.core.utils.supportBottomSheetScroll
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
+class InformationFragment : BaseFragment<InformationState, InformationEvent>(R.layout.fragment_information) {
 
-    private lateinit var binding: FragmentInformationBinding
+    private val binding by fragmentViewBinding(FragmentInformationBinding::bind)
+
     override val vm: InformationViewModel by viewModel()
     private val adapter =
         InformationAdapter(onMenuClicked = { type, id, info, date ->
@@ -31,15 +33,6 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>() {
                 date
             )
         }, onDeviceClicked = { type, id -> vm.onChartOpen(type, id) })
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentInformationBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)

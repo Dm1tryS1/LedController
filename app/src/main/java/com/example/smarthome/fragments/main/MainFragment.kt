@@ -1,27 +1,20 @@
 package com.example.smarthome.fragments.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.commitNow
 import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : BaseFragment<MainState, MainEvent>() {
-    private lateinit var binding: FragmentMainBinding
+class MainFragment : BaseFragment<MainState, MainEvent>(R.layout.fragment_main) {
+
+    private val binding by fragmentViewBinding(FragmentMainBinding::bind)
+
     override val vm: MainViewModel by viewModel()
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMainBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

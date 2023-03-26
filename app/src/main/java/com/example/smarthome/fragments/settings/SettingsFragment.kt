@@ -1,30 +1,21 @@
 package com.example.smarthome.fragments.settings
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
+import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.databinding.FragmentSettingsBinding
 import com.example.smarthome.fragments.settings.dialog.Connection
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>() {
+class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>(R.layout.fragment_settings) {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private val binding by fragmentViewBinding(FragmentSettingsBinding::bind)
 
     override val vm: SettingsViewModel by viewModel()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSettingsBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)

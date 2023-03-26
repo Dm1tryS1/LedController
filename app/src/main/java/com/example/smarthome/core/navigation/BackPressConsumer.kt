@@ -1,4 +1,4 @@
-package com.example.smarthome.common.navigation
+package com.example.smarthome.core.navigation
 
 import androidx.fragment.app.FragmentManager
 

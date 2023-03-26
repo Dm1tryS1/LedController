@@ -8,7 +8,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.smarthome.R
-import com.example.smarthome.common.navigation.BackPressConsumer
+import com.example.smarthome.core.navigation.BackPressConsumer
 import com.example.smarthome.databinding.ActivityMainBinding
 import com.example.smarthome.service.WiFiService
 import com.github.terrakok.cicerone.NavigatorHolder

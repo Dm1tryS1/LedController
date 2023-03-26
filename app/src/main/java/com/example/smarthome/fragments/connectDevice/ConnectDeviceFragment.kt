@@ -1,28 +1,19 @@
 package com.example.smarthome.fragments.connectDevice
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import com.example.smarthome.R
 import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.databinding.FragmentConnectDeviceBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ConnectDeviceFragment : BaseFragment<Unit, Unit>() {
+class ConnectDeviceFragment : BaseFragment<Unit, Unit>(R.layout.fragment_connect_device) {
 
-    private lateinit var binding: FragmentConnectDeviceBinding
+    private val binding by fragmentViewBinding(FragmentConnectDeviceBinding::bind)
 
     override val vm: ConnectDeviceViewModel by viewModel()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentConnectDeviceBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

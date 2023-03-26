@@ -4,14 +4,13 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import com.example.smarthome.R
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.core.utils.dp
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.core.utils.setupEnvironments
 import com.example.smarthome.databinding.FragmentChartsBinding
 import com.example.smarthome.fragments.charts.formatter.SensorDateFormatter
@@ -28,23 +27,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
-class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
+class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>(R.layout.fragment_charts) {
 
     private var xAxisFormatter = SensorDateFormatter()
 
-    private lateinit var binding: FragmentChartsBinding
+    private val binding by fragmentViewBinding(FragmentChartsBinding::bind)
 
     override val vm: ChartsViewModel by viewModel {
         parametersOf(getParams(ChartsParams::class.java))
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentChartsBinding.inflate(inflater)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

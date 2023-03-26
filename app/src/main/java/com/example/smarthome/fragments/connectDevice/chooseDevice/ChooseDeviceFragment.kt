@@ -1,12 +1,11 @@
 package com.example.smarthome.fragments.connectDevice.chooseDevice
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.databinding.FragmentChooseDeviceBinding
 import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.Connection
 import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.ConnectionByIP
@@ -17,26 +16,17 @@ import com.example.smarthome.main.ChooseDeviceParams
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>() {
-
-    private lateinit var binding: FragmentChooseDeviceBinding
+class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(R.layout.fragment_choose_device) {
 
     override val vm: ChooseDeviceViewModel by viewModel {
         parametersOf(getParams(ChooseDeviceParams::class.java)?: ChooseDeviceParams())
     }
 
+    private val binding by fragmentViewBinding(FragmentChooseDeviceBinding::bind)
+
     private val adapter = WifiDeviceAdapter(onItemClicked = { type, id ->
         vm.onItemClicked(type, id)
     })
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentChooseDeviceBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

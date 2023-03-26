@@ -1,28 +1,18 @@
 package com.example.smarthome.fragments.system
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.smarthome.R
 import com.example.smarthome.core.base.presentation.BaseFragment
+import com.example.smarthome.core.utils.fragmentViewBinding
 import com.example.smarthome.databinding.FragmentSystemBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SystemFragment : BaseFragment<SystemState, Unit>() {
+class SystemFragment : BaseFragment<SystemState, Unit>(R.layout.fragment_system) {
 
-    private lateinit var binding: FragmentSystemBinding
+    private val binding by fragmentViewBinding(FragmentSystemBinding::bind)
     override val vm: SystemViewModel by viewModel()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSystemBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.example.smarthome.common.navigation.BackPressConsumer
-import com.example.smarthome.common.navigation.onBackPressed
+import com.example.smarthome.core.navigation.BackPressConsumer
+import com.example.smarthome.core.navigation.onBackPressed
 import com.example.smarthome.core.utils.collectWhenStarted
 import com.example.smarthome.core.utils.doOnCreate
 import com.example.smarthome.core.utils.doOnStartStop
