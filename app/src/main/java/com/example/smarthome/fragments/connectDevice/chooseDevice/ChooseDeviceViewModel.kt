@@ -113,7 +113,7 @@ class ChooseDeviceViewModel(
     }
 
     override fun onBackPressed(): Boolean {
-        router.backTo(Screens.mainScreen())
+        router.backTo(null)
         return !super.onBackPressed()
     }
 
