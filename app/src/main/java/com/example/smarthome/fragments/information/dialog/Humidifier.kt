@@ -21,7 +21,7 @@ object Humidifier {
                 .setCancelable(true)
 
             offOn.setOnClickListener {
-                if (on) {
+                if (!on) {
                     action.invoke(HumidifierCommands.On.command)
                 } else {
                     action.invoke(HumidifierCommands.Off.command)

@@ -8,7 +8,7 @@ import kotlin.math.roundToInt
 fun temperatureResponseMapper(
     response: TemperatureResponse,
     time: Time
-) = DeviceInfoSchema.TemperatureSensorSchema(
+) = DeviceInfoSchema.Sensors.HumidityAndTemperatureSensorSchema(
     id = response.id,
     data = response.temperature.roundToInt(),
     hours = time.hours,
@@ -16,6 +16,6 @@ fun temperatureResponseMapper(
     seconds = time.seconds,
     type = response.deviceType,
     notification = response.notification,
-    maxTemp = response.maxTemp,
-    minTemp = response.minTemp
-)
+    max = response.maxTemp,
+    min = response.minTemp)
+

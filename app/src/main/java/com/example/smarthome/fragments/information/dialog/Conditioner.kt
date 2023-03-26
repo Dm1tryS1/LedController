@@ -21,7 +21,7 @@ object Conditioner {
                 .setCancelable(true)
 
             offOn.setOnClickListener {
-                if (on) {
+                if (!on) {
                     action.invoke(ConditionerCommands.On.command)
                 } else {
                     action.invoke(ConditionerCommands.Off.command)

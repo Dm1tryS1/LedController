@@ -33,38 +33,15 @@ class WiFiService : Service() {
     }
 
     private fun saveInDataBase(deviceInfoSchema: DeviceInfoSchema) {
-        when (deviceInfoSchema) {
-            is DeviceInfoSchema.HumiditySensorSchema -> {
-                deviceInfoDataBaseRepository.saveDeviceInfo(
-                    DeviceInfo(
-                        deviceId = deviceInfoSchema.id!!,
-                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
-                        value = deviceInfoSchema.data!!,
-                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                    )
+        if (deviceInfoSchema is DeviceInfoSchema.Sensors) {
+            deviceInfoDataBaseRepository.saveDeviceInfo(
+                DeviceInfo(
+                    deviceId = deviceInfoSchema.id,
+                    time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
+                    value = deviceInfoSchema.data,
+                    date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
                 )
-            }
-            is DeviceInfoSchema.TemperatureSensorSchema -> {
-                deviceInfoDataBaseRepository.saveDeviceInfo(
-                    DeviceInfo(
-                        deviceId = deviceInfoSchema.id!!,
-                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
-                        value = deviceInfoSchema.data!!,
-                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                    )
-                )
-            }
-            is DeviceInfoSchema.PressureSensorSchema -> {
-                deviceInfoDataBaseRepository.saveDeviceInfo(
-                    DeviceInfo(
-                        deviceId = deviceInfoSchema.id!!,
-                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
-                        value = deviceInfoSchema.data!!,
-                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                    )
-                )
-            }
-            else -> {}
+            )
         }
     }
 
@@ -84,7 +61,7 @@ class WiFiService : Service() {
 
     private fun receiveData() {
         CoroutineScope(Dispatchers.IO).launch {
-            while(true) {
+            while (true) {
                 try {
                     val msg = ByteArray(1024)
                     val ip =

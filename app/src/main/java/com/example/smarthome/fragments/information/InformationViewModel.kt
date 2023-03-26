@@ -1,7 +1,6 @@
 package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.R
 import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
@@ -26,77 +25,41 @@ class InformationViewModel(
         return InformationState(listOf(), true)
     }
 
-    private fun makeNotification(schema: DeviceInfoSchema.TemperatureSensorSchema) {
-        if (schema.id != null && schema.type != null && schema.notification && schema.data != null)
+    private fun makeNotification(schema: DeviceInfoSchema.Sensors.HumidityAndTemperatureSensorSchema) {
+        if (schema.notification)
             sendEvent(
                 InformationEvent.ShowNotification(
                     id = schema.id,
                     type = schema.type,
-                    more = schema.data < schema.minTemp,
-                    comfortableValue = if (schema.data < schema.minTemp) schema.minTemp else schema.maxTemp
+                    more = schema.data < schema.min,
+                    comfortableValue = if (schema.data < schema.min) schema.min else schema.max
                 )
             )
     }
 
-    private fun makeNotification(schema: DeviceInfoSchema.HumiditySensorSchema) {
-        if (schema.id != null && schema.type != null && schema.notification && schema.data != null)
-            sendEvent(
-                InformationEvent.ShowNotification(
-                    id = schema.id,
-                    type = schema.type,
-                    more = schema.data < schema.minHum,
-                    comfortableValue = if (schema.data < schema.minHum) schema.minHum else schema.maxHum
-                )
+    private fun saveInDataBase(deviceInfoSchema: DeviceInfoSchema.Sensors) {
+        informationUseCase.saveInDataBase(
+            DeviceInfo(
+                deviceId = deviceInfoSchema.id,
+                time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
+                value = deviceInfoSchema.data,
+                date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
             )
+        )
     }
 
-    private fun saveInDataBase(deviceInfoSchema: DeviceInfoSchema) {
-        when (deviceInfoSchema) {
-            is DeviceInfoSchema.HumiditySensorSchema -> {
-                informationUseCase.saveInDataBase(
-                    DeviceInfo(
-                        deviceId = deviceInfoSchema.id!!,
-                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
-                        value = deviceInfoSchema.data!!,
-                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                    )
-                )
-            }
-            is DeviceInfoSchema.TemperatureSensorSchema -> {
-                informationUseCase.saveInDataBase(
-                    DeviceInfo(
-                        deviceId = deviceInfoSchema.id!!,
-                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
-                        value = deviceInfoSchema.data!!,
-                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                    )
-                )
-            }
-            is DeviceInfoSchema.PressureSensorSchema -> {
-                informationUseCase.saveInDataBase(
-                    DeviceInfo(
-                        deviceId = deviceInfoSchema.id!!,
-                        time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
-                        value = deviceInfoSchema.data!!,
-                        date = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-                    )
-                )
-            }
-            else -> {}
-        }
-    }
 
     fun getInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             val newState = mutableListOf<InfoViewItem.SensorsInfoViewItem>()
             informationUseCase.getInfo().data?.forEach { schema ->
-                if (schema is DeviceInfoSchema.TemperatureSensorSchema) {
+                if (schema is DeviceInfoSchema.Sensors.HumidityAndTemperatureSensorSchema) {
                     makeNotification(schema)
                 }
-                if (schema is DeviceInfoSchema.HumiditySensorSchema) {
-                    makeNotification(schema)
+
+                if (schema is DeviceInfoSchema.Sensors) {
+                    saveInDataBase(schema)
                 }
-                saveInDataBase(schema)
                 newState.add(packageToInfoViewItem(schema))
             }
             updateState { InformationState(newState, false) }
@@ -105,7 +68,7 @@ class InformationViewModel(
     }
 
     private fun update(response: DeviceInfoSchema) {
-        saveInDataBase(response)
+        if (response is DeviceInfoSchema.Sensors) { saveInDataBase(response) }
         val newState = currentViewState.data?.map { item ->
             if (item.id == response.id) {
                 packageToInfoViewItem(response)
@@ -121,6 +84,15 @@ class InformationViewModel(
             val response = informationUseCase.getTemperature(id).data
             if (response != null) update(response)
 
+        }
+    }
+
+    private fun getSenorInfo(id: Int, type: SensorType) {
+        when (type) {
+            SensorType.TemperatureSensor -> getTemperature(id)
+            SensorType.HumiditySensor -> getHumidity(id)
+            SensorType.PressureSensor -> getPressure(id)
+            else -> { }
         }
     }
 
@@ -152,50 +124,29 @@ class InformationViewModel(
         }
     }
 
-    fun onMenuClicked(type: Int, id: Int, info: String, date: String) {
-        when (type) {
-            SensorType.TemperatureSensor.type -> sendEvent(
+    fun onMenuClicked(deviceInfo: InfoViewItem.SensorsInfoViewItem) {
+        when (deviceInfo.sensorType) {
+            SensorType.TemperatureSensor, SensorType.PressureSensor, SensorType.HumiditySensor -> sendEvent(
                 InformationEvent.OpenSensorMenuEvent(
-                    id,
-                    R.drawable.ic_temperature,
-                    this::getTemperature,
-                    info,
-                    date
+                    deviceInfo,
+                    this::getSenorInfo,
                 )
             )
-            SensorType.PressureSensor.type -> sendEvent(
-                InformationEvent.OpenSensorMenuEvent(
-                    id,
-                    R.drawable.ic_pressure,
-                    this::getPressure,
-                    info,
-                    date
-                )
-            )
-            SensorType.HumiditySensor.type -> sendEvent(
-                InformationEvent.OpenSensorMenuEvent(
-                    id,
-                    R.drawable.ic_humidity,
-                    this::getHumidity,
-                    info,
-                    date
-                )
-            )
-            SensorType.Conditioner.type -> sendEvent(
+            SensorType.Conditioner -> sendEvent(
                 InformationEvent.OpenConditionerMenuEvent(
-                    id,
-                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true,
+                    deviceInfo.id,
+                    deviceInfo.status,
                     this::sendCondCommand
                 )
             )
-            SensorType.Humidifier.type -> sendEvent(
+            SensorType.Humidifier -> sendEvent(
                 InformationEvent.OpenHumidifierMenuEvent(
-                    id,
-                    currentViewState.data?.find { it.id == id }?.info?.contains("Выключено") == true,
+                    deviceInfo.id,
+                    deviceInfo.status,
                     this::sendHumCommand
                 )
             )
-            else -> {}
+            else -> { }
         }
     }
 
@@ -205,8 +156,8 @@ class InformationViewModel(
         }
     }
 
-    fun onChartOpen(type: Int, id: Int) {
-        if (type == SensorType.TemperatureSensor.type || type == SensorType.HumiditySensor.type || type == SensorType.PressureSensor.type)
+    fun onChartOpen(type: SensorType, id: Int) {
+        if (type == SensorType.TemperatureSensor || type == SensorType.HumiditySensor || type == SensorType.PressureSensor)
             router.navigateTo(Screens.chartScreen(ChartsParams(type, id)))
     }
 

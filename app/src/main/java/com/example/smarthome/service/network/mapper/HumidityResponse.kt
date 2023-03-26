@@ -3,13 +3,12 @@ package com.example.smarthome.service.network.mapper
 import com.example.smarthome.common.Time
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.service.network.model.HumidityResponse
-import kotlin.math.roundToInt
 
 
 fun humidityResponseMapper(
     response: HumidityResponse,
     time: Time
-) = DeviceInfoSchema.HumiditySensorSchema(
+) = DeviceInfoSchema.Sensors.HumidityAndTemperatureSensorSchema(
     id = response.id,
     data = response.humidity,
     hours = time.hours,
@@ -17,6 +16,6 @@ fun humidityResponseMapper(
     seconds = time.seconds,
     type = response.deviceType,
     notification = response.notification,
-    minHum = response.minHum,
-    maxHum = response.maxHum
+    min = response.minHum,
+    max = response.maxHum
 )

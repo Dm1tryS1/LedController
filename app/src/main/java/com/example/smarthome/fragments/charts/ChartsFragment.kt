@@ -65,17 +65,17 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>(R.layout.fragment_
             }
 
             when (state.deviceTypes) {
-                SensorType.TemperatureSensor.type -> {
+                SensorType.TemperatureSensor -> {
                     valueFormatterValue = SensorValueFormatter("°C")
                     title.text = getString(R.string.chart_graph_temp)
                 }
 
-                SensorType.HumiditySensor.type -> {
+                SensorType.HumiditySensor -> {
                     valueFormatterValue = SensorValueFormatter("%")
                     title.text = getString(R.string.chart_graph_hum)
                 }
 
-                SensorType.PressureSensor.type -> {
+                SensorType.PressureSensor -> {
                     valueFormatterValue = SensorValueFormatter("Па")
                     title.text = getString(R.string.chart_graph_pressure)
                 }

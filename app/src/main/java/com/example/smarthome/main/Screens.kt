@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.smarthome.common.device.ControlType
+import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.fragments.charts.ChartsFragment
 import com.example.smarthome.fragments.connectDevice.ConnectDeviceFragment
 import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDeviceFragment
@@ -46,4 +47,4 @@ object Screens {
 data class ChooseDeviceParams(val controlType: ControlType = ControlType.Connect) : Parcelable
 
 @Parcelize
-data class ChartsParams(val deviceType: Int, val id: Int) : Parcelable
+data class ChartsParams(val deviceType: SensorType, val id: Int) : Parcelable

@@ -3,17 +3,16 @@ package com.example.smarthome.fragments.information.dialog
 import android.app.Dialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.databinding.DropmenuSensorBinding
 import com.example.smarthome.core.utils.BottomSheetDialogBuilder
+import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 
 object Sensor {
     fun create(
-        id: Int,
         fragment: Fragment,
-        action: (id: Int) -> Unit,
-        resources: Int,
-        data: String,
-        date: String,
+        action: (id: Int, sensorType: SensorType) -> Unit,
+        deviceInfo: InfoViewItem.SensorsInfoViewItem
     ): Dialog {
         val binding = DropmenuSensorBinding.inflate(fragment.layoutInflater)
 
@@ -23,19 +22,19 @@ object Sensor {
                 .addCustomView(root)
                 .setCancelable(true)
 
-            value.text = data
-            this.date.text = date
+            value.text = deviceInfo.info
+            this.date.text = deviceInfo.date
 
 
             icon.setImageDrawable(
                 ContextCompat.getDrawable(
                     fragment.requireContext(),
-                    resources
+                    deviceInfo.iconId
                 )
             )
 
             update.setOnClickListener {
-                action(id)
+                action(deviceInfo.id, deviceInfo.sensorType)
                 dialog.dismiss()
             }
 

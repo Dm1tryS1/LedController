@@ -8,7 +8,8 @@ sealed class InfoViewItem {
         val id: Int,
         val info: String,
         val date: String,
-        val sensorType: SensorType
+        val sensorType: SensorType,
+        var status: Boolean
     ) : InfoViewItem()
 
     data class Header(

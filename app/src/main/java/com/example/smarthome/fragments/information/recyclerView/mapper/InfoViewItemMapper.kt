@@ -7,102 +7,83 @@ import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 
 fun packageToInfoViewItem(deviceInfoSchema: DeviceInfoSchema): InfoViewItem.SensorsInfoViewItem {
     return when (deviceInfoSchema) {
-        is DeviceInfoSchema.TemperatureSensorSchema -> schemaToInfo(deviceInfoSchema)
         is DeviceInfoSchema.ConditionerSchema -> schemaToInfo(deviceInfoSchema)
-        is DeviceInfoSchema.HumiditySensorSchema -> schemaToInfo(deviceInfoSchema)
         is DeviceInfoSchema.HumidifierSchema -> schemaToInfo(deviceInfoSchema)
-        is DeviceInfoSchema.PressureSensorSchema -> schemaToInfo(deviceInfoSchema)
+        is DeviceInfoSchema.Sensors -> schemaToInfo(deviceInfoSchema)
     }
 }
 
-fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.TemperatureSensorSchema): InfoViewItem.SensorsInfoViewItem {
+fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.Sensors): InfoViewItem.SensorsInfoViewItem {
     val date = with(deviceInfoSchema) {
-        if (hours == null || minutes == null || seconds == null)
-            "Нет информации"
-        else
-            "${hours.toTime()}:${
-                minutes.toTime()
-            }:${seconds.toTime()}"
+        "${hours.toTime()}:${
+            minutes.toTime()
+        }:${seconds.toTime()}"
     }
 
-    val info = deviceInfoSchema.data.let {
-        if (it == null)
-            "Нет информации"
-        else
-            "Температура: $it°C"
+    val info = when (deviceInfoSchema.type) {
+        SensorType.HumiditySensor.type -> "Влажность: ${deviceInfoSchema.data}%"
+        SensorType.PressureSensor.type -> "Давление: ${deviceInfoSchema.data} Па"
+        SensorType.TemperatureSensor.type -> "Температура: ${deviceInfoSchema.data}°C"
+        else -> ""
+    }
+
+    val icon = when (deviceInfoSchema.type) {
+        SensorType.HumiditySensor.type -> R.drawable.ic_humidity
+        SensorType.PressureSensor.type -> R.drawable.ic_pressure
+        SensorType.TemperatureSensor.type -> R.drawable.ic_temperature
+        else -> R.drawable.ic_info
+    }
+
+    val type = when (deviceInfoSchema.type) {
+        SensorType.TemperatureSensor.type -> SensorType.TemperatureSensor
+        SensorType.HumiditySensor.type -> SensorType.HumiditySensor
+        SensorType.PressureSensor.type -> SensorType.PressureSensor
+        else -> SensorType.Unknow
     }
 
     return InfoViewItem.SensorsInfoViewItem(
-        R.drawable.ic_temperature,
-        deviceInfoSchema.id!!,
+        icon,
+        deviceInfoSchema.id,
         info,
         date,
-        SensorType.TemperatureSensor
-    )
-}
-
-fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.HumiditySensorSchema): InfoViewItem.SensorsInfoViewItem {
-    val date = with(deviceInfoSchema) {
-        if (hours == null || minutes == null || seconds == null)
-            "Нет информации"
-        else
-            "${hours.toTime()}:${
-                minutes.toTime()
-            }:${seconds.toTime()}"
-    }
-
-    val info = deviceInfoSchema.data.let {
-        if (it == null)
-            "Нет информации"
-        else
-            "Влажность: $it%"
-    }
-
-    return InfoViewItem.SensorsInfoViewItem(
-        R.drawable.ic_humidity,
-        deviceInfoSchema.id!!,
-        info,
-        date,
-        SensorType.HumiditySensor
+        type,
+        true
     )
 }
 
 fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.HumidifierSchema): InfoViewItem.SensorsInfoViewItem {
     val date = with(deviceInfoSchema) {
-        if (hours == null || minutes == null || seconds == null)
-            "Нет информации"
-        else
-            "${hours.toTime()}:${
-                minutes.toTime()
-            }:${seconds.toTime()}"
+        "${hours.toTime()}:${
+            minutes.toTime()
+        }:${seconds.toTime()}"
     }
 
-    val info = deviceInfoSchema.status.let {
-        if (!it)
+    val info = if (deviceInfoSchema.status != null) {
+        if (deviceInfoSchema.status)
             "Выключено"
         else
             "Включено: ${
                 (deviceInfoSchema.water)
             } % воды"
+    } else {
+        "Увлажнитель воздуха"
     }
 
     return InfoViewItem.SensorsInfoViewItem(
         R.drawable.ic_humidifier,
-        deviceInfoSchema.id!!,
+        deviceInfoSchema.id,
         info,
         date,
-        SensorType.Humidifier
+        SensorType.Humidifier,
+        deviceInfoSchema.status ?: false
     )
 }
 
 fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.ConditionerSchema): InfoViewItem.SensorsInfoViewItem {
     val date = with(deviceInfoSchema) {
-        if (hours == null || minutes == null || seconds == null)
-            "Нет информации"
-        else
-            "${hours.toTime()}:${
-                minutes.toTime()
-            }:${seconds.toTime()}"
+        "${hours.toTime()}:${
+            minutes.toTime()
+        }:${seconds.toTime()}"
     }
 
     val info = if (deviceInfoSchema.status != null) {
@@ -119,37 +100,11 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.ConditionerSchema): InfoView
 
     return InfoViewItem.SensorsInfoViewItem(
         R.drawable.ic_conditioner,
-        deviceInfoSchema.id!!,
+        deviceInfoSchema.id,
         info,
         date,
-        SensorType.Conditioner
-    )
-}
-
-fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.PressureSensorSchema): InfoViewItem.SensorsInfoViewItem {
-    val date = with(deviceInfoSchema) {
-        if (hours == null || minutes == null || seconds == null)
-            "Нет информации"
-        else
-            "${hours.toTime()}:${
-                minutes.toTime()
-            }:${seconds.toTime()}"
-    }
-
-    val info = deviceInfoSchema.data.let {
-        if (it == null)
-            "Нет информации"
-        else {
-            "Давление: $it Па"
-        }
-    }
-
-    return InfoViewItem.SensorsInfoViewItem(
-        R.drawable.ic_pressure,
-        deviceInfoSchema.id!!,
-        info,
-        date,
-        SensorType.PressureSensor
+        SensorType.Conditioner,
+        deviceInfoSchema.status ?: false
     )
 }
 

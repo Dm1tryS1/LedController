@@ -8,7 +8,7 @@ import kotlin.math.roundToInt
 fun pressureResponseMapper(
     response: PressureResponse,
     time: Time
-) = DeviceInfoSchema.PressureSensorSchema(
+) = DeviceInfoSchema.Sensors.PressureSensorSchema(
     id = response.id,
     data = response.pressure.roundToInt(),
     hours = time.hours,

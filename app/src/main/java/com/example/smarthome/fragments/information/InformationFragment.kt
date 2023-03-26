@@ -25,14 +25,11 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>(R.l
 
     override val vm: InformationViewModel by viewModel()
     private val adapter =
-        InformationAdapter(onMenuClicked = { type, id, info, date ->
-            vm.onMenuClicked(
-                type,
-                id,
-                info,
-                date
-            )
-        }, onDeviceClicked = { type, id -> vm.onChartOpen(type, id) })
+        InformationAdapter(onMenuClicked = { deviceInfo ->
+            vm.onMenuClicked(deviceInfo)
+        }, onDeviceClicked = { type, id ->
+            vm.onChartOpen(type, id)
+        })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,10 +76,10 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>(R.l
         if (state.data != null) {
             binding.sensors.isVisible = true
 
-            var currentType = SensorType.Unknown
+            var currentType = SensorType.Unknow
             val items = mutableListOf<InfoViewItem>()
             state.data.forEach {
-                if (currentType.type != it.sensorType.type) {
+                if (currentType != it.sensorType) {
                     currentType = it.sensorType
                     items.add(InfoViewItem.Header(it.sensorType.text))
                 }
@@ -109,12 +106,9 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>(R.l
         when (event) {
             is InformationEvent.OpenSensorMenuEvent -> {
                 Sensor.create(
-                    id = event.id,
                     fragment = this@InformationFragment,
                     action = event.command,
-                    resources = event.resources,
-                    data = event.data,
-                    date = event.date
+                    deviceInfo = event.deviceInfo
                 ).show()
             }
             is InformationEvent.OpenConditionerMenuEvent -> {
