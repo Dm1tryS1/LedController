@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         startService(Intent(this, WiFiService::class.java))
 
-        router.newRootScreen(Screens.MainScreen())
+        router.newRootScreen(Screens.mainScreen())
     }
 
     override fun onBackPressed() {

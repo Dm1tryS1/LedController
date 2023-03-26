@@ -56,7 +56,7 @@ class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) 
             systemUseCase.saveMinHumidity(minHum)
             systemUseCase.saveDisplayedValue(displayedValue)
             systemUseCase.setSystemSetting(maxTemp, minTemp, maxHum, minHum, displayedValue)
-            router.backTo(Screens.InformationScreen())
+            router.backTo(Screens.informationScreen())
         }
     }
 
@@ -64,7 +64,7 @@ class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) 
         viewModelScope.launch {
             systemUseCase.clearSettings()
             systemUseCase.setSystemSetting(-1, -1, -1, -1, -1)
-            router.backTo(Screens.InformationScreen())
+            router.backTo(Screens.informationScreen())
         }
     }
 

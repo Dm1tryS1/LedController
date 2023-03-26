@@ -9,7 +9,7 @@ class HomeViewModel(
 ) : BaseViewModel<Unit, Unit>(router = router) {
 
     fun openInformationFragment() {
-        router.navigateTo(Screens.InformationScreen())
+        router.navigateTo(Screens.informationScreen())
     }
 
     override fun createInitialState() = Unit

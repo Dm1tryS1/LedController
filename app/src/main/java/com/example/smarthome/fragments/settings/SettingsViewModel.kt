@@ -15,7 +15,7 @@ class SettingsViewModel(
 ) : BaseViewModel<SettingsState, SettingsEvent>(router = router) {
 
     fun onWifiClicked() {
-        router.navigateTo(Screens.ConnectDeviceScreen())
+        router.navigateTo(Screens.connectDeviceScreen())
     }
 
     fun connect(wifiInfo: WifiInfo) {

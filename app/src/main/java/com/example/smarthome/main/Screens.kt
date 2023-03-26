@@ -15,21 +15,21 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import kotlinx.parcelize.Parcelize
 
 object Screens {
-    fun InformationScreen() = FragmentScreen { InformationFragment() }
-    fun MainScreen() = FragmentScreen { MainFragment() }
-    fun ChartScreen(chartsParams: ChartsParams) =
+    fun informationScreen() = FragmentScreen { InformationFragment() }
+    fun mainScreen() = FragmentScreen { MainFragment() }
+    fun chartScreen(chartsParams: ChartsParams) =
         FragmentScreen { ChartsFragment::class.java.createScreen(chartsParams) }
 
-    fun SystemScreen() = FragmentScreen { SystemFragment() }
-    fun ConnectDeviceScreen() = FragmentScreen { ConnectDeviceFragment() }
-    fun ChooseDeviceScreen(chooseDeviceParams: ChooseDeviceParams) =
+    fun systemScreen() = FragmentScreen { SystemFragment() }
+    fun connectDeviceScreen() = FragmentScreen { ConnectDeviceFragment() }
+    fun chooseDeviceScreen(chooseDeviceParams: ChooseDeviceParams) =
         FragmentScreen { ChooseDeviceFragment::class.java.createScreen(chooseDeviceParams) }
 
-    fun RemoteControlScreen() = FragmentScreen { RemoteControlFragment() }
+    fun remoteControlScreen() = FragmentScreen { RemoteControlFragment() }
 
     const val PARAMS = "PARAMS"
 
-    private fun <T> Class<out Fragment>.createScreen(params: T) =
+    private fun <T : Parcelable> Class<out Fragment>.createScreen(params: T) =
         this.newInstance().apply {
             arguments = bundleOf(PARAMS to params)
         }

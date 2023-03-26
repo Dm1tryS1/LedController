@@ -207,7 +207,7 @@ class InformationViewModel(
 
     fun onChartOpen(type: Int, id: Int) {
         if (type == SensorType.TemperatureSensor.type || type == SensorType.HumiditySensor.type || type == SensorType.PressureSensor.type)
-            router.navigateTo(Screens.ChartScreen(ChartsParams(type, id)))
+            router.navigateTo(Screens.chartScreen(ChartsParams(type, id)))
     }
 
     fun onSettingsClicked() {
@@ -226,6 +226,6 @@ class InformationViewModel(
     }
 
     fun onMoreSettings() {
-        router.navigateTo(Screens.SystemScreen())
+        router.navigateTo(Screens.systemScreen())
     }
 }

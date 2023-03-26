@@ -12,11 +12,11 @@ class ConnectDeviceViewModel(
     BaseViewModel<Unit, Unit>(router = router) {
 
     fun onNextClicked(controlType: ControlType) {
-        router.navigateTo(Screens.ChooseDeviceScreen(ChooseDeviceParams(controlType)))
+        router.navigateTo(Screens.chooseDeviceScreen(ChooseDeviceParams(controlType)))
     }
 
     fun onRemoteControlClicked() {
-        router.navigateTo(Screens.RemoteControlScreen())
+        router.navigateTo(Screens.remoteControlScreen())
     }
 
     override fun createInitialState() = Unit

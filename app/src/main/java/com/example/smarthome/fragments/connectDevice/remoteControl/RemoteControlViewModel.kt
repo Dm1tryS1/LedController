@@ -20,7 +20,7 @@ class RemoteControlViewModel(
 
 
     override fun onBackPressed(): Boolean {
-        router.backTo(Screens.MainScreen())
+        router.backTo(Screens.mainScreen())
         return !super.onBackPressed()
     }
 
