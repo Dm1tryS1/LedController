@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.smarthome.R
+import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.repository.model.BaseResponse
 import com.example.smarthome.repository.model.ErrorResponse
 import com.github.mikephil.charting.components.AxisBase
@@ -96,5 +97,14 @@ fun Int.setPickerNumber(extremeValue: Int): Int {
     } else {
         this
     }
+}
+
+fun getSenorType(id: Int) = when (id) {
+    SensorType.TemperatureSensor.type -> SensorType.TemperatureSensor
+    SensorType.HumiditySensor.type -> SensorType.HumiditySensor
+    SensorType.PressureSensor.type -> SensorType.PressureSensor
+    SensorType.Conditioner.type -> SensorType.Conditioner
+    SensorType.Humidifier.type -> SensorType.Humidifier
+    else -> SensorType.Unknown
 }
 

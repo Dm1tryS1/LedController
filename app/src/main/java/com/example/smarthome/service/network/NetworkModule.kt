@@ -22,8 +22,8 @@ class NetworkModule(sharedPreferencesRepository: SharedPreferencesRepository) {
 
         val client =
             OkHttpClient.Builder().addInterceptor(interceptor).retryOnConnectionFailure(true)
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
 
 
         val retrofit = Retrofit.Builder()

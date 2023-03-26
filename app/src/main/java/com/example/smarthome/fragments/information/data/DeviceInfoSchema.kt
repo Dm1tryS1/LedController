@@ -1,8 +1,11 @@
 package com.example.smarthome.fragments.information.data
+
+import com.example.smarthome.common.device.SensorType
+
 sealed class DeviceInfoSchema {
 
     abstract val id: Int
-    abstract val type: Int
+    abstract val type: SensorType
     abstract val hours: Int
     abstract val minutes: Int
     abstract val seconds: Int
@@ -11,7 +14,7 @@ sealed class DeviceInfoSchema {
         abstract val data: Int
         data class PressureSensorSchema(
             override val id: Int,
-            override val type: Int,
+            override val type: SensorType,
             override val hours: Int,
             override val minutes: Int,
             override val seconds: Int,
@@ -20,7 +23,7 @@ sealed class DeviceInfoSchema {
 
         data class HumidityAndTemperatureSensorSchema(
             override val id: Int,
-            override val type: Int,
+            override val type: SensorType,
             override val hours: Int,
             override val minutes: Int,
             override val seconds: Int,
@@ -32,7 +35,7 @@ sealed class DeviceInfoSchema {
     }
     data class HumidifierSchema(
         override val id: Int,
-        override val type: Int,
+        override val type: SensorType,
         override val hours: Int,
         override val minutes: Int,
         override val seconds: Int,
@@ -42,7 +45,7 @@ sealed class DeviceInfoSchema {
 
     data class ConditionerSchema(
         override val id: Int,
-        override val type: Int,
+        override val type: SensorType,
         override val hours: Int,
         override val minutes: Int,
         override val seconds: Int,

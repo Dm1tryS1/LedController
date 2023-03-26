@@ -20,25 +20,24 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.Sensors): InfoViewItem.Senso
         }:${seconds.toTime()}"
     }
 
-    val info = when (deviceInfoSchema.type) {
-        SensorType.HumiditySensor.type -> "Влажность: ${deviceInfoSchema.data}%"
-        SensorType.PressureSensor.type -> "Давление: ${deviceInfoSchema.data} Па"
-        SensorType.TemperatureSensor.type -> "Температура: ${deviceInfoSchema.data}°C"
-        else -> ""
-    }
+    var info = ""
+    var icon = R.drawable.ic_info
 
-    val icon = when (deviceInfoSchema.type) {
-        SensorType.HumiditySensor.type -> R.drawable.ic_humidity
-        SensorType.PressureSensor.type -> R.drawable.ic_pressure
-        SensorType.TemperatureSensor.type -> R.drawable.ic_temperature
-        else -> R.drawable.ic_info
-    }
+    when (deviceInfoSchema.type) {
+        SensorType.HumiditySensor -> {
+            info = "Влажность: ${deviceInfoSchema.data}%"
+            icon = R.drawable.ic_humidity
+        }
+        SensorType.PressureSensor -> {
+            info = "Давление: ${deviceInfoSchema.data} Па"
+            icon = R.drawable.ic_pressure
 
-    val type = when (deviceInfoSchema.type) {
-        SensorType.TemperatureSensor.type -> SensorType.TemperatureSensor
-        SensorType.HumiditySensor.type -> SensorType.HumiditySensor
-        SensorType.PressureSensor.type -> SensorType.PressureSensor
-        else -> SensorType.Unknow
+        }
+        SensorType.TemperatureSensor -> {
+            info = "Температура: ${deviceInfoSchema.data}°C"
+            icon = R.drawable.ic_temperature
+        }
+        else -> { }
     }
 
     return InfoViewItem.SensorsInfoViewItem(
@@ -46,7 +45,7 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.Sensors): InfoViewItem.Senso
         deviceInfoSchema.id,
         info,
         date,
-        type,
+        deviceInfoSchema.type,
         true
     )
 }
@@ -74,7 +73,7 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.HumidifierSchema): InfoViewI
         deviceInfoSchema.id,
         info,
         date,
-        SensorType.Humidifier,
+        deviceInfoSchema.type,
         deviceInfoSchema.status ?: false
     )
 }
@@ -103,7 +102,7 @@ fun schemaToInfo(deviceInfoSchema: DeviceInfoSchema.ConditionerSchema): InfoView
         deviceInfoSchema.id,
         info,
         date,
-        SensorType.Conditioner,
+        deviceInfoSchema.type,
         deviceInfoSchema.status ?: false
     )
 }

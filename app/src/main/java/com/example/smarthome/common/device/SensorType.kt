@@ -6,5 +6,5 @@ enum class SensorType(val type: Int, val text: String) {
     HumiditySensor(3, "Датчики влажности"),
     Conditioner(4, "Кондиционеры"),
     Humidifier(5, "Увлажнители воздуха"),
-    Unknow(0, "Неизвестное устройство"),
+    Unknown(0, "Неизвестное устройство"),
 }

@@ -26,7 +26,7 @@ sealed class InformationEvent {
 
     data class ShowNotification(
         val id: Int,
-        val type: Int,
+        val type: SensorType,
         val more: Boolean,
         val comfortableValue: Int
     ) : InformationEvent()

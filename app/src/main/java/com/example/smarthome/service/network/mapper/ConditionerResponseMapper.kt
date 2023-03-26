@@ -1,6 +1,7 @@
 package com.example.smarthome.service.network.mapper
 
 import com.example.smarthome.common.Time
+import com.example.smarthome.core.utils.getSenorType
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.service.network.model.ConditionerResponse
 
@@ -14,5 +15,5 @@ fun conditionerResponseMapper(
     minutes = time.minutes,
     seconds = time.seconds,
     temperature = conditionerResponse.temperature,
-    type = conditionerResponse.deviceType
+    type = getSenorType(conditionerResponse.deviceType)
 )

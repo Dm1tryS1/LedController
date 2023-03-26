@@ -76,7 +76,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>(R.l
         if (state.data != null) {
             binding.sensors.isVisible = true
 
-            var currentType = SensorType.Unknow
+            var currentType = SensorType.Unknown
             val items = mutableListOf<InfoViewItem>()
             state.data.forEach {
                 if (currentType != it.sensorType) {
@@ -135,7 +135,7 @@ class InformationFragment : BaseFragment<InformationState, InformationEvent>(R.l
                 ).show()
             }
             is InformationEvent.ShowNotification -> {
-                val text = if (event.type == SensorType.TemperatureSensor.type) {
+                val text = if (event.type == SensorType.TemperatureSensor) {
                     if (event.more) {
                         getString(R.string.notification_max_temp, event.id, event.comfortableValue)
                     } else {
