@@ -7,6 +7,7 @@ import com.example.smarthome.core.base.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
+import com.example.smarthome.main.ChartsParams
 import com.example.smarthome.main.Screens
 import com.example.smarthome.service.storage.entity.DeviceInfo
 import com.github.terrakok.cicerone.Router
@@ -206,7 +207,7 @@ class InformationViewModel(
 
     fun onChartOpen(type: Int, id: Int) {
         if (type == SensorType.TemperatureSensor.type || type == SensorType.HumiditySensor.type || type == SensorType.PressureSensor.type)
-            router.navigateTo(Screens.ChartScreen(type, id))
+            router.navigateTo(Screens.ChartScreen(ChartsParams(type, id)))
     }
 
     fun onSettingsClicked() {

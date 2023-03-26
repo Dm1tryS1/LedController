@@ -17,6 +17,7 @@ import com.example.smarthome.databinding.FragmentChartsBinding
 import com.example.smarthome.fragments.charts.formatter.SensorDateFormatter
 import com.example.smarthome.fragments.charts.formatter.SensorValueFormatter
 import com.example.smarthome.fragments.information.recyclerView.mapper.toTime
+import com.example.smarthome.main.ChartsParams
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
@@ -24,6 +25,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
@@ -31,10 +33,10 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
     private var xAxisFormatter = SensorDateFormatter()
 
     private lateinit var binding: FragmentChartsBinding
-    override val vm: ChartsViewModel by viewModel()
 
-    private var deviceTypes: Int? = arguments?.getInt(DEVICE_TYPE)
-    private var id: Int? = arguments?.getInt(ID)
+    override val vm: ChartsViewModel by viewModel {
+        parametersOf(getParams(ChartsParams::class.java))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,11 +49,7 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        deviceTypes = arguments?.getInt(DEVICE_TYPE)
-        id = arguments?.getInt(ID)
-        id?.let {
-            vm.buildChart(it)
-        }
+        vm.buildChart()
         binding.setDate.setOnClickListener {
             vm.openDatePicker()
         }
@@ -76,7 +74,7 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
                 fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }
             }
 
-            when (deviceTypes) {
+            when (state.deviceTypes) {
                 SensorType.TemperatureSensor.type -> {
                     valueFormatterValue = SensorValueFormatter("°C")
                     title.text = getString(R.string.chart_graph_temp)
@@ -133,29 +131,13 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>() {
                     requireContext(),
                     AlertDialog.THEME_HOLO_DARK,
                     { _, year, month, day ->
-                        id?.let {
-                            vm.buildChart(it, "${day.toTime()}-${month.inc().toTime()}-$year")
-                        }
+                        vm.buildChart("${day.toTime()}-${month.inc().toTime()}-$year")
                     },
                     date.get(Calendar.YEAR),
                     date.get(Calendar.MONTH),
                     date.get(Calendar.DAY_OF_MONTH)
                 )
                     .show()
-            }
-        }
-    }
-
-
-    companion object {
-        private const val DEVICE_TYPE = "device_type"
-        private const val ID = "id"
-        fun getNewInstance(deviceType: Int, id: Int): ChartsFragment {
-            return ChartsFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(DEVICE_TYPE, deviceType)
-                    putInt(ID, id)
-                }
             }
         }
     }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.smarthome.R
-import com.example.smarthome.common.device.ControlType
 import com.example.smarthome.core.base.presentation.BaseFragment
 import com.example.smarthome.databinding.FragmentChooseDeviceBinding
 import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.Connection
@@ -14,6 +13,7 @@ import com.example.smarthome.fragments.connectDevice.chooseDevice.dialog.Connect
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.adapter.WifiDeviceAdapter
 import com.example.smarthome.core.utils.snackBar
 import com.example.smarthome.core.utils.supportBottomSheetScroll
+import com.example.smarthome.main.ChooseDeviceParams
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -22,11 +22,7 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
     private lateinit var binding: FragmentChooseDeviceBinding
 
     override val vm: ChooseDeviceViewModel by viewModel {
-        when (arguments?.getInt(CONTROL_TYPE,0)) {
-            0 -> parametersOf(ControlType.Connect)
-            1 -> parametersOf(ControlType.IP)
-            else -> parametersOf(ControlType.Connect)
-        }
+        parametersOf(getParams(ChooseDeviceParams::class.java)?: ChooseDeviceParams())
     }
 
     private val adapter = WifiDeviceAdapter(onItemClicked = { type, id ->
@@ -81,17 +77,6 @@ class ChooseDeviceFragment : BaseFragment<ChooseDeviceState, ChooseDeviceEvent>(
                 this,
                 vm::connectByIp
             ).show()
-        }
-    }
-
-    companion object {
-        private const val CONTROL_TYPE = "CONTROL_TYPE"
-        fun getNewInstance(controlType: Int): ChooseDeviceFragment {
-            return ChooseDeviceFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(CONTROL_TYPE, controlType)
-                }
-            }
         }
     }
 }

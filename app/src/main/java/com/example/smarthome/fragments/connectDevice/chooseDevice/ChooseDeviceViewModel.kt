@@ -8,6 +8,7 @@ import com.example.smarthome.common.device.SensorType
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.common.wifi.WifiInfo
+import com.example.smarthome.main.ChooseDeviceParams
 import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class ChooseDeviceViewModel(
     private val chooseDeviceUseCase: ChooseDeviceUseCase,
-    private val controlType: ControlType,
+    private val chooseDeviceParams: ChooseDeviceParams,
     router: Router
 ) :
     BaseViewModel<ChooseDeviceState, ChooseDeviceEvent>(router = router) {
@@ -45,7 +46,7 @@ class ChooseDeviceViewModel(
     }
 
     fun onItemClicked(type: Int, id: Int) {
-        when (controlType) {
+        when (chooseDeviceParams.controlType) {
             ControlType.IP -> sendEvent(ChooseDeviceEvent.OpenDeviceMenuByIP(type, id))
             ControlType.Connect -> {
                 val wifiInfo = chooseDeviceUseCase.getWifiInfo()

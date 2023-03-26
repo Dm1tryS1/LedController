@@ -13,7 +13,7 @@ object ChartsModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { ChartsViewModel(get(), get()) }
+        viewModel {  parameters -> ChartsViewModel(get(), get(), chartsParams = parameters.get()) }
     }
 
     private fun createDomainModule() = module {
