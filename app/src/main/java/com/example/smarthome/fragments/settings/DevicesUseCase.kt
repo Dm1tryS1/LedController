@@ -1,7 +1,7 @@
 package com.example.smarthome.fragments.settings
 
 import com.example.smarthome.repository.*
-import com.example.smarthome.common.wifi.WifiInfo
+import com.example.data.wifi.WifiInfo
 
 class DevicesUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,

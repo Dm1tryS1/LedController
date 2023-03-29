@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import com.example.smarthome.R
-import com.example.smarthome.common.device.ConditionerCommands
-import com.example.smarthome.common.device.HumidifierCommands
-import com.example.smarthome.common.device.SensorType
-import com.example.smarthome.core.base.presentation.BaseFragment
-import com.example.smarthome.core.utils.fragmentViewBinding
-import com.example.smarthome.core.utils.snackBar
+import com.example.data.device.ConditionerCommands
+import com.example.data.device.HumidifierCommands
+import com.example.data.device.SensorType
+import com.example.core.presentation.BaseFragment
+import com.example.core.fragmentViewBinding
+import com.example.core.snackBar
 import com.example.smarthome.databinding.FragmentRemoteControlBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

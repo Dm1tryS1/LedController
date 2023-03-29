@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.information.data
 
-import com.example.smarthome.common.device.SensorType
+import com.example.data.device.SensorType
 
 sealed class DeviceInfoSchema {
 

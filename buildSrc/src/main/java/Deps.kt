@@ -1,14 +1,21 @@
 object Deps {
+
+    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.JetBrains.kotlin}"
     object AndroidX {
         const val core = "androidx.core:core-ktx:${Versions.AndroidX.core}"
         const val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
         const val material = "com.google.android.material:material:${Versions.AndroidX.material}"
+        const val fragment = "androidx.fragment:fragment-ktx:${Versions.AndroidX.fragment}"
     }
 
     object Room {
         const val runtime = "androidx.room:room-runtime:2.4.2"
         const val compiler = "androidx.room:room-compiler:2.4.2"
         const val ktx = "androidx.room:room-ktx:2.4.2"
+    }
+
+    object Coroutines {
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
     }
 
     object Navigation {
@@ -38,10 +45,15 @@ object Deps {
 
     const val lottie = "com.airbnb.android:lottie:5.2.0"
     const val esptouch = "com.github.EspressifApp:lib-esptouch-android:1.1.1"
-    const val serialiazation = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
     const val animation = "com.daimajia.androidanimations:library:2.4@aar"
     const val zxing = "com.journeyapps:zxing-android-embedded:4.3.0"
     const val recycler = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
     const val graphic = "com.github.PhilJay:MPAndroidChart:v3.1.0"
+
+    const val kotlinXSerialization =
+        "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlinXSerialization}"
+
+    const val serializationJson =
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serializationJson}"
 
 }

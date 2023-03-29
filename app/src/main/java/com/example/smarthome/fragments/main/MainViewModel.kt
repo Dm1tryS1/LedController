@@ -2,7 +2,7 @@ package com.example.smarthome.fragments.main
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.example.core.presentation.BaseViewModel
 import com.example.smarthome.fragments.home.HomeFragment
 import com.example.smarthome.fragments.settings.SettingsFragment
 import com.github.terrakok.cicerone.Router

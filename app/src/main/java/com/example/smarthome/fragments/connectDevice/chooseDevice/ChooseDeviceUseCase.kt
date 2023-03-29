@@ -2,8 +2,8 @@ package com.example.smarthome.fragments.connectDevice.chooseDevice
 
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.repository.WifiDeviceRepository
-import com.example.smarthome.common.wifi.WifiInfo
-import com.example.smarthome.core.utils.request
+import com.example.data.wifi.WifiInfo
+import com.example.core.request
 import com.example.smarthome.repository.ConnectDeviceRepository
 import com.example.smarthome.service.network.mapper.sendConfigRequestMapper
 

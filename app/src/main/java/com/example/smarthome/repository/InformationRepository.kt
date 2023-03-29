@@ -1,6 +1,6 @@
 package com.example.smarthome.repository
 
-import com.example.smarthome.common.getTime
+import com.example.data.getTime
 import com.example.smarthome.service.network.NetworkModule
 import com.example.smarthome.service.network.InformationService
 import com.example.smarthome.service.network.mapper.*

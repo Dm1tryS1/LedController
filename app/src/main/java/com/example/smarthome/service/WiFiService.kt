@@ -4,7 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.example.smarthome.common.getTime
+import com.example.data.getTime
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import com.example.smarthome.repository.SharedPreferencesRepository

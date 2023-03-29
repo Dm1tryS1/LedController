@@ -2,8 +2,8 @@ package com.example.smarthome.fragments.settings
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
-import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.common.wifi.WifiInfo
+import com.example.core.presentation.BaseViewModel
+import com.example.data.wifi.WifiInfo
 import com.example.smarthome.main.Screens
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers

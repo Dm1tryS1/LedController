@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.connectDevice.chooseDevice
 
-import com.example.smarthome.common.wifi.WifiInfo
+import com.example.data.wifi.WifiInfo
 
 sealed class ChooseDeviceEvent {
     class OpenDeviceMenu(val type: Int, val id: Int, val wifiInfo: WifiInfo) : ChooseDeviceEvent()

@@ -2,12 +2,12 @@ package com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.
 
 import androidx.core.content.ContextCompat
 import com.example.smarthome.R
-import com.example.smarthome.common.device.SensorType
+import com.example.data.device.SensorType
+import com.example.core.utils.AdapterUtil
+import com.example.core.utils.adapterDelegateViewBinding
 import com.example.smarthome.databinding.ItemWifiDeviceBinding
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
-import com.example.smarthome.core.utils.AdapterUtil
-import com.example.smarthome.core.utils.adapterDelegateViewBinding
-import com.example.smarthome.core.utils.bindWithBinding
+import com.example.core.utils.bindWithBinding
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 

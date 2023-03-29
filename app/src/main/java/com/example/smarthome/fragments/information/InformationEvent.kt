@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.information
 
-import com.example.smarthome.common.device.SensorType
+import com.example.data.device.SensorType
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 
 sealed class InformationEvent {

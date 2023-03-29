@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.settings
 
-import com.example.smarthome.common.wifi.WifiInfo
+import com.example.data.wifi.WifiInfo
 
 sealed class SettingsEvent {
     class OpenDialog(val wifiInfo: WifiInfo): SettingsEvent()

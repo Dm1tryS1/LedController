@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.example.smarthome.databinding.DropmenuSettingsBinding
-import com.example.smarthome.core.utils.BottomSheetDialogBuilder
+import com.example.core.utils.BottomSheetDialogBuilder
 
 object Settings {
     fun create(

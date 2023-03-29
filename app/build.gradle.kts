@@ -2,17 +2,17 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.20"
+    id("kotlinx-serialization")
     id("kotlin-kapt")
 }
 
-@Suppress("UnstableApiUsage")
+
 android {
     compileSdk = Config.compileSdk
 
     defaultConfig {
         applicationId = Config.applicationId
-        minSdk = Config.minSdk
+        minSdkPreview = Config.minSdk
         targetSdk = Config.targetSdk
         versionCode = Config.versionCode
         versionName = Config.versionName
@@ -45,6 +45,11 @@ android {
 }
 
 dependencies {
+    implementation(Deps.kotlin)
+
+    implementation(project(Modules.Common.core))
+    implementation(project(Modules.Common.data))
+
     implementation(Deps.Navigation.navigation)
     implementation(Deps.Navigation.cicerone)
 
@@ -64,7 +69,7 @@ dependencies {
 
     implementation(Deps.graphic)
 
-    implementation(Deps.serialiazation)
+    api(Deps.serializationJson)
 
     implementation(Deps.Koin.koinCore)
     implementation(Deps.Koin.koinAndroid)

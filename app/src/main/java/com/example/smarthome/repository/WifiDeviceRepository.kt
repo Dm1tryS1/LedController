@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import android.util.Log
 import com.espressif.iot.esptouch.EsptouchTask
-import com.example.smarthome.common.wifi.WifiInfo
+import com.example.data.wifi.WifiInfo
 
 class WifiDeviceRepository(private val context: Context) {
     fun getWifiInfo(): WifiInfo? {

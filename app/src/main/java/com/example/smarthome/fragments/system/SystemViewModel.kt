@@ -1,8 +1,7 @@
 package com.example.smarthome.fragments.system
 
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.main.Screens
+import com.example.core.presentation.BaseViewModel
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.launch
 
@@ -22,7 +21,7 @@ class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) 
             val displayedValue = systemUseCase.getDisplayedValue()
 
             updateState {
-                SystemState (
+                SystemState(
                     maxTemp = maxTemp,
                     minTemp = minTemp,
                     maxHum = maxHum,
@@ -46,7 +45,7 @@ class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) 
     }
 
     fun save(maxTemp: Int, minTemp: Int, maxHum: Int, minHum: Int, displayedValue: Int) {
-        updateState {state ->
+        updateState { state ->
             state.copy(isLoading = true)
         }
         viewModelScope.launch {
@@ -56,7 +55,7 @@ class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) 
             systemUseCase.saveMinHumidity(minHum)
             systemUseCase.saveDisplayedValue(displayedValue)
             systemUseCase.setSystemSetting(maxTemp, minTemp, maxHum, minHum, displayedValue)
-            router.backTo(Screens.informationScreen())
+            router.exit()
         }
     }
 
@@ -64,7 +63,7 @@ class SystemViewModel(router: Router, private val systemUseCase: SystemUseCase) 
         viewModelScope.launch {
             systemUseCase.clearSettings()
             systemUseCase.setSystemSetting(-1, -1, -1, -1, -1)
-            router.backTo(Screens.informationScreen())
+            router.exit()
         }
     }
 

@@ -1,7 +1,7 @@
 package com.example.smarthome.fragments.system
 
-import com.example.smarthome.core.utils.request
-import com.example.smarthome.core.utils.setPickerNumber
+import com.example.core.request
+import com.example.core.setPickerNumber
 import com.example.smarthome.repository.SharedPreferencesRepository
 import com.example.smarthome.repository.SystemRepository
 

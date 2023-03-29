@@ -1,8 +1,8 @@
 package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.common.device.SensorType
-import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.example.data.device.SensorType
+import com.example.core.presentation.BaseViewModel
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
@@ -18,8 +18,7 @@ import java.util.*
 class InformationViewModel(
     private val informationUseCase: InformationUseCase,
     router: Router
-) :
-    BaseViewModel<InformationState, InformationEvent>(router = router) {
+) : BaseViewModel<InformationState, InformationEvent>(router = router) {
 
     override fun createInitialState(): InformationState {
         return InformationState(listOf(), true)

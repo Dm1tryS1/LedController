@@ -3,9 +3,9 @@ package com.example.smarthome.fragments.connectDevice
 import android.os.Bundle
 import android.view.View
 import com.example.smarthome.R
-import com.example.smarthome.common.device.ControlType
-import com.example.smarthome.core.base.presentation.BaseFragment
-import com.example.smarthome.core.utils.fragmentViewBinding
+import com.example.data.device.ControlType
+import com.example.core.presentation.BaseFragment
+import com.example.core.fragmentViewBinding
 import com.example.smarthome.databinding.FragmentConnectDeviceBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

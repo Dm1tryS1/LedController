@@ -3,8 +3,9 @@ package com.example.smarthome.main
 import android.os.Parcelable
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.example.smarthome.common.device.ControlType
-import com.example.smarthome.common.device.SensorType
+import com.example.core.navigation.Const.PARAMS
+import com.example.data.device.ControlType
+import com.example.data.device.SensorType
 import com.example.smarthome.fragments.charts.ChartsFragment
 import com.example.smarthome.fragments.connectDevice.ConnectDeviceFragment
 import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDeviceFragment
@@ -27,8 +28,6 @@ object Screens {
         ChooseDeviceFragment::class.java.createScreen(chooseDeviceParams)
 
     fun remoteControlScreen() = RemoteControlFragment::class.java.createScreen(null)
-
-    const val PARAMS = "PARAMS"
 
     private fun <T : Parcelable> Class<out Fragment>.createScreen(params: T?) =
         FragmentScreen {

@@ -6,12 +6,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat.getColor
+import com.example.data.device.SensorType
+import com.example.core.presentation.BaseFragment
+import com.example.core.dp
+import com.example.core.fragmentViewBinding
+import com.example.core.setupEnvironments
 import com.example.smarthome.R
-import com.example.smarthome.common.device.SensorType
-import com.example.smarthome.core.base.presentation.BaseFragment
-import com.example.smarthome.core.utils.dp
-import com.example.smarthome.core.utils.fragmentViewBinding
-import com.example.smarthome.core.utils.setupEnvironments
 import com.example.smarthome.databinding.FragmentChartsBinding
 import com.example.smarthome.fragments.charts.formatter.SensorDateFormatter
 import com.example.smarthome.fragments.charts.formatter.SensorValueFormatter
@@ -56,9 +56,9 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>(R.layout.fragment_
                 setDrawFilled(true)
                 setDrawCircleHole(false)
                 lineWidth = 1.0f
-                setCircleColor(getColor(requireContext(), R.color.white))
+                setCircleColor(getColor(requireContext(), state.pointColor))
                 highLightColor = Color.rgb(244, 117, 117)
-                color = getColor(requireContext(), R.color.blue)
+                color = getColor(requireContext(), state.graphColor)
                 fillAlpha = 20
                 setDrawHorizontalHighlightIndicator(false)
                 fillFormatter = IFillFormatter { _, _ -> chart.axisLeft.axisMinimum }

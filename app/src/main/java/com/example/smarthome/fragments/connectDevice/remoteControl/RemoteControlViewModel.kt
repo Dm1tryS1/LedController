@@ -2,15 +2,14 @@ package com.example.smarthome.fragments.connectDevice.remoteControl
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
-import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.example.core.presentation.BaseViewModel
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.launch
 
 class RemoteControlViewModel(
     router: Router,
     private val remoteControlUseCase: RemoteControlUseCase
-) :
-    BaseViewModel<RemoteControlState, RemoteControlEvent>(router = router) {
+) : BaseViewModel<RemoteControlState, RemoteControlEvent>(router = router) {
 
 
     override fun createInitialState(): RemoteControlState {

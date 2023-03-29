@@ -2,13 +2,13 @@ package com.example.smarthome.fragments.connectDevice.chooseDevice
 
 import androidx.lifecycle.viewModelScope
 import com.example.smarthome.R
-import com.example.smarthome.common.device.ControlType
-import com.example.smarthome.core.base.presentation.BaseViewModel
-import com.example.smarthome.common.device.SensorType
+import com.example.data.device.ControlType
+import com.example.data.device.SensorType
 import com.example.smarthome.fragments.connectDevice.chooseDevice.recyclerView.model.WifiDevicesItem
 import com.example.smarthome.repository.FileRepository
-import com.example.smarthome.common.wifi.WifiInfo
-import com.example.smarthome.core.utils.isIpAddress
+import com.example.data.wifi.WifiInfo
+import com.example.core.presentation.BaseViewModel
+import com.example.core.isIpAddress
 import com.example.smarthome.main.ChooseDeviceParams
 import com.github.terrakok.cicerone.Router
 import com.google.gson.Gson

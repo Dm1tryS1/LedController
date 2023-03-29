@@ -2,7 +2,7 @@ package com.example.smarthome.fragments.charts
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
-import com.example.smarthome.core.base.presentation.BaseViewModel
+import com.example.core.presentation.BaseViewModel
 import com.example.smarthome.main.ChartsParams
 import com.github.mikephil.charting.data.Entry
 import com.github.terrakok.cicerone.Router
@@ -14,8 +14,7 @@ import java.util.*
 class ChartsViewModel(
     private val chartUseCase: ChartUseCase, router: Router,
     private val chartsParams: ChartsParams?,
-) :
-    BaseViewModel<ChartsState, ChartsEvent>(router = router) {
+) : BaseViewModel<ChartsState, ChartsEvent>(router = router) {
 
     override fun createInitialState(): ChartsState {
         return ChartsState(listOf(), arrayListOf(), chartsParams?.deviceType)

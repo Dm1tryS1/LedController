@@ -3,9 +3,9 @@ package com.example.smarthome.fragments.information.dialog
 import android.app.Dialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.smarthome.common.device.SensorType
+import com.example.data.device.SensorType
 import com.example.smarthome.databinding.DropmenuSensorBinding
-import com.example.smarthome.core.utils.BottomSheetDialogBuilder
+import com.example.core.utils.BottomSheetDialogBuilder
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 
 object Sensor {
