@@ -1,10 +1,11 @@
 package com.example.smarthome.fragments.settings
 
 import androidx.lifecycle.viewModelScope
+import com.example.core.navigation.createScreen
 import com.example.smarthome.R
 import com.example.core.presentation.BaseViewModel
 import com.example.data.wifi.WifiInfo
-import com.example.smarthome.main.Screens
+import com.example.smarthome.fragments.connectDevice.ConnectDeviceFragment
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ class SettingsViewModel(
 ) : BaseViewModel<SettingsState, SettingsEvent>(router = router) {
 
     fun onWifiClicked() {
-        router.navigateTo(Screens.connectDeviceScreen())
+        router.navigateTo(ConnectDeviceFragment::class.java.createScreen(null))
     }
 
     fun connect(wifiInfo: WifiInfo) {

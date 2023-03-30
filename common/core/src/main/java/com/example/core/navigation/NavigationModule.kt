@@ -1,4 +1,4 @@
-package com.example.smarthome.di
+package com.example.core.navigation
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router

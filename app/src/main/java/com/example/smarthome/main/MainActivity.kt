@@ -8,8 +8,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.core.navigation.BackPressConsumer
+import com.example.core.navigation.createScreen
 import com.example.smarthome.R
 import com.example.smarthome.databinding.ActivityMainBinding
+import com.example.smarthome.fragments.main.MainFragment
 import com.example.smarthome.service.WiFiService
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -64,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         startService(Intent(this, WiFiService::class.java))
 
-        router.newRootScreen(Screens.mainScreen())
+        router.newRootScreen(MainFragment::class.java.createScreen(null))
     }
 
     override fun onBackPressed() {

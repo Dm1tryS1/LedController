@@ -1,14 +1,15 @@
 package com.example.smarthome.fragments.information
 
 import androidx.lifecycle.viewModelScope
+import com.example.core.navigation.createScreen
 import com.example.data.device.SensorType
 import com.example.core.presentation.BaseViewModel
+import com.example.smarthome.fragments.charts.ChartsFragment
 import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.fragments.information.recyclerView.mapper.packageToInfoViewItem
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
+import com.example.smarthome.fragments.system.SystemFragment
 import com.example.smarthome.main.ChartsParams
-import com.example.smarthome.main.Screens
-import com.example.storage.entity.DeviceInfo
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -157,7 +158,7 @@ class InformationViewModel(
 
     fun onChartOpen(type: SensorType, id: Int) {
         if (type == SensorType.TemperatureSensor || type == SensorType.HumiditySensor || type == SensorType.PressureSensor)
-            router.navigateTo(Screens.chartScreen(ChartsParams(type, id)))
+            router.navigateTo(ChartsFragment::class.java.createScreen(ChartsParams(type, id)))
     }
 
     fun onSettingsClicked() {
@@ -176,6 +177,6 @@ class InformationViewModel(
     }
 
     fun onMoreSettings() {
-        router.navigateTo(Screens.systemScreen())
+        router.navigateTo(SystemFragment::class.java.createScreen(null))
     }
 }

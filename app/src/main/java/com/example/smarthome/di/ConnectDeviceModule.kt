@@ -7,7 +7,7 @@ import com.example.smarthome.repository.FileRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-object ConnectDevice {
+object ConnectDeviceModule {
 
     operator fun invoke() = listOf(
         createDataModule(),

@@ -4,7 +4,7 @@ import com.example.smarthome.fragments.connectDevice.chooseDevice.ChooseDeviceVi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-object ChooseDevice {
+object ChooseDeviceModule {
 
     operator fun invoke() = listOf(
         createDataModule(),

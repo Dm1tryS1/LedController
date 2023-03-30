@@ -1,5 +1,6 @@
 package com.example.smarthome.di
 
+import com.example.core.navigation.NavigationModule
 import com.example.network.di.NetworkModule
 import com.example.shared_preferences.di.SharedPreferencesModule
 import com.example.storage.di.StorageModule
@@ -18,8 +19,8 @@ object AppModule {
         MainModule(),
         ChartsModule(),
         SystemModule(),
-        ConnectDevice(),
-        ChooseDevice(),
+        ConnectDeviceModule(),
+        ChooseDeviceModule(),
         RemoteControlModule(),
         NetworkModule(),
         SharedPreferencesModule(),
