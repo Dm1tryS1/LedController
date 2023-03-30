@@ -2,6 +2,7 @@ package com.example.smarthome.fragments.settings
 
 import com.example.smarthome.repository.*
 import com.example.data.wifi.WifiInfo
+import com.example.shared_preferences.SharedPreferencesService
 
 class DevicesUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -14,6 +15,6 @@ class DevicesUseCase(
     }
 
     fun saveSystemIp(ip: String) =
-        sharedPreferencesRepository.saveString(SharedPreferencesRepository.systemIp, ip)
+        sharedPreferencesRepository.saveString(SharedPreferencesService.systemIp, ip)
 
 }

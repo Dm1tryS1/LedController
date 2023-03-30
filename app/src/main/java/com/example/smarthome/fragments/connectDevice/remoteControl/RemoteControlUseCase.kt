@@ -1,6 +1,6 @@
 package com.example.smarthome.fragments.connectDevice.remoteControl
 
-import com.example.core.request
+import com.example.network.request
 import com.example.smarthome.repository.ConnectDeviceRepository
 
 class RemoteControlUseCase(

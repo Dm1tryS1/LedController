@@ -49,15 +49,18 @@ dependencies {
 
     implementation(project(Modules.Common.core))
     implementation(project(Modules.Common.data))
+    implementation(project(Modules.Common.network))
+    implementation(project(Modules.Common.sharedPreferences))
+    implementation(project(Modules.Common.storage))
 
     implementation(Deps.Navigation.navigation)
     implementation(Deps.Navigation.cicerone)
 
-    implementation(Deps.animation)
-
     implementation(Deps.AndroidX.core)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.material)
+
+    implementation(Deps.animation)
 
     testImplementation(Deps.Test.jUnit)
     androidTestImplementation(Deps.Test.test)
@@ -76,12 +79,8 @@ dependencies {
 
     implementation(Deps.Network.retrofit)
     implementation(Deps.Network.gson)
-    implementation(Deps.Network.okHttpInterceptor)
-    implementation(Deps.Network.okHttp)
 
     implementation(Deps.esptouch)
-
-    implementation(Deps.lottie)
 
     implementation(Deps.Room.runtime)
     kapt(Deps.Room.compiler)

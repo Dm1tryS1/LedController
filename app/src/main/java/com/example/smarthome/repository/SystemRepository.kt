@@ -1,13 +1,12 @@
 package com.example.smarthome.repository
 
-import com.example.smarthome.service.network.NetworkModule
-import com.example.smarthome.service.network.SystemService
-import com.example.smarthome.service.network.model.SystemSettingsRequest
+import com.example.network.NetworkFactory
+import com.example.smarthome.repository.network.model.SystemSettingsRequest
 
 class SystemRepository(
-    networkModule: NetworkModule,
+    networkModule: NetworkFactory,
 ) {
-    private var systemService = networkModule.createService(SystemService::class.java)
+    private var systemService = networkModule.createService(com.example.smarthome.repository.network.SystemService::class.java)
 
     suspend fun setSystemSettings(
         minTemp: Int,

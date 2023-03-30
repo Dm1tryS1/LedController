@@ -15,8 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.core.utils.doOnDestroy
 import com.example.core.utils.showSnack
-import com.example.data.BaseResponse
-import com.example.data.ErrorResponse
 import com.example.data.device.SensorType
 import com.github.mikephil.charting.components.AxisBase
 import kotlin.properties.ReadOnlyProperty
@@ -83,14 +81,6 @@ fun createCenter(view: View, cancelable: Boolean = true): Dialog {
     dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     return dialog
 }
-
-inline fun <T> request(result: () -> T): BaseResponse<T> =
-    try {
-        val data = result()
-        BaseResponse(data = data)
-    } catch (e: Exception) {
-        BaseResponse(error = ErrorResponse(400, e.message))
-    }
 
 fun Int.setPickerNumber(extremeValue: Int): Int {
     return if (this == -1) {

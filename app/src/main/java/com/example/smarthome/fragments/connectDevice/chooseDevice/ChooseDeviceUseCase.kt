@@ -3,9 +3,9 @@ package com.example.smarthome.fragments.connectDevice.chooseDevice
 import com.example.smarthome.repository.FileRepository
 import com.example.smarthome.repository.WifiDeviceRepository
 import com.example.data.wifi.WifiInfo
-import com.example.core.request
+import com.example.network.request
 import com.example.smarthome.repository.ConnectDeviceRepository
-import com.example.smarthome.service.network.mapper.sendConfigRequestMapper
+import com.example.smarthome.repository.network.mapper.sendConfigRequestMapper
 
 class ChooseDeviceUseCase(
     private val wifiDeviceRepository: WifiDeviceRepository,

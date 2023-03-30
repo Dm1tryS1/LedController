@@ -1,10 +1,11 @@
 package com.example.smarthome.fragments.information
 
-import com.example.core.request
+import com.example.network.request
+import com.example.shared_preferences.SharedPreferencesService
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import com.example.smarthome.repository.InformationRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
-import com.example.smarthome.service.storage.entity.DeviceInfo
+import com.example.storage.entity.DeviceInfo
 
 class InformationUseCase(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
@@ -31,15 +32,15 @@ class InformationUseCase(
     suspend fun setTimer(value: Int) =
         request { informationRepository.setTimer(value) }
 
-    fun saveInDataBase(deviceInfo: DeviceInfo) {
+    fun saveInDataBase(deviceInfo: com.example.storage.entity.DeviceInfo) {
         deviceInfoDataBaseRepository.saveDeviceInfo(deviceInfo)
     }
 
     fun getUserSettings() =
-        sharedPreferencesRepository.getInt(SharedPreferencesRepository.userTimer)
+        sharedPreferencesRepository.getInt(SharedPreferencesService.userTimer)
 
     fun saveUserSettings(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesRepository.userTimer, value)
+        sharedPreferencesRepository.saveInt(SharedPreferencesService.userTimer, value)
     }
 
 }

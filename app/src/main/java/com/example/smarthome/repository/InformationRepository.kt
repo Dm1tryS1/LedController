@@ -1,19 +1,27 @@
 package com.example.smarthome.repository
 
 import com.example.data.getTime
-import com.example.smarthome.service.network.NetworkModule
-import com.example.smarthome.service.network.InformationService
-import com.example.smarthome.service.network.mapper.*
-import com.example.smarthome.service.network.model.*
+import com.example.network.NetworkFactory
+import com.example.smarthome.repository.network.InformationService
+import com.example.smarthome.repository.network.mapper.humidifierResponseMapper
+import com.example.smarthome.repository.network.mapper.humidityResponseMapper
+import com.example.smarthome.repository.network.mapper.pressureResponseMapper
+import com.example.smarthome.repository.network.mapper.temperatureResponseMapper
+import com.example.smarthome.repository.network.model.ConditionerRequest
+import com.example.smarthome.repository.network.model.HumidifierRequest
+import com.example.smarthome.repository.network.model.SystemTimerRequest
 
 class InformationRepository(
-    networkModule: NetworkModule
+    networkModule: NetworkFactory
 ) {
 
     private var informationService = networkModule.createService(InformationService::class.java)
 
     suspend fun getInfo() =
-        getAllResponseMapper(informationService.getAll(), getTime())
+        com.example.smarthome.repository.network.mapper.getAllResponseMapper(
+            informationService.getAll(),
+            getTime()
+        )
 
     suspend fun getTemperature(
         id: Int
@@ -32,7 +40,7 @@ class InformationRepository(
 
     suspend fun condCommand(
         command: String
-    ) = conditionerResponseMapper(
+    ) = com.example.smarthome.repository.network.mapper.conditionerResponseMapper(
         informationService.condcommand(ConditionerRequest(command)), getTime()
     )
 

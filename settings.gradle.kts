@@ -11,3 +11,7 @@ rootProject.name = "SmartHome"
 include(":app")
 include(":common:core")
 include(":common:data")
+include(":common:network")
+include(":common:shared_preferences")
+include(":common:permissions")
+include(":common:storage")

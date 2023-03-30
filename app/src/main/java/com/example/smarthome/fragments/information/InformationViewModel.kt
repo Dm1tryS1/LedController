@@ -8,7 +8,7 @@ import com.example.smarthome.fragments.information.recyclerView.mapper.packageTo
 import com.example.smarthome.fragments.information.recyclerView.model.InfoViewItem
 import com.example.smarthome.main.ChartsParams
 import com.example.smarthome.main.Screens
-import com.example.smarthome.service.storage.entity.DeviceInfo
+import com.example.storage.entity.DeviceInfo
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ class InformationViewModel(
 
     private fun saveInDataBase(deviceInfoSchema: DeviceInfoSchema.Sensors) {
         informationUseCase.saveInDataBase(
-            DeviceInfo(
+            com.example.storage.entity.DeviceInfo(
                 deviceId = deviceInfoSchema.id,
                 time = "${deviceInfoSchema.hours}:${deviceInfoSchema.minutes}",
                 value = deviceInfoSchema.data,

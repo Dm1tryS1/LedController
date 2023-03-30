@@ -1,7 +1,9 @@
 package com.example.smarthome.repository
 
-import com.example.smarthome.service.storage.DeviceInfoDataBaseProvider
-import com.example.smarthome.service.storage.entity.DeviceInfo
+import com.example.storage.DeviceInfoDataBaseProvider
+import com.example.storage.entity.DeviceInfo
+
+
 
 class DeviceInfoDataBaseRepository(
     deviceInfoDataBaseProvider: DeviceInfoDataBaseProvider,

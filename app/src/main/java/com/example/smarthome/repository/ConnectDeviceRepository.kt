@@ -1,14 +1,13 @@
 package com.example.smarthome.repository
 
-import com.example.smarthome.service.network.ConnectDeviceService
-import com.example.smarthome.service.network.NetworkModule
-import com.example.smarthome.service.network.model.IrReceiverRequest
-import com.example.smarthome.service.network.model.SendConfigRequest
+import com.example.network.NetworkFactory
+import com.example.smarthome.repository.network.model.IrReceiverRequest
+import com.example.smarthome.repository.network.model.SendConfigRequest
 
 class ConnectDeviceRepository(
-    networkModule: NetworkModule
+    networkModule: NetworkFactory
 ) {
-    private var connectDeviceService = networkModule.createService(ConnectDeviceService::class.java)
+    private var connectDeviceService = networkModule.createService(com.example.smarthome.repository.network.ConnectDeviceService::class.java)
 
     suspend fun sendConfig(
         wifiDevicesItem: List<SendConfigRequest>
