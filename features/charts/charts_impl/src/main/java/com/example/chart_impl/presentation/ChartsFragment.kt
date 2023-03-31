@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.charts
+package com.example.chart_impl.presentation
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -12,11 +12,11 @@ import com.example.core.dp
 import com.example.core.fragmentViewBinding
 import com.example.core.setupEnvironments
 import com.example.core.toTime
-import com.example.smarthome.R
-import com.example.smarthome.databinding.FragmentChartsBinding
-import com.example.smarthome.fragments.charts.formatter.SensorDateFormatter
-import com.example.smarthome.fragments.charts.formatter.SensorValueFormatter
-import com.example.smarthome.main.ChartsParams
+import com.example.chart_impl.presentation.formatter.SensorDateFormatter
+import com.example.chart_impl.presentation.formatter.SensorValueFormatter
+import com.example.charts_api.ChartsFeature
+import com.example.charts_impl.R
+import com.example.charts_impl.databinding.FragmentChartsBinding
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
@@ -34,7 +34,7 @@ class ChartsFragment : BaseFragment<ChartsState, ChartsEvent>(R.layout.fragment_
     private val binding by fragmentViewBinding(FragmentChartsBinding::bind)
 
     override val vm: ChartsViewModel by viewModel {
-        parametersOf(getParams(ChartsParams::class.java))
+        parametersOf(getParams(ChartsFeature.ChartsParams::class.java))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

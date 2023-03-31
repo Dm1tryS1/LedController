@@ -1,6 +1,7 @@
 package com.example.information_impl.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.example.charts_api.ChartsFeature
 import com.example.core.navigation.NoParams
 import com.example.data.device.SensorType
 import com.example.core.presentation.BaseViewModel
@@ -22,7 +23,8 @@ class InformationViewModel(
 ) : BaseViewModel<InformationState, InformationEvent>(router = router) {
 
     class Features(
-        val systemFeature: SystemFeature
+        val systemFeature: SystemFeature,
+        val chartsFeature: ChartsFeature
     )
 
     override fun createInitialState(): InformationState {
@@ -161,8 +163,8 @@ class InformationViewModel(
     }
 
     fun onChartOpen(type: SensorType, id: Int) {
-        //if (type == SensorType.TemperatureSensor || type == SensorType.HumiditySensor || type == SensorType.PressureSensor)
-            //router.navigateTo(ChartsFragment::class.java.createScreen(ChartsParams(type, id)))
+        if (type == SensorType.TemperatureSensor || type == SensorType.HumiditySensor || type == SensorType.PressureSensor)
+            router.navigateTo(features.chartsFeature.createScreen(ChartsFeature.ChartsParams(type, id)))
     }
 
     fun onSettingsClicked() {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="chart_graph_temp">График температуры</string>
+    <string name="chart_graph_hum">График влажности</string>
+    <string name="chart_graph_pressure">График давления</string>
+    <string name="chart_choose_date">Выбрать дату</string>
+</resources>

@@ -26,7 +26,7 @@ object InformationModule {
     private fun createPresentationModule() = module {
         viewModel { InformationViewModel(get(), get(), get()) }
 
-        factory { InformationViewModel.Features(get()) }
+        factory { InformationViewModel.Features(get(), get()) }
     }
 
     private fun createDomainModule() = module {

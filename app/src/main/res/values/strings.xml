@@ -42,11 +42,6 @@
     <string name="remote_control_success">Команда успешно записана</string>
     <string name="remote_control_error">Что-то пошло не так. Повторите попытку</string>
 
-    <string name="chart_graph_temp">График температуры</string>
-    <string name="chart_graph_hum">График влажности</string>
-    <string name="chart_graph_pressure">График давления</string>
-    <string name="chart_choose_date">Выбрать дату</string>
-
     <string name="main_double_click_exit">Для выхода из приложения нажмите кнопку \"Назад\" еще раз</string>
 
     <string name="permission_geo_title">Доступ к местоположению</string>

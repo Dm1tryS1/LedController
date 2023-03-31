@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.charts
+package com.example.chart_impl.presentation
 
 import com.example.data.device.SensorType
 import com.example.core.R

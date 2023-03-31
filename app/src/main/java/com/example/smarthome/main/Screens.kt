@@ -7,6 +7,3 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ChooseDeviceParams(val controlType: ControlType = ControlType.Connect) : Parcelable
-
-@Parcelize
-data class ChartsParams(val deviceType: SensorType, val id: Int) : Parcelable

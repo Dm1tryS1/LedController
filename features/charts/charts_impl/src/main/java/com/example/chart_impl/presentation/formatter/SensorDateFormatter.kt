@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.charts.formatter
+package com.example.chart_impl.presentation.formatter
 
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.ValueFormatter
