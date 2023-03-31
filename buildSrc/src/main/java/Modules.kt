@@ -10,4 +10,15 @@ object Modules {
         const val storage = ":common:storage"
     }
 
+    class FeatureTemplate(name: String) {
+        val api = ":features:$name:${name}_api"
+        val impl = ":features:$name:${name}_impl"
+    }
+
+    object Feature {
+        val home = FeatureTemplate("home")
+        val information = FeatureTemplate("information")
+        val system = FeatureTemplate("system")
+    }
+
 }

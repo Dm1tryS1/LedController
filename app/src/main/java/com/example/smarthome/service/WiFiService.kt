@@ -4,11 +4,12 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.example.data.DeviceInfoSchema
 import com.example.data.getTime
 import com.example.shared_preferences.SharedPreferencesService
-import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
+import com.example.smarthome.repository.network.mapper.getAllResponseMapper
 import com.example.smarthome.repository.network.model.GetAllResponse
 import com.example.storage.entity.DeviceInfo
 import com.google.gson.Gson
@@ -46,11 +47,11 @@ class WiFiService : Service() {
     }
 
     private fun parser(json: String) {
-        com.example.smarthome.repository.network.mapper.getAllResponseMapper(
+        for (item in getAllResponseMapper(
             Gson().fromJson(json, GetAllResponse::class.java),
             getTime()
-        ).forEach { schema ->
-            saveInDataBase(schema)
+        )) {
+            saveInDataBase(item)
         }
     }
 

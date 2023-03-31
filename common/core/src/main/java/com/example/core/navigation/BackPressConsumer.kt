@@ -15,9 +15,9 @@ interface BackPressConsumer {
 internal fun FragmentManager.onBackPressed(): Boolean =
     fragments.any { it is BackPressConsumer && it.onBackPressed() }
 
-fun <T : Parcelable> Class<out Fragment>.createScreen(params: T?) =
+fun <T : Parcelable> Class<out Fragment>.createScreen(params: T) =
     FragmentScreen {
-        if (params != null) {
+        if (params !is NoParams) {
             this.newInstance().apply {
                 arguments = bundleOf(Const.PARAMS to params)
             }

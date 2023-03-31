@@ -99,3 +99,7 @@ fun getSenorType(id: Int) = when (id) {
     else -> SensorType.Unknown
 }
 
+fun Int.toTime(): String {
+    return this.toString().padStart(2, '0')
+}
+

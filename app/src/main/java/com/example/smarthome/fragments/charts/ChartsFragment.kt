@@ -11,11 +11,11 @@ import com.example.core.presentation.BaseFragment
 import com.example.core.dp
 import com.example.core.fragmentViewBinding
 import com.example.core.setupEnvironments
+import com.example.core.toTime
 import com.example.smarthome.R
 import com.example.smarthome.databinding.FragmentChartsBinding
 import com.example.smarthome.fragments.charts.formatter.SensorDateFormatter
 import com.example.smarthome.fragments.charts.formatter.SensorValueFormatter
-import com.example.smarthome.fragments.information.recyclerView.mapper.toTime
 import com.example.smarthome.main.ChartsParams
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.components.XAxis

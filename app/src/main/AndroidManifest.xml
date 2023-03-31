@@ -27,7 +27,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".main.SplashActivity"
+            android:name="com.example.smarthome.main.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,7 +2,7 @@ package com.example.smarthome.repository.network.mapper
 
 import com.example.data.Time
 import com.example.core.getSenorType
-import com.example.smarthome.fragments.information.data.DeviceInfoSchema
+import com.example.data.DeviceInfoSchema
 import com.example.smarthome.repository.network.model.PressureResponse
 import kotlin.math.roundToInt
 

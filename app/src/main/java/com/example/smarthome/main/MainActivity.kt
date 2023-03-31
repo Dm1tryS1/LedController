@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.core.navigation.BackPressConsumer
+import com.example.core.navigation.NoParams
 import com.example.core.navigation.createScreen
 import com.example.smarthome.R
 import com.example.smarthome.databinding.ActivityMainBinding
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         startService(Intent(this, WiFiService::class.java))
 
-        router.newRootScreen(MainFragment::class.java.createScreen(null))
+        router.newRootScreen(MainFragment::class.java.createScreen(NoParams))
     }
 
     override fun onBackPressed() {

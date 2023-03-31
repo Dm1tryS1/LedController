@@ -1,6 +1,7 @@
 package com.example.smarthome.fragments.settings
 
 import androidx.lifecycle.viewModelScope
+import com.example.core.navigation.NoParams
 import com.example.core.navigation.createScreen
 import com.example.smarthome.R
 import com.example.core.presentation.BaseViewModel
@@ -16,7 +17,7 @@ class SettingsViewModel(
 ) : BaseViewModel<SettingsState, SettingsEvent>(router = router) {
 
     fun onWifiClicked() {
-        router.navigateTo(ConnectDeviceFragment::class.java.createScreen(null))
+        router.navigateTo(ConnectDeviceFragment::class.java.createScreen(NoParams))
     }
 
     fun connect(wifiInfo: WifiInfo) {

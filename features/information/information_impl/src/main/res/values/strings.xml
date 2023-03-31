@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_button_update">Обновить</string>
+    <string name="information_standard_text">Нет информации</string>
+
+    <string name="temperature_button_update">Обновить</string>
+    <string name="temperature_date">Время:</string>
+    <string name="temperature_button_back">Закрыть</string>
+
+    <string name="conditioner_button_offOn">Включить/Выключить</string>
+    <string name="conditioner_button_add">Увеличить температуру</string>
+    <string name="conditioner_button_reduce">Уменьшить температуру</string>
+
+    <string name="notification_min_temp">Температура на датчике (id: %1$d) ниже комфортной (%2$d°C)</string>
+    <string name="notification_max_temp">Температура на датчике (id: %1$d) выше комфортной (%2$d°C)</string>
+    <string name="notification_min_hum">Влажность на датчике (id: %1$d) ниже комфортной (%2$d%%)</string>
+    <string name="notification_max_hum">Влажность на датчике (id: %1$d) выше комфортной (%2$d%%)</string>
+    <string name="notification_title">Проблемы с климатом</string>
+
+    <string name="settings_button_confirm">Сохранить изменения</string>
+    <string name="settings_label">Автоматическое обновление (мин):</string>
+    <string name="settings_more">Дополнительные настройки</string>
+    <string name="settings_button_connect">Подключить</string>
+
+    <string name="information_empty_view">Нет данных\nПроверьте подключение к системе</string>
+</resources>

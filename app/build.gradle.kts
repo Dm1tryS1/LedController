@@ -53,6 +53,13 @@ dependencies {
     implementation(project(Modules.Common.sharedPreferences))
     implementation(project(Modules.Common.storage))
 
+    implementation(project(Modules.Feature.home.api))
+    implementation(project(Modules.Feature.home.impl))
+    implementation(project(Modules.Feature.information.api))
+    implementation(project(Modules.Feature.information.impl))
+    implementation(project(Modules.Feature.system.api))
+    implementation(project(Modules.Feature.system.impl))
+
     implementation(Deps.Navigation.navigation)
     implementation(Deps.Navigation.cicerone)
 

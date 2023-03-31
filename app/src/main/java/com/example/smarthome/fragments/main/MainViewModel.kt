@@ -3,7 +3,7 @@ package com.example.smarthome.fragments.main
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
 import com.example.core.presentation.BaseViewModel
-import com.example.smarthome.fragments.home.HomeFragment
+import com.example.home_impl.presentation.HomeFragment
 import com.example.smarthome.fragments.settings.SettingsFragment
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.delay

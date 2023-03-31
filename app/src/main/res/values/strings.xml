@@ -1,16 +1,5 @@
 <resources>
     <string name="app_name">Smart Home</string>
-    <string name="home_button_get_info">Получить информацию</string>
-    <string name="settings_button_update">Обновить</string>
-    <string name="information_standard_text">Нет информации</string>
-
-    <string name="temperature_button_update">Обновить</string>
-    <string name="temperature_date">Время:</string>
-    <string name="temperature_button_back">Закрыть</string>
-
-    <string name="conditioner_button_offOn">Включить/Выключить</string>
-    <string name="conditioner_button_add">Увеличить температуру</string>
-    <string name="conditioner_button_reduce">Уменьшить температуру</string>
 
     <string name="settings_button_confirm">Сохранить изменения</string>
     <string name="settings_label">Автоматическое обновление (мин):</string>
@@ -21,27 +10,10 @@
     <string name="settings_connected">Соединено</string>
     <string name="settings_fail">Ошибка подключения</string>
 
-    <string name="information_empty_view">Нет данных\nПроверьте подключение к системе</string>
+    <string name="temperature_button_back">Закрыть</string>
+    <string name="settings_button_update">Обновить</string>
 
     <string name="error_connection">Подключитесь к системе</string>
-
-    <string name="system_min_temp">Минимальная\nтемпература\n(°C)</string>
-    <string name="system_max_temp">Максимальная\nтемпература\n (°C)</string>
-    <string name="system_min_humidity">Минимальная\nвлажность\n(%)</string>
-    <string name="system_max_humidity">Максимальная\nвлажность\n(%)</string>
-    <string name="system_choose_min_temperature">Мин. температура</string>
-    <string name="system_choose_max_temperature">Макс. температура</string>
-    <string name="system_choose_min_humidity">Мин. влажность</string>
-    <string name="system_choose_max_humidity">Макс. влажность</string>
-    <string name="system_choose_timer">Таймер</string>
-    <string name="system_choose_title">Выберите, что будет оборажаться на индикаторах:</string>
-    <string name="system_cancel_all"><u>Отменить все настройки</u></string>
-
-    <string name="notification_min_temp">Температура на датчике (id: %1$d) ниже комфортной (%2$d°C)</string>
-    <string name="notification_max_temp">Температура на датчике (id: %1$d) выше комфортной (%2$d°C)</string>
-    <string name="notification_min_hum">Влажность на датчике (id: %1$d) ниже комфортной (%2$d%%)</string>
-    <string name="notification_max_hum">Влажность на датчике (id: %1$d) выше комфортной (%2$d%%)</string>
-    <string name="notification_title">Проблемы с климатом</string>
 
     <string name="connect_device_title">Подключение устройства по сети Wi-Fi</string>
     <string name="connect_device_text">Для подключения устройства Вы должны быть подключены к своей домашней сети. Также необходимо включить геолокацию в настройках вашего мобильного устройства.</string>

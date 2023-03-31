@@ -1,5 +1,6 @@
 package com.example.smarthome.fragments.connectDevice
 
+import com.example.core.navigation.NoParams
 import com.example.core.navigation.createScreen
 import com.example.data.device.ControlType
 import com.example.core.presentation.BaseViewModel
@@ -18,7 +19,7 @@ class ConnectDeviceViewModel(
     }
 
     fun onRemoteControlClicked() {
-        router.navigateTo(RemoteControlFragment::class.java.createScreen(null))
+        router.navigateTo(RemoteControlFragment::class.java.createScreen(NoParams))
     }
 
     override fun createInitialState() = Unit

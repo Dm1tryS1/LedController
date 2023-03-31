@@ -1,7 +1,7 @@
 package com.example.smarthome.repository.network.mapper
 
+import com.example.data.DeviceInfoSchema
 import com.example.data.Time
-import com.example.smarthome.fragments.information.data.DeviceInfoSchema
 import com.example.smarthome.repository.network.model.GetAllResponse
 
 
