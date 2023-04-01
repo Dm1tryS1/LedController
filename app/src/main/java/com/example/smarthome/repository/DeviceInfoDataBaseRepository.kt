@@ -15,6 +15,4 @@ class DeviceInfoDataBaseRepository(
         dbDao.insert(deviceInfo)
     }
 
-    fun getDeviceInfoByDate(id: Int, date: String) = dbDao.getInfoForDeviceByDate(id, date)
-
 }

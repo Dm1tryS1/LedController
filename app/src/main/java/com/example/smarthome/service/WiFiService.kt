@@ -6,11 +6,11 @@ import android.os.IBinder
 import android.util.Log
 import com.example.data.DeviceInfoSchema
 import com.example.data.getTime
+import com.example.information_impl.data.mapper.getAllResponseMapper
+import com.example.information_impl.data.model.GetAllResponse
 import com.example.shared_preferences.SharedPreferencesService
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import com.example.smarthome.repository.SharedPreferencesRepository
-import com.example.smarthome.repository.network.mapper.getAllResponseMapper
-import com.example.smarthome.repository.network.model.GetAllResponse
 import com.example.storage.entity.DeviceInfo
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope

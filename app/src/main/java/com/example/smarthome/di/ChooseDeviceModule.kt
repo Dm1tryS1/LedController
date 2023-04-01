@@ -13,7 +13,7 @@ object ChooseDeviceModule {
     )
 
     private fun createPresentationModule() = module {
-        viewModel { parameters -> ChooseDeviceViewModel(get(), chooseDeviceParams = parameters.get(), get()) }
+        viewModel { ChooseDeviceViewModel(get(), get(), get()) }
     }
 
     private fun createDomainModule() = module {
