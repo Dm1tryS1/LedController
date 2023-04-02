@@ -1,6 +1,7 @@
 package com.example.smarthome.di
 
 import com.example.chart_impl.di.ChartsModule
+import com.example.connection_impl.di.ConnectionModule
 import com.example.core.navigation.NavigationModule
 import com.example.home_impl.di.HomeModule
 import com.example.information_impl.di.InformationModule
@@ -23,9 +24,7 @@ object AppModule {
         MainModule(),
         ChartsModule(),
         SystemModule(),
-        ConnectDeviceModule(),
-        ChooseDeviceModule(),
-        RemoteControlModule(),
+        ConnectionModule(),
         NetworkModule(),
         SharedPreferencesModule(),
         StorageModule()

@@ -1,5 +1,6 @@
 package com.example.smarthome.fragments.settings
 
+import com.example.connection_impl.data.WifiDeviceRepository
 import com.example.smarthome.repository.*
 import com.example.data.wifi.WifiInfo
 import com.example.shared_preferences.SharedPreferencesService

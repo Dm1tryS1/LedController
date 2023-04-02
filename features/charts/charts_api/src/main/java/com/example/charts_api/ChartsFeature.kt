@@ -1,7 +1,6 @@
 package com.example.charts_api
 
 import android.os.Parcelable
-import com.example.core.navigation.NoParams
 import com.example.data.device.SensorType
 import com.github.terrakok.cicerone.Screen
 import kotlinx.parcelize.Parcelize

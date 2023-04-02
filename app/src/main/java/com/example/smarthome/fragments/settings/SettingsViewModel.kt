@@ -1,23 +1,27 @@
 package com.example.smarthome.fragments.settings
 
+import ConnectionFeature
 import androidx.lifecycle.viewModelScope
 import com.example.core.navigation.NoParams
-import com.example.core.navigation.createScreen
 import com.example.smarthome.R
 import com.example.core.presentation.BaseViewModel
 import com.example.data.wifi.WifiInfo
-import com.example.smarthome.fragments.connectDevice.ConnectDeviceFragment
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val devicesUseCase: DevicesUseCase,
-    router: Router
+    router: Router,
+    private val features: Features
 ) : BaseViewModel<SettingsState, SettingsEvent>(router = router) {
 
+    class Features(
+        val connection: ConnectionFeature
+    )
+
     fun onWifiClicked() {
-        router.navigateTo(ConnectDeviceFragment::class.java.createScreen(NoParams))
+        router.navigateTo(features.connection.createFeature(NoParams))
     }
 
     fun connect(wifiInfo: WifiInfo) {

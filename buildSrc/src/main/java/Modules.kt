@@ -21,7 +21,7 @@ object Modules {
         val system = FeatureTemplate("system")
         val charts = FeatureTemplate("charts")
         val settings = FeatureTemplate("settings")
-        val connectDevice = FeatureTemplate("connect_device")
+        val connection = FeatureTemplate("connection")
     }
 
 }

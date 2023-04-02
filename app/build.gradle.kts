@@ -61,6 +61,8 @@ dependencies {
     implementation(project(Modules.Feature.system.impl))
     implementation(project(Modules.Feature.charts.api))
     implementation(project(Modules.Feature.charts.impl))
+    implementation(project(Modules.Feature.connection.api))
+    implementation(project(Modules.Feature.connection.impl))
 
     implementation(Deps.Navigation.navigation)
     implementation(Deps.Navigation.cicerone)
