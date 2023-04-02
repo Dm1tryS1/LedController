@@ -2,12 +2,11 @@ package com.example.information_impl.domain
 
 import com.example.information_impl.data.DeviceInfoDataBaseRepository
 import com.example.information_impl.data.InformationRepository
-import com.example.information_impl.data.SharedPreferencesRepository
 import com.example.network.request
-import com.example.shared_preferences.SharedPreferencesService
+import com.example.shared_preferences.SharedPreferences
 
 class InformationUseCase(
-    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val sharedPreferences: SharedPreferences,
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository,
     private val informationRepository: InformationRepository,
 ) {
@@ -36,10 +35,10 @@ class InformationUseCase(
     }
 
     fun getUserSettings() =
-        sharedPreferencesRepository.getInt(SharedPreferencesService.userTimer)
+        sharedPreferences.getInt(SharedPreferences.userTimer)
 
     fun saveUserSettings(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesService.userTimer, value)
+        sharedPreferences.saveInt(SharedPreferences.userTimer, value)
     }
 
 }

@@ -2,7 +2,6 @@ package com.example.system_impl.di
 
 import com.example.system_api.SystemFeature
 import com.example.system_impl.SystemFeatureImpl
-import com.example.system_impl.data.SharedPreferencesRepository
 import com.example.system_impl.data.SystemRepository
 import com.example.system_impl.domain.SystemUseCase
 import com.example.system_impl.presentation.SystemViewModel
@@ -32,6 +31,5 @@ object SystemModule {
 
     private fun createDataModule() = module {
         factory { SystemRepository(get()) }
-        factory { SharedPreferencesRepository(get()) }
     }
 }

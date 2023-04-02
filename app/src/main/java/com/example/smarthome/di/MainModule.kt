@@ -1,7 +1,7 @@
 package com.example.smarthome.di
 
-import com.example.smarthome.fragments.main.MainViewModel
-import com.example.smarthome.repository.DeviceInfoDataBaseRepository
+import com.example.smarthome.presentation.main.MainViewModel
+import com.example.smarthome.service.DeviceInfoDataBaseRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

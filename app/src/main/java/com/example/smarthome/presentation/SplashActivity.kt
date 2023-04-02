@@ -1,4 +1,4 @@
-package com.example.smarthome.main
+package com.example.smarthome.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent

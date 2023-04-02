@@ -1,4 +1,4 @@
-package com.example.smarthome.repository
+package com.example.smarthome.service
 
 import com.example.storage.DeviceInfoDataBaseProvider
 import com.example.storage.entity.DeviceInfo

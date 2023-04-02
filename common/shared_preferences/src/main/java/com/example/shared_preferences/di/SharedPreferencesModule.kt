@@ -1,6 +1,6 @@
 package com.example.shared_preferences.di
 
-import com.example.shared_preferences.SharedPreferencesService
+import com.example.shared_preferences.SharedPreferences
 import org.koin.dsl.module
 
 object SharedPreferencesModule {
@@ -9,6 +9,6 @@ object SharedPreferencesModule {
     )
 
     private fun createSharedPreferencesModule() = module {
-        factory { SharedPreferencesService(get()) }
+        factory { SharedPreferences(get()) }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.smarthome.main
+package com.example.smarthome.presentation
 
 import android.Manifest
 import android.content.Intent
@@ -12,7 +12,7 @@ import com.example.core.navigation.NoParams
 import com.example.core.navigation.createScreen
 import com.example.smarthome.R
 import com.example.smarthome.databinding.ActivityMainBinding
-import com.example.smarthome.fragments.main.MainFragment
+import com.example.smarthome.presentation.main.MainFragment
 import com.example.smarthome.service.WiFiService
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router

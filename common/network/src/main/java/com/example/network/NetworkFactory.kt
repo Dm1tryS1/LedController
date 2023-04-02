@@ -1,6 +1,6 @@
 package com.example.network
 
-import com.example.shared_preferences.SharedPreferencesService
+import com.example.shared_preferences.SharedPreferences
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-class NetworkFactory(sharedPreferencesService: SharedPreferencesService) {
+class NetworkFactory(sharedPreferences: SharedPreferences) {
 
-    private val ip = (sharedPreferencesService.getString(SharedPreferencesService.systemIp)
+    private val ip = (sharedPreferences.getString(SharedPreferences.systemIp)
         ?: "").ifEmpty { "192.168.1.30" }
 
     fun <T> createService(type: Class<T>): T {

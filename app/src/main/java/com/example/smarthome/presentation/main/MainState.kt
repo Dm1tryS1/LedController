@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.main
+package com.example.smarthome.presentation.main
 
 import android.view.MenuItem
 import com.example.smarthome.R

@@ -2,7 +2,7 @@ package com.example.shared_preferences
 
 import android.content.Context
 
-class SharedPreferencesService(context: Context) {
+class SharedPreferences(context: Context) {
 
     private val preferences = context.getSharedPreferences(
         sharedPreferenceName,
@@ -39,8 +39,6 @@ class SharedPreferencesService(context: Context) {
         const val userMaxHumidity = "UserMaxHumidity"
         const val userMinHumidity = "UserMinHumidity "
         const val userDisplayedValue = "UserDisplayedValue"
-        const val ipOfConditioener = "IpOfConditioener"
-        const val ipOfHumidifier = "IpOfHumidifier"
         const val systemIp = "SystemIp"
     }
 }

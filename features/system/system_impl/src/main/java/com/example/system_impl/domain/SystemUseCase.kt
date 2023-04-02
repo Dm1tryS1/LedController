@@ -2,13 +2,12 @@ package com.example.system_impl.domain
 
 import com.example.core.setPickerNumber
 import com.example.network.request
-import com.example.shared_preferences.SharedPreferencesService
-import com.example.system_impl.data.SharedPreferencesRepository
+import com.example.shared_preferences.SharedPreferences
 import com.example.system_impl.data.SystemRepository
 import com.example.system_impl.presentation.SystemFragment
 
 class SystemUseCase(
-    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val sharedPreferences: SharedPreferences,
     private val systemRepository: SystemRepository
 ) {
     suspend fun setSystemSetting(
@@ -28,50 +27,50 @@ class SystemUseCase(
     }
 
     fun saveMaxTemperature(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesService.userMaxTemperature, value)
+        sharedPreferences.saveInt(SharedPreferences.userMaxTemperature, value)
     }
 
     fun saveMinTemperature(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesService.userMinTemperature, value)
+        sharedPreferences.saveInt(SharedPreferences.userMinTemperature, value)
     }
 
     fun saveMaxHumidity(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesService.userMaxHumidity, value)
+        sharedPreferences.saveInt(SharedPreferences.userMaxHumidity, value)
     }
 
     fun saveMinHumidity(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesService.userMinHumidity, value)
+        sharedPreferences.saveInt(SharedPreferences.userMinHumidity, value)
     }
 
     fun saveDisplayedValue(value: Int) {
-        sharedPreferencesRepository.saveInt(SharedPreferencesService.userDisplayedValue, value)
+        sharedPreferences.saveInt(SharedPreferences.userDisplayedValue, value)
     }
 
     fun getMaxTemperature() =
-        sharedPreferencesRepository.getInt(SharedPreferencesService.userMaxTemperature)
+        sharedPreferences.getInt(SharedPreferences.userMaxTemperature)
             .setPickerNumber(SystemFragment.MAX_TEMP_VALUE)
 
     fun getMinTemperature() =
-        sharedPreferencesRepository.getInt(SharedPreferencesService.userMinTemperature)
+        sharedPreferences.getInt(SharedPreferences.userMinTemperature)
             .setPickerNumber(SystemFragment.MIN_TEMP_VALUE)
 
     fun getMaxHumidity() =
-        sharedPreferencesRepository.getInt(SharedPreferencesService.userMaxHumidity)
+        sharedPreferences.getInt(SharedPreferences.userMaxHumidity)
             .setPickerNumber(SystemFragment.MAX_HUM_VALUE)
 
     fun getMinHumidity() =
-        sharedPreferencesRepository.getInt(SharedPreferencesService.userMinHumidity)
+        sharedPreferences.getInt(SharedPreferences.userMinHumidity)
             .setPickerNumber(SystemFragment.MIN_HUM_VALUE)
 
     fun getDisplayedValue() =
-        sharedPreferencesRepository.getInt(SharedPreferencesService.userDisplayedValue)
+        sharedPreferences.getInt(SharedPreferences.userDisplayedValue)
             .setPickerNumber(SystemFragment.DISPLAYED_VALUE)
 
     fun clearSettings() {
-        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesService.userMaxTemperature)
-        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesService.userMinTemperature)
-        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesService.userMaxHumidity)
-        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesService.userMinHumidity)
-        sharedPreferencesRepository.deleteUserSettings(SharedPreferencesService.userDisplayedValue)
+        sharedPreferences.deleteUserSettings(SharedPreferences.userMaxTemperature)
+        sharedPreferences.deleteUserSettings(SharedPreferences.userMinTemperature)
+        sharedPreferences.deleteUserSettings(SharedPreferences.userMaxHumidity)
+        sharedPreferences.deleteUserSettings(SharedPreferences.userMinHumidity)
+        sharedPreferences.deleteUserSettings(SharedPreferences.userDisplayedValue)
     }
 }

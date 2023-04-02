@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.main
+package com.example.smarthome.presentation.main
 
 import android.os.Bundle
 import android.view.View
