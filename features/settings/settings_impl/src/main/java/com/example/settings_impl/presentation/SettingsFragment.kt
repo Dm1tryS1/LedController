@@ -1,14 +1,14 @@
-package com.example.smarthome.fragments.settings
+package com.example.settings_impl.presentation
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import com.example.smarthome.R
 import com.example.core.presentation.BaseFragment
 import com.example.core.fragmentViewBinding
 import com.example.core.snackBar
-import com.example.smarthome.databinding.FragmentSettingsBinding
-import com.example.smarthome.fragments.settings.dialog.Connection
+import com.example.settings_impl.R
+import com.example.settings_impl.databinding.FragmentSettingsBinding
+import com.example.settings_impl.presentation.dialog.Connection
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : BaseFragment<SettingsState, SettingsEvent>(R.layout.fragment_settings) {

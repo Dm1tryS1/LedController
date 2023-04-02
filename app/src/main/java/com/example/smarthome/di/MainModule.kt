@@ -1,6 +1,7 @@
 package com.example.smarthome.di
 
 import com.example.smarthome.fragments.main.MainViewModel
+import com.example.smarthome.repository.DeviceInfoDataBaseRepository
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,6 +21,7 @@ object MainModule {
     }
 
     private fun createDataModule() = module {
+        factory { DeviceInfoDataBaseRepository(get()) }
     }
 
 }

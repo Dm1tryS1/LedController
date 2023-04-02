@@ -24,7 +24,7 @@ object ConnectionModule {
     )
 
     private fun createFeatureModule() = module {
-        factory { ConnectionFeatureImpl() } bind ConnectionFeature::class
+        factory { ConnectionFeatureImpl(get()) } bind ConnectionFeature::class
     }
 
     private fun createPresentationModule() = module {

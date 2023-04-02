@@ -1,17 +1,18 @@
-package com.example.smarthome.fragments.settings
+package com.example.settings_impl.presentation
 
 import ConnectionFeature
 import androidx.lifecycle.viewModelScope
 import com.example.core.navigation.NoParams
-import com.example.smarthome.R
 import com.example.core.presentation.BaseViewModel
 import com.example.data.wifi.WifiInfo
+import com.example.settings_impl.R
+import com.example.settings_impl.presentation.domain.SettingsUseCase
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val devicesUseCase: DevicesUseCase,
+    private val settingsUseCase: SettingsUseCase,
     router: Router,
     private val features: Features
 ) : BaseViewModel<SettingsState, SettingsEvent>(router = router) {
@@ -29,9 +30,9 @@ class SettingsViewModel(
             state.copy(isLoading = true)
         }
         viewModelScope.launch(Dispatchers.IO) {
-            devicesUseCase.connectWifiModule(wifiInfo) { ip ->
+            features.connection.connect(wifiInfo) { ip ->
                 if (!ip.isNullOrEmpty()) {
-                    devicesUseCase.saveSystemIp(ip)
+                    settingsUseCase.saveSystemIp(ip)
                     sendEvent(SettingsEvent.ShowSnack(R.string.settings_connected))
                 } else {
                     sendEvent(SettingsEvent.ShowSnack(R.string.settings_fail))
@@ -44,7 +45,7 @@ class SettingsViewModel(
     }
 
     fun onConnectClicked() {
-        val wifiInfo = devicesUseCase.getWifiInfo()
+        val wifiInfo = features.connection.getWifiInfo()
         if (wifiInfo != null) {
             sendEvent(SettingsEvent.OpenDialog(wifiInfo))
         } else {

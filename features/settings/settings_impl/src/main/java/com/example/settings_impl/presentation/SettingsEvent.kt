@@ -1,4 +1,4 @@
-package com.example.smarthome.fragments.settings
+package com.example.settings_impl.presentation
 
 import com.example.data.wifi.WifiInfo
 

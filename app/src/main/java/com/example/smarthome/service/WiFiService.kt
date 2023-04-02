@@ -10,7 +10,6 @@ import com.example.information_impl.data.mapper.getAllResponseMapper
 import com.example.information_impl.data.model.GetAllResponse
 import com.example.shared_preferences.SharedPreferencesService
 import com.example.smarthome.repository.DeviceInfoDataBaseRepository
-import com.example.smarthome.repository.SharedPreferencesRepository
 import com.example.storage.entity.DeviceInfo
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +23,7 @@ import java.util.*
 class WiFiService : Service() {
 
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository by inject()
-    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val sharedPreferencesRepository: SharedPreferencesService by inject()
 
     private var receiveThread: ReceiveThread? = null
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

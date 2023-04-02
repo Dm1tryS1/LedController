@@ -6,6 +6,7 @@ import com.example.core.navigation.NavigationModule
 import com.example.home_impl.di.HomeModule
 import com.example.information_impl.di.InformationModule
 import com.example.network.di.NetworkModule
+import com.example.settings_impl.presentation.di.SettingsModule
 import com.example.shared_preferences.di.SharedPreferencesModule
 import com.example.storage.di.StorageModule
 import com.example.system_impl.di.SystemModule
