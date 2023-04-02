@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("kotlinx-serialization")
     id("kotlin-kapt")
 }
 
@@ -79,21 +78,10 @@ dependencies {
     androidTestImplementation(Deps.Test.test)
     androidTestImplementation(Deps.Test.espresso)
 
-    implementation(Deps.recycler)
-
-    implementation(Deps.zxing)
-
-    implementation(Deps.graphic)
-
-    api(Deps.serializationJson)
+    implementation(Deps.Network.gson)
 
     implementation(Deps.Koin.koinCore)
     implementation(Deps.Koin.koinAndroid)
-
-    implementation(Deps.Network.retrofit)
-    implementation(Deps.Network.gson)
-
-    implementation(Deps.esptouch)
 
     implementation(Deps.Room.runtime)
     kapt(Deps.Room.compiler)

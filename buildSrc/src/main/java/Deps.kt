@@ -46,7 +46,6 @@ object Deps {
     const val lottie = "com.airbnb.android:lottie:5.2.0"
     const val esptouch = "com.github.EspressifApp:lib-esptouch-android:1.1.1"
     const val animation = "com.daimajia.androidanimations:library:2.4@aar"
-    const val zxing = "com.journeyapps:zxing-android-embedded:4.3.0"
     const val recycler = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
     const val graphic = "com.github.PhilJay:MPAndroidChart:v3.1.0"
 
