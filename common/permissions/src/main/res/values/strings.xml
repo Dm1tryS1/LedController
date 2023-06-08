@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permission_geo_title">Доступ к местоположению</string>
+    <string name="permission_storage_title">Доступ к хранилищу</string>
+    <string name="permission_already_permited">Разрешение получено</string>
+    <string name="permission_accept">Разрешить</string>
+    <string name="permission_dismiss">Больше не спрашивать</string>
+    <string name="permission_cancel">Отменить</string>
+    <string name="permission_manual">Настроить</string>
+    <string name="permission_storage">Разрешите доступ к хранилищу, чтобы иметь возможность сохранять данные</string>
+    <string name="request_permission_never_ask">Чтобы функционал был доступен, необходимо дать разрешение. В прошлый раз вы отклонили запрос, поэтому придется сделать это вручную</string>
+    <string name="request_permission_never_ask_storage">Для чтения и записи сохраненных файлов, необходимо дать на это разрешение. В прошлый раз вы отклонили запрос, поэтому придется сделать это вручную</string>
+    <string name="permission_geo">Приложение собирает данные о местоположении, даже когда оно закрыто или не используется. Чтобы поддерживать работу функций: подключение к Wi-Fi, поиск устройств и отображение сохраненных Wi-Fi сетей, необходимо дать разрешение.</string>
+</resources>

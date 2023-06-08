@@ -2,17 +2,16 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.20"
     id("kotlin-kapt")
 }
 
-@Suppress("UnstableApiUsage")
+
 android {
     compileSdk = Config.compileSdk
 
     defaultConfig {
         applicationId = Config.applicationId
-        minSdk = Config.minSdk
+        minSdkPreview = Config.minSdk
         targetSdk = Config.targetSdk
         versionCode = Config.versionCode
         versionName = Config.versionName
@@ -45,38 +44,44 @@ android {
 }
 
 dependencies {
+    implementation(Deps.kotlin)
+
+    implementation(project(Modules.Common.core))
+    implementation(project(Modules.Common.data))
+    implementation(project(Modules.Common.network))
+    implementation(project(Modules.Common.sharedPreferences))
+    implementation(project(Modules.Common.storage))
+
+    implementation(project(Modules.Feature.home.api))
+    implementation(project(Modules.Feature.home.impl))
+    implementation(project(Modules.Feature.information.api))
+    implementation(project(Modules.Feature.information.impl))
+    implementation(project(Modules.Feature.system.api))
+    implementation(project(Modules.Feature.system.impl))
+    implementation(project(Modules.Feature.charts.api))
+    implementation(project(Modules.Feature.charts.impl))
+    implementation(project(Modules.Feature.connection.api))
+    implementation(project(Modules.Feature.connection.impl))
+    implementation(project(Modules.Feature.settings.api))
+    implementation(project(Modules.Feature.settings.impl))
+
     implementation(Deps.Navigation.navigation)
     implementation(Deps.Navigation.cicerone)
-
-    implementation(Deps.animation)
 
     implementation(Deps.AndroidX.core)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.material)
 
+    implementation(Deps.animation)
+
     testImplementation(Deps.Test.jUnit)
     androidTestImplementation(Deps.Test.test)
     androidTestImplementation(Deps.Test.espresso)
 
-    implementation(Deps.recycler)
-
-    implementation(Deps.zxing)
-
-    implementation(Deps.graphic)
-
-    implementation(Deps.serialiazation)
+    implementation(Deps.Network.gson)
 
     implementation(Deps.Koin.koinCore)
     implementation(Deps.Koin.koinAndroid)
-
-    implementation(Deps.Network.retrofit)
-    implementation(Deps.Network.gson)
-    implementation(Deps.Network.okHttpInterceptor)
-    implementation(Deps.Network.okHttp)
-
-    implementation(Deps.esptouch)
-
-    implementation(Deps.lottie)
 
     implementation(Deps.Room.runtime)
     kapt(Deps.Room.compiler)

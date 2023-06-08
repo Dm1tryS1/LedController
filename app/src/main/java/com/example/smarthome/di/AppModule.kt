@@ -1,5 +1,15 @@
 package com.example.smarthome.di
 
+import com.example.chart_impl.di.ChartsModule
+import com.example.connection_impl.di.ConnectionModule
+import com.example.core.navigation.NavigationModule
+import com.example.home_impl.di.HomeModule
+import com.example.information_impl.di.InformationModule
+import com.example.network.di.NetworkModule
+import com.example.settings_impl.presentation.di.SettingsModule
+import com.example.shared_preferences.di.SharedPreferencesModule
+import com.example.storage.di.StorageModule
+import com.example.system_impl.di.SystemModule
 import org.koin.core.module.Module
 
 object AppModule {
@@ -15,8 +25,9 @@ object AppModule {
         MainModule(),
         ChartsModule(),
         SystemModule(),
-        ConnectDevice(),
-        ChooseDevice(),
-        RemoteControlModule()
+        ConnectionModule(),
+        NetworkModule(),
+        SharedPreferencesModule(),
+        StorageModule()
     ).flatten()
 }

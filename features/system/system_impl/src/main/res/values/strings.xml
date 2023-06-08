@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="system_min_temp">Минимальная\nтемпература\n(°C)</string>
+    <string name="system_max_temp">Максимальная\nтемпература\n (°C)</string>
+    <string name="system_min_humidity">Минимальная\nвлажность\n(%)</string>
+    <string name="system_max_humidity">Максимальная\nвлажность\n(%)</string>
+    <string name="system_choose_min_temperature">Мин. температура</string>
+    <string name="system_choose_max_temperature">Макс. температура</string>
+    <string name="system_choose_min_humidity">Мин. влажность</string>
+    <string name="system_choose_max_humidity">Макс. влажность</string>
+    <string name="system_choose_timer">Таймер</string>
+    <string name="system_choose_title">Выберите, что будет оборажаться на индикаторах:</string>
+    <string name="system_cancel_all"><u>Отменить все настройки</u></string>
+    <string name="system_button_update">Обновить</string>
+</resources>

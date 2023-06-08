@@ -12,9 +12,4 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >@color/dark1</item>
     </style>
-
-    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="colorControlNormal">@color/white</item>
-    </style>
 </resources>

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name="com.example.smarthome.SmartHomeApplication"
@@ -22,11 +23,11 @@
         tools:targetApi="31">
 
         <activity
-            android:name="com.example.smarthome.main.MainActivity"
+            android:name="com.example.smarthome.presentation.MainActivity"
             android:exported="true" />
 
         <activity
-            android:name=".main.SplashActivity"
+            android:name="com.example.smarthome.presentation.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

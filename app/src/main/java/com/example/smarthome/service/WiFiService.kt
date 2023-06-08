@@ -4,13 +4,12 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.example.smarthome.common.getTime
-import com.example.smarthome.fragments.information.data.DeviceInfoSchema
-import com.example.smarthome.repository.DeviceInfoDataBaseRepository
-import com.example.smarthome.repository.SharedPreferencesRepository
-import com.example.smarthome.service.network.mapper.getAllResponseMapper
-import com.example.smarthome.service.network.model.GetAllResponse
-import com.example.smarthome.service.storage.entity.DeviceInfo
+import com.example.data.DeviceInfoSchema
+import com.example.data.getTime
+import com.example.information_impl.data.mapper.getAllResponseMapper
+import com.example.information_impl.data.model.GetAllResponse
+import com.example.shared_preferences.SharedPreferences
+import com.example.storage.entity.DeviceInfo
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +22,7 @@ import java.util.*
 class WiFiService : Service() {
 
     private val deviceInfoDataBaseRepository: DeviceInfoDataBaseRepository by inject()
-    private val sharedPreferencesRepository: SharedPreferencesRepository by inject()
+    private val sharedPreferencesRepository: SharedPreferences by inject()
 
     private var receiveThread: ReceiveThread? = null
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -46,11 +45,11 @@ class WiFiService : Service() {
     }
 
     private fun parser(json: String) {
-        getAllResponseMapper(
+        for (item in getAllResponseMapper(
             Gson().fromJson(json, GetAllResponse::class.java),
             getTime()
-        ).forEach { schema ->
-            saveInDataBase(schema)
+        )) {
+            saveInDataBase(item)
         }
     }
 
@@ -65,7 +64,7 @@ class WiFiService : Service() {
                 try {
                     val msg = ByteArray(1024)
                     val ip =
-                        sharedPreferencesRepository.getString(SharedPreferencesRepository.systemIp)
+                        sharedPreferencesRepository.getString(SharedPreferences.systemIp)
                             ?: ""
                     if (ip.isEmpty()) continue
                     val socket = Socket(ip, 81)
